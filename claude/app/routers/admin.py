@@ -50,7 +50,7 @@ async def daily_summary(
     # Count by type
     type_counts = {}
     for c in checkins:
-        type_counts[c.checkin_type] = type_counts.get(c.checkin_type, 0) + 1
+        type_counts[c.type] = type_counts.get(c.type, 0) + 1
 
     # Build user list (public only show nickname, others count)
     public_nicknames = []
@@ -116,7 +116,7 @@ async def weekly_report(
         if c.user_key not in user_stats:
             user_stats[c.user_key] = {"total": 0, "types": {}}
         user_stats[c.user_key]["total"] += 1
-        t = c.checkin_type
+        t = c.type
         user_stats[c.user_key]["types"][t] = user_stats[c.user_key]["types"].get(t, 0) + 1
 
     # Get users

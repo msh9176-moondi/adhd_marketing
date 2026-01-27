@@ -79,7 +79,7 @@ async def public_off(request: Request, db: Session = Depends(get_db)):
     return simple_text("닉네임 공개가 OFF 되었습니다. 랭킹/요약에 닉네임이 표시되지 않습니다.")
 
 
-async def do_checkin(request: Request, db: Session, checkin_type: str):
+async def do_checkin(request: Request, db: Session, type: str):
     payload = await request.json()
     user_key = extract_user_key(payload)
     if not user_key:
@@ -92,16 +92,16 @@ async def do_checkin(request: Request, db: Session, checkin_type: str):
     # Check duplicate
     existing = db.query(CheckIn).filter(
         CheckIn.user_key == user_key,
-        CheckIn.checkin_type == checkin_type,
+        CheckIn.type == type,
         CheckIn.date_kst == today
     ).first()
 
     if existing:
-        return simple_text(f"오늘 이미 {checkin_type} 인증을 완료했습니다!")
+        return simple_text(f"오늘 이미 {type} 인증을 완료했습니다!")
 
     checkin = CheckIn(
         user_key=user_key,
-        checkin_type=checkin_type,
+        type=type,
         date_kst=today,
         week_start_kst=week_start
     )
@@ -114,7 +114,7 @@ async def do_checkin(request: Request, db: Session, checkin_type: str):
         "clean": "정리",
         "plan": "계획"
     }
-    label = type_labels.get(checkin_type, checkin_type)
+    label = type_labels.get(type, type)
 
     # Count today's checkins
     today_count = db.query(CheckIn).filter(
@@ -167,14 +167,14 @@ async def get_status(request: Request, db: Session = Depends(get_db)):
 
     # Get weekly counts by type
     weekly_checkins = db.query(
-        CheckIn.checkin_type,
+        CheckIn.type,
         func.count(CheckIn.id).label("cnt")
     ).filter(
         CheckIn.user_key == user_key,
         CheckIn.week_start_kst == week_start
-    ).group_by(CheckIn.checkin_type).all()
+    ).group_by(CheckIn.type).all()
 
-    counts = {row.checkin_type: row.cnt for row in weekly_checkins}
+    counts = {row.type: row.cnt for row in weekly_checkins}
     total = sum(counts.values())
 
     nickname_display = user.nickname or "(미설정)"
