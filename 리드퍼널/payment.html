@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADHD 자료 결제 | 맞춤 템플릿</title>
+    <meta name="description" content="ADHD 실행 패턴에 맞는 맞춤 자료를 받아보세요." />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --primary-color: #2a7b9b;
+        --primary-hover: #1e6a87;
+        --primary-light: #e8f4f8;
+        --text-dark: #1a1a2e;
+        --text-medium: #4a4a5a;
+        --text-light: #6b6b7b;
+        --bg-white: #ffffff;
+        --bg-light: #f8fafb;
+        --border-color: #e0e6ea;
+        --success-color: #2e8b57;
+        --success-bg: #e8f5ee;
+        --warning-color: #e67e22;
+        --warning-bg: #fff8e7;
+        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+        --radius-sm: 8px;
+        --radius-md: 12px;
+        --radius-lg: 16px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+        line-height: 1.7;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 540px;
+        margin: 0 auto;
+        padding: 24px 20px;
+      }
+
+      /* 뒤로가기 */
+      .back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 14px;
+        margin-bottom: 20px;
+        transition: color 0.2s;
+      }
+
+      .back-link:hover {
+        color: var(--primary-color);
+      }
+
+      /* 메인 카드 */
+      .payment-card {
+        background: var(--bg-white);
+        border-radius: var(--radius-lg);
+        padding: 32px 24px;
+        box-shadow: var(--shadow-md);
+      }
+
+      /* 상품 정보 */
+      .product-section {
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 24px;
+        margin-bottom: 24px;
+      }
+
+      .product-badge {
+        display: inline-block;
+        background: var(--primary-color);
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-bottom: 12px;
+      }
+
+      .product-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+        word-break: keep-all;
+      }
+
+      .product-desc {
+        font-size: 14px;
+        color: var(--text-medium);
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+
+      .product-includes {
+        background: var(--bg-light);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+      }
+
+      .product-includes h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+      }
+
+      .product-includes ul {
+        list-style: none;
+      }
+
+      .product-includes li {
+        font-size: 14px;
+        color: var(--text-medium);
+        padding: 4px 0;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .product-includes li::before {
+        content: '✓';
+        color: var(--success-color);
+        font-weight: 700;
+        font-size: 12px;
+      }
+
+      /* 가격 */
+      .price-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 24px;
+      }
+
+      .price-label {
+        font-size: 15px;
+        color: var(--text-medium);
+      }
+
+      .price-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--primary-color);
+      }
+
+      /* 계좌 정보 */
+      .account-section {
+        background: var(--warning-bg);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        margin-bottom: 24px;
+      }
+
+      .account-section h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .account-info {
+        background: var(--bg-white);
+        border-radius: var(--radius-sm);
+        padding: 16px;
+        margin-bottom: 12px;
+      }
+
+      .account-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px dashed var(--border-color);
+      }
+
+      .account-row:last-child {
+        border-bottom: none;
+      }
+
+      .account-label {
+        font-size: 13px;
+        color: var(--text-light);
+      }
+
+      .account-value {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-dark);
+      }
+
+      .copy-btn {
+        background: var(--primary-light);
+        color: var(--primary-color);
+        border: none;
+        padding: 6px 12px;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background 0.2s;
+        font-family: inherit;
+        margin-left: 8px;
+      }
+
+      .copy-btn:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+
+      .account-notice {
+        font-size: 13px;
+        color: var(--warning-color);
+        font-weight: 500;
+      }
+
+      /* 입력 폼 */
+      .form-section h3 {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 16px;
+      }
+
+      .form-group {
+        margin-bottom: 16px;
+      }
+
+      .form-label {
+        display: block;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 6px;
+      }
+
+      .form-label span {
+        color: #e74c3c;
+      }
+
+      .form-input {
+        width: 100%;
+        padding: 14px 16px;
+        font-size: 15px;
+        border: 2px solid var(--border-color);
+        border-radius: var(--radius-sm);
+        transition: border-color 0.2s;
+        font-family: inherit;
+      }
+
+      .form-input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+      }
+
+      .form-input::placeholder {
+        color: var(--text-light);
+      }
+
+      .form-hint {
+        font-size: 12px;
+        color: var(--text-light);
+        margin-top: 6px;
+      }
+
+      /* 체크박스 */
+      .checkbox-group {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        margin: 20px 0;
+        cursor: pointer;
+      }
+
+      .checkbox-group input {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        cursor: pointer;
+        accent-color: var(--primary-color);
+      }
+
+      .checkbox-group label {
+        font-size: 14px;
+        color: var(--text-medium);
+        cursor: pointer;
+        line-height: 1.5;
+      }
+
+      .checkbox-group label a {
+        color: var(--primary-color);
+        text-decoration: underline;
+      }
+
+      /* 제출 버튼 */
+      .submit-btn {
+        width: 100%;
+        padding: 18px 24px;
+        font-size: 17px;
+        font-weight: 700;
+        color: white;
+        background: var(--primary-color);
+        border: none;
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: background 0.2s, transform 0.1s;
+        font-family: inherit;
+      }
+
+      .submit-btn:hover:not(:disabled) {
+        background: var(--primary-hover);
+      }
+
+      .submit-btn:active:not(:disabled) {
+        transform: scale(0.98);
+      }
+
+      .submit-btn:disabled {
+        background: var(--border-color);
+        cursor: not-allowed;
+      }
+
+      /* 안내 문구 */
+      .notice-section {
+        margin-top: 24px;
+        padding: 16px;
+        background: var(--bg-light);
+        border-radius: var(--radius-sm);
+      }
+
+      .notice-section h4 {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 8px;
+      }
+
+      .notice-section ul {
+        list-style: none;
+      }
+
+      .notice-section li {
+        font-size: 13px;
+        color: var(--text-light);
+        padding: 4px 0;
+        padding-left: 12px;
+        position: relative;
+      }
+
+      .notice-section li::before {
+        content: '•';
+        position: absolute;
+        left: 0;
+        color: var(--text-light);
+      }
+
+      /* 완료 페이지 */
+      .complete-section {
+        text-align: center;
+        padding: 40px 20px;
+      }
+
+      .complete-icon {
+        width: 80px;
+        height: 80px;
+        background: var(--success-bg);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 24px;
+        font-size: 40px;
+      }
+
+      .complete-section h2 {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+      }
+
+      .complete-section p {
+        font-size: 15px;
+        color: var(--text-medium);
+        line-height: 1.8;
+        margin-bottom: 24px;
+      }
+
+      .complete-info {
+        background: var(--bg-light);
+        border-radius: var(--radius-md);
+        padding: 20px;
+        text-align: left;
+        margin-bottom: 24px;
+      }
+
+      .complete-info h4 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 12px;
+      }
+
+      .complete-info p {
+        font-size: 14px;
+        color: var(--text-medium);
+        margin-bottom: 8px;
+      }
+
+      .complete-info strong {
+        color: var(--primary-color);
+      }
+
+      .kakao-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        width: 100%;
+        padding: 18px 24px;
+        font-size: 16px;
+        font-weight: 700;
+        color: #1a1a1a;
+        background: linear-gradient(135deg, #fee500 0%, #ffd000 100%);
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        font-family: inherit;
+        box-shadow: 0 4px 16px rgba(254, 229, 0, 0.4);
+      }
+
+      .kakao-btn:hover {
+        background: linear-gradient(135deg, #ffd000 0%, #ffc000 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(254, 229, 0, 0.5);
+      }
+
+      .kakao-icon {
+        width: 24px;
+        height: 24px;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      /* 애니메이션 */
+      .fade-in {
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* 반응형 */
+      @media (min-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        .payment-card {
+          padding: 40px 32px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <a href="survey.html" class="back-link">← 설문으로 돌아가기</a>
+
+      <!-- 결제 폼 -->
+      <div id="payment-form" class="payment-card fade-in">
+        <!-- 상품 정보 -->
+        <div class="product-section">
+          <span class="product-badge" id="product-badge">맞춤 추천 자료</span>
+          <h1 class="product-title" id="product-title">ADHD 실행 패턴 맞춤 템플릿</h1>
+          <p class="product-desc" id="product-desc">
+            설문 결과에 맞춰 선별된 실행 도구와 가이드입니다.<br />
+            바로 적용 가능한 실전 템플릿을 제공합니다.
+          </p>
+          <div class="product-includes">
+            <h4>포함 내용</h4>
+            <ul id="product-includes-list">
+              <li>패턴별 맞춤 대처 템플릿 (PDF)</li>
+              <li>실행 체크리스트</li>
+              <li>자기 모니터링 워크시트</li>
+              <li>추가 업데이트 자료 무료 제공</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 가격 -->
+        <div class="price-section">
+          <span class="price-label">결제 금액</span>
+          <span class="price-value" id="price-display">5,500원</span>
+        </div>
+
+        <!-- 계좌 정보 -->
+        <div class="account-section">
+          <h3>입금 계좌 안내</h3>
+          <div class="account-info">
+            <div class="account-row">
+              <span class="account-label">은행</span>
+              <span class="account-value">카카오뱅크</span>
+            </div>
+            <div class="account-row">
+              <span class="account-label">계좌번호</span>
+              <span class="account-value">
+                3333-23-4451659
+                <button class="copy-btn" onclick="copyAccount()">복사</button>
+              </span>
+            </div>
+            <div class="account-row">
+              <span class="account-label">예금주</span>
+              <span class="account-value">(주)플로카</span>
+            </div>
+          </div>
+          <p class="account-notice">
+            * 입금자명을 아래에 정확히 입력해주세요
+          </p>
+        </div>
+
+        <!-- 입력 폼 -->
+        <div class="form-section">
+          <h3>입금 확인을 위한 정보</h3>
+
+          <div class="form-group">
+            <label class="form-label">입금자명 <span>*</span></label>
+            <input
+              type="text"
+              class="form-input"
+              id="depositor-name"
+              placeholder="계좌에 표시되는 이름"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">이메일 <span>*</span></label>
+            <input
+              type="email"
+              class="form-input"
+              id="email"
+              placeholder="자료를 받을 이메일 주소"
+              required
+            />
+            <p class="form-hint">입금 확인 후 이 이메일로 다운로드 링크가 발송됩니다</p>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">연락처 (선택)</label>
+            <input
+              type="tel"
+              class="form-input"
+              id="phone"
+              placeholder="010-0000-0000"
+            />
+            <p class="form-hint">입금 확인이 어려운 경우 연락드립니다</p>
+          </div>
+
+          <label class="checkbox-group">
+            <input type="checkbox" id="agree-checkbox" />
+            <span>
+              결제 및 환불 정책에 동의합니다. 디지털 상품 특성상 다운로드 후에는 환불이 불가합니다.
+            </span>
+          </label>
+
+          <button class="submit-btn" id="submit-btn" onclick="submitPayment()" disabled>
+            입금 완료 알림 보내기
+          </button>
+        </div>
+
+        <!-- 안내 문구 -->
+        <div class="notice-section">
+          <h4>안내 사항</h4>
+          <ul>
+            <li>입금 확인은 평일 기준 24시간 이내에 처리됩니다</li>
+            <li>주말/공휴일에는 확인이 지연될 수 있습니다</li>
+            <li>입금자명이 다른 경우 카카오톡으로 문의해주세요</li>
+            <li>문의: 카카오톡 채널 '플로카'</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 완료 페이지 -->
+      <div id="complete-section" class="payment-card complete-section hidden">
+        <div class="complete-icon">✓</div>
+        <h2>신청이 완료되었습니다!</h2>
+        <p>
+          입금 확인 후 입력하신 이메일로<br />
+          다운로드 링크를 보내드립니다.
+        </p>
+
+        <div class="complete-info">
+          <h4>신청 정보</h4>
+          <p>상품: <strong id="complete-product">ADHD 실행 패턴 맞춤 템플릿</strong></p>
+          <p>금액: <strong id="complete-price">5,500원</strong></p>
+          <p>이메일: <strong id="complete-email">-</strong></p>
+        </div>
+
+        <a
+          href="https://open.kakao.com/o/sq1JNeHh"
+          class="kakao-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg class="kakao-icon" viewBox="0 0 24 24" fill="#1a1a1a">
+            <path d="M12 3C6.48 3 2 6.58 2 11c0 2.8 1.86 5.26 4.64 6.67-.15.56-.53 2.03-.61 2.35-.1.39.14.38.3.28.12-.08 1.94-1.31 2.73-1.84.62.09 1.26.14 1.94.14 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+          </svg>
+          카카오톡으로 입금 확인 요청하기
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // URL 파라미터에서 상품 정보 가져오기
+      const urlParams = new URLSearchParams(window.location.search);
+      const productType = urlParams.get('type') || 'default';
+      const productPrice = urlParams.get('price') || '5500';
+
+      // 상품 정보 설정
+      const PRODUCTS = {
+        starter: {
+          badge: '시작 장벽형 맞춤',
+          title: '미루기 대처 템플릿',
+          desc: '시작 장벽을 낮추는 최소 단위 실행 도구입니다.<br/>바로 적용 가능한 실전 템플릿을 제공합니다.',
+          includes: null,
+          images: ['payment/delay02.jpg', 'payment/delay03.jpg', 'payment/delay04.jpg', 'payment/delay05.jpg'],
+          imageDesc: '미루는 습관의 원인을 파악하고 즉시 실행할 수 있는 단계별 가이드',
+          price: '5,500원',
+        },
+        attention: {
+          badge: '주의 분산형 맞춤',
+          title: '집중 분산 대처 템플릿',
+          desc: '주의력을 유지하고 흐름을 잡아주는 보조 도구입니다.<br/>환경 정리와 집중 루틴을 설계합니다.',
+          includes: null,
+          images: ['payment/카드뉴스 55.png', 'payment/카드뉴스 56.png', 'payment/카드뉴스 57.png', 'payment/카드뉴스 58.png'],
+          imageDesc: '흩어지는 주의력을 붙잡고 집중 흐름을 유지하는 실전 전략',
+          price: '5,500원',
+        },
+        emotional: {
+          badge: '감정 소진형 맞춤',
+          title: '감정 일기장 템플릿',
+          desc: '감정 회복 패턴을 읽고 정리하는 도구입니다.<br/>감정과 실행력의 연결고리를 파악합니다.',
+          includes: null,
+          images: ['payment/impulsive01.png', 'payment/impulsive02.png'],
+          imageDesc: '감정의 흔들림을 기록하고 회복 패턴을 찾는 실전 도구',
+          price: '5,500원',
+        },
+        impulsive: {
+          badge: '충동 가속형 맞춤',
+          title: '충동 패턴 대응 자료',
+          desc: '행동 전 멈춤 간격을 설계하는 전략입니다.<br/>충동성을 구조적으로 관리합니다.',
+          includes: null,
+          images: ['payment/impulsive01.png', 'payment/impulsive02.png'],
+          imageDesc: '충동을 멈추는 3초의 기술, 핵심 전략이 담긴 실전 가이드',
+          price: '5,500원',
+        },
+        environment: {
+          badge: '환경 민감형 맞춤',
+          title: '환경 설정 가이드',
+          desc: '나를 움직이게 하는 환경 조건을 파악하는 도구입니다.<br/>최적의 실행 환경을 설계합니다.',
+          includes: null,
+          images: ['payment/카드뉴스 99.jpg', 'payment/카드뉴스 100.jpg', 'payment/카드뉴스 101.jpg', 'payment/카드뉴스 102.jpg'],
+          imageDesc: '나에게 맞는 최적의 실행 환경을 설계하는 실전 가이드',
+          price: '5,500원',
+        },
+        complex: {
+          badge: '변동성 복합형 맞춤',
+          title: '컨디션 트래커 템플릿',
+          desc: '내 편차를 읽고 조절하는 기록 도구입니다.<br/>일관성 있는 실행 패턴을 만들어갑니다.',
+          includes: null,
+          images: ['payment/카드뉴스 48.png', 'payment/카드뉴스 49.png', 'payment/카드뉴스 50.png', 'payment/카드뉴스 51.png'],
+          imageDesc: '예측 불가능한 컨디션 변동을 읽고 조절하는 맞춤 전략',
+          price: '5,500원',
+        },
+        postit: {
+          badge: '필수 도구',
+          title: 'ADHD 맞춤형 포스트잇',
+          desc: 'ADHD 특성에 맞게 설계된 실행 관리 도구입니다.<br/>시각적 리마인더로 실행력을 높여줍니다.',
+          includes: null,
+          mainImage: 'payment/시트지 (1).png',
+          images: ['payment/포스트잇1.png', 'payment/포스트잇2.png', 'payment/포스트잇3.png'],
+          imageDesc: 'ADHD에 최적화된 시각적 실행 도구 세트',
+          price: '20,000원',
+        },
+        default: {
+          badge: '맞춤 추천 자료',
+          title: 'ADHD 실행 패턴 맞춤 템플릿',
+          desc: '설문 결과에 맞춰 선별된 실행 도구와 가이드입니다.<br/>바로 적용 가능한 실전 템플릿을 제공합니다.',
+          includes: [
+            '패턴별 맞춤 대처 템플릿 (PDF)',
+            '실행 체크리스트',
+            '자기 모니터링 워크시트',
+            '추가 업데이트 자료 무료 제공',
+          ],
+          price: '5,500원',
+        },
+      };
+
+      // 페이지 로드 시 상품 정보 설정
+      document.addEventListener('DOMContentLoaded', function () {
+        const product = PRODUCTS[productType] || PRODUCTS.default;
+
+        document.getElementById('product-badge').textContent = product.badge;
+        document.getElementById('product-title').textContent = product.title;
+        document.getElementById('product-desc').innerHTML = product.desc;
+        document.getElementById('price-display').textContent = product.price;
+
+        const includesContainer = document.querySelector('.product-includes');
+        const includesList = document.getElementById('product-includes-list');
+
+        // 이미지가 있는 경우 이미지로 표시, 아니면 리스트로 표시
+        if (product.images || product.mainImage) {
+          let imagesHtml = '';
+
+          // 메인 이미지가 있으면 크게 먼저 표시
+          if (product.mainImage) {
+            imagesHtml += `<img src="${product.mainImage}" style="width:100%; border-radius:8px; margin-bottom:12px;">`;
+          }
+
+          // 나머지 이미지들
+          if (product.images && product.images.length > 0) {
+            // postit 타입은 3열 그리드로 작게 표시
+            const isPostit = productType === 'postit';
+            if (isPostit) {
+              imagesHtml += `<div style="display:flex; flex-wrap:wrap; gap:2%; margin-bottom:12px;">
+                ${product.images.map(img => `<img src="${img}" style="width:32%; border-radius:8px;">`).join('')}
+              </div>`;
+            } else {
+              imagesHtml += product.images.map(img => `<img src="${img}" style="width:100%; border-radius:8px; margin-bottom:8px;">`).join('');
+            }
+          }
+
+          includesContainer.innerHTML = `
+            <h4>포함 내용</h4>
+            ${imagesHtml}
+            <p style="font-size:14px; color:var(--text-medium); line-height:1.6;">${product.imageDesc}</p>
+          `;
+        } else {
+          includesList.innerHTML = product.includes
+            .map((item) => `<li>${item}</li>`)
+            .join('');
+        }
+
+        // 완료 페이지 정보도 설정
+        document.getElementById('complete-product').textContent = product.title;
+        document.getElementById('complete-price').textContent = product.price;
+      });
+
+      // 계좌번호 복사
+      function copyAccount() {
+        navigator.clipboard.writeText('3333-23-4451659').then(() => {
+          const btn = document.querySelector('.copy-btn');
+          btn.textContent = '복사됨!';
+          setTimeout(() => {
+            btn.textContent = '복사';
+          }, 2000);
+        });
+      }
+
+      // 폼 유효성 검사
+      function validateForm() {
+        const name = document.getElementById('depositor-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const agreed = document.getElementById('agree-checkbox').checked;
+
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.disabled = !(name && email && agreed);
+      }
+
+      // 입력 필드 이벤트 리스너
+      document
+        .getElementById('depositor-name')
+        .addEventListener('input', validateForm);
+      document.getElementById('email').addEventListener('input', validateForm);
+      document
+        .getElementById('agree-checkbox')
+        .addEventListener('change', validateForm);
+
+      // Google Sheets 웹 앱 URL
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxLBT24RAr-muY3s-imQFP9Z_RkAmkwWQFyv_m28-tRTmEJ1-wSC-3iWoO8Tqgndeki/exec';
+
+      // 결제 신청 제출
+      async function submitPayment() {
+        const name = document.getElementById('depositor-name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const product = PRODUCTS[productType] || PRODUCTS.default;
+        const submitBtn = document.getElementById('submit-btn');
+
+        // 버튼 로딩 상태
+        submitBtn.disabled = true;
+        submitBtn.textContent = '전송 중...';
+
+        try {
+          // Google Sheets로 데이터 전송
+          if (GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+            await fetch(GOOGLE_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                timestamp: new Date().toLocaleString('ko-KR'),
+                depositorName: name,
+                email: email,
+                phone: phone || '-',
+                product: product.title,
+                price: product.price,
+                type: productType,
+                status: '입금대기'
+              }),
+            });
+          }
+
+          // 완료 페이지에 이메일 표시
+          document.getElementById('complete-email').textContent = email;
+
+          // 폼 숨기고 완료 페이지 표시
+          document.getElementById('payment-form').classList.add('hidden');
+          document.getElementById('complete-section').classList.remove('hidden');
+          document.getElementById('complete-section').classList.add('fade-in');
+
+          console.log('Payment submitted:', { name, email, phone, product: product.title });
+
+        } catch (error) {
+          console.error('Error:', error);
+          // 에러가 나도 완료 페이지는 보여줌 (no-cors 모드에서는 응답 확인 불가)
+          document.getElementById('complete-email').textContent = email;
+          document.getElementById('payment-form').classList.add('hidden');
+          document.getElementById('complete-section').classList.remove('hidden');
+          document.getElementById('complete-section').classList.add('fade-in');
+        }
+      }
+    </script>
+  </body>
+</html>
