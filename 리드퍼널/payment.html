@@ -711,14 +711,16 @@
           price: '5,500원',
         },
         postit: {
-          badge: '필수 도구',
+          badge: '6월 런칭 임박',
           title: 'ADHD 맞춤형 포스트잇',
-          desc: 'ADHD 특성에 맞게 설계된 실행 관리 도구입니다.<br/>시각적 리마인더로 실행력을 높여줍니다.',
+          desc: '판매 준비중입니다.<br/>아래에서 사전 예약하시면 런칭 시 가장 먼저 알려드립니다!',
           includes: null,
           mainImage: 'payment/시트지 (1).png',
           images: ['payment/포스트잇1.png', 'payment/포스트잇2.png', 'payment/포스트잇3.png'],
           imageDesc: 'ADHD에 최적화된 시각적 실행 도구 세트',
           price: '20,000원',
+          isPreorder: true,
+          preorderLink: 'https://docs.google.com/forms/d/e/1FAIpQLSfuVvEIlAzgAc-G6OM7Jp_HGoDydXM2Qx71-eBur_dCfa9sOA/viewform?usp=publish-editor',
         },
         default: {
           badge: '맞춤 추천 자료',
@@ -782,6 +784,34 @@
         // 완료 페이지 정보도 설정
         document.getElementById('complete-product').textContent = product.title;
         document.getElementById('complete-price').textContent = product.price;
+
+        // 사전예약 상품인 경우 UI 변경
+        if (product.isPreorder) {
+          // 계좌 정보, 폼 섹션 숨기기
+          document.querySelector('.account-section').style.display = 'none';
+          document.querySelector('.form-section').style.display = 'none';
+          document.querySelector('.notice-section').style.display = 'none';
+
+          // 가격 섹션을 예약 안내로 변경
+          document.querySelector('.price-section').innerHTML = `
+            <span class="price-label">예정 가격</span>
+            <span class="price-value">${product.price}</span>
+          `;
+
+          // 예약 버튼 추가
+          const priceSection = document.querySelector('.price-section');
+          const preorderBtn = document.createElement('div');
+          preorderBtn.style.marginTop = '24px';
+          preorderBtn.innerHTML = `
+            <a href="${product.preorderLink}" target="_blank" rel="noopener noreferrer" class="submit-btn" style="display:block; text-decoration:none; text-align:center;">
+              🔔 사전 예약 신청하기
+            </a>
+            <p style="text-align:center; margin-top:12px; font-size:14px; color:var(--text-light);">
+              런칭 시 가장 먼저 알림을 받으실 수 있습니다
+            </p>
+          `;
+          priceSection.after(preorderBtn);
+        }
       });
 
       // 계좌번호 복사
