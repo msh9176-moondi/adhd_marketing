@@ -1,43 +1,55 @@
 <!doctype html>
 <html lang="ko">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADHD 실행 패턴 분석 | 3분 테스트</title>
     <meta
       name="description"
-      content="3분 안에 나의 ADHD 실행 패턴을 파악해보세요."
+      content="3분 안에 나의 ADHD 실행 패턴을 파악해보세요. 6가지 유형 복합 분석."
     />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="나의 ADHD 실행 패턴은? | 3분 테스트" />
+    <meta property="og:description" content="6가지 유형 중 나는 어떤 패턴일까? 시작 장벽형, 주의 분산형, 감정 소진형... 지금 바로 확인해보세요." />
+    <meta property="og:image" content="PDF사진.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="나의 ADHD 실행 패턴은? | 3분 테스트" />
+    <meta name="twitter:description" content="6가지 유형 중 나는 어떤 패턴일까? 지금 바로 확인해보세요." />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
       rel="stylesheet"
     />
 
     <style>
-      /* ===== 기본 리셋 및 변수 ===== */
       :root {
-        --primary-color: #2a7b9b;
-        --primary-hover: #1e6a87;
-        --primary-light: #e8f4f8;
-        --text-dark: #1a1a2e;
-        --text-medium: #4a4a5a;
-        --text-light: #6b6b7b;
-        --bg-white: #ffffff;
-        --bg-light: #f8fafb;
-        --border-color: #e0e6ea;
-        --success-color: #2e8b57;
-        --success-bg: #e8f5ee;
-        --warning-color: #e67e22;
-        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-        --radius-sm: 8px;
-        --radius-md: 12px;
-        --radius-lg: 16px;
+        --primary: #2a7b9b;
+        --primary-dark: #1e6a87;
+        --accent: #4fd1c5;
+        --dark: #0f0f1a;
+        --dark-light: #1a1a2e;
+        --text: #ffffff;
+        --text-muted: rgba(255,255,255,0.7);
+        --text-subtle: rgba(255,255,255,0.5);
+        --success: #4ade80;
+        --warning: #fb923c;
+        --danger: #f87171;
       }
 
       * {
@@ -47,18 +59,13 @@
       }
 
       body {
-        font-family:
-          'Noto Sans KR',
-          -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
+        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
         line-height: 1.7;
-        color: var(--text-dark);
-        background-color: var(--bg-light);
+        color: var(--text);
+        background: var(--dark);
         min-height: 100vh;
       }
 
-      /* ===== 레이아웃 ===== */
       .survey-container {
         max-width: 640px;
         margin: 0 auto;
@@ -70,7 +77,7 @@
 
       /* ===== 진행률 바 ===== */
       .progress-bar-container {
-        background: var(--border-color);
+        background: rgba(255,255,255,0.1);
         border-radius: 10px;
         height: 8px;
         margin-bottom: 24px;
@@ -78,7 +85,7 @@
       }
 
       .progress-bar {
-        background: linear-gradient(90deg, var(--primary-color), #3498db);
+        background: linear-gradient(90deg, var(--accent), var(--primary));
         height: 100%;
         border-radius: 10px;
         transition: width 0.4s ease;
@@ -87,7 +94,7 @@
       .progress-text {
         text-align: center;
         font-size: 13px;
-        color: var(--text-light);
+        color: var(--text-subtle);
         margin-bottom: 16px;
       }
 
@@ -98,7 +105,7 @@
         gap: 6px;
         background: none;
         border: none;
-        color: var(--text-light);
+        color: var(--text-subtle);
         font-size: 14px;
         cursor: pointer;
         padding: 8px 0;
@@ -108,15 +115,15 @@
       }
 
       .back-button:hover {
-        color: var(--primary-color);
+        color: var(--accent);
       }
 
       /* ===== 카드 ===== */
       .card {
-        background: var(--bg-white);
-        border-radius: var(--radius-lg);
-        padding: 32px 24px;
-        box-shadow: var(--shadow-md);
+        background: var(--dark-light);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 20px;
+        padding: 36px 28px;
         flex: 1;
         display: flex;
         flex-direction: column;
@@ -129,107 +136,129 @@
       }
 
       .start-page h1 {
-        font-size: 26px;
-        font-weight: 700;
-        color: var(--text-dark);
+        font-size: 28px;
+        font-weight: 900;
         margin-bottom: 20px;
         word-break: keep-all;
       }
 
       .start-page .description {
         font-size: 15px;
-        color: var(--text-medium);
-        line-height: 1.8;
-        margin-bottom: 32px;
+        color: var(--text-muted);
+        line-height: 1.9;
+        margin-bottom: 28px;
         word-break: keep-all;
       }
 
       .start-badge {
         display: inline-block;
-        background: var(--primary-light);
-        color: var(--primary-color);
+        background: rgba(79,209,197,0.15);
+        border: 1px solid rgba(79,209,197,0.3);
+        color: var(--accent);
         font-size: 13px;
-        font-weight: 500;
-        padding: 6px 14px;
+        font-weight: 600;
+        padding: 8px 18px;
         border-radius: 20px;
-        margin-bottom: 20px;
+        margin-bottom: 24px;
+      }
+
+      .info-box {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 28px;
+        text-align: left;
+      }
+
+      .info-box h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .info-box ul {
+        list-style: none;
+        font-size: 14px;
+        color: var(--text-muted);
+      }
+
+      .info-box li {
+        padding: 6px 0;
+        padding-left: 24px;
+        position: relative;
+      }
+
+      .info-box li::before {
+        content: '>';
+        position: absolute;
+        left: 0;
+        color: var(--accent);
       }
 
       /* ===== 질문 페이지 ===== */
       .question-page h2 {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 8px;
+        margin-bottom: 12px;
         word-break: keep-all;
-        line-height: 1.5;
+        line-height: 1.6;
+      }
+
+      .question-number {
+        display: inline-block;
+        background: var(--accent);
+        color: var(--dark);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 5px 12px;
+        border-radius: 12px;
+        margin-bottom: 16px;
       }
 
       .question-hint {
         font-size: 14px;
-        color: var(--text-light);
-        margin-bottom: 24px;
-      }
-
-      /* ===== 선택지 ===== */
-      .options-list {
-        list-style: none;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 24px;
-      }
-
-      .option-item {
-        background: var(--bg-light);
-        border: 2px solid var(--border-color);
-        border-radius: var(--radius-md);
-        padding: 16px 20px;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-size: 15px;
-        color: var(--text-medium);
-        word-break: keep-all;
-      }
-
-      .option-item:hover {
-        border-color: var(--primary-color);
-        background: var(--primary-light);
-      }
-
-      .option-item.selected {
-        border-color: var(--primary-color);
-        background: var(--primary-light);
-        color: var(--primary-color);
-        font-weight: 500;
+        color: var(--text-subtle);
+        margin-bottom: 28px;
       }
 
       /* ===== 체크박스 옵션 ===== */
+      .options-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+
       .checkbox-option {
         display: flex;
         align-items: flex-start;
-        gap: 12px;
-        background: var(--bg-light);
-        border: 2px solid var(--border-color);
-        border-radius: var(--radius-md);
-        padding: 16px 20px;
+        gap: 14px;
+        background: rgba(255,255,255,0.03);
+        border: 2px solid rgba(255,255,255,0.1);
+        border-radius: 14px;
+        padding: 16px 18px;
         cursor: pointer;
         transition: all 0.2s;
       }
 
       .checkbox-option:hover {
-        border-color: var(--primary-color);
+        border-color: var(--accent);
+        background: rgba(79,209,197,0.1);
       }
 
       .checkbox-option.checked {
-        border-color: var(--primary-color);
-        background: var(--primary-light);
+        border-color: var(--accent);
+        background: rgba(79,209,197,0.15);
       }
 
       .checkbox-box {
-        width: 22px;
-        height: 22px;
-        border: 2px solid var(--border-color);
+        width: 24px;
+        height: 24px;
+        border: 2px solid rgba(255,255,255,0.3);
         border-radius: 6px;
         display: flex;
         align-items: center;
@@ -237,64 +266,69 @@
         flex-shrink: 0;
         transition: all 0.2s;
         font-size: 14px;
-        color: white;
+        color: var(--dark);
+        font-weight: 700;
       }
 
       .checkbox-option.checked .checkbox-box {
-        background: var(--primary-color);
-        border-color: var(--primary-color);
+        background: var(--accent);
+        border-color: var(--accent);
       }
 
       .checkbox-label {
         font-size: 15px;
-        color: var(--text-medium);
+        color: var(--text-muted);
         word-break: keep-all;
         line-height: 1.5;
+        flex: 1;
+      }
+
+      .checkbox-option.checked .checkbox-label {
+        color: var(--accent);
+        font-weight: 500;
       }
 
       /* ===== 버튼 ===== */
       .primary-btn {
         width: 100%;
-        padding: 16px 24px;
+        padding: 18px 24px;
         font-size: 17px;
         font-weight: 700;
-        color: var(--bg-white);
-        background: var(--primary-color);
+        color: var(--dark);
+        background: var(--accent);
         border: none;
-        border-radius: var(--radius-sm);
+        border-radius: 14px;
         cursor: pointer;
-        transition:
-          background 0.2s,
-          transform 0.1s;
+        transition: all 0.3s;
         margin-top: auto;
         font-family: inherit;
         text-decoration: none;
         display: block;
         text-align: center;
+        box-shadow: 0 8px 24px rgba(79,209,197,0.3);
       }
 
       .primary-btn:hover:not(:disabled) {
-        background: var(--primary-hover);
-      }
-
-      .primary-btn:active:not(:disabled) {
-        transform: scale(0.98);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(79,209,197,0.4);
       }
 
       .primary-btn:disabled {
-        background: var(--border-color);
+        background: rgba(255,255,255,0.1);
+        color: var(--text-subtle);
         cursor: not-allowed;
+        box-shadow: none;
       }
 
       .secondary-btn {
         width: 100%;
-        padding: 14px 20px;
+        padding: 16px 20px;
         font-size: 15px;
-        font-weight: 500;
-        color: var(--primary-color);
-        background: var(--primary-light);
-        border: 2px solid transparent;
-        border-radius: var(--radius-sm);
+        font-weight: 600;
+        color: var(--accent);
+        background: rgba(79,209,197,0.1);
+        border: 1px solid rgba(79,209,197,0.3);
+        border-radius: 14px;
         cursor: pointer;
         transition: all 0.2s;
         text-decoration: none;
@@ -304,7 +338,8 @@
       }
 
       .secondary-btn:hover {
-        border-color: var(--primary-color);
+        background: var(--accent);
+        color: var(--dark);
       }
 
       /* ===== 분석 중 페이지 ===== */
@@ -315,41 +350,29 @@
       }
 
       .analyzing-spinner {
-        width: 60px;
-        height: 60px;
-        border: 4px solid var(--border-color);
-        border-top-color: var(--primary-color);
+        width: 64px;
+        height: 64px;
+        border: 4px solid rgba(255,255,255,0.1);
+        border-top-color: var(--accent);
         border-radius: 50%;
         animation: spin 1s linear infinite;
-        margin: 0 auto 24px;
+        margin: 0 auto 28px;
       }
 
       @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
+        to { transform: rotate(360deg); }
       }
 
       .analyzing-page h2 {
-        font-size: 20px;
+        font-size: 22px;
         font-weight: 700;
-        color: var(--text-dark);
         margin-bottom: 16px;
-        word-break: keep-all;
       }
 
       .analyzing-page p {
         font-size: 15px;
-        color: var(--text-medium);
-        line-height: 1.8;
-        word-break: keep-all;
-      }
-
-      .analyzing-hint {
-        margin-top: 24px;
-        font-size: 14px;
-        color: var(--text-light);
-        font-style: italic;
+        color: var(--text-muted);
+        line-height: 1.9;
       }
 
       /* ===== 결과 페이지 ===== */
@@ -357,174 +380,199 @@
         padding-bottom: 40px;
       }
 
-      .result-type-badge {
+      .result-page h1 {
+        font-size: 24px;
+        font-weight: 900;
+        margin-bottom: 8px;
+        text-align: center;
+      }
+
+      .result-subtitle {
+        text-align: center;
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 32px;
+      }
+
+      /* ===== 레이더 차트 ===== */
+      .radar-container {
+        position: relative;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 32px;
+      }
+
+      .radar-chart {
+        width: 100%;
+        height: auto;
+      }
+
+      .radar-labels {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+
+      .radar-label {
+        position: absolute;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text);
+        text-align: center;
+        transform: translate(-50%, -50%);
+        white-space: nowrap;
+      }
+
+      .radar-label .percent {
+        display: block;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--accent);
+        margin-top: 2px;
+      }
+
+      /* ===== 점수 바 ===== */
+      .score-bars {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .score-item {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .score-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .score-name {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .score-value {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .score-bar-bg {
+        height: 8px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .score-bar-fill {
+        height: 100%;
+        border-radius: 4px;
+        transition: width 1s ease;
+      }
+
+      .score-bar-fill.starter { background: #f87171; }
+      .score-bar-fill.attention { background: #fb923c; }
+      .score-bar-fill.emotional { background: #facc15; }
+      .score-bar-fill.impulsive { background: #4ade80; }
+      .score-bar-fill.environment { background: #60a5fa; }
+      .score-bar-fill.complex { background: #c084fc; }
+
+      /* ===== 주요 유형 카드 ===== */
+      .primary-type-card {
+        background: linear-gradient(135deg, rgba(79,209,197,0.2) 0%, rgba(42,123,155,0.2) 100%);
+        border: 2px solid var(--accent);
+        border-radius: 20px;
+        padding: 28px;
+        margin-bottom: 28px;
+        text-align: center;
+      }
+
+      .primary-type-badge {
         display: inline-block;
-        background: var(--primary-color);
-        color: white;
-        font-size: 13px;
-        font-weight: 500;
-        padding: 6px 14px;
+        background: var(--accent);
+        color: var(--dark);
+        font-size: 12px;
+        font-weight: 700;
+        padding: 6px 16px;
         border-radius: 20px;
         margin-bottom: 16px;
       }
 
-      .result-page h1 {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--text-dark);
+      .primary-type-card h2 {
+        font-size: 22px;
+        font-weight: 900;
         margin-bottom: 12px;
-        word-break: keep-all;
       }
 
-      .result-summary {
-        font-size: 16px;
-        color: var(--primary-color);
-        font-weight: 500;
-        margin-bottom: 24px;
-        padding: 16px;
-        background: var(--primary-light);
-        border-radius: var(--radius-md);
-        word-break: keep-all;
-        line-height: 1.7;
-      }
-
-      .result-section {
-        margin-bottom: 24px;
-      }
-
-      .result-section h3 {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .result-section h3::before {
-        content: '';
-        width: 4px;
-        height: 18px;
-        background: var(--primary-color);
-        border-radius: 2px;
-      }
-
-      .result-section p {
+      .primary-type-card p {
         font-size: 15px;
-        color: var(--text-medium);
+        color: var(--text-muted);
         line-height: 1.8;
-        word-break: keep-all;
       }
 
-      .result-highlight {
-        background: var(--success-bg);
-        border-left: 4px solid var(--success-color);
-        padding: 16px;
-        border-radius: 0 var(--radius-md) var(--radius-md) 0;
-        margin-bottom: 24px;
-      }
-
-      .result-highlight h4 {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-      }
-
-      .result-highlight p {
-        color: var(--text-dark);
-        font-weight: 500;
-      }
-
-      /* ===== 추천 섹션 ===== */
-      .recommendations {
-        background: var(--bg-light);
-        border-radius: var(--radius-lg);
+      /* ===== 분석 섹션 ===== */
+      .analysis-section {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
         padding: 24px;
         margin-bottom: 24px;
       }
 
-      .recommendations h3 {
-        font-size: 18px;
+      .analysis-section h3 {
+        font-size: 16px;
         font-weight: 700;
-        color: var(--text-dark);
         margin-bottom: 16px;
-        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 10px;
       }
 
-      .recommendation-item {
-        background: var(--bg-white);
-        border-radius: var(--radius-md);
-        padding: 16px;
-        margin-bottom: 12px;
-        border: 1px solid var(--border-color);
-        text-decoration: none;
-        display: block;
-        transition: border-color 0.2s;
+      .analysis-section h3::before {
+        content: '';
+        width: 4px;
+        height: 20px;
+        background: var(--accent);
+        border-radius: 2px;
       }
 
-      .recommendation-item:hover {
-        border-color: var(--primary-color);
-      }
-
-      .recommendation-item:last-child {
-        margin-bottom: 0;
-      }
-
-      .recommendation-badge {
-        display: inline-block;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 4px;
-        margin-bottom: 8px;
-      }
-
-      .badge-free {
-        background: var(--success-bg);
-        color: var(--success-color);
-      }
-
-      .badge-tool {
-        background: var(--primary-light);
-        color: var(--primary-color);
-      }
-
-      .badge-advanced {
-        background: #fff3e0;
-        color: var(--warning-color);
-      }
-
-      .recommendation-item h4 {
+      .analysis-section p {
         font-size: 15px;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 4px;
+        color: var(--text-muted);
+        line-height: 1.8;
       }
 
-      .recommendation-item p {
-        font-size: 13px;
-        color: var(--text-light);
-      }
-
-      .rec-btn {
-        display: inline-block;
+      .analysis-section ul {
+        list-style: none;
         margin-top: 12px;
-        padding: 8px 16px;
-        background: var(--primary-color);
-        color: white;
-        font-size: 13px;
-        font-weight: 600;
-        border-radius: 6px;
-        transition: background 0.2s;
       }
 
-      .recommendation-item:hover .rec-btn {
-        background: var(--primary-hover);
+      .analysis-section li {
+        padding: 8px 0;
+        padding-left: 24px;
+        position: relative;
+        font-size: 14px;
+        color: var(--text-muted);
       }
 
-      /* ===== CTA 버튼 그룹 ===== */
+      .analysis-section li::before {
+        content: '>';
+        position: absolute;
+        left: 8px;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      /* ===== CTA 그룹 ===== */
       .cta-group {
         display: flex;
         flex-direction: column;
@@ -532,16 +580,177 @@
         margin-bottom: 32px;
       }
 
-      /* ===== 하단 문구 ===== */
+      .kakao-btn {
+        width: 100%;
+        padding: 18px 24px;
+        font-size: 17px;
+        font-weight: 700;
+        color: #1a1a1a;
+        background: #fee500;
+        border: none;
+        border-radius: 14px;
+        cursor: pointer;
+        transition: all 0.3s;
+        font-family: inherit;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        box-shadow: 0 8px 24px rgba(254,229,0,0.3);
+      }
+
+      .kakao-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(254,229,0,0.4);
+      }
+
+      /* ===== 공유 섹션 ===== */
+      .share-section {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 24px;
+        text-align: center;
+      }
+
+      .share-label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text);
+        margin-bottom: 16px;
+      }
+
+      .share-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .share-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 12px 16px;
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        color: var(--text);
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+
+      .share-btn:hover {
+        background: rgba(255,255,255,0.1);
+        border-color: var(--accent);
+      }
+
+      .share-btn .share-icon {
+        font-size: 16px;
+      }
+
+      .share-btn.kakao {
+        background: #fee500;
+        color: #1a1a1a;
+        border-color: #fee500;
+      }
+
+      .share-btn.kakao:hover {
+        background: #ffd900;
+        border-color: #ffd900;
+      }
+
+      .share-btn.link:hover {
+        background: rgba(96,165,250,0.2);
+        border-color: #60a5fa;
+      }
+
+      .share-btn.twitter:hover {
+        background: rgba(255,255,255,0.15);
+        border-color: #fff;
+      }
+
+      .share-hint {
+        margin-top: 12px;
+        font-size: 13px;
+        color: var(--accent);
+        min-height: 20px;
+      }
+
+      /* ===== SNS 링크 ===== */
+      .social-links {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .social-links p {
+        font-size: 13px;
+        color: var(--text-subtle);
+        margin-bottom: 12px;
+      }
+
+      .social-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .social-btn {
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.2s;
+      }
+
+      .social-btn.youtube {
+        background: rgba(255,0,0,0.15);
+        color: #ff4444;
+        border: 1px solid rgba(255,0,0,0.3);
+      }
+
+      .social-btn.youtube:hover {
+        background: #ff0000;
+        color: white;
+      }
+
+      .social-btn.instagram {
+        background: rgba(225,48,108,0.15);
+        color: #e1306c;
+        border: 1px solid rgba(225,48,108,0.3);
+      }
+
+      .social-btn.instagram:hover {
+        background: #e1306c;
+        color: white;
+      }
+
+      .social-btn.blog {
+        background: rgba(0,199,60,0.15);
+        color: #00c73c;
+        border: 1px solid rgba(0,199,60,0.3);
+      }
+
+      .social-btn.blog:hover {
+        background: #00c73c;
+        color: white;
+      }
+
+      /* ===== 푸터 ===== */
       .footer-note {
         text-align: center;
         font-size: 14px;
-        color: var(--text-light);
-        line-height: 1.7;
-        padding: 20px;
-        background: var(--bg-light);
-        border-radius: var(--radius-md);
-        word-break: keep-all;
+        color: var(--text-muted);
+        line-height: 1.8;
+        padding: 24px;
+        background: rgba(255,255,255,0.03);
+        border-radius: 16px;
       }
 
       /* ===== 반응형 ===== */
@@ -551,19 +760,15 @@
         }
 
         .card {
-          padding: 40px 32px;
+          padding: 48px 40px;
         }
 
         .start-page h1 {
-          font-size: 32px;
+          font-size: 34px;
         }
 
         .question-page h2 {
-          font-size: 24px;
-        }
-
-        .result-page h1 {
-          font-size: 28px;
+          font-size: 20px;
         }
       }
 
@@ -592,528 +797,576 @@
     <div id="app" class="survey-container"></div>
 
     <script>
-      // ===== 설문 데이터 =====
-      const QUESTIONS = {
-        profile: {
-          title: '지금 당신은 어떤 이유로 이 테스트를 하고 있나요?',
-          hint: '가장 가까운 것을 골라주세요',
-          options: [
-            '나는 ADHD 진단을 받은 당사자다',
-            '나는 ADHD 가능성을 느끼고 있다',
-            '나는 ADHD에 대해 알아보고 있다',
-            '나는 가족/연인을 돕기 위해 보고 있다',
-          ],
-        },
-        knowledge: {
-          title: 'ADHD에 대해 지금 어느 정도 알고 있나요?',
-          hint: '현재 상태를 골라주세요',
-          options: [
-            '거의 모른다',
-            '기본 개념은 알고 있다',
-            '책, 영상, 자료를 꽤 많이 봤다',
-            '여러 방법을 이미 시도해봤다',
-          ],
-        },
-        struggle: {
-          title: '요즘 당신을 가장 힘들게 하는 문제는 무엇인가요?',
-          hint: '가장 큰 어려움 하나를 골라주세요',
-          options: [
-            '해야 할 일을 계속 미룬다',
-            '시작은 해도 끝까지 못 간다',
-            '감정기복 때문에 무너진다',
-            '충동적인 말/행동 후 후회한다',
-            '정리정돈과 체계화가 안 된다',
-            '시간관리가 너무 어렵다',
-            '우울감, 자책, 무기력이 크다',
-            '날마다 컨디션 편차가 너무 크다',
-          ],
-        },
-        core: {
-          title: '당신의 실행이 가장 자주 무너지는 순간은 언제인가요?',
-          hint: '이 질문이 결과에 가장 중요해요',
-          options: [
-            { text: '시작하려고 하면 몸이 멈춘다', type: 'starter' },
-            { text: '하다가 다른 데로 자꾸 샌다', type: 'attention' },
-            { text: '감정이 흔들리면 그대로 멈춘다', type: 'emotional' },
-            {
-              text: '급해지거나 흥분하면 통제가 어려워진다',
-              type: 'impulsive',
-            },
-            {
-              text: '장소나 환경이 안 맞으면 아무것도 못 한다',
-              type: 'environment',
-            },
-            {
-              text: '어떤 날은 잘 되는데 어떤 날은 완전히 안 된다',
-              type: 'complex',
-            },
-          ],
-        },
+      // ===== 6가지 유형 정의 =====
+      const TYPES = {
+        starter: { name: '시작 장벽형', color: '#f87171', description: '시작 직전의 문턱이 높아서 멈추는 유형' },
+        attention: { name: '주의 분산형', color: '#fb923c', description: '주의의 초점이 쉽게 흐트러지는 유형' },
+        emotional: { name: '감정 소진형', color: '#facc15', description: '감정 흔들림에 에너지를 소모하는 유형' },
+        impulsive: { name: '충동 가속형', color: '#4ade80', description: '속도가 붙으면 브레이크가 약해지는 유형' },
+        environment: { name: '환경 민감형', color: '#60a5fa', description: '환경이 맞지 않으면 실행이 안 되는 유형' },
+        complex: { name: '변동성 복합형', color: '#c084fc', description: '컨디션에 따라 패턴이 크게 달라지는 유형' },
       };
 
-      const TYPE_QUESTIONS = {
-        starter: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
+      // ===== 질문 데이터 (각 선택지가 어떤 유형에 점수를 주는지) =====
+      const QUESTIONS = [
+        {
+          id: 1,
+          text: '요즘 당신을 가장 힘들게 하는 문제는 무엇인가요?',
+          hint: '해당하는 것을 모두 선택해주세요',
           options: [
-            '시작만 하면 될 것 같은데, 그 시작이 너무 어렵다',
-            '준비하다가 지쳐서 포기한 적이 많다',
-            '타이머가 없으면 시간 감각이 사라진다',
+            { text: '해야 할 일을 계속 미룬다', types: { starter: 2 } },
+            { text: '시작은 해도 끝까지 못 간다', types: { starter: 1, attention: 1 } },
+            { text: '감정기복 때문에 무너진다', types: { emotional: 2 } },
+            { text: '충동적인 말/행동 후 후회한다', types: { impulsive: 2 } },
+            { text: '정리정돈과 체계화가 안 된다', types: { attention: 1, environment: 1 } },
+            { text: '시간관리가 너무 어렵다', types: { starter: 1, complex: 1 } },
+            { text: '우울감, 자책, 무기력이 크다', types: { emotional: 2 } },
+            { text: '날마다 컨디션 편차가 너무 크다', types: { complex: 2 } },
           ],
         },
-        attention: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
+        {
+          id: 2,
+          text: '실행이 무너지는 순간은 언제인가요?',
+          hint: '해당하는 것을 모두 선택해주세요',
           options: [
-            '시작만 하면 될 것 같은데, 그 시작이 너무 어렵다',
-            '준비하다가 지쳐서 포기한 적이 많다',
-            '타이머가 없으면 시간 감각이 사라진다',
+            { text: '시작하려고 하면 몸이 멈춘다', types: { starter: 2 } },
+            { text: '하다가 다른 데로 자꾸 샌다', types: { attention: 2 } },
+            { text: '감정이 흔들리면 그대로 멈춘다', types: { emotional: 2 } },
+            { text: '급해지거나 흥분하면 통제가 어려워진다', types: { impulsive: 2 } },
+            { text: '장소나 환경이 안 맞으면 아무것도 못 한다', types: { environment: 2 } },
+            { text: '어떤 날은 잘 되는데 어떤 날은 완전히 안 된다', types: { complex: 2 } },
           ],
         },
-        impulsive: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
+        {
+          id: 3,
+          text: '다음 중 나와 가까운 문장을 모두 골라주세요',
+          hint: '공감되는 것을 모두 선택해주세요',
           options: [
-            "하고 나서 '아, 또 그랬다'는 생각이 든다",
-            '가만히 있으라고 하면 몸이 더 불편해진다',
-            '흥분하면 속도를 줄이기 어렵다',
+            { text: '시작만 하면 될 것 같은데, 그 시작이 너무 어렵다', types: { starter: 2 } },
+            { text: '준비하다가 지쳐서 포기한 적이 많다', types: { starter: 1, emotional: 1 } },
+            { text: '집중 중에도 딴생각이 완전히 사라지지 않는다', types: { attention: 2 } },
+            { text: '한 가지 일을 끝내기 전에 다른 일이 시작된다', types: { attention: 2 } },
+            { text: '사소한 말에도 기분이 크게 흔들린다', types: { emotional: 2 } },
+            { text: '거절이나 비판을 받으면 머릿속에서 계속 반복된다', types: { emotional: 2 } },
           ],
         },
-        complex: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
+        {
+          id: 4,
+          text: '다음 중 나와 가까운 문장을 모두 골라주세요',
+          hint: '공감되는 것을 모두 선택해주세요',
           options: [
-            '어떤 날은 너무 잘 되고, 어떤 날은 아무것도 안 된다',
-            '집중 중에도 딴생각이 완전히 사라지지 않는다',
-            '나 스스로가 예측이 안 된다',
+            { text: "하고 나서 '아, 또 그랬다'는 생각이 든다", types: { impulsive: 2 } },
+            { text: '흥분하면 속도를 줄이기 어렵다', types: { impulsive: 2 } },
+            { text: '주변 자극(소리, 사람, 조명)에 민감하다', types: { environment: 2 } },
+            { text: '특정 장소에서만 의욕이 생긴다', types: { environment: 2 } },
+            { text: '나 스스로가 예측이 안 된다', types: { complex: 2 } },
+            { text: '어제의 나와 오늘의 내가 다른 사람 같다', types: { complex: 2 } },
           ],
         },
-        emotional: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
+        {
+          id: 5,
+          text: '평소 나에게 가장 필요하다고 느끼는 것은?',
+          hint: '해당하는 것을 모두 선택해주세요',
           options: [
-            '사소한 말이나 표정에도 기분이 크게 흔들린다',
-            '화·짜증이 나면 회복까지 시간이 오래 걸린다',
-            '거절이나 비판을 받으면 머릿속에서 계속 반복된다',
+            { text: '일단 시작할 수 있게 해주는 작은 트리거', types: { starter: 2 } },
+            { text: '집중을 유지할 수 있는 환경이나 도구', types: { attention: 1, environment: 1 } },
+            { text: '감정을 빨리 회복할 수 있는 방법', types: { emotional: 2 } },
+            { text: '행동 전에 멈출 수 있는 브레이크', types: { impulsive: 2 } },
+            { text: '나에게 맞는 공간과 루틴', types: { environment: 2 } },
+            { text: '내 컨디션을 읽고 조절하는 방법', types: { complex: 2 } },
           ],
         },
-        environment: {
-          title: '오늘의 나와 가장 가까운 문장을 골라주세요',
-          hint: '최대 3개까지 선택 가능해요',
-          options: [
-            '주변 자극(소리·사람·조명)에 민감하다',
-            '특정 장소에서만 의욕이 생긴다',
-            '집에서는 거의 아무것도 못 한다',
-          ],
-        },
-      };
+      ];
 
-      // ===== 결과 데이터 =====
-      const RESULTS = {
+      // ===== 유형별 상세 결과 =====
+      const KAKAO_LINK = 'https://open.kakao.com/o/sq1JNeHh';
+
+      const TYPE_RESULTS = {
         starter: {
-          name: '시작 장벽형',
-          title: "당신은 '시작 장벽형'에 가깝습니다",
-          summary:
-            '해야 할 일의 중요성을 몰라서가 아니라, 시작 직전의 문턱이 너무 높아서 멈추는 편입니다.',
-          description:
-            "당신은 의지가 없어서가 아니라, 시작하기 전에 준비해야 할 것, 정리해야 할 것, 마음먹어야 할 것이 너무 많아져서 에너지를 먼저 소모하는 유형에 가깝습니다. 그래서 '알고는 있는데 못 하는 상태'가 반복되기 쉽습니다.",
-          need: '큰 계획이 아니라, 바로 착수 가능한 최소 단위의 시작점입니다.',
-          cta: '미루기 대처 템플릿 받기',
-          ctaLink: 'https://maily.so/floca',
-          primaryRec: 'free',
+          title: '시작 장벽형',
+          summary: '해야 할 일의 중요성을 몰라서가 아니라, 시작 직전의 문턱이 너무 높아서 멈추는 편입니다.',
+          description: '당신은 의지가 없어서가 아니라, 시작하기 전에 준비해야 할 것, 정리해야 할 것이 너무 많아져서 에너지를 먼저 소모합니다.',
+          needs: ['바로 착수 가능한 최소 단위의 시작점', '완벽한 준비보다 일단 시작하는 습관', '2분 안에 시작할 수 있는 작은 액션'],
+          resource: '미루기 대처 템플릿',
         },
         attention: {
-          name: '주의 분산형',
-          title: "당신은 '주의 분산형'에 가깝습니다",
-          summary:
-            '하고 싶은 마음이 없는 게 아니라, 주의의 초점이 쉽게 흐트러져서 계획이 흩어지는 편입니다.',
-          description:
-            '당신은 시작 자체보다도, 시작한 뒤 흐름을 유지하고 현재 해야 할 일에 주의를 붙잡아 두는 과정에서 자주 무너질 수 있습니다. 해야 할 일보다 눈앞 자극이 더 강하게 느껴질 수 있습니다.',
-          need: '억지로 다른 곳으로 주의를 분산시키지 않을려고 하기보다는 내가 집중해야 할 것들만 남기고 방해되는 것은 치울 필요가 있습니다.',
-          cta: '주의 분산형 대응 자료 보기',
-          ctaLink: 'https://maily.so/floca',
-          primaryRec: 'free',
+          title: '주의 분산형',
+          summary: '하고 싶은 마음이 없는 게 아니라, 주의의 초점이 쉽게 흐트러져서 계획이 흩어지는 편입니다.',
+          description: '시작 자체보다도, 시작한 뒤 흐름을 유지하고 현재 해야 할 일에 주의를 붙잡아 두는 과정에서 자주 무너집니다.',
+          needs: ['방해 요소를 차단하는 환경 설계', '하나에 집중할 수 있는 명확한 우선순위', '주의가 샜을 때 돌아오는 루틴'],
+          resource: '집중 분산 대처 템플릿',
         },
         emotional: {
-          name: '감정 소진형',
-          title: "당신은 '감정 소진형'에 가깝습니다",
-          summary:
-            '문제는 의지가 아니라, 감정의 흔들림이 일상의 에너지를 먼저 소진시키는 방식일 수 있습니다.',
-          description:
-            '당신은 해야 할 일을 몰라서 못 하는 것이 아니라, 감정이 흔들리는 순간 그 여파가 오래 남고, 그 회복에 많은 에너지를 쓰는 편에 가깝습니다. 그래서 생산성 문제처럼 보이지만 실제로는 감정 회복 속도가 핵심일 수 있습니다.',
-          need: '성과 관리보다 먼저, 감정 회복 패턴을 읽고 정리하는 도구입니다.',
-          cta: '감정 일기장 템플릿 받기',
-          ctaLink: 'https://maily.so/floca',
-          primaryRec: 'free',
+          title: '감정 소진형',
+          summary: '문제는 의지가 아니라, 감정의 흔들림이 일상의 에너지를 먼저 소진시키는 방식입니다.',
+          description: '해야 할 일을 몰라서 못 하는 것이 아니라, 감정이 흔들리는 순간 그 여파가 오래 남고, 회복에 많은 에너지를 씁니다.',
+          needs: ['감정 회복 패턴을 읽는 도구', '작은 감정 변화를 기록하는 습관', '감정과 실행을 분리하는 연습'],
+          resource: '감정 일기장 템플릿',
         },
         impulsive: {
-          name: '충동 가속형',
-          title: "당신은 '충동 가속형'에 가깝습니다",
-          summary:
-            '생각이 없어서가 아니라, 속도가 붙는 순간 멈추는 브레이크가 약해지는 편입니다.',
-          description:
-            "당신은 순간 에너지와 반응 속도는 빠를 수 있지만, 그만큼 말이나 행동, 선택이 먼저 튀어나가고 뒤늦게 후회하는 장면이 반복될 수 있습니다. 이럴수록 '참아야지'보다 멈춤 간격을 설계하는 전략이 중요합니다.",
-          need: '의지로 참는 방법보다, 행동 전에 멈출 수 있는 작은 연습이 필요합니다.',
-          cta: '충동 패턴 대응 자료 보기',
-          ctaLink: 'https://maily.so/floca',
-          primaryRec: 'advanced',
+          title: '충동 가속형',
+          summary: '생각이 없어서가 아니라, 속도가 붙는 순간 멈추는 브레이크가 약해지는 편입니다.',
+          description: '순간 에너지와 반응 속도는 빠르지만, 말이나 행동, 선택이 먼저 튀어나가고 뒤늦게 후회하는 장면이 반복됩니다.',
+          needs: ['행동 전 멈춤 간격 설계', '충동이 올 때 대체할 수 있는 행동', '후회 패턴을 읽고 예방하는 방법'],
+          resource: '충동 패턴 대응 자료',
         },
         environment: {
-          name: '환경 민감형',
-          title: "당신은 '환경 민감형'에 가깝습니다",
-          summary:
-            '의욕이 없는 것이 아니라, 환경이 맞지 않으면 실행 자체가 켜지지 않는 편입니다.',
-          description:
-            "당신은 '어디서 하느냐', '누가 옆에 있느냐', '얼마나 시끄럽냐' 같은 외부 조건의 영향을 크게 받습니다. 그래서 같은 사람인데도 장소가 바뀌면 전혀 다른 실행력을 보일 수 있습니다.",
-          need: '자기통제보다 먼저, 나를 움직이게 하는 환경 조건을 파악하는 것입니다.',
-          cta: '환경형 대응 방법 보기',
-          ctaLink: 'https://blog.naver.com/msh4688/223842985271',
-          primaryRec: 'tool',
+          title: '환경 민감형',
+          summary: '의욕이 없는 것이 아니라, 환경이 맞지 않으면 실행 자체가 켜지지 않는 편입니다.',
+          description: "'어디서 하느냐', '누가 옆에 있느냐', '얼마나 시끄럽냐' 같은 외부 조건의 영향을 크게 받습니다.",
+          needs: ['나를 움직이게 하는 환경 조건 파악', '최적의 실행 환경 설계', '어디서든 집중할 수 있는 휴대용 루틴'],
+          resource: '환경 설정 가이드',
         },
         complex: {
-          name: '변동성 복합형',
-          title: "당신은 '변동성 복합형'에 가깝습니다",
-          summary:
-            '문제가 하나만 있는 것이 아니라, 상황과 컨디션에 따라 패턴이 크게 달라지는 편입니다.',
-          description:
-            "당신은 어떤 날은 놀랄 만큼 잘 해내고, 어떤 날은 같은 사람인지 싶을 만큼 완전히 무너질 수 있습니다. 이럴수록 '나는 왜 이렇게 일관성이 없지?'라는 자책이 커지기 쉽지만, 실제로는 복합적인 요인이 겹쳐 작동하고 있을 가능성이 큽니다.",
-          need: '한 가지 만능 해결책보다, 내 편차를 읽고 조절할 수 있는 맞춤 설계입니다.',
-          cta: '내 패턴에 맞는 설계 보기',
-          ctaLink: 'https://maily.so/floca',
-          primaryRec: 'advanced',
+          title: '변동성 복합형',
+          summary: '문제가 하나만 있는 것이 아니라, 상황과 컨디션에 따라 패턴이 크게 달라지는 편입니다.',
+          description: "어떤 날은 놀랄 만큼 잘 해내고, 어떤 날은 같은 사람인지 싶을 만큼 완전히 무너집니다.",
+          needs: ['내 편차를 읽고 조절할 수 있는 맞춤 설계', '컨디션별 대응 전략', '예측 불가능한 날을 위한 플랜 B'],
+          resource: '컨디션 트래커 템플릿',
         },
       };
 
       // ===== 앱 상태 =====
       let state = {
         currentPage: 'start',
-        answers: {
-          profile: null,
-          knowledge: null,
-          struggle: null,
-          core: null,
-        },
-        resultType: null,
+        currentQuestion: 0,
+        answers: {}, // { questionId: [선택된 옵션 인덱스들] }
+        scores: { starter: 0, attention: 0, emotional: 0, impulsive: 0, environment: 0, complex: 0 },
         history: [],
       };
 
-      // ===== 페이지 렌더링 함수들 =====
+      // ===== 점수 계산 =====
+      function calculateScores() {
+        const scores = { starter: 0, attention: 0, emotional: 0, impulsive: 0, environment: 0, complex: 0 };
+
+        Object.keys(state.answers).forEach(qId => {
+          const question = QUESTIONS.find(q => q.id === parseInt(qId));
+          const selectedIndices = state.answers[qId];
+
+          selectedIndices.forEach(idx => {
+            const option = question.options[idx];
+            if (option.types) {
+              Object.keys(option.types).forEach(type => {
+                scores[type] += option.types[type];
+              });
+            }
+          });
+        });
+
+        // 최대값 기준 퍼센트로 변환
+        const maxPossible = QUESTIONS.reduce((sum, q) => {
+          const maxPerQ = q.options.reduce((max, opt) => {
+            const optMax = Object.values(opt.types || {}).reduce((a, b) => a + b, 0);
+            return Math.max(max, optMax);
+          }, 0) * 3; // 질문당 최대 3개 선택 가정
+          return sum + maxPerQ;
+        }, 0) / 6;
+
+        const percentages = {};
+        Object.keys(scores).forEach(type => {
+          percentages[type] = Math.min(100, Math.round((scores[type] / 10) * 100));
+        });
+
+        return percentages;
+      }
+
+      // ===== 레이더 차트 SVG 생성 =====
+      function createRadarChart(scores) {
+        const types = ['starter', 'attention', 'emotional', 'impulsive', 'environment', 'complex'];
+        const centerX = 160;
+        const centerY = 160;
+        const maxRadius = 120;
+
+        // 각 꼭지점 각도 (시작점: 위쪽, 시계 방향)
+        const angles = types.map((_, i) => (Math.PI * 2 * i / 6) - Math.PI / 2);
+
+        // 배경 육각형들 (20%, 40%, 60%, 80%, 100%)
+        let bgHexagons = '';
+        [0.2, 0.4, 0.6, 0.8, 1].forEach(scale => {
+          const points = angles.map(angle => {
+            const x = centerX + Math.cos(angle) * maxRadius * scale;
+            const y = centerY + Math.sin(angle) * maxRadius * scale;
+            return `${x},${y}`;
+          }).join(' ');
+          bgHexagons += `<polygon points="${points}" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+        });
+
+        // 축 선
+        let axisLines = '';
+        angles.forEach(angle => {
+          const x = centerX + Math.cos(angle) * maxRadius;
+          const y = centerY + Math.sin(angle) * maxRadius;
+          axisLines += `<line x1="${centerX}" y1="${centerY}" x2="${x}" y2="${y}" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>`;
+        });
+
+        // 데이터 다각형
+        const dataPoints = types.map((type, i) => {
+          const value = scores[type] / 100;
+          const x = centerX + Math.cos(angles[i]) * maxRadius * value;
+          const y = centerY + Math.sin(angles[i]) * maxRadius * value;
+          return `${x},${y}`;
+        }).join(' ');
+
+        // 데이터 포인트 (점)
+        let dataCircles = '';
+        types.forEach((type, i) => {
+          const value = scores[type] / 100;
+          const x = centerX + Math.cos(angles[i]) * maxRadius * value;
+          const y = centerY + Math.sin(angles[i]) * maxRadius * value;
+          dataCircles += `<circle cx="${x}" cy="${y}" r="5" fill="${TYPES[type].color}"/>`;
+        });
+
+        return `
+          <svg viewBox="0 0 320 320" class="radar-chart">
+            ${bgHexagons}
+            ${axisLines}
+            <polygon points="${dataPoints}" fill="rgba(79,209,197,0.3)" stroke="var(--accent)" stroke-width="2"/>
+            ${dataCircles}
+          </svg>
+        `;
+      }
+
+      // ===== 레이더 라벨 위치 계산 =====
+      function getRadarLabels(scores) {
+        const types = ['starter', 'attention', 'emotional', 'impulsive', 'environment', 'complex'];
+        const positions = [
+          { top: '5%', left: '50%' },      // 시작 장벽 (상단)
+          { top: '25%', left: '95%' },     // 주의 분산 (우상단)
+          { top: '75%', left: '95%' },     // 감정 소진 (우하단)
+          { top: '95%', left: '50%' },     // 충동 가속 (하단)
+          { top: '75%', left: '5%' },      // 환경 민감 (좌하단)
+          { top: '25%', left: '5%' },      // 변동성 복합 (좌상단)
+        ];
+
+        return types.map((type, i) => `
+          <div class="radar-label" style="top: ${positions[i].top}; left: ${positions[i].left};">
+            ${TYPES[type].name.replace('형', '')}
+            <span class="percent">${scores[type]}%</span>
+          </div>
+        `).join('');
+      }
+
+      // ===== 페이지 렌더링 =====
       function renderStartPage() {
         return `
-                <div class="card start-page fade-in">
-                    <span class="start-badge">3분 테스트</span>
-                    <h1>나의 ADHD 실행 패턴 분석</h1>
-                    <p class="description">
-                        이 테스트는 진단을 위한 검사가 아니라,<br>
-                        당신의 일상이 어디에서 가장 자주 무너지는지를 파악하기 위한 간단한 분류 도구입니다.
-                    </p>
-                    <button class="primary-btn" onclick="goToPage('profile')">
-                        내 패턴 분석 시작하기
-                    </button>
-                </div>
-            `;
+          <div class="card start-page fade-in">
+            <span class="start-badge">3분 테스트 | 복합 유형 분석</span>
+            <h1>나의 ADHD<br>실행 패턴 분석</h1>
+            <p class="description">
+              이 테스트는 진단이 아니라,<br>
+              당신의 일상이 어디에서 무너지는지<br>
+              6가지 유형으로 복합 분석합니다.
+            </p>
+
+            <div class="info-box">
+              <h3>6가지 실행 패턴 유형</h3>
+              <ul>
+                <li>시작 장벽형 - 시작이 어려운 유형</li>
+                <li>주의 분산형 - 집중 유지가 어려운 유형</li>
+                <li>감정 소진형 - 감정에 에너지 쓰는 유형</li>
+                <li>충동 가속형 - 브레이크가 약한 유형</li>
+                <li>환경 민감형 - 환경 영향 큰 유형</li>
+                <li>변동성 복합형 - 컨디션 편차 큰 유형</li>
+              </ul>
+            </div>
+
+            <button class="primary-btn" onclick="startTest()">
+              내 패턴 분석 시작하기
+            </button>
+          </div>
+        `;
       }
 
-      function renderQuestionPage(questionKey, step) {
-        const question = QUESTIONS[questionKey];
-        const selected = state.answers[questionKey];
+      function renderQuestionPage() {
+        const question = QUESTIONS[state.currentQuestion];
+        const totalQuestions = QUESTIONS.length;
+        const progress = ((state.currentQuestion + 1) / totalQuestions) * 100;
+        const selectedIndices = state.answers[question.id] || [];
 
         let optionsHtml = '';
         question.options.forEach((option, index) => {
-          const optionText = typeof option === 'object' ? option.text : option;
-          const optionValue = typeof option === 'object' ? option.type : index;
-          const isSelected = selected === optionValue;
+          const isChecked = selectedIndices.includes(index);
           optionsHtml += `
-                    <li class="option-item ${isSelected ? 'selected' : ''}"
-                        onclick="selectOption('${questionKey}', ${typeof option === 'object' ? `'${option.type}'` : index})">
-                        ${optionText}
-                    </li>
-                `;
+            <div class="checkbox-option ${isChecked ? 'checked' : ''}" onclick="toggleOption(${question.id}, ${index})">
+              <span class="checkbox-box">${isChecked ? '>' : ''}</span>
+              <span class="checkbox-label">${option.text}</span>
+            </div>
+          `;
         });
 
-        const nextPage = getNextPage(questionKey);
+        const canGoNext = selectedIndices.length > 0;
+        const isLastQuestion = state.currentQuestion === totalQuestions - 1;
 
         return `
-                <div class="progress-text">${step} / 6</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: ${(step / 6) * 100}%"></div>
-                </div>
-                ${step > 1 ? '<button class="back-button" onclick="goBack()">← 이전으로</button>' : ''}
-                <div class="card question-page fade-in">
-                    <h2>${question.title}</h2>
-                    <p class="question-hint">${question.hint}</p>
-                    <ul class="options-list">
-                        ${optionsHtml}
-                    </ul>
-                    <button class="primary-btn" onclick="goToPage('${nextPage}')" ${selected === null ? 'disabled' : ''}>
-                        다음
-                    </button>
-                </div>
-            `;
-      }
-
-      function renderTypeQuestionPage() {
-        const type = state.answers.core;
-        const question = TYPE_QUESTIONS[type] || TYPE_QUESTIONS.complex;
-
-        let optionsHtml = '';
-        question.options.forEach((option, index) => {
-          optionsHtml += `
-                    <li class="checkbox-option" id="checkbox-${index}" onclick="toggleCheckbox(${index})">
-                        <span class="checkbox-box" id="checkmark-${index}"></span>
-                        <span class="checkbox-label">${option}</span>
-                    </li>
-                `;
-        });
-
-        return `
-                <div class="progress-text">5 / 6</div>
-                <div class="progress-bar-container">
-                    <div class="progress-bar" style="width: ${(5 / 6) * 100}%"></div>
-                </div>
-                <button class="back-button" onclick="goBack()">← 이전으로</button>
-                <div class="card question-page fade-in">
-                    <h2>${question.title}</h2>
-                    <p class="question-hint">${question.hint}</p>
-                    <ul class="options-list" id="type-options">
-                        ${optionsHtml}
-                    </ul>
-                    <button class="primary-btn" onclick="goToPage('analyzing')">
-                        결과 보기
-                    </button>
-                </div>
-            `;
-      }
-
-      let checkedItems = [];
-      function toggleCheckbox(index) {
-        const checkbox = document.getElementById('checkbox-' + index);
-        const checkmark = document.getElementById('checkmark-' + index);
-
-        if (checkedItems.includes(index)) {
-          checkedItems = checkedItems.filter((i) => i !== index);
-          checkbox.classList.remove('checked');
-          checkmark.textContent = '';
-        } else if (checkedItems.length < 3) {
-          checkedItems.push(index);
-          checkbox.classList.add('checked');
-          checkmark.textContent = '✓';
-        }
+          <div class="progress-text">${state.currentQuestion + 1} / ${totalQuestions}</div>
+          <div class="progress-bar-container">
+            <div class="progress-bar" style="width: ${progress}%"></div>
+          </div>
+          ${state.currentQuestion > 0 ? '<button class="back-button" onclick="goBack()">< 이전</button>' : '<button class="back-button" onclick="goToStart()">< 처음으로</button>'}
+          <div class="card question-page fade-in">
+            <span class="question-number">Q${state.currentQuestion + 1}</span>
+            <h2>${question.text}</h2>
+            <p class="question-hint">${question.hint}</p>
+            <div class="options-list">${optionsHtml}</div>
+            <button class="primary-btn" onclick="${isLastQuestion ? 'goToAnalyzing()' : 'nextQuestion()'}" ${!canGoNext ? 'disabled' : ''}>
+              ${isLastQuestion ? '결과 보기' : '다음'}
+            </button>
+          </div>
+        `;
       }
 
       function renderAnalyzingPage() {
         setTimeout(() => {
-          state.resultType = state.answers.core || 'complex';
-          goToPage('result');
-        }, 2000);
+          state.scores = calculateScores();
+          state.currentPage = 'result';
+          render();
+        }, 2500);
 
         return `
-                <div class="card analyzing-page fade-in">
-                    <div class="analyzing-spinner"></div>
-                    <h2>당신의 답변을 바탕으로<br>현재 패턴을 정리하고 있어요</h2>
-                    <p>
-                        정답을 맞히는 테스트가 아니라,<br>
-                        어디에서 가장 자주 무너지고<br>
-                        무엇이 더 필요한지를 읽어보는 과정입니다.
-                    </p>
-                    <p class="analyzing-hint">
-                        당신이 게으른 게 아니라<br>
-                        방식이 맞지 않았을 수도 있어요
-                    </p>
-                </div>
-            `;
+          <div class="card analyzing-page fade-in">
+            <div class="analyzing-spinner"></div>
+            <h2>응답을 분석하고 있어요</h2>
+            <p>
+              6가지 유형을 복합 분석하여<br>
+              당신만의 실행 패턴을 정리하고 있습니다.
+            </p>
+          </div>
+        `;
       }
 
       function renderResultPage() {
-        const result = RESULTS[state.resultType] || RESULTS.complex;
+        const scores = state.scores;
 
-        // 유형별 맞춤 추천 도구 설정
-        const typeSpecificTools = {
-          starter: {
-            title: '미루기 대처 템플릿',
-            desc: '미루는 습관의 원인을 파악하고 즉시 실행할 수 있는 단계별 가이드',
-            link: 'payment.html?type=starter&price=5500',
-            youtube: 'https://www.youtube.com/shorts/mMJOI4In5Qo',
-          },
-          attention: {
-            title: '집중 분산 대처 템플릿',
-            desc: '흩어지는 주의력을 붙잡고 집중 흐름을 유지하는 실전 전략',
-            link: 'payment.html?type=attention&price=5500',
-            youtube: 'https://www.youtube.com/shorts/g4QWlwkK47g',
-          },
-          emotional: {
-            title: '감정 일기장 템플릿',
-            desc: '감정의 흔들림을 기록하고 회복 패턴을 찾는 실전 도구',
-            link: 'payment.html?type=emotional&price=5500',
-            youtube: 'https://www.youtube.com/@adhdflow-e3c',
-          },
-          impulsive: {
-            title: '충동 패턴 대응 자료 보기',
-            desc: '충동이 일어나는 원인과 해결방법을 정리한 자료',
-            link: 'payment.html?type=impulsive&price=5500',
-            youtube: 'https://www.youtube.com/shorts/VWdtG-LAEGc',
-          },
-          environment: {
-            title: '환경 설정 가이드',
-            desc: '나에게 맞는 최적의 실행 환경을 설계하는 실전 가이드',
-            link: 'payment.html?type=environment&price=5500',
-            youtube: 'https://www.youtube.com/shorts/W69IgoWQJlg',
-          },
-          complex: {
-            title: '컨디션 트래커 템플릿',
-            desc: '예측 불가능한 컨디션 변동을 읽고 조절하는 맞춤 전략',
-            link: 'payment.html?type=complex&price=5500',
-            youtube: 'https://www.youtube.com/shorts/EoPreV5N6go',
-          },
-        };
+        // 가장 높은 유형 찾기
+        const sortedTypes = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+        const primaryType = sortedTypes[0];
+        const secondaryType = sortedTypes[1];
+        const result = TYPE_RESULTS[primaryType];
 
-        const specificTool =
-          typeSpecificTools[state.resultType] || typeSpecificTools.complex;
+        // 레이더 차트
+        const radarChart = createRadarChart(scores);
+        const radarLabels = getRadarLabels(scores);
 
-        // 충동가속형의 경우 필수 도구를 밸런스 보드로 변경
-        const toolRecommendation =
-          (state.resultType === 'impulsive' || state.resultType === 'emotional')
-            ? {
-                type: 'tool',
-                badge: '필수 도구',
-                badgeClass: 'badge-tool',
-                title: '밸런스 보드',
-                desc: '중심잡기 운동은 전정감각을 자극해 전두엽의 억제 기능을 활성화시키며, 이는 충동 제어와 주의력 조절에 핵심적인 역할을 합니다.',
-                link: 'https://www.coupang.com/vp/products/1819294741?itemId=3096079705&vendorItemId=71083889644&pickType=COU_PICK&q=%EB%B2%A8%EB%9F%B0%EC%8A%A4%EB%B3%B4%EB%93%9C&searchId=9c1295021515326&sourceType=search&itemsCount=36&searchRank=1&rank=1&traceId=mnqzkw3a',
-              }
-            : {
-                type: 'tool',
-                badge: '6월 런칭 임박',
-                badgeClass: 'badge-tool',
-                title: 'ADHD 맞춤형 포스트잇',
-                desc: '판매 준비중 - 사전예약 가능',
-                link: 'payment.html?type=postit&price=20000',
-              };
-
-        const recommendations = [
-          {
-            type: 'free',
-            badge: '맞춤 추천',
-            badgeClass: 'badge-free',
-            title: specificTool.title,
-            desc: specificTool.desc,
-            link: `payment.html?type=${state.resultType}&price=5500`,
-          },
-          toolRecommendation,
-          {
-            type: 'advanced',
-            badge: '심화 지원',
-            badgeClass: 'badge-advanced',
-            title: '1:1 상담 커리큘럼',
-            desc: '나에게 맞는 맞춤 전략 설계',
-            link: 'coaching.html',
-          },
-          {
-            type: 'community',
-            badge: '함께하기',
-            badgeClass: 'badge-free',
-            title: '모두가 함께하는 실행력강화 ADHD 모임',
-            desc: '같은 고민을 나누고 함께 성장하는 커뮤니티',
-            link: 'https://open.kakao.com/o/gOW56u7h',
-          },
-        ];
-
-        // 결과 유형에 따라 추천 순서 조정
-        const sortedRecs = [...recommendations].sort((a, b) => {
-          if (a.type === result.primaryRec) return -1;
-          if (b.type === result.primaryRec) return 1;
-          return 0;
+        // 점수 바
+        let scoreBarsHtml = '';
+        sortedTypes.forEach(type => {
+          scoreBarsHtml += `
+            <div class="score-item">
+              <div class="score-header">
+                <span class="score-name">${TYPES[type].name}</span>
+                <span class="score-value">${scores[type]}%</span>
+              </div>
+              <div class="score-bar-bg">
+                <div class="score-bar-fill ${type}" style="width: ${scores[type]}%"></div>
+              </div>
+            </div>
+          `;
         });
 
-        let recsHtml = '';
-        sortedRecs.forEach((rec) => {
-          recsHtml += `
-                    <a href="${rec.link}" class="recommendation-item" target="_blank" rel="noopener noreferrer">
-                        <span class="recommendation-badge ${rec.badgeClass}">${rec.badge}</span>
-                        <h4>${rec.title}</h4>
-                        <p>${rec.desc}</p>
-                        <span class="rec-btn">바로가기 →</span>
-                    </a>
-                `;
+        // 필요한 것 리스트
+        let needsHtml = '';
+        result.needs.forEach(need => {
+          needsHtml += `<li>${need}</li>`;
         });
 
         return `
-                <div class="card result-page fade-in">
-                    <span class="result-type-badge">분석 결과</span>
-                    <h1>${result.title}</h1>
-                    <div class="result-summary">${result.summary}</div>
+          <div class="card result-page fade-in">
+            <h1>당신의 실행 패턴 분석 결과</h1>
+            <p class="result-subtitle">6가지 유형 복합 분석</p>
 
-                    <div class="result-section">
-                        <h3>왜 이런 패턴이 생기는가</h3>
-                        <p>${result.description}</p>
-                    </div>
+            <div class="radar-container">
+              ${radarChart}
+              <div class="radar-labels">
+                ${radarLabels}
+              </div>
+            </div>
 
-                    <div class="result-highlight">
-                        <h4>지금 가장 먼저 필요한 것</h4>
-                        <p>${result.need}</p>
-                    </div>
+            <div class="score-bars">
+              ${scoreBarsHtml}
+            </div>
 
-                    <div class="recommendations">
-                        <h3>지금 당신에게 더 잘 맞을 수 있는 도움</h3>
-                        ${recsHtml}
-                    </div>
+            <div class="primary-type-card">
+              <span class="primary-type-badge">주요 유형</span>
+              <h2>${result.title}</h2>
+              <p>${result.summary}</p>
+            </div>
 
-                    <div class="cta-group">
-                        <a href="payment.html?type=${state.resultType}&price=5500" class="primary-btn">
-                            ${result.cta} <span style="font-size: 12px;"><span style="background: #ff6b6b; color: white; padding: 2px 6px; border-radius: 4px; margin-right: 6px;">4월 한정</span><span style="text-decoration: line-through; opacity: 0.6;">10,000원</span> → <span style="color: #ffeb3b; font-weight: 700;">5,500원</span></span>
-                        </a>
-                        <a href="${specificTool.youtube}" class="secondary-btn" target="_blank" rel="noopener noreferrer" style="display:flex; align-items:center; justify-content:center; gap:8px;">
-                            <img src="상담 파일/u-tube.png" style="width:32px; height:32px; border-radius:4px;">
-                            유튜브에서 더 많은 팁 보기
-                        </a>
-                    </div>
+            <div class="analysis-section">
+              <h3>왜 이런 패턴이 생기나요?</h3>
+              <p>${result.description}</p>
+            </div>
 
-                    <div class="footer-note">
-                        이 결과는 당신을 고정된 사람으로 규정하기 위한 것이 아니라,<br>
-                        지금 어떤 방식이 더 필요할지 찾기 위한 출발점입니다.
-                    </div>
-                </div>
-            `;
+            <div class="analysis-section">
+              <h3>지금 가장 필요한 것</h3>
+              <ul>${needsHtml}</ul>
+            </div>
+
+            ${scores[secondaryType] >= 30 ? `
+            <div class="analysis-section">
+              <h3>함께 나타나는 유형</h3>
+              <p><strong>${TYPES[secondaryType].name}</strong> (${scores[secondaryType]}%) - ${TYPES[secondaryType].description}</p>
+            </div>
+            ` : ''}
+
+            <div class="analysis-section" style="background: rgba(79,209,197,0.1); border: 1px solid rgba(79,209,197,0.3);">
+              <h3 style="color: var(--accent);">맞춤 자료 받기</h3>
+              <p>
+                <strong>${result.resource}</strong>가 필요하시다면<br>
+                카카오톡으로 "테스트 결과: ${result.title}" 라고 말씀해주세요.<br>
+                맞춤 자료를 무료로 보내드려요.
+              </p>
+            </div>
+
+            <div class="cta-group">
+              <a href="${KAKAO_LINK}" class="kakao-btn" target="_blank" rel="noopener noreferrer">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="#1a1a1a">
+                  <path d="M12 3C6.48 3 2 6.58 2 11c0 2.83 1.89 5.32 4.72 6.73-.2.74-.72 2.68-.83 3.09-.13.52.19.51.41.37.17-.11 2.71-1.84 3.82-2.59.6.09 1.22.13 1.88.13 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
+                </svg>
+                카카오톡으로 자료 받기
+              </a>
+              <a href="${KAKAO_LINK}" class="secondary-btn" target="_blank" rel="noopener noreferrer">
+                1:1 무료 상담도 가능해요
+              </a>
+            </div>
+
+            <div class="share-section">
+              <p class="share-label">친구에게 공유하기</p>
+              <div class="share-buttons">
+                <button class="share-btn kakao" onclick="shareResult('kakao')">
+                  <span class="share-icon">💬</span>
+                  <span>카카오톡 공유</span>
+                </button>
+                <button class="share-btn link" onclick="shareResult('link')">
+                  <span class="share-icon">🔗</span>
+                  <span>링크 복사</span>
+                </button>
+                <button class="share-btn twitter" onclick="shareResult('twitter')">
+                  <span class="share-icon">𝕏</span>
+                  <span>트위터</span>
+                </button>
+              </div>
+              <p class="share-hint" id="shareHint"></p>
+            </div>
+
+            <div class="social-links">
+              <p>더 많은 ADHD 팁 보기</p>
+              <div class="social-buttons">
+                <a href="https://www.youtube.com/@adhdflow-e3c" class="social-btn youtube" target="_blank" rel="noopener noreferrer">
+                  <span>YouTube</span>
+                </a>
+                <a href="https://www.instagram.com/floca_for_adhd/" class="social-btn instagram" target="_blank" rel="noopener noreferrer">
+                  <span>Instagram</span>
+                </a>
+                <a href="https://blog.naver.com/msh4688" class="social-btn blog" target="_blank" rel="noopener noreferrer">
+                  <span>Blog</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="footer-note">
+              이 결과는 당신을 규정하기 위한 것이 아니라,<br>
+              어떤 방식이 더 필요할지 찾기 위한 출발점입니다.
+            </div>
+          </div>
+        `;
       }
 
-      // ===== 헬퍼 함수 =====
-      function getNextPage(currentPage) {
-        const flow = {
-          profile: 'knowledge',
-          knowledge: 'struggle',
-          struggle: 'core',
-          core: 'type',
-        };
-        return flow[currentPage] || 'start';
+      // ===== 공유 기능 =====
+      function shareResult(type) {
+        const scores = state.scores;
+        const sortedTypes = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+        const primaryType = sortedTypes[0];
+        const secondaryType = sortedTypes[1];
+        const result = TYPE_RESULTS[primaryType];
+
+        const shareUrl = window.location.href.split('?')[0];
+        const hintEl = document.getElementById('shareHint');
+
+        // 카카오톡용 공유 텍스트 (이모지 포함, 보기 좋게)
+        const kakaoText = `✨ 나의 ADHD 실행 패턴 분석 결과 ✨
+
+🏆 주요 유형: ${result.title} (${scores[primaryType]}%)
+${scores[secondaryType] >= 30 ? `🥈 보조 유형: ${TYPE_RESULTS[secondaryType].title} (${scores[secondaryType]}%)` : ''}
+
+📌 "${result.summary}"
+
+🔗 나도 테스트 해보기
+${shareUrl}`;
+
+        const twitterText = `나의 ADHD 실행 패턴은 "${result.title}"!\n\n${result.summary}\n\n나도 테스트 해보기 👇`;
+
+        if (type === 'kakao') {
+          navigator.clipboard.writeText(kakaoText).then(() => {
+            hintEl.innerHTML = '✅ 복사 완료! <strong>카카오톡에 붙여넣기</strong> 해주세요';
+            setTimeout(() => { hintEl.textContent = ''; }, 4000);
+          }).catch(() => {
+            // 클립보드 실패 시 직접 표시
+            prompt('아래 텍스트를 복사해서 카카오톡에 붙여넣기 해주세요:', kakaoText);
+          });
+        }
+        else if (type === 'link') {
+          navigator.clipboard.writeText(shareUrl).then(() => {
+            hintEl.textContent = '✅ 링크가 복사되었어요!';
+            setTimeout(() => { hintEl.textContent = ''; }, 3000);
+          }).catch(() => {
+            hintEl.textContent = '링크: ' + shareUrl;
+          });
+        }
+        else if (type === 'twitter') {
+          const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(shareUrl)}`;
+          window.open(twitterUrl, '_blank', 'width=550,height=420');
+        }
       }
 
-      function getStep(page) {
-        const steps = {
-          profile: 1,
-          knowledge: 2,
-          struggle: 3,
-          core: 4,
-        };
-        return steps[page] || 1;
-      }
-
-      // ===== 네비게이션 =====
-      function goToPage(page) {
-        state.history.push(state.currentPage);
-        state.currentPage = page;
-        checkedItems = [];
+      // ===== 이벤트 핸들러 =====
+      function startTest() {
+        state.currentQuestion = 0;
+        state.answers = {};
+        state.scores = { starter: 0, attention: 0, emotional: 0, impulsive: 0, environment: 0, complex: 0 };
+        state.history = ['start'];
+        state.currentPage = 'question';
         render();
       }
 
-      function goBack() {
-        if (state.history.length > 0) {
-          state.currentPage = state.history.pop();
+      function toggleOption(questionId, optionIndex) {
+        if (!state.answers[questionId]) {
+          state.answers[questionId] = [];
+        }
+
+        const idx = state.answers[questionId].indexOf(optionIndex);
+        if (idx > -1) {
+          state.answers[questionId].splice(idx, 1);
+        } else {
+          state.answers[questionId].push(optionIndex);
+        }
+        render();
+      }
+
+      function nextQuestion() {
+        if (state.currentQuestion < QUESTIONS.length - 1) {
+          state.history.push('question');
+          state.currentQuestion++;
           render();
         }
       }
 
-      function selectOption(questionKey, value) {
-        state.answers[questionKey] = value;
+      function goBack() {
+        if (state.currentQuestion > 0) {
+          state.currentQuestion--;
+          render();
+        }
+      }
+
+      function goToStart() {
+        state.currentPage = 'start';
+        state.currentQuestion = 0;
+        state.answers = {};
+        state.history = [];
+        render();
+      }
+
+      function goToAnalyzing() {
+        state.currentPage = 'analyzing';
         render();
       }
 
@@ -1126,17 +1379,8 @@
           case 'start':
             html = renderStartPage();
             break;
-          case 'profile':
-          case 'knowledge':
-          case 'struggle':
-          case 'core':
-            html = renderQuestionPage(
-              state.currentPage,
-              getStep(state.currentPage),
-            );
-            break;
-          case 'type':
-            html = renderTypeQuestionPage();
+          case 'question':
+            html = renderQuestionPage();
             break;
           case 'analyzing':
             html = renderAnalyzingPage();
@@ -1149,6 +1393,7 @@
         }
 
         app.innerHTML = html;
+        window.scrollTo(0, 0);
       }
 
       // ===== 초기화 =====

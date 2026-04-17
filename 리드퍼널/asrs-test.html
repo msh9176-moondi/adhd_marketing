@@ -1,1232 +1,1081 @@
 <!doctype html>
 <html lang="ko">
-  <head>
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>성인 ADHD 자가진단 체크리스트 | ASRS 기반</title>
-    <meta
-      name="description"
-      content="WHO ASRS 기반 성인 ADHD 자가진단 체크리스트. ADHD 가능성을 간단히 확인해보세요."
-    />
+    <title>성인 ADHD 자가진단 | FLOCA</title>
+    <meta name="description" content="WHO ASRS 기반 성인 ADHD 자가진단 체크리스트. ADHD 가능성을 간단히 확인해보세요." />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="성인 ADHD 자가진단 | WHO ASRS 기반" />
+    <meta property="og:description" content="혹시 나도 ADHD일까? WHO에서 개발한 ASRS 기반으로 간단히 확인해보세요." />
+    <meta property="og:image" content="PDF사진.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="성인 ADHD 자가진단 | WHO ASRS 기반" />
+    <meta name="twitter:description" content="혹시 나도 ADHD일까? 간단히 확인해보세요." />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
 
     <style>
-      /* ===== 기본 리셋 및 변수 ===== */
-      :root {
-        --primary-color: #2a7b9b;
-        --primary-hover: #1e6a87;
-        --primary-light: #e8f4f8;
-        --text-dark: #1a1a2e;
-        --text-medium: #4a4a5a;
-        --text-light: #6b6b7b;
-        --bg-white: #ffffff;
-        --bg-light: #f8fafb;
-        --border-color: #e0e6ea;
-        --success-color: #2e8b57;
-        --success-bg: #e8f5ee;
-        --warning-color: #e67e22;
-        --warning-bg: #fff3e0;
-        --danger-color: #e74c3c;
-        --danger-bg: #fce8e6;
-        --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-        --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
-        --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.1);
-        --radius-sm: 8px;
-        --radius-md: 12px;
-        --radius-lg: 16px;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      body {
-        font-family:
-          'Noto Sans KR',
-          -apple-system,
-          BlinkMacSystemFont,
-          sans-serif;
-        line-height: 1.7;
-        color: var(--text-dark);
-        background-color: var(--bg-light);
-        min-height: 100vh;
-      }
-
-      /* ===== 레이아웃 ===== */
-      .survey-container {
-        max-width: 640px;
-        margin: 0 auto;
-        padding: 20px;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* ===== 진행률 바 ===== */
-      .progress-bar-container {
-        background: var(--border-color);
-        border-radius: 10px;
-        height: 8px;
-        margin-bottom: 24px;
-        overflow: hidden;
-      }
-
-      .progress-bar {
-        background: linear-gradient(90deg, var(--primary-color), #3498db);
-        height: 100%;
-        border-radius: 10px;
-        transition: width 0.4s ease;
-      }
-
-      .progress-text {
-        text-align: center;
-        font-size: 13px;
-        color: var(--text-light);
-        margin-bottom: 16px;
-      }
-
-      /* ===== 뒤로가기 버튼 ===== */
-      .back-button {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        background: none;
-        border: none;
-        color: var(--text-light);
-        font-size: 14px;
-        cursor: pointer;
-        padding: 8px 0;
-        margin-bottom: 16px;
-        transition: color 0.2s;
-        font-family: inherit;
-      }
-
-      .back-button:hover {
-        color: var(--primary-color);
-      }
-
-      /* ===== 카드 ===== */
-      .card {
-        background: var(--bg-white);
-        border-radius: var(--radius-lg);
-        padding: 32px 24px;
-        box-shadow: var(--shadow-md);
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-      }
-
-      /* ===== 시작 페이지 ===== */
-      .start-page {
-        text-align: center;
-        justify-content: center;
-      }
-
-      .start-page h1 {
-        font-size: 26px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 20px;
-        word-break: keep-all;
-      }
-
-      .start-page .description {
-        font-size: 15px;
-        color: var(--text-medium);
-        line-height: 1.8;
-        margin-bottom: 24px;
-        word-break: keep-all;
-      }
-
-      .start-badge {
-        display: inline-block;
-        background: var(--primary-light);
-        color: var(--primary-color);
-        font-size: 13px;
-        font-weight: 500;
-        padding: 6px 14px;
-        border-radius: 20px;
-        margin-bottom: 20px;
-      }
-
-      .info-box {
-        background: var(--bg-light);
-        border-radius: var(--radius-md);
-        padding: 20px;
-        margin-bottom: 24px;
-        text-align: left;
-      }
-
-      .info-box h3 {
-        font-size: 14px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .info-box ul {
-        list-style: none;
-        font-size: 14px;
-        color: var(--text-medium);
-      }
-
-      .info-box li {
-        padding: 4px 0;
-        padding-left: 20px;
-        position: relative;
-      }
-
-      .info-box li::before {
-        content: '✓';
-        position: absolute;
-        left: 0;
-        color: var(--primary-color);
-      }
-
-      /* ===== 질문 페이지 ===== */
-      .question-page h2 {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-        word-break: keep-all;
-        line-height: 1.5;
-      }
-
-      .question-number {
-        display: inline-block;
-        background: var(--primary-color);
-        color: white;
-        font-size: 12px;
-        font-weight: 700;
-        padding: 4px 10px;
-        border-radius: 12px;
-        margin-bottom: 12px;
-      }
-
-      .question-hint {
-        font-size: 14px;
-        color: var(--text-light);
-        margin-bottom: 24px;
-      }
-
-      /* ===== 리커트 척도 선택지 ===== */
-      .likert-scale {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 24px;
-      }
-
-      .likert-option {
-        display: flex;
-        align-items: center;
-        background: var(--bg-light);
-        border: 2px solid var(--border-color);
-        border-radius: var(--radius-md);
-        padding: 14px 16px;
-        cursor: pointer;
-        transition: all 0.2s;
-        font-size: 15px;
-        color: var(--text-medium);
-      }
-
-      .likert-option:hover {
-        border-color: var(--primary-color);
-        background: var(--primary-light);
-      }
-
-      .likert-option.selected {
-        border-color: var(--primary-color);
-        background: var(--primary-light);
-        color: var(--primary-color);
-        font-weight: 500;
-      }
-
-      .likert-radio {
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--border-color);
-        border-radius: 50%;
-        margin-right: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        transition: all 0.2s;
-      }
-
-      .likert-option.selected .likert-radio {
-        border-color: var(--primary-color);
-        background: var(--primary-color);
-      }
-
-      .likert-option.selected .likert-radio::after {
-        content: '';
-        width: 8px;
-        height: 8px;
-        background: white;
-        border-radius: 50%;
-      }
-
-      .likert-label {
-        flex: 1;
-      }
-
-      .likert-score {
-        font-size: 12px;
-        color: var(--text-light);
-        margin-left: 8px;
-      }
-
-      /* ===== 버튼 ===== */
-      .primary-btn {
-        width: 100%;
-        padding: 16px 24px;
-        font-size: 17px;
-        font-weight: 700;
-        color: var(--bg-white);
-        background: var(--primary-color);
-        border: none;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        transition:
-          background 0.2s,
-          transform 0.1s;
-        margin-top: auto;
-        font-family: inherit;
-        text-decoration: none;
-        display: block;
-        text-align: center;
-      }
-
-      .primary-btn:hover:not(:disabled) {
-        background: var(--primary-hover);
-      }
-
-      .primary-btn:active:not(:disabled) {
-        transform: scale(0.98);
-      }
-
-      .primary-btn:disabled {
-        background: var(--border-color);
-        cursor: not-allowed;
-      }
-
-      .secondary-btn {
-        width: 100%;
-        padding: 14px 20px;
-        font-size: 15px;
-        font-weight: 500;
-        color: var(--primary-color);
-        background: var(--primary-light);
-        border: 2px solid transparent;
-        border-radius: var(--radius-sm);
-        cursor: pointer;
-        transition: all 0.2s;
-        text-decoration: none;
-        text-align: center;
-        display: block;
-        font-family: inherit;
-      }
-
-      .secondary-btn:hover {
-        border-color: var(--primary-color);
-      }
-
-      /* ===== 분석 중 페이지 ===== */
-      .analyzing-page {
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .analyzing-spinner {
-        width: 60px;
-        height: 60px;
-        border: 4px solid var(--border-color);
-        border-top-color: var(--primary-color);
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 24px;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
+        :root {
+            --primary: #2a7b9b;
+            --accent: #4fd1c5;
+            --dark: #0f0f1a;
+            --dark-light: #1a1a2e;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --text-subtle: rgba(255,255,255,0.5);
+            --success: #2e8b57;
+            --warning: #e67e22;
+            --danger: #e74c3c;
         }
-      }
 
-      .analyzing-page h2 {
-        font-size: 20px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 16px;
-        word-break: keep-all;
-      }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-      .analyzing-page p {
-        font-size: 15px;
-        color: var(--text-medium);
-        line-height: 1.8;
-        word-break: keep-all;
-      }
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--dark);
+            min-height: 100vh;
+        }
 
-      /* ===== 결과 페이지 ===== */
-      .result-page {
-        padding-bottom: 40px;
-      }
-
-      .result-level-badge {
-        display: inline-block;
-        font-size: 14px;
-        font-weight: 700;
-        padding: 8px 16px;
-        border-radius: 20px;
-        margin-bottom: 16px;
-      }
-
-      .level-low {
-        background: var(--success-bg);
-        color: var(--success-color);
-      }
-
-      .level-medium {
-        background: var(--warning-bg);
-        color: var(--warning-color);
-      }
-
-      .level-high {
-        background: var(--danger-bg);
-        color: var(--danger-color);
-      }
-
-      .result-page h1 {
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-        word-break: keep-all;
-      }
-
-      .result-summary {
-        font-size: 16px;
-        color: var(--primary-color);
-        font-weight: 500;
-        margin-bottom: 24px;
-        padding: 16px;
-        background: var(--primary-light);
-        border-radius: var(--radius-md);
-        word-break: keep-all;
-        line-height: 1.7;
-      }
-
-      .score-display {
-        text-align: center;
-        padding: 24px;
-        background: var(--bg-light);
-        border-radius: var(--radius-lg);
-        margin-bottom: 24px;
-      }
-
-      .score-number {
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--primary-color);
-      }
-
-      .score-max {
-        font-size: 20px;
-        color: var(--text-light);
-      }
-
-      .score-label {
-        font-size: 14px;
-        color: var(--text-medium);
-        margin-top: 8px;
-      }
-
-      .result-section {
-        margin-bottom: 24px;
-      }
-
-      .result-section h3 {
-        font-size: 16px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .result-section h3::before {
-        content: '';
-        width: 4px;
-        height: 18px;
-        background: var(--primary-color);
-        border-radius: 2px;
-      }
-
-      .result-section p {
-        font-size: 15px;
-        color: var(--text-medium);
-        line-height: 1.8;
-        word-break: keep-all;
-      }
-
-      .result-section ul {
-        list-style: none;
-        margin-top: 12px;
-      }
-
-      .result-section li {
-        padding: 8px 0;
-        padding-left: 24px;
-        position: relative;
-        font-size: 15px;
-        color: var(--text-medium);
-      }
-
-      .result-section li::before {
-        content: '•';
-        position: absolute;
-        left: 8px;
-        color: var(--primary-color);
-        font-weight: 700;
-      }
-
-      .warning-box {
-        background: var(--warning-bg);
-        border-left: 4px solid var(--warning-color);
-        padding: 16px;
-        border-radius: 0 var(--radius-md) var(--radius-md) 0;
-        margin-bottom: 24px;
-      }
-
-      .warning-box h4 {
-        font-size: 15px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 8px;
-      }
-
-      .warning-box p {
-        font-size: 14px;
-        color: var(--text-medium);
-        line-height: 1.7;
-      }
-
-      /* ===== 추천 섹션 ===== */
-      .recommendations {
-        background: var(--bg-light);
-        border-radius: var(--radius-lg);
-        padding: 24px;
-        margin-bottom: 24px;
-      }
-
-      .recommendations h3 {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--text-dark);
-        margin-bottom: 16px;
-        text-align: center;
-      }
-
-      .recommendation-item {
-        background: var(--bg-white);
-        border-radius: var(--radius-md);
-        padding: 16px;
-        margin-bottom: 12px;
-        border: 1px solid var(--border-color);
-        text-decoration: none;
-        display: block;
-        transition: border-color 0.2s;
-      }
-
-      .recommendation-item:hover {
-        border-color: var(--primary-color);
-      }
-
-      .recommendation-item:last-child {
-        margin-bottom: 0;
-      }
-
-      .recommendation-badge {
-        display: inline-block;
-        font-size: 11px;
-        font-weight: 700;
-        padding: 3px 8px;
-        border-radius: 4px;
-        margin-bottom: 8px;
-      }
-
-      .badge-free {
-        background: var(--success-bg);
-        color: var(--success-color);
-      }
-
-      .badge-test {
-        background: var(--primary-light);
-        color: var(--primary-color);
-      }
-
-      .badge-consult {
-        background: #fff3e0;
-        color: var(--warning-color);
-      }
-
-      .recommendation-item h4 {
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 4px;
-      }
-
-      .recommendation-item p {
-        font-size: 13px;
-        color: var(--text-light);
-      }
-
-      .rec-btn {
-        display: inline-block;
-        margin-top: 12px;
-        padding: 8px 16px;
-        background: var(--primary-color);
-        color: white;
-        font-size: 13px;
-        font-weight: 600;
-        border-radius: 6px;
-        transition: background 0.2s;
-      }
-
-      .recommendation-item:hover .rec-btn {
-        background: var(--primary-hover);
-      }
-
-      /* ===== CTA 버튼 그룹 ===== */
-      .cta-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 32px;
-      }
-
-      /* ===== 하단 문구 ===== */
-      .footer-note {
-        text-align: center;
-        font-size: 14px;
-        color: var(--text-light);
-        line-height: 1.7;
-        padding: 20px;
-        background: var(--bg-light);
-        border-radius: var(--radius-md);
-        word-break: keep-all;
-      }
-
-      .disclaimer {
-        margin-top: 24px;
-        padding: 16px;
-        background: var(--bg-light);
-        border-radius: var(--radius-md);
-        font-size: 13px;
-        color: var(--text-light);
-        line-height: 1.7;
-      }
-
-      /* ===== 반응형 ===== */
-      @media (min-width: 768px) {
         .survey-container {
-          padding: 40px 20px;
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
+        /* ===== 진행률 바 ===== */
+        .progress-bar-container {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            height: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.4s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-subtle);
+            margin-bottom: 16px;
+        }
+
+        /* ===== 뒤로가기 버튼 ===== */
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: none;
+            border: none;
+            color: var(--text-subtle);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 8px 0;
+            margin-bottom: 16px;
+            transition: color 0.2s;
+            font-family: inherit;
+        }
+
+        .back-button:hover {
+            color: var(--accent);
+        }
+
+        /* ===== 카드 ===== */
         .card {
-          padding: 40px 32px;
+            background: var(--dark-light);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 36px 28px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== 시작 페이지 ===== */
+        .start-page {
+            text-align: center;
+            justify-content: center;
         }
 
         .start-page h1 {
-          font-size: 32px;
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            word-break: keep-all;
         }
 
+        .start-page .description {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .start-badge {
+            display: inline-block;
+            background: rgba(79,209,197,0.15);
+            border: 1px solid rgba(79,209,197,0.3);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 18px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-box {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box ul {
+            list-style: none;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .info-box li {
+            padding: 6px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .info-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* ===== 질문 페이지 ===== */
         .question-page h2 {
-          font-size: 20px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            word-break: keep-all;
+            line-height: 1.6;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 5px 12px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .question-hint {
+            font-size: 14px;
+            color: var(--text-subtle);
+            margin-bottom: 28px;
+        }
+
+        /* ===== 리커트 척도 ===== */
+        .likert-scale {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .likert-option {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.03);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .likert-option:hover {
+            border-color: var(--accent);
+            background: rgba(79,209,197,0.1);
+        }
+
+        .likert-option.selected {
+            border-color: var(--accent);
+            background: rgba(79,209,197,0.15);
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .likert-radio {
+            width: 22px;
+            height: 22px;
+            border: 2px solid rgba(255,255,255,0.2);
+            border-radius: 50%;
+            margin-right: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .likert-option.selected .likert-radio {
+            border-color: var(--accent);
+            background: var(--accent);
+        }
+
+        .likert-option.selected .likert-radio::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--dark);
+            border-radius: 50%;
+        }
+
+        .likert-label {
+            flex: 1;
+        }
+
+        /* ===== 버튼 ===== */
+        .primary-btn {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--dark);
+            background: var(--accent);
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: auto;
+            font-family: inherit;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(79,209,197,0.3);
+        }
+
+        .primary-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(79,209,197,0.4);
+        }
+
+        .primary-btn:active:not(:disabled) {
+            transform: scale(0.98);
+        }
+
+        .primary-btn:disabled {
+            background: rgba(255,255,255,0.1);
+            color: var(--text-subtle);
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .secondary-btn {
+            width: 100%;
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(79,209,197,0.1);
+            border: 1px solid rgba(79,209,197,0.3);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+            font-family: inherit;
+        }
+
+        .secondary-btn:hover {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        /* ===== 분석 중 페이지 ===== */
+        .analyzing-page {
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .analyzing-spinner {
+            width: 64px;
+            height: 64px;
+            border: 4px solid rgba(255,255,255,0.1);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 28px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .analyzing-page h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .analyzing-page p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        /* ===== 결과 페이지 ===== */
+        .result-page {
+            padding-bottom: 40px;
+        }
+
+        .result-level-badge {
+            display: inline-block;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 24px;
+            margin-bottom: 20px;
+        }
+
+        .level-low {
+            background: rgba(46,139,87,0.2);
+            color: #4ade80;
+        }
+
+        .level-medium {
+            background: rgba(230,126,34,0.2);
+            color: #fb923c;
+        }
+
+        .level-high {
+            background: rgba(231,76,60,0.2);
+            color: #f87171;
         }
 
         .result-page h1 {
-          font-size: 28px;
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            word-break: keep-all;
         }
-      }
 
-      /* ===== 애니메이션 ===== */
-      .fade-in {
-        animation: fadeIn 0.3s ease;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
+        .result-summary {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            padding: 20px;
+            background: rgba(79,209,197,0.1);
+            border: 1px solid rgba(79,209,197,0.2);
+            border-radius: 16px;
+            line-height: 1.8;
         }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
 
-      .hidden {
-        display: none !important;
-      }
+        .score-display {
+            text-align: center;
+            padding: 28px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            margin-bottom: 28px;
+        }
+
+        .score-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .score-max {
+            font-size: 22px;
+            color: var(--text-subtle);
+        }
+
+        .score-label {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .result-section {
+            margin-bottom: 28px;
+        }
+
+        .result-section h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .result-section h3::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .result-section p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .result-section ul {
+            list-style: none;
+            margin-top: 12px;
+        }
+
+        .result-section li {
+            padding: 10px 0;
+            padding-left: 28px;
+            position: relative;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .result-section li::before {
+            content: '•';
+            position: absolute;
+            left: 10px;
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .warning-box {
+            background: rgba(230,126,34,0.1);
+            border-left: 4px solid var(--warning);
+            padding: 20px;
+            border-radius: 0 16px 16px 0;
+            margin-bottom: 28px;
+        }
+
+        .warning-box h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* ===== PDF CTA ===== */
+        .pdf-cta-card {
+            display: block;
+            text-decoration: none;
+            background: linear-gradient(135deg, rgba(79,209,197,0.25) 0%, rgba(42,123,155,0.35) 50%, rgba(79,209,197,0.25) 100%);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 36px 28px;
+            margin: 32px 0;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+            box-shadow: 0 0 30px rgba(79,209,197,0.3), inset 0 0 60px rgba(79,209,197,0.1);
+            animation: ctaGlow 2s ease-in-out infinite;
+        }
+
+        .pdf-cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255,255,255,0.1) 50%,
+                transparent 70%
+            );
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes ctaGlow {
+            0%, 100% { box-shadow: 0 0 30px rgba(79,209,197,0.3), inset 0 0 60px rgba(79,209,197,0.1); }
+            50% { box-shadow: 0 0 50px rgba(79,209,197,0.5), inset 0 0 80px rgba(79,209,197,0.15); }
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            50%, 100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        .pdf-cta-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 20px 60px rgba(79,209,197,0.4);
+            border-color: #fff;
+        }
+
+        .pdf-cta-card .label {
+            display: inline-block;
+            font-size: 11px;
+            color: var(--dark);
+            background: var(--accent);
+            letter-spacing: 2px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            animation: labelPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes labelPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pdf-cta-card h3 {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .pdf-cta-card .desc {
+            font-size: 15px;
+            color: var(--accent);
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .pdf-cta-card .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 16px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 8px 24px rgba(79,209,197,0.4);
+            transition: all 0.3s;
+        }
+
+        .pdf-cta-card:hover .btn {
+            background: #fff;
+            transform: scale(1.05);
+        }
+
+        /* ===== Survey CTA ===== */
+        .survey-cta-card {
+            display: block;
+            text-decoration: none;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            transition: all 0.3s;
+        }
+
+        .survey-cta-card:hover {
+            background: rgba(255,255,255,0.08);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .survey-cta-card .survey-label {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .survey-cta-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .survey-cta-card .survey-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .survey-cta-card .survey-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        /* ===== Coaching CTA ===== */
+        .coaching-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            padding: 16px 20px;
+            background: #fee500;
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .coaching-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(254,229,0,0.3);
+        }
+
+        .coaching-btn .coaching-icon {
+            font-size: 18px;
+        }
+
+        /* ===== CTA 그룹 ===== */
+        .cta-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        /* ===== 하단 문구 ===== */
+        .footer-note {
+            text-align: center;
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            padding: 24px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+        }
+
+        .disclaimer {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            font-size: 13px;
+            color: var(--text-subtle);
+            line-height: 1.8;
+        }
+
+        /* ===== 반응형 ===== */
+        @media (min-width: 768px) {
+            .survey-container {
+                padding: 40px 20px;
+            }
+
+            .card {
+                padding: 48px 40px;
+            }
+
+            .start-page h1 {
+                font-size: 34px;
+            }
+
+            .question-page h2 {
+                font-size: 20px;
+            }
+
+            .result-page h1 {
+                font-size: 30px;
+            }
+        }
+
+        /* ===== 애니메이션 ===== */
+        .fade-in {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="app" class="survey-container"></div>
 
     <script>
-      // ===== ASRS 기반 질문 데이터 =====
-      // WHO ASRS-v1.1 Part A (6문항) 기반 - 선별검사용
-      const QUESTIONS = [
-        {
-          id: 1,
-          text: '어떤 일의 가장 어려운 부분은 끝냈는데, 마무리를 짓지 못해서 일을 완성하지 못한 적이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 2,
-          text: '체계적으로 해야 하는 일을 할 때, 순서대로 진행하는 것이 얼마나 자주 어렵습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 3,
-          text: '약속이나 할 일을 잊어버리는 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 4,
-          text: '생각을 많이 해야 하는 일을 피하거나 미루는 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 5,
-          text: '오래 앉아 있어야 할 때, 손을 만지작거리거나 발을 꼼지락거리는 것이 얼마나 자주 있습니까?',
-          category: 'hyperactivity',
-        },
-        {
-          id: 6,
-          text: '마치 모터가 달린 것처럼 지나치게 활동적이거나 뭔가를 하지 않고는 못 견디는 느낌이 얼마나 자주 있습니까?',
-          category: 'hyperactivity',
-        },
-        // Part B 추가 문항 (더 상세한 평가)
-        {
-          id: 7,
-          text: '세부사항에 주의를 기울이지 못하거나, 학업/업무에서 부주의한 실수를 하는 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 8,
-          text: '직장이나 가정에서 지루하거나 반복적인 일을 할 때 집중을 유지하기 어려운 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 9,
-          text: '다른 사람이 직접 말을 걸고 있는데도 잘 듣지 못하는 것처럼 보이는 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 10,
-          text: '집이나 직장에서 물건을 잘못 놓거나 찾기 어려운 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 11,
-          text: '주위의 활동이나 소음에 주의가 흐트러지는 것이 얼마나 자주 있습니까?',
-          category: 'inattention',
-        },
-        {
-          id: 12,
-          text: '회의나 다른 상황에서 가만히 앉아있기 어려운 것이 얼마나 자주 있습니까?',
-          category: 'hyperactivity',
-        },
-        {
-          id: 13,
-          text: '안절부절못하거나 가만히 있기 어려운 느낌이 얼마나 자주 있습니까?',
-          category: 'hyperactivity',
-        },
-        {
-          id: 14,
-          text: '여유시간이 있을 때 편하게 쉬거나 긴장을 푸는 것이 얼마나 자주 어렵습니까?',
-          category: 'hyperactivity',
-        },
-        {
-          id: 15,
-          text: '사회적인 상황에서 너무 많이 말하는 것이 얼마나 자주 있습니까?',
-          category: 'impulsivity',
-        },
-        {
-          id: 16,
-          text: '대화 중에 상대방의 말이 끝나기 전에 말을 가로채는 것이 얼마나 자주 있습니까?',
-          category: 'impulsivity',
-        },
-        {
-          id: 17,
-          text: '차례를 기다려야 할 때 기다리기 어려운 것이 얼마나 자주 있습니까?',
-          category: 'impulsivity',
-        },
-        {
-          id: 18,
-          text: '다른 사람이 바쁠 때 방해하는 것이 얼마나 자주 있습니까?',
-          category: 'impulsivity',
-        },
-      ];
+        // ===== ASRS 기반 질문 데이터 =====
+        const QUESTIONS = [
+            { id: 1, text: '어떤 일의 가장 어려운 부분은 끝냈는데, 마무리를 짓지 못해서 일을 완성하지 못한 적이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 2, text: '체계적으로 해야 하는 일을 할 때, 순서대로 진행하는 것이 얼마나 자주 어렵습니까?', category: 'inattention' },
+            { id: 3, text: '약속이나 할 일을 잊어버리는 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 4, text: '생각을 많이 해야 하는 일을 피하거나 미루는 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 5, text: '오래 앉아 있어야 할 때, 손을 만지작거리거나 발을 꼼지락거리는 것이 얼마나 자주 있습니까?', category: 'hyperactivity' },
+            { id: 6, text: '마치 모터가 달린 것처럼 지나치게 활동적이거나 뭔가를 하지 않고는 못 견디는 느낌이 얼마나 자주 있습니까?', category: 'hyperactivity' },
+            { id: 7, text: '세부사항에 주의를 기울이지 못하거나, 학업/업무에서 부주의한 실수를 하는 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 8, text: '직장이나 가정에서 지루하거나 반복적인 일을 할 때 집중을 유지하기 어려운 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 9, text: '다른 사람이 직접 말을 걸고 있는데도 잘 듣지 못하는 것처럼 보이는 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 10, text: '집이나 직장에서 물건을 잘못 놓거나 찾기 어려운 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 11, text: '주위의 활동이나 소음에 주의가 흐트러지는 것이 얼마나 자주 있습니까?', category: 'inattention' },
+            { id: 12, text: '회의나 다른 상황에서 가만히 앉아있기 어려운 것이 얼마나 자주 있습니까?', category: 'hyperactivity' },
+            { id: 13, text: '안절부절못하거나 가만히 있기 어려운 느낌이 얼마나 자주 있습니까?', category: 'hyperactivity' },
+            { id: 14, text: '여유시간이 있을 때 편하게 쉬거나 긴장을 푸는 것이 얼마나 자주 어렵습니까?', category: 'hyperactivity' },
+            { id: 15, text: '사회적인 상황에서 너무 많이 말하는 것이 얼마나 자주 있습니까?', category: 'impulsivity' },
+            { id: 16, text: '대화 중에 상대방의 말이 끝나기 전에 말을 가로채는 것이 얼마나 자주 있습니까?', category: 'impulsivity' },
+            { id: 17, text: '차례를 기다려야 할 때 기다리기 어려운 것이 얼마나 자주 있습니까?', category: 'impulsivity' },
+            { id: 18, text: '다른 사람이 바쁠 때 방해하는 것이 얼마나 자주 있습니까?', category: 'impulsivity' },
+        ];
 
-      // 리커트 척도 선택지
-      const LIKERT_OPTIONS = [
-        { value: 0, label: '전혀 그렇지 않다', shortLabel: '전혀' },
-        { value: 1, label: '거의 그렇지 않다', shortLabel: '거의' },
-        { value: 2, label: '가끔 그렇다', shortLabel: '가끔' },
-        { value: 3, label: '자주 그렇다', shortLabel: '자주' },
-        { value: 4, label: '매우 자주 그렇다', shortLabel: '매우' },
-      ];
+        const LIKERT_OPTIONS = [
+            { value: 0, label: '전혀 그렇지 않다' },
+            { value: 1, label: '거의 그렇지 않다' },
+            { value: 2, label: '가끔 그렇다' },
+            { value: 3, label: '자주 그렇다' },
+            { value: 4, label: '매우 자주 그렇다' },
+        ];
 
-      // 테스트 모드 설정
-      const TEST_MODES = {
-        quick: {
-          name: '간편 검사',
-          questions: 6,
-          description: 'Part A 핵심 6문항',
-        },
-        full: {
-          name: '전체 검사',
-          questions: 18,
-          description: '전체 18문항',
-        },
-      };
-
-      // ===== 앱 상태 =====
-      let state = {
-        currentPage: 'start',
-        testMode: null, // 'quick' or 'full'
-        currentQuestion: 0,
-        answers: {},
-        history: [],
-      };
-
-      // ===== 점수 계산 =====
-      function calculateScores() {
-        const questionsToUse =
-          state.testMode === 'quick'
-            ? QUESTIONS.slice(0, 6)
-            : QUESTIONS;
-
-        let totalScore = 0;
-        let inattentionScore = 0;
-        let hyperactivityScore = 0;
-        let impulsivityScore = 0;
-        let answeredCount = 0;
-
-        questionsToUse.forEach((q) => {
-          const answer = state.answers[q.id];
-          if (answer !== undefined) {
-            totalScore += answer;
-            answeredCount++;
-
-            if (q.category === 'inattention') {
-              inattentionScore += answer;
-            } else if (q.category === 'hyperactivity') {
-              hyperactivityScore += answer;
-            } else if (q.category === 'impulsivity') {
-              impulsivityScore += answer;
-            }
-          }
-        });
-
-        const maxScore = questionsToUse.length * 4;
-
-        // Part A 기준 (간편 검사): 4문항 이상에서 2점 이상 = 높은 가능성
-        // 전체 검사: 총점 기준으로 판단
-        let level, interpretation;
-
-        if (state.testMode === 'quick') {
-          // 간편 검사 기준
-          const highCount = Object.values(state.answers).filter(v => v >= 2).length;
-          if (highCount >= 4) {
-            level = 'high';
-            interpretation = 'ADHD 가능성이 높습니다';
-          } else if (highCount >= 2) {
-            level = 'medium';
-            interpretation = 'ADHD 가능성이 있습니다';
-          } else {
-            level = 'low';
-            interpretation = 'ADHD 가능성이 낮습니다';
-          }
-        } else {
-          // 전체 검사 기준
-          const percentage = (totalScore / maxScore) * 100;
-          if (percentage >= 50) {
-            level = 'high';
-            interpretation = 'ADHD 가능성이 높습니다';
-          } else if (percentage >= 30) {
-            level = 'medium';
-            interpretation = 'ADHD 가능성이 있습니다';
-          } else {
-            level = 'low';
-            interpretation = 'ADHD 가능성이 낮습니다';
-          }
-        }
-
-        return {
-          totalScore,
-          maxScore,
-          inattentionScore,
-          hyperactivityScore,
-          impulsivityScore,
-          level,
-          interpretation,
-          answeredCount,
+        let state = {
+            currentPage: 'start',
+            testMode: null,
+            currentQuestion: 0,
+            answers: {},
+            history: [],
         };
-      }
 
-      // ===== 페이지 렌더링 함수들 =====
-      function renderStartPage() {
-        return `
-          <div class="card start-page fade-in">
-            <span class="start-badge">WHO ASRS 기반</span>
-            <h1>성인 ADHD<br>자가진단 체크리스트</h1>
-            <p class="description">
-              이 검사는 세계보건기구(WHO)에서 개발한<br>
-              성인 ADHD 자가보고 척도(ASRS)를 기반으로 합니다.
-            </p>
+        function calculateScores() {
+            const questionsToUse = state.testMode === 'quick' ? QUESTIONS.slice(0, 6) : QUESTIONS;
+            let totalScore = 0, inattentionScore = 0, hyperactivityScore = 0, impulsivityScore = 0;
 
-            <div class="info-box">
-              <h3>📋 검사 안내</h3>
-              <ul>
-                <li>의학적 진단을 대체하지 않습니다</li>
-                <li>지난 6개월간의 경험을 바탕으로 답해주세요</li>
-                <li>정답이 없으니 솔직하게 응답해주세요</li>
-                <li>ADHD 당사자에게 맞게 설계된 UI입니다</li>
-              </ul>
-            </div>
+            questionsToUse.forEach((q) => {
+                const answer = state.answers[q.id];
+                if (answer !== undefined) {
+                    totalScore += answer;
+                    if (q.category === 'inattention') inattentionScore += answer;
+                    else if (q.category === 'hyperactivity') hyperactivityScore += answer;
+                    else if (q.category === 'impulsivity') impulsivityScore += answer;
+                }
+            });
 
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-              <button class="primary-btn" onclick="startTest('quick')">
-                간편 검사 시작하기 (6문항)
-              </button>
-              <button class="secondary-btn" onclick="startTest('full')">
-                전체 검사 시작하기 (18문항)
-              </button>
-            </div>
-          </div>
-        `;
-      }
+            const maxScore = questionsToUse.length * 4;
+            let level, interpretation;
 
-      function renderQuestionPage() {
-        const questionsToUse =
-          state.testMode === 'quick'
-            ? QUESTIONS.slice(0, 6)
-            : QUESTIONS;
+            if (state.testMode === 'quick') {
+                const highCount = Object.values(state.answers).filter(v => v >= 2).length;
+                if (highCount >= 4) { level = 'high'; interpretation = 'ADHD 가능성이 높습니다'; }
+                else if (highCount >= 2) { level = 'medium'; interpretation = 'ADHD 가능성이 있습니다'; }
+                else { level = 'low'; interpretation = 'ADHD 가능성이 낮습니다'; }
+            } else {
+                const percentage = (totalScore / maxScore) * 100;
+                if (percentage >= 50) { level = 'high'; interpretation = 'ADHD 가능성이 높습니다'; }
+                else if (percentage >= 30) { level = 'medium'; interpretation = 'ADHD 가능성이 있습니다'; }
+                else { level = 'low'; interpretation = 'ADHD 가능성이 낮습니다'; }
+            }
 
-        const question = questionsToUse[state.currentQuestion];
-        const totalQuestions = questionsToUse.length;
-        const currentAnswer = state.answers[question.id];
-        const progress = ((state.currentQuestion + 1) / totalQuestions) * 100;
-
-        let optionsHtml = '';
-        LIKERT_OPTIONS.forEach((option) => {
-          const isSelected = currentAnswer === option.value;
-          optionsHtml += `
-            <div class="likert-option ${isSelected ? 'selected' : ''}"
-                 onclick="selectAnswer(${question.id}, ${option.value})">
-              <span class="likert-radio"></span>
-              <span class="likert-label">${option.label}</span>
-            </div>
-          `;
-        });
-
-        const canGoNext = currentAnswer !== undefined;
-        const isLastQuestion = state.currentQuestion === totalQuestions - 1;
-
-        return `
-          <div class="progress-text">${state.currentQuestion + 1} / ${totalQuestions}</div>
-          <div class="progress-bar-container">
-            <div class="progress-bar" style="width: ${progress}%"></div>
-          </div>
-          ${state.currentQuestion > 0 ? '<button class="back-button" onclick="goBack()">← 이전 질문</button>' : '<button class="back-button" onclick="goToStart()">← 처음으로</button>'}
-          <div class="card question-page fade-in">
-            <span class="question-number">Q${state.currentQuestion + 1}</span>
-            <h2>${question.text}</h2>
-            <p class="question-hint">지난 6개월 동안을 기준으로 답해주세요</p>
-
-            <div class="likert-scale">
-              ${optionsHtml}
-            </div>
-
-            <button class="primary-btn"
-                    onclick="${isLastQuestion ? 'goToAnalyzing()' : 'nextQuestion()'}"
-                    ${!canGoNext ? 'disabled' : ''}>
-              ${isLastQuestion ? '결과 보기' : '다음'}
-            </button>
-          </div>
-        `;
-      }
-
-      function renderAnalyzingPage() {
-        setTimeout(() => {
-          goToPage('result');
-        }, 2000);
-
-        return `
-          <div class="card analyzing-page fade-in">
-            <div class="analyzing-spinner"></div>
-            <h2>응답을 분석하고 있어요</h2>
-            <p>
-              이 검사는 진단이 아닌 선별 도구입니다.<br>
-              정확한 진단을 위해서는<br>
-              전문가 상담을 권장드립니다.
-            </p>
-          </div>
-        `;
-      }
-
-      function renderResultPage() {
-        const scores = calculateScores();
-
-        let levelClass, levelText;
-        switch (scores.level) {
-          case 'high':
-            levelClass = 'level-high';
-            levelText = '높은 가능성';
-            break;
-          case 'medium':
-            levelClass = 'level-medium';
-            levelText = '중간 가능성';
-            break;
-          default:
-            levelClass = 'level-low';
-            levelText = '낮은 가능성';
+            return { totalScore, maxScore, inattentionScore, hyperactivityScore, impulsivityScore, level, interpretation };
         }
 
-        let descriptionHtml = '';
-        if (scores.level === 'high') {
-          descriptionHtml = `
-            <p>
-              응답 결과, ADHD 특성이 일상생활에 상당한 영향을 미치고 있을 가능성이 있습니다.
-              이는 진단이 아니며, 정확한 평가를 위해 전문가 상담을 권장드립니다.
-            </p>
-          `;
-        } else if (scores.level === 'medium') {
-          descriptionHtml = `
-            <p>
-              응답 결과, 일부 ADHD 특성이 나타나고 있습니다.
-              특정 상황에서 어려움을 느끼고 계신다면,
-              전문가와 상담해보시는 것도 도움이 될 수 있습니다.
-            </p>
-          `;
-        } else {
-          descriptionHtml = `
-            <p>
-              응답 결과, 현재 ADHD 특성이 크게 나타나지 않는 것으로 보입니다.
-              다만, 특정 상황에서 어려움을 느끼신다면
-              다른 원인이 있을 수 있으니 전문가와 상담해보세요.
-            </p>
-          `;
+        function renderStartPage() {
+            return `
+                <div class="card start-page fade-in">
+                    <span class="start-badge">FLOCA | WHO ASRS 기반</span>
+                    <h1>성인 ADHD<br>자가진단 체크리스트</h1>
+                    <p class="description">
+                        이 검사는 세계보건기구(WHO)에서 개발한<br>
+                        성인 ADHD 자가보고 척도(ASRS)를 기반으로 합니다.
+                    </p>
+
+                    <div class="info-box">
+                        <h3>검사 안내</h3>
+                        <ul>
+                            <li>의학적 진단을 대체하지 않습니다</li>
+                            <li>지난 6개월간의 경험을 바탕으로 답해주세요</li>
+                            <li>정답이 없으니 솔직하게 응답해주세요</li>
+                        </ul>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column; gap: 12px;">
+                        <button class="primary-btn" onclick="startTest('quick')">간편 검사 (6문항)</button>
+                        <button class="secondary-btn" onclick="startTest('full')">전체 검사 (18문항)</button>
+                    </div>
+                </div>
+            `;
         }
 
-        // 카테고리별 점수 표시 (전체 검사일 경우)
-        let categoryScoresHtml = '';
-        if (state.testMode === 'full') {
-          categoryScoresHtml = `
-            <div class="result-section">
-              <h3>영역별 점수</h3>
-              <ul>
-                <li>주의력 결핍 영역: ${scores.inattentionScore}점</li>
-                <li>과잉행동 영역: ${scores.hyperactivityScore}점</li>
-                <li>충동성 영역: ${scores.impulsivityScore}점</li>
-              </ul>
-            </div>
-          `;
+        function renderQuestionPage() {
+            const questionsToUse = state.testMode === 'quick' ? QUESTIONS.slice(0, 6) : QUESTIONS;
+            const question = questionsToUse[state.currentQuestion];
+            const totalQuestions = questionsToUse.length;
+            const currentAnswer = state.answers[question.id];
+            const progress = ((state.currentQuestion + 1) / totalQuestions) * 100;
+
+            let optionsHtml = '';
+            LIKERT_OPTIONS.forEach((option) => {
+                const isSelected = currentAnswer === option.value;
+                optionsHtml += `
+                    <div class="likert-option ${isSelected ? 'selected' : ''}" onclick="selectAnswer(${question.id}, ${option.value})">
+                        <span class="likert-radio"></span>
+                        <span class="likert-label">${option.label}</span>
+                    </div>
+                `;
+            });
+
+            const canGoNext = currentAnswer !== undefined;
+            const isLastQuestion = state.currentQuestion === totalQuestions - 1;
+
+            return `
+                <div class="progress-text">${state.currentQuestion + 1} / ${totalQuestions}</div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: ${progress}%"></div>
+                </div>
+                ${state.currentQuestion > 0 ? '<button class="back-button" onclick="goBack()">← 이전</button>' : '<button class="back-button" onclick="goToStart()">← 처음으로</button>'}
+                <div class="card question-page fade-in">
+                    <span class="question-number">Q${state.currentQuestion + 1}</span>
+                    <h2>${question.text}</h2>
+                    <p class="question-hint">지난 6개월 동안을 기준으로 답해주세요</p>
+                    <div class="likert-scale">${optionsHtml}</div>
+                    <button class="primary-btn" onclick="${isLastQuestion ? 'goToAnalyzing()' : 'nextQuestion()'}" ${!canGoNext ? 'disabled' : ''}>
+                        ${isLastQuestion ? '결과 보기' : '다음'}
+                    </button>
+                </div>
+            `;
         }
 
-        return `
-          <div class="card result-page fade-in">
-            <span class="result-level-badge ${levelClass}">${levelText}</span>
-            <h1>${scores.interpretation}</h1>
-
-            <div class="score-display">
-              <span class="score-number">${scores.totalScore}</span>
-              <span class="score-max">/ ${scores.maxScore}</span>
-              <p class="score-label">총점 (${state.testMode === 'quick' ? '간편 검사' : '전체 검사'})</p>
-            </div>
-
-            <div class="result-summary">
-              ${descriptionHtml}
-            </div>
-
-            ${categoryScoresHtml}
-
-            <div class="warning-box">
-              <h4>⚠️ 중요 안내</h4>
-              <p>
-                이 검사는 의학적 진단을 대체하지 않습니다.
-                정확한 ADHD 진단은 정신건강의학과 전문의의
-                종합적인 평가를 통해서만 가능합니다.
-              </p>
-            </div>
-
-            <div class="result-section">
-              <h3>다음 단계로 추천드리는 것</h3>
-              <ul>
-                ${scores.level === 'high' ? '<li>정신건강의학과 전문의 상담</li>' : ''}
-                <li>나의 ADHD 실행 패턴 분석 테스트</li>
-                <li>일상에서 적용할 수 있는 대처 전략 확인</li>
-                ${scores.level !== 'low' ? '<li>ADHD 관련 자료 학습</li>' : ''}
-              </ul>
-            </div>
-
-            <div class="recommendations">
-              <h3>다음 단계</h3>
-
-              <a href="index.html" class="recommendation-item">
-                <span class="recommendation-badge badge-free">무료 PDF</span>
-                <h4>ADHD 현실 대처 가이드 받기</h4>
-                <p>약을 먹어도 삶이 그대로인 ADHD를 위한 실전 대응 원칙</p>
-                <span class="rec-btn">무료로 받기 →</span>
-              </a>
-
-              <a href="survey.html" class="recommendation-item">
-                <span class="recommendation-badge badge-test">추천 테스트</span>
-                <h4>ADHD 실행 패턴 분석</h4>
-                <p>나의 실행이 어디에서 무너지는지 구체적으로 파악해보세요</p>
-                <span class="rec-btn">테스트 하러가기 →</span>
-              </a>
-
-              <a href="coaching.html" class="recommendation-item">
-                <span class="recommendation-badge badge-consult">심화 지원</span>
-                <h4>1:1 상담 프로그램</h4>
-                <p>나에게 맞는 맞춤 전략 설계</p>
-                <span class="rec-btn">상담 알아보기 →</span>
-              </a>
-            </div>
-
-            <div class="cta-group">
-              <a href="index.html" class="primary-btn">
-                무료 PDF 가이드 받기
-              </a>
-              <button class="secondary-btn" onclick="resetTest()">
-                다시 검사하기
-              </button>
-            </div>
-
-            <div class="footer-note">
-              이 결과는 당신을 판단하기 위한 것이 아니라,<br>
-              더 나은 방법을 찾기 위한 출발점입니다.
-            </div>
-
-            <div class="disclaimer">
-              <strong>면책 조항:</strong> 본 검사는 WHO ASRS-v1.1을 참고하여 제작된
-              자가 선별 도구로, 의학적 진단을 대체하지 않습니다.
-              ADHD가 의심되는 경우 반드시 정신건강의학과 전문의와 상담하시기 바랍니다.
-            </div>
-          </div>
-        `;
-      }
-
-      // ===== 네비게이션 =====
-      function startTest(mode) {
-        state.testMode = mode;
-        state.currentQuestion = 0;
-        state.answers = {};
-        state.history = ['start'];
-        state.currentPage = 'question';
-        render();
-      }
-
-      function goToPage(page) {
-        state.history.push(state.currentPage);
-        state.currentPage = page;
-        render();
-      }
-
-      function goToStart() {
-        state.currentPage = 'start';
-        state.testMode = null;
-        state.currentQuestion = 0;
-        state.answers = {};
-        state.history = [];
-        render();
-      }
-
-      function goBack() {
-        if (state.currentQuestion > 0) {
-          state.currentQuestion--;
-          render();
-        }
-      }
-
-      function selectAnswer(questionId, value) {
-        state.answers[questionId] = value;
-        render();
-      }
-
-      function nextQuestion() {
-        const questionsToUse =
-          state.testMode === 'quick'
-            ? QUESTIONS.slice(0, 6)
-            : QUESTIONS;
-
-        if (state.currentQuestion < questionsToUse.length - 1) {
-          state.currentQuestion++;
-          render();
-        }
-      }
-
-      function goToAnalyzing() {
-        state.currentPage = 'analyzing';
-        render();
-      }
-
-      function resetTest() {
-        goToStart();
-      }
-
-      // ===== 메인 렌더 함수 =====
-      function render() {
-        const app = document.getElementById('app');
-        let html = '';
-
-        switch (state.currentPage) {
-          case 'start':
-            html = renderStartPage();
-            break;
-          case 'question':
-            html = renderQuestionPage();
-            break;
-          case 'analyzing':
-            html = renderAnalyzingPage();
-            break;
-          case 'result':
-            html = renderResultPage();
-            break;
-          default:
-            html = renderStartPage();
+        function renderAnalyzingPage() {
+            setTimeout(() => { goToPage('result'); }, 2000);
+            return `
+                <div class="card analyzing-page fade-in">
+                    <div class="analyzing-spinner"></div>
+                    <h2>응답을 분석하고 있어요</h2>
+                    <p>이 검사는 진단이 아닌 선별 도구입니다.<br>정확한 진단을 위해서는 전문가 상담을 권장드립니다.</p>
+                </div>
+            `;
         }
 
-        app.innerHTML = html;
-        window.scrollTo(0, 0);
-      }
+        function renderResultPage() {
+            const scores = calculateScores();
+            let levelClass, levelText;
+            switch (scores.level) {
+                case 'high': levelClass = 'level-high'; levelText = '높은 가능성'; break;
+                case 'medium': levelClass = 'level-medium'; levelText = '중간 가능성'; break;
+                default: levelClass = 'level-low'; levelText = '낮은 가능성';
+            }
 
-      // ===== 초기화 =====
-      document.addEventListener('DOMContentLoaded', render);
+            let descriptionHtml = '';
+            if (scores.level === 'high') {
+                descriptionHtml = '<p>응답 결과, ADHD 특성이 일상생활에 상당한 영향을 미치고 있을 가능성이 있습니다. 이는 진단이 아니며, 정확한 평가를 위해 전문가 상담을 권장드립니다.</p>';
+            } else if (scores.level === 'medium') {
+                descriptionHtml = '<p>응답 결과, 일부 ADHD 특성이 나타나고 있습니다. 특정 상황에서 어려움을 느끼고 계신다면, 전문가와 상담해보시는 것도 도움이 될 수 있습니다.</p>';
+            } else {
+                descriptionHtml = '<p>응답 결과, 현재 ADHD 특성이 크게 나타나지 않는 것으로 보입니다. 다만, 특정 상황에서 어려움을 느끼신다면 다른 원인이 있을 수 있으니 전문가와 상담해보세요.</p>';
+            }
+
+            let categoryScoresHtml = '';
+            if (state.testMode === 'full') {
+                categoryScoresHtml = `
+                    <div class="result-section">
+                        <h3>영역별 점수</h3>
+                        <ul>
+                            <li>주의력 결핍: ${scores.inattentionScore}점</li>
+                            <li>과잉행동: ${scores.hyperactivityScore}점</li>
+                            <li>충동성: ${scores.impulsivityScore}점</li>
+                        </ul>
+                    </div>
+                `;
+            }
+
+            return `
+                <div class="card result-page fade-in">
+                    <span class="result-level-badge ${levelClass}">${levelText}</span>
+                    <h1>${scores.interpretation}</h1>
+
+                    <div class="score-display">
+                        <span class="score-number">${scores.totalScore}</span>
+                        <span class="score-max">/ ${scores.maxScore}</span>
+                        <p class="score-label">총점 (${state.testMode === 'quick' ? '간편 검사' : '전체 검사'})</p>
+                    </div>
+
+                    <div class="result-summary">${descriptionHtml}</div>
+                    ${categoryScoresHtml}
+
+                    <div class="warning-box">
+                        <h4>중요 안내</h4>
+                        <p>이 검사는 의학적 진단을 대체하지 않습니다. 정확한 ADHD 진단은 정신건강의학과 전문의의 종합적인 평가를 통해서만 가능합니다.</p>
+                    </div>
+
+                    <a href="index.html" class="pdf-cta-card">
+                        <p class="label">Limited Free Access</p>
+                        <h3>약을 먹어도<br>삶이 그대로인 당신에게</h3>
+                        <p class="desc">ADHD 현실 대처 가이드 PDF</p>
+                        <div class="btn">
+                            <span>무료로 받기</span>
+                            <span>→</span>
+                        </div>
+                    </a>
+
+                    <a href="survey.html" class="survey-cta-card">
+                        <p class="survey-label">다음 단계</p>
+                        <h3>그럼 나는 어떤 유형일까?</h3>
+                        <p class="survey-desc">6가지 실행 패턴 중 나의 유형을 분석해보세요</p>
+                        <div class="survey-btn">
+                            <span>3분 유형 테스트</span>
+                            <span>→</span>
+                        </div>
+                    </a>
+
+                    <div class="cta-group">
+                        <a href="coaching.html" class="coaching-btn">
+                            <span class="coaching-icon">💬</span>
+                            <span>혼자 고민하지 마세요 - 무료 상담 받기</span>
+                        </a>
+                        <button class="secondary-btn" onclick="resetTest()">다시 검사하기</button>
+                    </div>
+
+                    <div class="footer-note">
+                        이 결과는 당신을 판단하기 위한 것이 아니라,<br>더 나은 방법을 찾기 위한 출발점입니다.
+                    </div>
+
+                    <div class="disclaimer">
+                        <strong>면책 조항:</strong> 본 검사는 WHO ASRS-v1.1을 참고하여 제작된 자가 선별 도구로, 의학적 진단을 대체하지 않습니다. ADHD가 의심되는 경우 반드시 정신건강의학과 전문의와 상담하시기 바랍니다.
+                    </div>
+                </div>
+            `;
+        }
+
+        function startTest(mode) {
+            state.testMode = mode;
+            state.currentQuestion = 0;
+            state.answers = {};
+            state.history = ['start'];
+            state.currentPage = 'question';
+            render();
+        }
+
+        function goToPage(page) {
+            state.history.push(state.currentPage);
+            state.currentPage = page;
+            render();
+        }
+
+        function goToStart() {
+            state.currentPage = 'start';
+            state.testMode = null;
+            state.currentQuestion = 0;
+            state.answers = {};
+            state.history = [];
+            render();
+        }
+
+        function goBack() {
+            if (state.currentQuestion > 0) {
+                state.currentQuestion--;
+                render();
+            }
+        }
+
+        function selectAnswer(questionId, value) {
+            state.answers[questionId] = value;
+            render();
+        }
+
+        function nextQuestion() {
+            const questionsToUse = state.testMode === 'quick' ? QUESTIONS.slice(0, 6) : QUESTIONS;
+            if (state.currentQuestion < questionsToUse.length - 1) {
+                state.currentQuestion++;
+                render();
+            }
+        }
+
+        function goToAnalyzing() {
+            state.currentPage = 'analyzing';
+            render();
+        }
+
+        function resetTest() {
+            goToStart();
+        }
+
+        function render() {
+            const app = document.getElementById('app');
+            let html = '';
+            switch (state.currentPage) {
+                case 'start': html = renderStartPage(); break;
+                case 'question': html = renderQuestionPage(); break;
+                case 'analyzing': html = renderAnalyzingPage(); break;
+                case 'result': html = renderResultPage(); break;
+                default: html = renderStartPage();
+            }
+            app.innerHTML = html;
+            window.scrollTo(0, 0);
+        }
+
+        document.addEventListener('DOMContentLoaded', render);
     </script>
-  </body>
+</body>
 </html>
