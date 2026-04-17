@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ADHD 감정일기 템플릿 | FLOCA</title>
+    <meta name="description" content="ADHD를 위한 감정일기 템플릿. 감정 트리거를 파악하고 폭발 전에 멈추세요." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #2a7b9b;
+            --accent: #4fd1c5;
+            --dark: #0f0f1a;
+            --dark-light: #1a1a2e;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --text-subtle: rgba(255,255,255,0.5);
+            --danger: #e53e3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--dark);
+        }
+
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(229,62,62,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(229,62,62,0.2);
+            border: 1px solid rgba(229,62,62,0.4);
+            color: #fc8181;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        .hero-image {
+            max-width: 280px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 24px;
+            height: 24px;
+            border-right: 2px solid var(--text-subtle);
+            border-bottom: 2px solid var(--text-subtle);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== 공감 섹션 ===== */
+        .empathy {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .empathy-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .empathy-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s;
+        }
+
+        .empathy-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(229,62,62,0.3);
+            transform: translateX(8px);
+        }
+
+        .empathy-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--danger);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .empathy-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 상품 소개 ===== */
+        .product {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .product-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .product-header h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .product-header h2 .highlight {
+            color: var(--accent);
+        }
+
+        .product-header p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .product-showcase {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px 24px;
+            margin-bottom: 32px;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .product-cover {
+            max-width: 240px;
+            border-radius: 12px;
+            box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+        }
+
+        .product-pages {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .product-pages img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .product-features {
+            background: rgba(79,209,197,0.1);
+            border: 1px solid rgba(79,209,197,0.2);
+            border-radius: 16px;
+            padding: 28px;
+        }
+
+        .product-features h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        /* ===== 구매 섹션 ===== */
+        .purchase {
+            background: linear-gradient(180deg, var(--dark-light) 0%, var(--dark) 100%);
+            padding: 80px 0;
+        }
+
+        .purchase-card {
+            background: rgba(255,255,255,0.05);
+            border: 2px solid var(--accent);
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+        }
+
+        .purchase-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 13px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+        }
+
+        .purchase-card h3 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .purchase-price {
+            font-size: 42px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 32px;
+        }
+
+        .purchase-price span {
+            font-size: 18px;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .guide-box {
+            background: rgba(0,0,0,0.3);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            text-align: left;
+        }
+
+        .guide-box .label {
+            font-size: 13px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .guide-box .message {
+            background: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .guide-box .message p {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            word-break: keep-all;
+        }
+
+        .copy-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .copy-btn:hover {
+            background: rgba(255,255,255,0.15);
+        }
+
+        .copy-btn.copied {
+            background: var(--accent);
+            color: var(--dark);
+            border-color: var(--accent);
+        }
+
+        .kakao-btn {
+            display: block;
+            width: 100%;
+            padding: 20px 32px;
+            background: #fee500;
+            color: #1a1a1a;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(254,229,0,0.3);
+        }
+
+        .kakao-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(254,229,0,0.4);
+        }
+
+        .purchase-note {
+            font-size: 14px;
+            color: var(--text-subtle);
+            margin-top: 20px;
+            line-height: 1.8;
+        }
+
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 32px;
+            padding-top: 28px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .trust-item {
+            text-align: center;
+        }
+
+        .trust-item .icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .trust-item span {
+            display: block;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 신뢰 섹션 ===== */
+        .trust {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e6a87 100%);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .trust h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .trust-quote {
+            font-size: 18px;
+            line-height: 2;
+            word-break: keep-all;
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            background: var(--dark);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.9;
+        }
+
+        /* ===== 반응형 ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .hero-image {
+                max-width: 220px;
+            }
+
+            .section-header h2 {
+                font-size: 22px;
+            }
+
+            .product-header h2 {
+                font-size: 24px;
+            }
+
+            .purchase-card {
+                padding: 36px 20px;
+            }
+
+            .purchase-price {
+                font-size: 36px;
+            }
+
+            .trust-row {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 히어로 ===== -->
+    <section class="hero">
+        <span class="hero-badge">FLOCA | 감정 조절 템플릿</span>
+        <h1>
+            감정 폭발 후 자책,<br />
+            <span class="highlight">이제 그만</span>하고 싶다면
+        </h1>
+        <p class="hero-subtitle">
+            ADHD는 감정 조절이 어렵습니다.<br />
+            작은 자극에도 과잉반응하고, 그 후엔 자책.<br /><br />
+            <strong>트리거를 파악하면 폭발 전에 멈출 수 있습니다.</strong>
+        </p>
+        <img src="emotion/227.png" alt="감정일기 템플릿" class="hero-image" />
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- ===== 공감 섹션 ===== -->
+    <section class="empathy">
+        <div class="container">
+            <div class="section-header">
+                <h2>이런 경험, 반복되고 있지 않나요?</h2>
+                <p>하나라도 해당된다면, 이 템플릿이 도움이 될 거예요.</p>
+            </div>
+
+            <div class="empathy-grid">
+                <div class="empathy-card">
+                    <span class="empathy-icon">?</span>
+                    <p>작은 일에 갑자기 화가 폭발하고, 나중에 자책한다</p>
+                </div>
+                <div class="empathy-card">
+                    <span class="empathy-icon">?</span>
+                    <p>왜 그랬는지 모르겠는데, 또 똑같은 실수를 반복한다</p>
+                </div>
+                <div class="empathy-card">
+                    <span class="empathy-icon">?</span>
+                    <p>감정에 휩쓸려 하루가 망가진 적이 많다</p>
+                </div>
+                <div class="empathy-card">
+                    <span class="empathy-icon">?</span>
+                    <p>중요한 관계가 감정 폭발로 망가진 적 있다</p>
+                </div>
+                <div class="empathy-card">
+                    <span class="empathy-icon">?</span>
+                    <p>"나는 왜 이럴까" 라는 생각이 머릿속을 맴돈다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 상품 소개 ===== -->
+    <section class="product">
+        <div class="container">
+            <div class="product-header">
+                <h2>
+                    <span class="highlight">감정일기</span>로<br />
+                    나의 트리거를 파악하세요
+                </h2>
+                <p>
+                    감정 폭발에는 패턴이 있습니다.<br />
+                    기록하면 보이고, 보이면 멈출 수 있습니다.
+                </p>
+            </div>
+
+            <div class="product-showcase">
+                <div class="product-images">
+                    <img src="emotion/227.png" alt="감정일기 표지" class="product-cover" />
+                    <div class="product-pages">
+                        <img src="emotion/229.png" alt="감정일기 내지 1" />
+                        <img src="emotion/230.png" alt="감정일기 내지 2" />
+                    </div>
+                </div>
+
+                <div class="product-features">
+                    <h4>포함 내용</h4>
+                    <ul class="feature-list">
+                        <li>감정 트리거 기록 템플릿</li>
+                        <li>감정 강도 측정 가이드 (0~100)</li>
+                        <li>대응 전략 기록란</li>
+                        <li>주간 패턴 분석 시트</li>
+                        <li>사용 가이드 (PDF)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 구매 섹션 ===== -->
+    <section class="purchase">
+        <div class="container">
+            <div class="purchase-card">
+                <span class="purchase-badge">ADHD 감정 조절</span>
+                <h3>감정일기 템플릿</h3>
+                <div class="purchase-price">
+                    3,500<span>원</span>
+                </div>
+
+                <div class="guide-box">
+                    <p class="label">아래 문구를 복사해서 카카오톡으로 보내주세요</p>
+                    <div class="message">
+                        <p id="copyText">안녕하세요, 감정일기 템플릿 구매 문의드립니다.</p>
+                    </div>
+                    <button class="copy-btn" onclick="copyToClipboard()">
+                        <span id="copyIcon">📋</span>
+                        <span id="copyLabel">문구 복사하기</span>
+                    </button>
+                </div>
+
+                <a href="https://open.kakao.com/o/sq1JNeHh" class="kakao-btn" target="_blank" rel="noopener noreferrer">
+                    카카오톡으로 구매 문의
+                </a>
+
+                <p class="purchase-note">
+                    문의 확인 → 계좌 안내 → 입금 확인 → 파일 전달<br />
+                    평균 응답 시간: 1시간 이내 (업무시간 기준)
+                </p>
+
+                <div class="trust-row">
+                    <div class="trust-item">
+                        <div class="icon">🔒</div>
+                        <span>안전 결제</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="icon">⚡</div>
+                        <span>빠른 전달</span>
+                    </div>
+                    <div class="trust-item">
+                        <div class="icon">💬</div>
+                        <span>1:1 안내</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 신뢰 섹션 ===== -->
+    <section class="trust">
+        <div class="container">
+            <h2>왜 이 템플릿을 만들었나요?</h2>
+            <p class="trust-quote">
+                저 역시 ADHD로 인해 감정 폭발과 자책을<br />
+                반복하며 오래 헤맸습니다.<br /><br />
+                기록하는 것만으로도 변화가 시작됩니다.<br />
+                <strong>당신도 할 수 있습니다.</strong>
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== 푸터 ===== -->
+    <section class="footer">
+        <div class="container">
+            <p>
+                당신이 계속 실패한 게 아니라,<br />
+                지금까지의 방식이 당신에게 맞지 않았을 뿐이에요.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function copyToClipboard() {
+            const text = document.getElementById('copyText').innerText;
+            const copyBtn = document.querySelector('.copy-btn');
+            const copyIcon = document.getElementById('copyIcon');
+            const copyLabel = document.getElementById('copyLabel');
+
+            navigator.clipboard.writeText(text).then(function() {
+                copyBtn.classList.add('copied');
+                copyIcon.textContent = '✓';
+                copyLabel.textContent = '복사 완료!';
+
+                setTimeout(function() {
+                    copyBtn.classList.remove('copied');
+                    copyIcon.textContent = '📋';
+                    copyLabel.textContent = '문구 복사하기';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
