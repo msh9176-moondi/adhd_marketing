@@ -321,21 +321,45 @@
             margin-left: 8px;
         }
 
+        .offer-label {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
         .offer-btn {
             display: inline-block;
-            background: #ffffff;
-            color: var(--dark);
+            background: #FEE500;
+            color: #3C1E1E;
             text-decoration: none;
-            padding: 16px 40px;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 16px;
+            padding: 20px 48px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 18px;
             transition: all 0.3s;
+            box-shadow: 0 8px 24px rgba(254,229,0,0.4);
+            animation: btnPulse 2s infinite;
+        }
+
+        @keyframes btnPulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 24px rgba(254,229,0,0.4);
+            }
+            50% {
+                transform: scale(1.03);
+                box-shadow: 0 12px 32px rgba(254,229,0,0.6);
+            }
         }
 
         .offer-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 32px rgba(255,255,255,0.2);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 40px rgba(254,229,0,0.5);
+            background: #FFD800;
+            animation: none;
         }
 
         .offer-note {
@@ -575,28 +599,11 @@
         </div>
     </section>
 
-    <!-- ===== 유형 테스트 섹션 ===== -->
-    <section class="survey-cta">
-        <div class="container">
-            <div class="survey-card">
-                <p class="survey-label">다음 단계</p>
-                <h3>PDF 읽어보셨나요?<br />이제 <span class="highlight">내 유형</span>을 알아보세요</h3>
-                <p class="survey-desc">
-                    ADHD도 유형이 다 달라요.<br />
-                    나는 어떤 유형인지 3분 만에 분석해보세요.
-                </p>
-                <a href="survey.html" class="survey-btn">
-                    <span>6가지 유형 테스트 하기</span>
-                    <span>→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 무료 상담 + 템플릿 섹션 ===== -->
+    <!-- ===== 무료 상담 + 템플릿 섹션 (다음 단계) ===== -->
     <section class="free-offer">
         <div class="container">
             <div class="offer-card">
+                <p class="offer-label">다음 단계</p>
                 <img src="delay/232.png" alt="미루기일기 템플릿" class="offer-image" />
                 <span class="offer-badge">Limited Offer</span>
                 <h3>
@@ -609,6 +616,24 @@
                 </p>
                 <a href="coaching.html" class="offer-btn">무료 상담 신청하기</a>
                 <p class="offer-note">* 1:1 오픈톡방에서 파일 전달 + 상담 진행</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 유형 테스트 섹션 ===== -->
+    <section class="survey-cta">
+        <div class="container">
+            <div class="survey-card">
+                <p class="survey-label">추가 분석</p>
+                <h3>PDF 읽어보셨나요?<br />이제 <span class="highlight">내 유형</span>을 알아보세요</h3>
+                <p class="survey-desc">
+                    ADHD도 유형이 다 달라요.<br />
+                    나는 어떤 유형인지 3분 만에 분석해보세요.
+                </p>
+                <a href="survey.html" class="survey-btn">
+                    <span>6가지 유형 테스트 하기</span>
+                    <span>→</span>
+                </a>
             </div>
         </div>
     </section>
