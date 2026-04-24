@@ -887,42 +887,63 @@
           summary: '해야 할 일의 중요성을 몰라서가 아니라, 시작 직전의 문턱이 너무 높아서 멈추는 편입니다.',
           description: '당신은 의지가 없어서가 아니라, 시작하기 전에 준비해야 할 것, 정리해야 할 것이 너무 많아져서 에너지를 먼저 소모합니다.',
           needs: ['바로 착수 가능한 최소 단위의 시작점', '완벽한 준비보다 일단 시작하는 습관', '2분 안에 시작할 수 있는 작은 액션'],
-          resource: '미루기 대처 템플릿',
+          resource: '미루기일기 템플릿',
+          productLink: 'delay-diary.html',
+          productName: '미루기일기',
+          productPrice: '3,500원',
         },
         attention: {
           title: '주의 분산형',
           summary: '하고 싶은 마음이 없는 게 아니라, 주의의 초점이 쉽게 흐트러져서 계획이 흩어지는 편입니다.',
           description: '시작 자체보다도, 시작한 뒤 흐름을 유지하고 현재 해야 할 일에 주의를 붙잡아 두는 과정에서 자주 무너집니다.',
           needs: ['방해 요소를 차단하는 환경 설계', '하나에 집중할 수 있는 명확한 우선순위', '주의가 샜을 때 돌아오는 루틴'],
-          resource: '집중 분산 대처 템플릿',
+          resource: '미루기일기 템플릿',
+          productLink: 'delay-diary.html',
+          productName: '미루기일기',
+          productPrice: '3,500원',
         },
         emotional: {
           title: '감정 소진형',
           summary: '문제는 의지가 아니라, 감정의 흔들림이 일상의 에너지를 먼저 소진시키는 방식입니다.',
           description: '해야 할 일을 몰라서 못 하는 것이 아니라, 감정이 흔들리는 순간 그 여파가 오래 남고, 회복에 많은 에너지를 씁니다.',
           needs: ['감정 회복 패턴을 읽는 도구', '작은 감정 변화를 기록하는 습관', '감정과 실행을 분리하는 연습'],
-          resource: '감정 일기장 템플릿',
+          resource: '감정일기 템플릿',
+          productLink: 'emotion-diary.html',
+          productName: '감정일기',
+          productPrice: '3,500원',
         },
         impulsive: {
           title: '충동 가속형',
           summary: '생각이 없어서가 아니라, 속도가 붙는 순간 멈추는 브레이크가 약해지는 편입니다.',
           description: '순간 에너지와 반응 속도는 빠르지만, 말이나 행동, 선택이 먼저 튀어나가고 뒤늦게 후회하는 장면이 반복됩니다.',
           needs: ['행동 전 멈춤 간격 설계', '충동이 올 때 대체할 수 있는 행동', '후회 패턴을 읽고 예방하는 방법'],
-          resource: '충동 패턴 대응 자료',
+          resource: '1:1 무료 상담',
+          productLink: 'coaching.html',
+          productName: '무료 상담',
+          productPrice: '무료',
+          isCoaching: true,
         },
         environment: {
           title: '환경 민감형',
           summary: '의욕이 없는 것이 아니라, 환경이 맞지 않으면 실행 자체가 켜지지 않는 편입니다.',
           description: "'어디서 하느냐', '누가 옆에 있느냐', '얼마나 시끄럽냐' 같은 외부 조건의 영향을 크게 받습니다.",
           needs: ['나를 움직이게 하는 환경 조건 파악', '최적의 실행 환경 설계', '어디서든 집중할 수 있는 휴대용 루틴'],
-          resource: '환경 설정 가이드',
+          resource: 'ADHD 플래너',
+          productLink: 'https://blog.naver.com/msh4688/223842985271',
+          productName: 'ADHD 플래너',
+          productPrice: '자세히 보기',
+          isExternal: true,
         },
         complex: {
           title: '변동성 복합형',
           summary: '문제가 하나만 있는 것이 아니라, 상황과 컨디션에 따라 패턴이 크게 달라지는 편입니다.',
           description: "어떤 날은 놀랄 만큼 잘 해내고, 어떤 날은 같은 사람인지 싶을 만큼 완전히 무너집니다.",
           needs: ['내 편차를 읽고 조절할 수 있는 맞춤 설계', '컨디션별 대응 전략', '예측 불가능한 날을 위한 플랜 B'],
-          resource: '컨디션 트래커 템플릿',
+          resource: '1:1 무료 상담',
+          productLink: 'coaching.html',
+          productName: '무료 상담',
+          productPrice: '무료',
+          isCoaching: true,
         },
       };
 
@@ -1217,24 +1238,29 @@
             ` : ''}
 
             <div class="analysis-section" style="background: rgba(79,209,197,0.1); border: 1px solid rgba(79,209,197,0.3);">
-              <h3 style="color: var(--accent);">맞춤 자료 받기</h3>
+              <h3 style="color: var(--accent);">${result.title}에게 추천</h3>
               <p>
-                <strong>${result.resource}</strong>가 필요하시다면<br>
-                카카오톡으로 "테스트 결과: ${result.title}" 라고 말씀해주세요.<br>
-                맞춤 자료를 무료로 보내드려요.
+                <strong>${result.resource}</strong>가 도움이 될 수 있어요.
+                ${result.isCoaching ? '<br>ADHD 당사자가 직접 1:1로 상담해드려요.' : ''}
               </p>
             </div>
 
             <div class="cta-group">
+              <a href="${result.productLink}" class="primary-btn result-cta" ${result.isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                ${result.productName} ${result.productPrice !== '무료' && result.productPrice !== '자세히 보기' ? '(' + result.productPrice + ')' : ''} 보러가기
+              </a>
+              ${!result.isCoaching ? `
+              <a href="coaching.html" class="secondary-btn">
+                1:1 무료 상담 받기
+              </a>
+              ` : `
               <a href="${KAKAO_LINK}" class="kakao-btn" target="_blank" rel="noopener noreferrer">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="#1a1a1a">
                   <path d="M12 3C6.48 3 2 6.58 2 11c0 2.83 1.89 5.32 4.72 6.73-.2.74-.72 2.68-.83 3.09-.13.52.19.51.41.37.17-.11 2.71-1.84 3.82-2.59.6.09 1.22.13 1.88.13 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
                 </svg>
-                카카오톡으로 자료 받기
+                카카오톡으로 바로 상담하기
               </a>
-              <a href="${KAKAO_LINK}" class="secondary-btn" target="_blank" rel="noopener noreferrer">
-                1:1 무료 상담도 가능해요
-              </a>
+              `}
             </div>
 
             <div class="share-section">
