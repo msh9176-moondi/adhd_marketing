@@ -803,6 +803,105 @@
         min-height: 20px;
       }
 
+      /* 모든 유형 보기 섹션 */
+      .all-types-section {
+        margin-bottom: 24px;
+      }
+
+      .all-types-toggle {
+        width: 100%;
+        padding: 16px 20px;
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 14px;
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.2s;
+        font-family: inherit;
+      }
+
+      .all-types-toggle:hover {
+        background: rgba(255,255,255,0.06);
+        border-color: var(--accent);
+      }
+
+      .all-types-toggle .toggle-icon {
+        transition: transform 0.3s;
+      }
+
+      .all-types-toggle.open .toggle-icon {
+        transform: rotate(180deg);
+      }
+
+      .all-types-content {
+        display: none;
+        margin-top: 12px;
+      }
+
+      .all-types-content.show {
+        display: block;
+      }
+
+      .type-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 14px;
+        padding: 20px;
+        margin-bottom: 12px;
+      }
+
+      .type-card:last-child {
+        margin-bottom: 0;
+      }
+
+      .type-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .type-card-name {
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .type-card-name .type-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .type-card-score {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--accent);
+      }
+
+      .type-card-desc {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin-bottom: 12px;
+      }
+
+      .type-card-needs {
+        font-size: 13px;
+        color: var(--text-subtle);
+      }
+
+      .type-card-needs strong {
+        color: var(--accent);
+      }
+
       /* ===== SNS 링크 ===== */
       .social-links {
         text-align: center;
@@ -1319,6 +1418,35 @@
           needsHtml += `<li>${need}</li>`;
         });
 
+        // 모든 유형 카드 HTML
+        const typeColors = {
+          starter: '#f87171',
+          attention: '#fb923c',
+          emotional: '#facc15',
+          impulsive: '#4ade80',
+          environment: '#60a5fa',
+          complex: '#c084fc'
+        };
+
+        let allTypesHtml = '';
+        sortedTypes.forEach(type => {
+          const typeResult = TYPE_RESULTS[type];
+          const typeNeeds = typeResult.needs.slice(0, 2).join(', ');
+          allTypesHtml += `
+            <div class="type-card">
+              <div class="type-card-header">
+                <span class="type-card-name">
+                  <span class="type-dot" style="background: ${typeColors[type]};"></span>
+                  ${typeResult.title}
+                </span>
+                <span class="type-card-score">${scores[type]}%</span>
+              </div>
+              <p class="type-card-desc">${typeResult.description}</p>
+              <p class="type-card-needs"><strong>필요한 것:</strong> ${typeNeeds}</p>
+            </div>
+          `;
+        });
+
         return `
           <div class="card result-page fade-in">
             <h1>당신의 실행 패턴 분석 결과</h1>
@@ -1357,6 +1485,16 @@
               <p><strong>${TYPES[secondaryType].name}</strong> (${scores[secondaryType]}%) - ${TYPES[secondaryType].description}</p>
             </div>
             ` : ''}
+
+            <div class="all-types-section">
+              <button class="all-types-toggle" onclick="toggleAllTypes(this)">
+                <span>모든 유형 설명 보기</span>
+                <span class="toggle-icon">▼</span>
+              </button>
+              <div class="all-types-content" id="allTypesContent">
+                ${allTypesHtml}
+              </div>
+            </div>
 
             <div class="analysis-section" style="background: rgba(79,209,197,0.1); border: 1px solid rgba(79,209,197,0.3);">
               <h3 style="color: var(--accent);">${result.title}에게 추천</h3>
@@ -1615,7 +1753,7 @@ ${shareUrl}`;
         } else {
           state.answers[questionId].push(optionIndex);
         }
-        render();
+        render(true); // 스크롤 유지
       }
 
       function nextQuestion() {
@@ -1646,8 +1784,14 @@ ${shareUrl}`;
         render();
       }
 
+      function toggleAllTypes(btn) {
+        btn.classList.toggle('open');
+        const content = document.getElementById('allTypesContent');
+        content.classList.toggle('show');
+      }
+
       // ===== 메인 렌더 함수 =====
-      function render() {
+      function render(keepScroll = false) {
         const app = document.getElementById('app');
         let html = '';
 
@@ -1669,7 +1813,9 @@ ${shareUrl}`;
         }
 
         app.innerHTML = html;
-        window.scrollTo(0, 0);
+        if (!keepScroll) {
+          window.scrollTo(0, 0);
+        }
 
         // 결과 페이지에서 카카오톡 클릭 추적
         if (state.currentPage === 'result') {
