@@ -705,41 +705,94 @@
       /* 캡처용 결과 카드 */
       .capture-card {
         background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
-        padding: 32px 24px;
-        border-radius: 20px;
+        padding: 40px 32px;
+        border-radius: 24px;
         text-align: center;
-        max-width: 400px;
-        margin: 0 auto;
+        width: 480px;
       }
 
       .capture-card .capture-title {
-        font-size: 14px;
+        font-size: 13px;
         color: var(--accent);
-        margin-bottom: 8px;
+        margin-bottom: 6px;
+        letter-spacing: 1px;
       }
 
       .capture-card .capture-main-title {
-        font-size: 22px;
+        font-size: 24px;
         font-weight: 900;
+        margin-bottom: 24px;
+        color: white;
+      }
+
+      .capture-card .capture-chart-area {
+        margin-bottom: 24px;
+      }
+
+      .capture-card .capture-scores {
+        text-align: left;
+        padding: 20px;
+        background: rgba(255,255,255,0.03);
+        border-radius: 16px;
         margin-bottom: 20px;
+      }
+
+      .capture-card .capture-score-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .capture-card .capture-score-item:last-child {
+        margin-bottom: 0;
+      }
+
+      .capture-card .capture-score-name {
+        font-size: 13px;
+        font-weight: 600;
+        color: white;
+        width: 90px;
+        flex-shrink: 0;
+      }
+
+      .capture-card .capture-score-bar-bg {
+        flex: 1;
+        height: 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .capture-card .capture-score-bar-fill {
+        height: 100%;
+        border-radius: 5px;
+      }
+
+      .capture-card .capture-score-value {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--accent);
+        width: 40px;
+        text-align: right;
       }
 
       .capture-card .capture-type-badge {
         display: inline-block;
         background: var(--accent);
         color: var(--dark);
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 700;
-        padding: 8px 20px;
-        border-radius: 20px;
-        margin-top: 16px;
+        padding: 10px 24px;
+        border-radius: 24px;
+        margin-top: 8px;
       }
 
       .capture-card .capture-footer {
-        margin-top: 20px;
-        padding-top: 16px;
+        margin-top: 24px;
+        padding-top: 20px;
         border-top: 1px solid rgba(255,255,255,0.1);
-        font-size: 12px;
+        font-size: 13px;
         color: var(--text-subtle);
       }
 
@@ -1357,14 +1410,15 @@
 
             <!-- 캡처용 숨겨진 카드 -->
             <div id="captureArea" style="position: absolute; left: -9999px; top: 0;">
-              <div class="capture-card" style="width: 400px;">
-                <p class="capture-title">ADHD 실행 패턴 분석 결과</p>
-                <h2 class="capture-main-title">나의 주요 유형은?</h2>
-                <div id="captureChart"></div>
-                <div class="capture-type-badge">${result.title} ${scores[primaryType]}%</div>
-                ${scores[secondaryType] >= 30 ? `<p style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">보조 유형: ${TYPE_RESULTS[secondaryType].title} ${scores[secondaryType]}%</p>` : ''}
+              <div class="capture-card">
+                <p class="capture-title">ADHD 실행 패턴 분석</p>
+                <h2 class="capture-main-title">나의 실행 패턴 결과</h2>
+                <div class="capture-chart-area" id="captureChart"></div>
+                <div class="capture-scores" id="captureScores"></div>
+                <div class="capture-type-badge">주요 유형: ${result.title} ${scores[primaryType]}%</div>
+                ${scores[secondaryType] >= 30 ? `<p style="margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.7);">보조 유형: ${TYPE_RESULTS[secondaryType].title} ${scores[secondaryType]}%</p>` : ''}
                 <div class="capture-footer">
-                  나도 테스트 해보기 👉 msh9176-moondi.github.io/adhd_marketing/리드퍼널/survey.html
+                  나도 테스트 해보기 👉 floca.kr/survey
                 </div>
               </div>
             </div>
@@ -1407,18 +1461,48 @@
         const radarContainer = document.querySelector('.radar-container');
         if (radarContainer && captureChart) {
           captureChart.innerHTML = radarContainer.innerHTML;
-          // 캡처용 스타일 조정
-          captureChart.style.cssText = 'width: 280px; height: 280px; margin: 0 auto;';
+          captureChart.style.cssText = 'width: 320px; height: 320px; margin: 0 auto; position: relative;';
           const svg = captureChart.querySelector('svg');
           if (svg) {
             svg.style.width = '100%';
             svg.style.height = '100%';
           }
-          // 라벨 위치 조정
+          const radarLabels = captureChart.querySelector('.radar-labels');
+          if (radarLabels) {
+            radarLabels.style.cssText = 'position: absolute; width: 100%; height: 100%; top: 0; left: 0;';
+          }
           const labels = captureChart.querySelectorAll('.radar-label');
           labels.forEach(label => {
-            label.style.fontSize = '11px';
+            label.style.fontSize = '12px';
+            label.style.fontWeight = '600';
           });
+        }
+
+        // 바 그래프 생성
+        const captureScores = document.getElementById('captureScores');
+        if (captureScores) {
+          const barColors = {
+            starter: '#f87171',
+            attention: '#fb923c',
+            emotional: '#facc15',
+            impulsive: '#4ade80',
+            environment: '#60a5fa',
+            complex: '#c084fc'
+          };
+
+          let scoresHtml = '';
+          sortedTypes.forEach(type => {
+            scoresHtml += `
+              <div class="capture-score-item">
+                <span class="capture-score-name">${TYPES[type].name}</span>
+                <div class="capture-score-bar-bg">
+                  <div class="capture-score-bar-fill" style="width: ${scores[type]}%; background: ${barColors[type]};"></div>
+                </div>
+                <span class="capture-score-value">${scores[type]}%</span>
+              </div>
+            `;
+          });
+          captureScores.innerHTML = scoresHtml;
         }
 
         // 캡처 영역을 화면에 임시로 표시
@@ -1438,11 +1522,9 @@
             useCORS: true,
             logging: false
           }).then(canvas => {
-            // 다시 숨기기
             captureArea.style.left = '-9999px';
             captureArea.style.position = 'absolute';
 
-            // 다운로드
             const link = document.createElement('a');
             link.download = `ADHD_실행패턴_${result.title}.png`;
             link.href = canvas.toDataURL('image/png');
@@ -1456,7 +1538,7 @@
             hintEl.textContent = '이미지 저장에 실패했어요. 스크린샷을 이용해주세요.';
             console.error('Image capture error:', err);
           });
-        }, 100);
+        }, 150);
       }
 
       // ===== 공유 기능 =====
