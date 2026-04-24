@@ -368,145 +368,51 @@
             margin-top: 16px;
         }
 
-        /* ===== 판매 섹션 ===== */
-        .products {
-            background: var(--dark-light);
-            padding: 64px 0;
-        }
-
-        .products-header {
-            text-align: center;
-            margin-bottom: 32px;
-        }
-
-        .products-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .products-header p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .product-grid {
-            display: grid;
-            gap: 20px;
-        }
-
-        .product-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 32px 24px;
-            text-align: center;
-            transition: all 0.3s;
-        }
-
-        .product-card:hover {
-            border-color: rgba(79,209,197,0.3);
-            transform: translateY(-4px);
-        }
-
-        .product-card img {
-            max-width: 120px;
-            height: auto;
-            border-radius: 10px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-            margin-bottom: 20px;
-        }
-
-        .product-card h4 {
-            font-size: 17px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.5;
-        }
-
-        .product-card p {
-            font-size: 14px;
+        .offer-desc {
+            font-size: 15px;
             color: var(--text-muted);
             line-height: 1.8;
-            margin-bottom: 20px;
-        }
-
-        .product-btn {
-            display: inline-block;
-            background: rgba(79,209,197,0.15);
-            border: 1px solid rgba(79,209,197,0.3);
-            color: var(--accent);
-            text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.2s;
-        }
-
-        .product-btn:hover {
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        /* ===== 기타 CTA ===== */
-        .other-cta {
-            background: var(--dark);
-            padding: 48px 0;
-        }
-
-        .other-cta-header {
-            text-align: center;
             margin-bottom: 24px;
         }
 
-        .other-cta-header p {
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        .cta-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .cta-btn-yt {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            padding: 16px;
-            background: #ff0000;
-            color: white;
-            text-decoration: none;
-            border-radius: 12px;
+        .highlight-yellow {
+            color: #fee500;
             font-weight: 700;
-            font-size: 15px;
-            transition: all 0.2s;
         }
 
-        .cta-btn-yt:hover {
-            opacity: 0.9;
-        }
-
-        .cta-btn-secondary {
-            display: block;
-            padding: 14px;
-            background: rgba(255,255,255,0.05);
+        /* ===== 유형 테스트 보조 CTA ===== */
+        .survey-card-simple {
+            background: rgba(255,255,255,0.03);
             border: 1px solid rgba(255,255,255,0.1);
-            color: var(--text-muted);
-            text-decoration: none;
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 14px;
+            border-radius: 16px;
+            padding: 28px;
             text-align: center;
-            transition: all 0.2s;
         }
 
-        .cta-btn-secondary:hover {
-            border-color: var(--accent);
+        .survey-question {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .survey-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            border: 1px solid rgba(79,209,197,0.4);
             color: var(--accent);
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+        }
+
+        .survey-btn-secondary:hover {
+            background: rgba(79,209,197,0.15);
+            border-color: var(--accent);
         }
 
         /* ===== 푸터 ===== */
@@ -527,18 +433,6 @@
         @media (min-width: 768px) {
             .completion h1 {
                 font-size: 32px;
-            }
-
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .cta-buttons {
-                flex-direction: row;
-            }
-
-            .cta-btn-secondary {
-                flex: 1;
             }
         }
     </style>
@@ -599,93 +493,37 @@
         </div>
     </section>
 
-    <!-- ===== 무료 상담 + 템플릿 섹션 (다음 단계) ===== -->
+    <!-- ===== 무료 상담 섹션 (1순위 CTA) ===== -->
     <section class="free-offer">
         <div class="container">
             <div class="offer-card">
-                <p class="offer-label">다음 단계</p>
-                <img src="delay/232.png" alt="미루기일기 템플릿" class="offer-image" />
-                <span class="offer-badge">Limited Offer</span>
+                <span class="offer-badge">PDF 신청자 한정</span>
                 <h3>
-                    지금 무료 상담 신청하면<br />
-                    <span class="highlight">미루기일기 템플릿</span> 무료 증정
+                    혼자 고민하지 마세요<br />
+                    <span class="highlight">무료 1:1 상담</span>으로 시작해보세요
                 </h3>
-                <p class="price-info">
-                    <span class="cross">정가 3,500원</span>
-                    <span class="free">→ 0원</span>
+                <p class="offer-desc">
+                    10년간 ADHD와 싸워온 선배가<br />
+                    지금 가장 힘든 문제 1가지를 함께 정리해드립니다.
                 </p>
-                <a href="coaching.html" class="offer-btn">무료 상담 신청하기</a>
-                <p class="offer-note">* 1:1 오픈톡방에서 파일 전달 + 상담 진행</p>
+                <img src="delay/232.png" alt="미루기일기 템플릿" class="offer-image" />
+                <p class="price-info">
+                    상담 신청하시면 <span class="highlight-yellow">미루기일기 템플릿(3,500원)</span> 무료 증정
+                </p>
+                <a href="coaching.html" class="offer-btn">무료 상담 신청하고 템플릿 받기</a>
+                <p class="offer-note">* 카카오톡 1:1 오픈채팅으로 진행됩니다</p>
             </div>
         </div>
     </section>
 
-    <!-- ===== 유형 테스트 섹션 ===== -->
+    <!-- ===== 유형 테스트 섹션 (2순위 CTA) ===== -->
     <section class="survey-cta">
         <div class="container">
-            <div class="survey-card">
-                <p class="survey-label">추가 분석</p>
-                <h3>PDF 읽어보셨나요?<br />이제 <span class="highlight">내 유형</span>을 알아보세요</h3>
-                <p class="survey-desc">
-                    ADHD도 유형이 다 달라요.<br />
-                    나는 어떤 유형인지 3분 만에 분석해보세요.
-                </p>
-                <a href="survey.html" class="survey-btn">
-                    <span>6가지 유형 테스트 하기</span>
+            <div class="survey-card-simple">
+                <p class="survey-question">아직 상담이 부담되신다면?</p>
+                <a href="survey.html" class="survey-btn-secondary">
+                    <span>내 ADHD 유형 먼저 알아보기 (3분)</span>
                     <span>→</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 판매 섹션 ===== -->
-    <section class="products">
-        <div class="container">
-            <div class="products-header">
-                <h2>ADHD를 위한 템플릿</h2>
-                <p>미루기 패턴과 감정을 기록하면 대처법이 보여요</p>
-            </div>
-
-            <div class="product-grid">
-                <div class="product-card">
-                    <img src="emotion/227.png" alt="감정일기 템플릿" />
-                    <h4>감정 폭발 후 자책,<br />반복되고 있나요?</h4>
-                    <p>
-                        감정일기로 나의 트리거를 파악하면<br />
-                        폭발 전에 멈출 수 있습니다.
-                    </p>
-                    <a href="emotion-diary.html" class="product-btn">감정일기 보기 (3,500원)</a>
-                </div>
-
-                <div class="product-card">
-                    <img src="delay/232.png" alt="미루기일기 템플릿" />
-                    <h4>"또 미뤘다..."<br />오늘도 자책했나요?</h4>
-                    <p>
-                        미루기 패턴을 기록하면<br />
-                        해결책이 보입니다.
-                    </p>
-                    <a href="delay-diary.html" class="product-btn">미루기일기 보기 (3,500원)</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 기타 CTA ===== -->
-    <section class="other-cta">
-        <div class="container">
-            <div class="other-cta-header">
-                <p>더 빠르게 도움을 받고 싶다면</p>
-            </div>
-            <div class="cta-buttons">
-                <a href="https://www.youtube.com/@adhdflow-e3c" class="cta-btn-yt" target="_blank" rel="noopener noreferrer">
-                    <span>&#9654;</span>
-                    유튜브에서 ADHD 실전 팁 보기
-                </a>
-                <a href="https://blog.naver.com/msh4688/223842985271" class="cta-btn-secondary" target="_blank" rel="noopener noreferrer">
-                    ADHD 플래너 자세히 보기
-                </a>
-                <a href="https://maily.so/floca" class="cta-btn-secondary" target="_blank" rel="noopener noreferrer">
-                    실전 자료 계속 받아보기
                 </a>
             </div>
         </div>
@@ -703,11 +541,40 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+            // 체크박스 토글
             const checkBoxes = document.querySelectorAll('.check-box');
             checkBoxes.forEach(function (box) {
                 box.addEventListener('click', function () {
                     this.classList.toggle('checked');
                 });
+            });
+
+            // GA 이벤트 추적: 무료 상담 클릭
+            const coachingBtn = document.querySelector('.offer-btn');
+            if (coachingBtn) {
+                coachingBtn.addEventListener('click', function () {
+                    gtag('event', 'coaching_click', {
+                        'event_category': 'conversion',
+                        'event_label': 'thanks_page_coaching'
+                    });
+                });
+            }
+
+            // GA 이벤트 추적: 유형 테스트 클릭
+            const surveyBtn = document.querySelector('.survey-btn-secondary');
+            if (surveyBtn) {
+                surveyBtn.addEventListener('click', function () {
+                    gtag('event', 'survey_click', {
+                        'event_category': 'engagement',
+                        'event_label': 'thanks_page_survey'
+                    });
+                });
+            }
+
+            // 페이지 뷰 이벤트
+            gtag('event', 'pdf_thanks_view', {
+                'event_category': 'funnel',
+                'event_label': 'thanks_page_loaded'
             });
         });
     </script>
