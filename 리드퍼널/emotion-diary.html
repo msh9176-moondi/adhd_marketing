@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="ko">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADHD 감정일기 템플릿 | FLOCA</title>
@@ -685,6 +694,18 @@
                 }, 2000);
             });
         }
+
+        // GA 이벤트: 카카오톡 클릭 추적
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href*="open.kakao.com"]').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    gtag('event', 'product_click', {
+                        'event_category': 'conversion',
+                        'event_label': 'emotion_diary_kakao'
+                    });
+                });
+            });
+        });
     </script>
 </body>
 </html>

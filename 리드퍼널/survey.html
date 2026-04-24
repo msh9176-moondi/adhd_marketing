@@ -1143,6 +1143,14 @@
         const secondaryType = sortedTypes[1];
         const result = TYPE_RESULTS[primaryType];
 
+        // GA 이벤트: 테스트 완료
+        gtag('event', 'survey_complete', {
+          'event_category': 'conversion',
+          'event_label': 'adhd_pattern_result',
+          'primary_type': result.title,
+          'primary_score': scores[primaryType]
+        });
+
         // 레이더 차트
         const radarChart = createRadarChart(scores);
         const radarLabels = getRadarLabels(scores);
@@ -1320,6 +1328,12 @@ ${shareUrl}`;
 
       // ===== 이벤트 핸들러 =====
       function startTest() {
+        // GA 이벤트: 테스트 시작
+        gtag('event', 'survey_start', {
+          'event_category': 'engagement',
+          'event_label': 'adhd_pattern_test'
+        });
+
         state.currentQuestion = 0;
         state.answers = {};
         state.scores = { starter: 0, attention: 0, emotional: 0, impulsive: 0, environment: 0, complex: 0 };
@@ -1394,6 +1408,18 @@ ${shareUrl}`;
 
         app.innerHTML = html;
         window.scrollTo(0, 0);
+
+        // 결과 페이지에서 카카오톡 클릭 추적
+        if (state.currentPage === 'result') {
+          document.querySelectorAll('a[href*="open.kakao.com"]').forEach(function(link) {
+            link.addEventListener('click', function() {
+              gtag('event', 'kakao_click', {
+                'event_category': 'conversion',
+                'event_label': 'survey_result_kakao'
+              });
+            });
+          });
+        }
       }
 
       // ===== 초기화 =====

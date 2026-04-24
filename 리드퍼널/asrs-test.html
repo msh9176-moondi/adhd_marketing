@@ -920,6 +920,15 @@
 
         function renderResultPage() {
             const scores = calculateScores();
+
+            // GA 이벤트: ASRS 테스트 완료
+            gtag('event', 'asrs_complete', {
+                'event_category': 'conversion',
+                'event_label': 'asrs_result',
+                'result_level': scores.level,
+                'total_score': scores.totalScore
+            });
+
             let levelClass, levelText;
             switch (scores.level) {
                 case 'high': levelClass = 'level-high'; levelText = '높은 가능성'; break;
@@ -1009,6 +1018,12 @@
         }
 
         function startTest(mode) {
+            // GA 이벤트: ASRS 테스트 시작
+            gtag('event', 'asrs_start', {
+                'event_category': 'engagement',
+                'event_label': mode === 'quick' ? 'asrs_quick' : 'asrs_full'
+            });
+
             state.testMode = mode;
             state.currentQuestion = 0;
             state.answers = {};

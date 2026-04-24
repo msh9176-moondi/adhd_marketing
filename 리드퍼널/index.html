@@ -711,6 +711,12 @@
                     submitBtn.disabled = true;
                     submitBtn.textContent = '처리 중...';
 
+                    // GA 이벤트: 리드 제출
+                    gtag('event', 'lead_submit', {
+                        'event_category': 'conversion',
+                        'event_label': 'pdf_signup'
+                    });
+
                     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz59rkWc3MHBgIxTNKsmKObJOhWR43tXAXzi8MC10ILMcVgBaseXXFWXqMTGQX2rLY/exec';
 
                     fetch(GOOGLE_SCRIPT_URL, {
