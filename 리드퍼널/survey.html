@@ -572,6 +572,19 @@
         font-weight: 700;
       }
 
+      /* ===== 이메일 폼 ===== */
+      .email-form-section {
+        background: rgba(79,209,197,0.1);
+        border: 1px solid rgba(79,209,197,0.3);
+        border-radius: 16px;
+        padding: 28px;
+        margin-bottom: 24px;
+      }
+
+      .email-form-section input::placeholder {
+        color: rgba(255,255,255,0.4);
+      }
+
       /* ===== CTA 그룹 ===== */
       .cta-group {
         display: flex;
@@ -1245,22 +1258,27 @@
               </p>
             </div>
 
-            <div class="cta-group">
-              <a href="${result.productLink}" class="primary-btn result-cta" ${result.isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+            <div class="email-form-section">
+              <h3 style="font-size: 18px; font-weight: 700; margin-bottom: 12px; text-align: center;">
+                ${result.title} 맞춤 PDF 받기
+              </h3>
+              <p style="font-size: 14px; color: var(--text-muted); text-align: center; margin-bottom: 20px;">
+                이메일을 남기시면 유형에 맞는 자료를 보내드려요
+              </p>
+              <form class="result-email-form" onsubmit="submitResultEmail(event, '${result.title}')">
+                <input type="text" name="name" placeholder="이름" required style="width: 100%; padding: 14px 16px; margin-bottom: 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.08); color: white; font-size: 15px;">
+                <input type="email" name="email" placeholder="이메일" required style="width: 100%; padding: 14px 16px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; background: rgba(255,255,255,0.08); color: white; font-size: 15px;">
+                <button type="submit" class="primary-btn">맞춤 PDF 받기</button>
+              </form>
+            </div>
+
+            <div class="cta-group" style="margin-top: 24px;">
+              <a href="${result.productLink}" class="secondary-btn" ${result.isExternal ? 'target="_blank" rel="noopener noreferrer"' : ''}>
                 ${result.productName} ${result.productPrice !== '무료' && result.productPrice !== '자세히 보기' ? '(' + result.productPrice + ')' : ''} 보러가기
               </a>
-              ${!result.isCoaching ? `
               <a href="coaching.html" class="secondary-btn">
                 1:1 무료 상담 받기
               </a>
-              ` : `
-              <a href="${KAKAO_LINK}" class="kakao-btn" target="_blank" rel="noopener noreferrer">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="#1a1a1a">
-                  <path d="M12 3C6.48 3 2 6.58 2 11c0 2.83 1.89 5.32 4.72 6.73-.2.74-.72 2.68-.83 3.09-.13.52.19.51.41.37.17-.11 2.71-1.84 3.82-2.59.6.09 1.22.13 1.88.13 5.52 0 10-3.58 10-8s-4.48-8-10-8z"/>
-                </svg>
-                카카오톡으로 바로 상담하기
-              </a>
-              `}
             </div>
 
             <div class="share-section">
@@ -1446,6 +1464,42 @@ ${shareUrl}`;
             });
           });
         }
+      }
+
+      // ===== 이메일 제출 =====
+      function submitResultEmail(event, resultType) {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.querySelector('input[name="name"]').value.trim();
+        const email = form.querySelector('input[name="email"]').value.trim();
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        if (!name || !email) return;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = '처리 중...';
+
+        // GA 이벤트
+        gtag('event', 'lead_submit', {
+          'event_category': 'conversion',
+          'event_label': 'survey_result_pdf',
+          'result_type': resultType
+        });
+
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz59rkWc3MHBgIxTNKsmKObJOhWR43tXAXzi8MC10ILMcVgBaseXXFWXqMTGQX2rLY/exec';
+
+        fetch(GOOGLE_SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, resultType })
+        })
+        .then(function() {
+          window.location.href = 'thanks.html';
+        })
+        .catch(function() {
+          window.location.href = 'thanks.html';
+        });
       }
 
       // ===== 초기화 =====
