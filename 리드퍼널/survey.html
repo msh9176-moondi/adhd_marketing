@@ -29,6 +29,9 @@
     <meta name="twitter:title" content="나의 ADHD 실행 패턴은? | 3분 테스트" />
     <meta name="twitter:description" content="6가지 유형 중 나는 어떤 패턴일까? 지금 바로 확인해보세요." />
 
+    <!-- html2canvas for image capture -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -688,6 +691,58 @@
         border-color: #fff;
       }
 
+      .share-btn.save-image {
+        background: linear-gradient(135deg, var(--accent), var(--primary));
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .share-btn.save-image:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(79,209,197,0.4);
+      }
+
+      /* 캡처용 결과 카드 */
+      .capture-card {
+        background: linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
+        padding: 32px 24px;
+        border-radius: 20px;
+        text-align: center;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .capture-card .capture-title {
+        font-size: 14px;
+        color: var(--accent);
+        margin-bottom: 8px;
+      }
+
+      .capture-card .capture-main-title {
+        font-size: 22px;
+        font-weight: 900;
+        margin-bottom: 20px;
+      }
+
+      .capture-card .capture-type-badge {
+        display: inline-block;
+        background: var(--accent);
+        color: var(--dark);
+        font-size: 14px;
+        font-weight: 700;
+        padding: 8px 20px;
+        border-radius: 20px;
+        margin-top: 16px;
+      }
+
+      .capture-card .capture-footer {
+        margin-top: 20px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.1);
+        font-size: 12px;
+        color: var(--text-subtle);
+      }
+
       .share-hint {
         margin-top: 12px;
         font-size: 13px;
@@ -1284,20 +1339,34 @@
             <div class="share-section">
               <p class="share-label">친구에게 공유하기</p>
               <div class="share-buttons">
+                <button class="share-btn save-image" onclick="saveResultImage()">
+                  <span class="share-icon">📸</span>
+                  <span>이미지 저장</span>
+                </button>
                 <button class="share-btn kakao" onclick="shareResult('kakao')">
                   <span class="share-icon">💬</span>
-                  <span>카카오톡 공유</span>
+                  <span>카카오톡</span>
                 </button>
                 <button class="share-btn link" onclick="shareResult('link')">
                   <span class="share-icon">🔗</span>
                   <span>링크 복사</span>
                 </button>
-                <button class="share-btn twitter" onclick="shareResult('twitter')">
-                  <span class="share-icon">𝕏</span>
-                  <span>트위터</span>
-                </button>
               </div>
               <p class="share-hint" id="shareHint"></p>
+            </div>
+
+            <!-- 캡처용 숨겨진 카드 -->
+            <div id="captureArea" style="position: absolute; left: -9999px; top: 0;">
+              <div class="capture-card" style="width: 400px;">
+                <p class="capture-title">ADHD 실행 패턴 분석 결과</p>
+                <h2 class="capture-main-title">나의 주요 유형은?</h2>
+                <div id="captureChart"></div>
+                <div class="capture-type-badge">${result.title} ${scores[primaryType]}%</div>
+                ${scores[secondaryType] >= 30 ? `<p style="margin-top: 12px; font-size: 13px; color: var(--text-muted);">보조 유형: ${TYPE_RESULTS[secondaryType].title} ${scores[secondaryType]}%</p>` : ''}
+                <div class="capture-footer">
+                  나도 테스트 해보기 👉 msh9176-moondi.github.io/adhd_marketing/리드퍼널/survey.html
+                </div>
+              </div>
             </div>
 
             <div class="social-links">
@@ -1321,6 +1390,73 @@
             </div>
           </div>
         `;
+      }
+
+      // ===== 이미지 저장 기능 =====
+      function saveResultImage() {
+        const hintEl = document.getElementById('shareHint');
+        hintEl.textContent = '이미지 생성 중...';
+
+        const scores = state.scores;
+        const sortedTypes = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+        const primaryType = sortedTypes[0];
+        const result = TYPE_RESULTS[primaryType];
+
+        // 캡처 영역에 차트 복사
+        const captureChart = document.getElementById('captureChart');
+        const radarContainer = document.querySelector('.radar-container');
+        if (radarContainer && captureChart) {
+          captureChart.innerHTML = radarContainer.innerHTML;
+          // 캡처용 스타일 조정
+          captureChart.style.cssText = 'width: 280px; height: 280px; margin: 0 auto;';
+          const svg = captureChart.querySelector('svg');
+          if (svg) {
+            svg.style.width = '100%';
+            svg.style.height = '100%';
+          }
+          // 라벨 위치 조정
+          const labels = captureChart.querySelectorAll('.radar-label');
+          labels.forEach(label => {
+            label.style.fontSize = '11px';
+          });
+        }
+
+        // 캡처 영역을 화면에 임시로 표시
+        const captureArea = document.getElementById('captureArea');
+        captureArea.style.left = '0';
+        captureArea.style.position = 'fixed';
+        captureArea.style.top = '0';
+        captureArea.style.zIndex = '-1';
+        captureArea.style.opacity = '1';
+
+        setTimeout(() => {
+          const captureCard = captureArea.querySelector('.capture-card');
+
+          html2canvas(captureCard, {
+            backgroundColor: '#0f0f1a',
+            scale: 2,
+            useCORS: true,
+            logging: false
+          }).then(canvas => {
+            // 다시 숨기기
+            captureArea.style.left = '-9999px';
+            captureArea.style.position = 'absolute';
+
+            // 다운로드
+            const link = document.createElement('a');
+            link.download = `ADHD_실행패턴_${result.title}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+
+            hintEl.innerHTML = '✅ 저장 완료! <strong>카카오톡에서 이미지를 공유</strong>해보세요';
+            setTimeout(() => { hintEl.textContent = ''; }, 5000);
+          }).catch(err => {
+            captureArea.style.left = '-9999px';
+            captureArea.style.position = 'absolute';
+            hintEl.textContent = '이미지 저장에 실패했어요. 스크린샷을 이용해주세요.';
+            console.error('Image capture error:', err);
+          });
+        }, 100);
       }
 
       // ===== 공유 기능 =====
