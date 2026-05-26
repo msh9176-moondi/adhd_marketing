@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOCA 커뮤니티 | ADHD 인증방 & 친목방</title>
+    <meta name="description" content="ADHD 당사자들이 함께하는 인증방과 친목방. 매일 인증하고, 고민 나누고, 함께 성장해요.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FLOCA 커뮤니티 | ADHD 인증방 & 친목방">
+    <meta property="og:description" content="혼자 하기 힘들 때, 함께하면 됩니다. ADHD 당사자들의 인증 커뮤니티.">
+    <meta property="og:image" content="delay/232.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2a7b9b;
+            --primary-dark: #1e6a87;
+            --accent: #4fd1c5;
+            --dark: #0f0f1a;
+            --dark-light: #1a1a2e;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --text-subtle: rgba(255,255,255,0.5);
+            --yellow: #fbbf24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--dark);
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            padding: 120px 20px 80px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+
+        /* ===== 방 선택 카드 ===== */
+        .rooms {
+            background: var(--dark-light);
+            padding: 60px 0;
+        }
+
+        .room-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .room-card {
+            background: rgba(255,255,255,0.03);
+            border: 2px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+        }
+
+        .room-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+        }
+
+        .room-card.cert {
+            border-color: rgba(251,191,36,0.3);
+        }
+
+        .room-card.social {
+            border-color: rgba(79,209,197,0.3);
+        }
+
+        .room-card.focus {
+            border-color: rgba(167,139,250,0.3);
+        }
+
+        .room-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .room-icon {
+            font-size: 32px;
+        }
+
+        .room-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .room-card.cert .room-header h2 { color: var(--yellow); }
+        .room-card.social .room-header h2 { color: var(--accent); }
+        .room-card.focus .room-header h2 { color: #a78bfa; }
+
+        .room-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .room-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .room-feature {
+            background: rgba(255,255,255,0.05);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .room-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 12px;
+            transition: all 0.3s;
+        }
+
+        .room-card.cert .room-btn {
+            background: var(--yellow);
+            color: var(--dark);
+        }
+
+        .room-card.social .room-btn {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        .room-card.focus .room-btn {
+            background: #a78bfa;
+            color: var(--dark);
+        }
+
+        .room-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+        }
+
+        .room-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .room-btn-secondary {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: var(--text-muted);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .room-btn-secondary:hover {
+            background: rgba(255,255,255,0.15);
+            color: var(--text);
+        }
+
+        /* ===== 인증 시스템 섹션 ===== */
+        .cert-system {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .category-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .category-card .emoji {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .category-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .category-card .exp {
+            font-size: 13px;
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .category-card .tags {
+            font-size: 11px;
+            color: var(--text-subtle);
+            margin-top: 8px;
+            word-break: keep-all;
+        }
+
+        /* ===== 레벨 시스템 ===== */
+        .level-system {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .level-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .level-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .level-card .emoji {
+            font-size: 24px;
+        }
+
+        .level-card .info h4 {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .level-card .info p {
+            font-size: 12px;
+            color: var(--text-subtle);
+        }
+
+        /* ===== 보상 섹션 ===== */
+        .rewards {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 60px 0;
+        }
+
+        .rewards-content {
+            text-align: center;
+        }
+
+        .rewards h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+
+        .reward-list {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .reward-item {
+            text-align: center;
+        }
+
+        .reward-item .medal {
+            font-size: 40px;
+            margin-bottom: 8px;
+        }
+
+        .reward-item p {
+            font-size: 14px;
+        }
+
+        /* ===== 정기 모임 섹션 ===== */
+        .meetings {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .meeting-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .meeting-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .meeting-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .meeting-item p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .meeting-item.done {
+            opacity: 0.5;
+        }
+
+        .meeting-item.done .meeting-number {
+            background: var(--text-subtle);
+        }
+
+        /* ===== 규칙 섹션 ===== */
+        .rules {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .rules-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        .rule-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .rule-card h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .rule-list {
+            display: grid;
+            gap: 10px;
+        }
+
+        .rule-list li {
+            font-size: 14px;
+            color: var(--text-muted);
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .rule-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        .rule-list.dont li::before {
+            content: '✕';
+            color: #f87171;
+        }
+
+        /* ===== 도구 섹션 ===== */
+        .tools {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .tool-grid {
+            display: grid;
+            gap: 16px;
+        }
+
+        .tool-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .tool-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--accent);
+        }
+
+        .tool-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .tool-icon {
+            font-size: 28px;
+        }
+
+        .tool-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .tool-info p {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .tool-arrow {
+            color: var(--accent);
+            font-size: 20px;
+        }
+
+        /* ===== 위기 지원 ===== */
+        .crisis {
+            background: rgba(248,113,113,0.1);
+            border-top: 1px solid rgba(248,113,113,0.2);
+            padding: 40px 0;
+        }
+
+        .crisis-content {
+            text-align: center;
+        }
+
+        .crisis h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f87171;
+            margin-bottom: 16px;
+        }
+
+        .crisis-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .crisis-item {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .crisis-item strong {
+            color: var(--text);
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            background: var(--primary);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.9;
+        }
+
+        /* ===== 반응형 ===== */
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .hero h1 {
+                font-size: 26px;
+            }
+
+            .category-grid,
+            .level-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .reward-list {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="patterns.html">유형 분석</a>
+                <a href="community.html" class="active">커뮤니티</a>
+                <a href="postit.html">실행력 강화 포스트잇</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 히어로 섹션 ===== -->
+    <section class="hero">
+        <div class="container">
+            <h1>
+                혼자 하기 힘들 때,<br>
+                <span class="highlight">함께하면</span> 됩니다
+            </h1>
+            <p class="hero-subtitle">
+                ADHD 당사자들이 모여<br>
+                매일 인증하고, 고민 나누고, 함께 성장해요.
+            </p>
+        </div>
+    </section>
+
+    <!-- ===== 방 선택 섹션 ===== -->
+    <section class="rooms">
+        <div class="container">
+            <div class="room-grid">
+                <!-- 인증방 -->
+                <div class="room-card cert">
+                    <div class="room-header">
+                        <span class="room-icon">🔥</span>
+                        <h2>루틴 만들기 인증방</h2>
+                    </div>
+                    <p class="room-desc">
+                        매일 인증하고 경험치를 쌓아요.<br>
+                        혼자는 어렵지만, 함께하면 루틴이 만들어져요.
+                    </p>
+                    <div class="room-features">
+                        <span class="room-feature">주 3회 인증 필수</span>
+                        <span class="room-feature">EXP 시스템</span>
+                        <span class="room-feature">월간 보상</span>
+                        <span class="room-feature">레벨업</span>
+                    </div>
+                    <div class="room-btns">
+                        <a href="https://open.kakao.com/o/gOW56u7h" target="_blank" class="room-btn">인증방 입장하기</a>
+                        <a href="https://msh9176-moondi.github.io/lulubot/" target="_blank" class="room-btn-secondary">랭킹 확인하기</a>
+                    </div>
+                </div>
+
+                <!-- 친목방 -->
+                <div class="room-card social">
+                    <div class="room-header">
+                        <span class="room-icon">💬</span>
+                        <h2>플로카 친목·고민방</h2>
+                    </div>
+                    <p class="room-desc">
+                        ADHD 고민도 나누고, 가볍게 수다도 떨 수 있는 편한 공간이에요.<br>
+                        2주마다 ADHD 정기 모임도 열려요.
+                    </p>
+                    <div class="room-features">
+                        <span class="room-feature">자유로운 대화</span>
+                        <span class="room-feature">정기 모임</span>
+                        <span class="room-feature">고민 상담</span>
+                        <span class="room-feature">정보 공유</span>
+                    </div>
+                    <a href="https://open.kakao.com/o/gJ1UcJsi" target="_blank" class="room-btn">친목방 입장하기</a>
+                </div>
+
+                <!-- 집중스페이스 -->
+                <div class="room-card focus">
+                    <div class="room-header">
+                        <span class="room-icon">🎧</span>
+                        <h2>집중스페이스 (바디더블링)</h2>
+                    </div>
+                    <p class="room-desc">
+                        대화 없이 공부, 독서, 업무 등 집중할 수 있어요.<br>
+                        조용한 바디더블링이 필요할 때 이용하세요.
+                    </p>
+                    <div class="room-features">
+                        <span class="room-feature">무음 집중</span>
+                        <span class="room-feature">바디더블링</span>
+                        <span class="room-feature">공부/업무</span>
+                    </div>
+                    <a href="https://open.kakao.com/o/s0Cp66Og" target="_blank" class="room-btn">집중스페이스 입장</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 인증 카테고리 ===== -->
+    <section class="cert-system">
+        <div class="container">
+            <div class="section-header">
+                <h2>인증 카테고리 & 경험치</h2>
+                <p>사진 + 해시태그로 인증하면 EXP가 쌓여요</p>
+            </div>
+
+            <div class="category-grid">
+                <div class="category-card">
+                    <div class="emoji">🧹</div>
+                    <h4>청소</h4>
+                    <p class="exp">+1 EXP (하루 3회)</p>
+                    <p class="tags">#청소 #방청소 #정리 #설거지 #빨래</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">🏃</div>
+                    <h4>운동</h4>
+                    <p class="exp">+4 EXP (하루 3회)</p>
+                    <p class="tags">#운동 #헬스 #러닝 #산책 #식단</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">📋</div>
+                    <h4>계획</h4>
+                    <p class="exp">+3 EXP (하루 1회)</p>
+                    <p class="tags">#계획 #계획표 #투두 #todo #할일</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">📚</div>
+                    <h4>공부</h4>
+                    <p class="exp">+4 EXP (하루 3회)</p>
+                    <p class="tags">#공부 #스터디 #독서 #학습</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">⏰</div>
+                    <h4>기상</h4>
+                    <p class="exp">+2 EXP (하루 1회)</p>
+                    <p class="tags">#기상 #굿모닝 #아침</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">💊</div>
+                    <h4>약</h4>
+                    <p class="exp">+1 EXP (하루 1회)</p>
+                    <p class="tags">#약 #복약 #약먹기 #영양제</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">📝</div>
+                    <h4>일기</h4>
+                    <p class="exp">+1 EXP (하루 1회)</p>
+                    <p class="tags">#일기 #감사일기 #하루기록</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 레벨 & 칭호 시스템 ===== -->
+    <section class="level-system">
+        <div class="container">
+            <div class="section-header">
+                <h2>누적 칭호 시스템</h2>
+                <p>매월 리셋되지 않고 계속 쌓여요</p>
+            </div>
+
+            <div class="level-grid">
+                <div class="level-card">
+                    <span class="emoji">🌱</span>
+                    <div class="info">
+                        <h4>뉴비</h4>
+                        <p>0 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">🥉</span>
+                    <div class="info">
+                        <h4>루키</h4>
+                        <p>30 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">🥈</span>
+                    <div class="info">
+                        <h4>브론즈</h4>
+                        <p>80 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">🥇</span>
+                    <div class="info">
+                        <h4>실버</h4>
+                        <p>150 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">⭐</span>
+                    <div class="info">
+                        <h4>골드</h4>
+                        <p>300 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">💎</span>
+                    <div class="info">
+                        <h4>플래티넘</h4>
+                        <p>500 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">👑</span>
+                    <div class="info">
+                        <h4>다이아</h4>
+                        <p>800 EXP</p>
+                    </div>
+                </div>
+                <div class="level-card">
+                    <span class="emoji">🏆</span>
+                    <div class="info">
+                        <h4>레전드</h4>
+                        <p>3000 EXP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 월간 보상 ===== -->
+    <section class="rewards">
+        <div class="container">
+            <div class="rewards-content">
+                <h2>월간 보상</h2>
+                <div class="reward-list">
+                    <div class="reward-item">
+                        <div class="medal">🥇</div>
+                        <p><strong>1등</strong><br>배민 2만원</p>
+                    </div>
+                    <div class="reward-item">
+                        <div class="medal">🥈</div>
+                        <p><strong>2등</strong><br>컴포즈 5천원</p>
+                    </div>
+                    <div class="reward-item">
+                        <div class="medal">🥉</div>
+                        <p><strong>3등</strong><br>아메리카노</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 정기 모임 ===== -->
+    <section class="meetings">
+        <div class="container">
+            <div class="section-header">
+                <h2>2주마다 ADHD 정기 모임</h2>
+                <p>친목방에서 진행되는 주제별 모임이에요</p>
+            </div>
+
+            <div class="meeting-list">
+                <div class="meeting-item">
+                    <span class="meeting-number">1</span>
+                    <p>"나는 왜 계획만 세우고 안 할까?"</p>
+                </div>
+                <div class="meeting-item">
+                    <span class="meeting-number">2</span>
+                    <p>"시간감각 왜곡과 벼락치기"</p>
+                </div>
+                <div class="meeting-item done">
+                    <span class="meeting-number">✓</span>
+                    <p>"내 머릿속 NO맨을 잡아라" (완료)</p>
+                </div>
+                <div class="meeting-item done">
+                    <span class="meeting-number">✓</span>
+                    <p>"10분만 하면 인생이 바뀌는 이유" (완료)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 이용 규칙 ===== -->
+    <section class="rules">
+        <div class="container">
+            <div class="section-header">
+                <h2>커뮤니티 이용 규칙</h2>
+                <p>서로 배려하며 편하게 이용해주세요</p>
+            </div>
+
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <h3>✅ 환영해요</h3>
+                    <ul class="rule-list">
+                        <li>ADHD 관련 고민이나 궁금한 점</li>
+                        <li>그냥 일상 얘기, 소소한 잡담</li>
+                        <li>정보 공유</li>
+                        <li>서로 공감하고 이야기 나누기</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h3>❌ 지켜주세요</h3>
+                    <ul class="rule-list dont">
+                        <li>채팅 삭제 (필요하면 운영진에게 요청)</li>
+                        <li>과한 홍보 / DM 유도</li>
+                        <li>비난, 조롱, 공격</li>
+                        <li>의학적 판단을 단정적으로 말하기</li>
+                        <li>정치·혐오·종교 등 싸움 나기 쉬운 주제</li>
+                    </ul>
+                </div>
+                <div class="rule-card">
+                    <h3>💡 서로 이렇게 대해요</h3>
+                    <ul class="rule-list">
+                        <li>쉽게 판단하지 않기</li>
+                        <li>각자 속도 존중하기</li>
+                        <li>불편한 대화는 무리하지 않기</li>
+                        <li>기본 존댓말 사용하기</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 도구 링크 ===== -->
+    <section class="tools">
+        <div class="container">
+            <div class="section-header">
+                <h2>유용한 도구</h2>
+                <p>ADHD 맞춤 도구들을 활용해보세요</p>
+            </div>
+
+            <div class="tool-grid">
+                <a href="https://msh9176-moondi.github.io/lulubot/" target="_blank" class="tool-card">
+                    <div class="tool-info">
+                        <span class="tool-icon">📊</span>
+                        <div>
+                            <h4>인증방 랭킹 보기</h4>
+                            <p>실시간 랭킹과 EXP 확인</p>
+                        </div>
+                    </div>
+                    <span class="tool-arrow">→</span>
+                </a>
+                <a href="https://msh9176-moondi.github.io/adhd-planner/#" target="_blank" class="tool-card">
+                    <div class="tool-info">
+                        <span class="tool-icon">📅</span>
+                        <div>
+                            <h4>전자 플래너</h4>
+                            <p>ADHD 맞춤 계획 도구</p>
+                        </div>
+                    </div>
+                    <span class="tool-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 위기 지원 ===== -->
+    <section class="crisis">
+        <div class="container">
+            <div class="crisis-content">
+                <h3>힘든 상황이라면, 혼자 버티지 마세요</h3>
+                <div class="crisis-numbers">
+                    <div class="crisis-item"><strong>자살예방</strong> ☎ 109</div>
+                    <div class="crisis-item"><strong>정신건강</strong> ☎ 1577-0199</div>
+                    <div class="crisis-item"><strong>긴급</strong> ☎ 119</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 푸터 ===== -->
+    <section class="footer">
+        <div class="container">
+            <p>
+                실패가 아니라,<br>
+                다시 돌아오는 구조를<br>
+                함께 연습합니다.
+            </p>
+        </div>
+    </section>
+</body>
+</html>

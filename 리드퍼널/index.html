@@ -75,7 +75,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 60px 20px;
+            padding: 100px 20px 60px;
             background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
             position: relative;
         }
@@ -495,6 +495,53 @@
         }
 
         /* ===== 반응형 ===== */
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
         @media (min-width: 768px) {
             .hero h1 {
                 font-size: 40px;
@@ -512,9 +559,33 @@
                 font-size: 32px;
             }
         }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html" class="active">홈</a>
+                <a href="patterns.html">유형 분석</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="postit.html">실행력 강화 포스트잇</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- ===== 히어로 섹션 ===== -->
     <section class="hero">
         <span class="brand-badge">FLOCA | 3분 테스트</span>
@@ -570,47 +641,6 @@
                     <span class="problem-icon">?</span>
                     <p>노력은 하는데 결과가 잘 안 나와 자책하게 된다</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 6가지 유형 섹션 ===== -->
-    <section class="benefits">
-        <div class="container">
-            <div class="section-header">
-                <h2>ADHD 실행 패턴 6가지 유형</h2>
-                <p>같은 ADHD라도 무너지는 방식이 다릅니다</p>
-            </div>
-
-            <div class="benefit-list">
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #f87171;">1</span>
-                    <p><strong>시작 장벽형</strong> - 시작 직전에 멈추는 유형</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #fb923c;">2</span>
-                    <p><strong>주의 분산형</strong> - 집중이 흩어지는 유형</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #facc15;">3</span>
-                    <p><strong>감정 소진형</strong> - 감정에 에너지 쓰는 유형</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #4ade80;">4</span>
-                    <p><strong>충동 가속형</strong> - 브레이크가 약한 유형</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #60a5fa;">5</span>
-                    <p><strong>환경 민감형</strong> - 환경 영향 큰 유형</p>
-                </div>
-                <div class="benefit-item">
-                    <span class="benefit-check" style="background: #c084fc;">6</span>
-                    <p><strong>변동성 복합형</strong> - 컨디션 편차 큰 유형</p>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 32px;">
-                <a href="survey.html" class="test-start-btn">내 유형 확인하기 →</a>
             </div>
         </div>
     </section>

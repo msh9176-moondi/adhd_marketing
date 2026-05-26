@@ -80,7 +80,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
-        padding: 60px 20px;
+        padding: 100px 20px 60px;
         background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
         position: relative;
         overflow: hidden;
@@ -862,9 +862,233 @@
           transform: translateX(-50%) translateY(0);
         }
       }
+
+      /* ===== 네비게이션 ===== */
+      .nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background: rgba(15, 15, 26, 0.95);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        z-index: 1000;
+        padding: 16px 0;
+      }
+
+      .nav-container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav-logo {
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 24px;
+      }
+
+      .nav-links a {
+        color: var(--text-muted);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--accent);
+      }
+
+      @media (max-width: 480px) {
+        .nav-links {
+          gap: 16px;
+        }
+
+        .nav-links a {
+          font-size: 13px;
+        }
+      }
+
+      /* ===== 코칭 프로그램 섹션 ===== */
+      .coaching-program {
+        background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+        padding: 80px 0;
+      }
+
+      .coaching-header {
+        text-align: center;
+        margin-bottom: 40px;
+      }
+
+      .coaching-badge {
+        display: inline-block;
+        background: rgba(79,209,197,0.15);
+        border: 1px solid rgba(79,209,197,0.3);
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 600;
+        padding: 8px 20px;
+        border-radius: 20px;
+        margin-bottom: 20px;
+      }
+
+      .coaching-header h2 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+      }
+
+      .coaching-header p {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.8;
+      }
+
+      .coaching-card {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 32px 24px;
+        margin-bottom: 24px;
+      }
+
+      .coaching-info {
+        margin-bottom: 24px;
+      }
+
+      .coaching-row {
+        display: flex;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+      }
+
+      .coaching-row:last-child {
+        border-bottom: none;
+      }
+
+      .coaching-row .label {
+        width: 70px;
+        font-size: 14px;
+        color: var(--text-muted);
+        flex-shrink: 0;
+      }
+
+      .coaching-row .value {
+        font-size: 14px;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .coaching-row .value.price {
+        color: var(--accent);
+        font-weight: 700;
+        font-size: 18px;
+      }
+
+      .coaching-note {
+        background: rgba(79,209,197,0.1);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .coaching-note p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        text-align: center;
+      }
+
+      .coaching-philosophy {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      .coaching-philosophy p {
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.8;
+      }
+
+      .coaching-btn {
+        display: block;
+        width: 100%;
+        padding: 18px;
+        background: var(--accent);
+        color: var(--dark);
+        font-size: 16px;
+        font-weight: 700;
+        text-align: center;
+        text-decoration: none;
+        border-radius: 12px;
+        transition: all 0.3s;
+      }
+
+      .coaching-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(79,209,197,0.3);
+      }
+
+      .coaching-warning {
+        background: rgba(248,113,113,0.08);
+        border: 1px solid rgba(248,113,113,0.2);
+        border-radius: 16px;
+        padding: 24px;
+      }
+
+      .coaching-warning h4 {
+        font-size: 15px;
+        color: #f87171;
+        margin-bottom: 12px;
+      }
+
+      .coaching-warning p {
+        font-size: 14px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin-bottom: 12px;
+      }
+
+      .coaching-warning p.sub {
+        font-size: 13px;
+        color: var(--text-subtle);
+      }
+
+      .coaching-warning p.feedback {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 0;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+      }
     </style>
   </head>
   <body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+      <div class="nav-container">
+        <a href="index.html" class="nav-logo">FLOCA</a>
+        <div class="nav-links">
+          <a href="index.html">홈</a>
+          <a href="patterns.html">유형 분석</a>
+          <a href="community.html">커뮤니티</a>
+          <a href="postit.html">실행력 강화 포스트잇</a>
+          <a href="coaching.html" class="active">상담</a>
+        </div>
+      </div>
+    </nav>
+
     <!-- ===== 히어로 섹션 ===== -->
     <section class="hero">
       <span class="hero-badge">ADHD 당사자가 직접 운영합니다</span>
@@ -1112,6 +1336,76 @@
               <p>ADHD를 직접 겪어봤기에 진짜로 이해해요.</p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 코칭 프로그램 섹션 ===== -->
+    <section class="coaching-program">
+      <div class="container">
+        <div class="coaching-header">
+          <span class="coaching-badge">4주 1:1 코칭</span>
+          <h2>더 깊이 함께 하고 싶다면</h2>
+          <p>무료 상담 이후, 본격적인 변화를 원하는 분들을 위한<br>코치님과의 1:1 코칭 프로그램입니다.</p>
+        </div>
+
+        <div class="coaching-card">
+          <div class="coaching-info">
+            <div class="coaching-row">
+              <span class="label">대상</span>
+              <span class="value">실행, 루틴, 집중, 시간관리, 커리어 고민이 있는 분</span>
+            </div>
+            <div class="coaching-row">
+              <span class="label">기간</span>
+              <span class="value">4주</span>
+            </div>
+            <div class="coaching-row">
+              <span class="label">방식</span>
+              <span class="value">주 1회 1:1 코칭 (전화 또는 온라인)</span>
+            </div>
+            <div class="coaching-row">
+              <span class="label">내용</span>
+              <span class="value">집중, 루틴, 시간관리, 실행력, 커리어 방향, 목표 설정 등</span>
+            </div>
+            <div class="coaching-row">
+              <span class="label">참여비</span>
+              <span class="value price">3만원</span>
+            </div>
+          </div>
+
+          <div class="coaching-note">
+            <p>
+              무료로 진행할 수도 있지만, 코칭은 서로의 시간과 약속이 필요한 과정이라<br>
+              <strong>책임감 있는 참여를 위해</strong> 소액 참여비를 두기로 했습니다.
+            </p>
+          </div>
+
+          <div class="coaching-philosophy">
+            <p>
+              코칭은 치료나 상담이 아니라,<br>
+              <strong>자신의 목표와 실행 방향을 함께 정리해보는 과정</strong>입니다.
+            </p>
+          </div>
+
+          <a href="https://open.kakao.com/o/sq1JNeHh" class="coaching-btn" target="_blank">
+            코칭 문의하기 (방장에게 개인톡)
+          </a>
+        </div>
+
+        <div class="coaching-warning">
+          <h4>⚠️ 안내사항</h4>
+          <p>
+            이 프로그램은 <strong>치료가 아닌 코칭</strong>입니다.<br>
+            진단, 약물 조언, 심리치료, 위기개입, 자살위험, 트라우마 상담 등은 다루지 않습니다.
+          </p>
+          <p class="sub">
+            우울감이 매우 깊거나, 현재 병원 치료나 전문 상담이 우선적으로 필요한 경우에는<br>
+            이번 코칭보다 전문기관의 도움을 먼저 받는 것이 적절합니다.
+          </p>
+          <p class="feedback">
+            참여자분들은 4주간 성실히 참여해주시고,<br>
+            코칭 후 간단한 피드백을 남겨주시면 됩니다.
+          </p>
         </div>
       </div>
     </section>

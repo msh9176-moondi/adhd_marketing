@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHD 포스트잇 무료 체험단 모집 | FLOCA</title>
+    <meta name="description" content="ADHD를 위한 실행 포스트잇 3종 세트 무료 체험단을 모집합니다. 배송비만 부담하시면 됩니다.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="[무료 체험단] ADHD 실행 포스트잇 3종 세트">
+    <meta property="og:description" content="긴급한 일, 가벼운 일, 하면 좋은 일. 3가지 색으로 오늘 할 일을 정리하세요. 배송비만 부담!">
+    <meta property="og:image" content="payment/포스트잇2.png">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #f59e0b;
+            --primary-dark: #d97706;
+            --accent: #fbbf24;
+            --dark: #0f0f1a;
+            --dark-light: #1a1a2e;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --text-subtle: rgba(255,255,255,0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--dark);
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 60px;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(251,191,36,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .recruit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(239,68,68,0.2);
+            border: 1px solid rgba(239,68,68,0.4);
+            color: #f87171;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 10px 24px;
+            border-radius: 30px;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero h1 .free {
+            color: #f87171;
+        }
+
+        .hero-subtitle {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        /* 공통 이미지 스타일 */
+        .content-image {
+            max-width: 280px;
+            width: 85%;
+            border-radius: 16px;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        /* 메인 제품 이미지 */
+        .hero-image {
+            max-width: 300px;
+            width: 85%;
+            border-radius: 16px;
+            box-shadow: 0 16px 50px rgba(0,0,0,0.5);
+            margin-bottom: 32px;
+        }
+
+        /* 문제 공감 이미지 */
+        .problem-image {
+            max-width: 280px;
+            width: 85%;
+            border-radius: 16px;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        /* 사용 이미지 */
+        .usage-image {
+            max-width: 280px;
+            width: 85%;
+            border-radius: 16px;
+            margin: 32px auto 0;
+            display: block;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+        }
+
+        /* ===== 작동 원리 섹션 ===== */
+        .how-it-works {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .step-list {
+            display: grid;
+            gap: 20px;
+        }
+
+        .step-item {
+            display: flex;
+            gap: 16px;
+            padding: 24px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+        }
+
+        .step-item .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 17px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .step-content p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .step-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .step-tags span {
+            background: rgba(251,191,36,0.15);
+            color: var(--accent);
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(251,191,36,0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(251,191,36,0.5);
+        }
+
+        .hero-note {
+            font-size: 14px;
+            color: var(--text-subtle);
+        }
+
+        .hero-note strong {
+            color: #f87171;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-subtle);
+            border-bottom: 2px solid var(--text-subtle);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* ===== 왜 필요한가 섹션 ===== */
+        .why {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .why-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .why-item {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .why-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(251,191,36,0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .why-item p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 체험단 혜택 섹션 ===== */
+        .benefits {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 80px 0;
+        }
+
+        .benefits-content {
+            text-align: center;
+        }
+
+        .benefits h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 32px;
+        }
+
+        .benefit-list {
+            display: grid;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .benefit-item {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .benefit-check {
+            width: 24px;
+            height: 24px;
+            background: #fff;
+            color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .benefit-item p {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .benefit-item strong {
+            color: #fff;
+        }
+
+        /* ===== 참여 조건 섹션 ===== */
+        .conditions {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .condition-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 32px 24px;
+        }
+
+        .condition-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .condition-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .condition-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .condition-number {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .condition-item p {
+            font-size: 15px;
+            color: var(--text-muted);
+            padding-top: 2px;
+        }
+
+        .condition-item p strong {
+            color: var(--text);
+        }
+
+        .shipping-notice {
+            margin-top: 24px;
+            padding: 20px;
+            background: rgba(248,113,113,0.1);
+            border: 1px solid rgba(248,113,113,0.3);
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .shipping-notice p {
+            font-size: 14px;
+            color: #f87171;
+        }
+
+        .shipping-notice strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        /* ===== CTA 섹션 ===== */
+        .cta {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .cta-card {
+            background: rgba(251,191,36,0.1);
+            border: 2px solid rgba(251,191,36,0.3);
+            border-radius: 24px;
+            padding: 48px 28px;
+            text-align: center;
+        }
+
+        .cta-card h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .cta-card .deadline {
+            display: inline-block;
+            background: rgba(239,68,68,0.2);
+            color: #f87171;
+            font-size: 14px;
+            font-weight: 600;
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+        }
+
+        .cta-card > p {
+            font-size: 16px;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+            line-height: 1.8;
+        }
+
+        .cta-card .cta-btn {
+            margin-bottom: 20px;
+        }
+
+        .cta-note {
+            font-size: 13px;
+            color: var(--text-subtle);
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            background: var(--primary);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.9;
+            word-break: keep-all;
+        }
+
+        /* ===== 반응형 ===== */
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 16px;
+            }
+
+            .nav-links a {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="patterns.html">유형 분석</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="postit.html" class="active">실행력 강화 포스트잇</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 히어로 섹션 ===== -->
+    <section class="hero">
+        <span class="recruit-badge">무료 체험단 모집 중</span>
+        <h1>
+            ADHD를 위한<br>
+            <span class="highlight">실행 포스트잇</span> 3종 세트<br>
+            <span class="free">무료 체험단</span> 모집
+        </h1>
+        <p class="hero-subtitle">
+            투두리스트가 실행으로 안 이어진다면<br>
+            무료로 한번 경험해보세요.
+        </p>
+
+        <img src="../postit/Frame 13.png" alt="실행력 강화 포스트잇 제품 소개" class="hero-image">
+
+        <a href="https://docs.google.com/forms/d/1VHIAKXi0Qv_GM6GnVF6s0xhQTQKiRGhXfJfyRuMuYkM/edit" target="_blank" class="cta-btn">체험단 신청하기</a>
+        <p class="hero-note"><strong>배송비만 부담</strong> | 선착순 마감</p>
+
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- ===== 문제 공감 섹션 ===== -->
+    <section class="why" style="background: var(--dark-light);">
+        <div class="container">
+            <div class="section-header">
+                <h2>뭘 먼저 해야 할지<br>고르다가...</h2>
+                <p>할 일은 많은데, 막상 시작이 안 되죠</p>
+            </div>
+            <img src="../postit/Frame 2.png" alt="할 일 고르다가 고민하는 모습" class="problem-image">
+        </div>
+    </section>
+
+    <!-- ===== 작동 원리 섹션 ===== -->
+    <section class="how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2>어떻게 작동하나요?</h2>
+                <p>NFC 태그를 탭하면 시작되는 10분 루틴</p>
+            </div>
+
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>30초 집중하기</h4>
+                        <p>점을 눈으로 따라가거나, 호흡하거나, 지금 이 순간에 집중하는 그라운딩으로 마음을 진정시켜요</p>
+                        <div class="step-tags">
+                            <span>시선 이동</span>
+                            <span>호흡</span>
+                            <span>감각 체크</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>브레인 덤프</h4>
+                        <p>머릿속에 있는 생각을 그냥 쏟아내세요. 정리 안 해도 돼요.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>AI가 쉽게 쪼개기</h4>
+                        <p>"운동하기"를 "신발 한 번만 신어보기"로. 지금 당장 할 수 있는 10분짜리 첫 동작으로 바꿔줘요.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>포스트잇에 작성</h4>
+                        <p>시간과 할 일을 직접 손으로 써요. 손으로 쓰면 뇌에 더 깊이 각인돼요.</p>
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h4>붙일 곳 정하기</h4>
+                        <p>노트북 옆, 모니터 앞, 방문 등 눈에 잘 보이는 곳에 붙여두세요.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 체험단 혜택 섹션 ===== -->
+    <section class="benefits">
+        <div class="container">
+            <div class="benefits-content">
+                <h2>체험단 혜택</h2>
+
+                <div class="benefit-list">
+                    <div class="benefit-item">
+                        <span class="benefit-check">1</span>
+                        <p><strong>ADHD 실행 포스트잇 1매</strong> 무료 제공</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">2</span>
+                        <p><strong>NFC 스티커 태그</strong> 제공<br>탭하면 바로 첫 행동 가이드 앱 연동</p>
+                    </div>
+                    <div class="benefit-item">
+                        <span class="benefit-check">3</span>
+                        <p><strong>FLOCA 커뮤니티</strong> 초대<br>ADHD 당사자들과 함께 루틴 공유</p>
+                    </div>
+                </div>
+
+                <img src="../postit/Frame 4.png" alt="NFC 태그로 앱 연동하는 모습" class="usage-image">
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 참여 조건 섹션 ===== -->
+    <section class="conditions">
+        <div class="container">
+            <div class="condition-card">
+                <h3>체험단 참여 조건</h3>
+
+                <div class="condition-list">
+                    <div class="condition-item">
+                        <span class="condition-number">1</span>
+                        <p>포스트잇 <strong>2주 이상 사용</strong> 후<br>간단한 사용 후기 작성 (인스타/블로그/카페)</p>
+                    </div>
+                    <div class="condition-item">
+                        <span class="condition-number">2</span>
+                        <p>사용 경험에 대한 <strong>간단한 설문</strong> 응답<br>(5분 이내 소요)</p>
+                    </div>
+                    <div class="condition-item">
+                        <span class="condition-number">3</span>
+                        <p>ADHD 진단 여부와 관계없이<br><strong>실행력에 어려움을 느끼는 분</strong>이면 OK</p>
+                    </div>
+                </div>
+
+                <div class="shipping-notice">
+                    <p>
+                        <strong>배송비 3,000원은 개인 부담입니다</strong>
+                        제품 자체는 무료로 제공됩니다
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA 섹션 ===== -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-card">
+                <h2>지금 바로 신청하세요</h2>
+                <span class="deadline">선착순 마감 예정</span>
+                <p>
+                    매일 뭘 해야 할지 모르겠다면,<br>
+                    포스트잇 한 장부터 시작해보세요.
+                </p>
+                <a href="https://docs.google.com/forms/d/1VHIAKXi0Qv_GM6GnVF6s0xhQTQKiRGhXfJfyRuMuYkM/edit" target="_blank" class="cta-btn">무료 체험단 신청하기</a>
+                <p class="cta-note">
+                    신청 후 개별 연락드립니다<br>
+                    배송비 3,000원 별도
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 푸터 ===== -->
+    <section class="footer">
+        <div class="container">
+            <p>
+                완벽한 계획보다<br>
+                눈에 보이는 한 장이<br>
+                시작을 만들어줍니다.
+            </p>
+        </div>
+    </section>
+</body>
+</html>

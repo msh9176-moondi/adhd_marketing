@@ -55,7 +55,7 @@
         /* ===== 완료 섹션 ===== */
         .completion {
             background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-            padding: 80px 0 60px;
+            padding: 120px 0 60px;
             text-align: center;
         }
 
@@ -351,6 +351,53 @@
             word-break: keep-all;
         }
 
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
         /* ===== 반응형 ===== */
         @media (min-width: 768px) {
             .completion h1 {
@@ -365,9 +412,33 @@
                 font-size: 24px;
             }
         }
+
+        @media (max-width: 480px) {
+            .nav-links {
+                gap: 12px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="patterns.html">유형 분석</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="postit.html">실행력 강화 포스트잇</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
     <!-- ===== 완료 섹션 ===== -->
     <section class="completion">
         <div class="container">
