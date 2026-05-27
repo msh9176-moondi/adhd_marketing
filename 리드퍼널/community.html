@@ -630,6 +630,58 @@
             line-height: 1.9;
         }
 
+        /* ===== 가격 배지 & 인증방 보상 미리보기 ===== */
+        .room-price-badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 14px;
+        }
+
+        .badge-free {
+            background: rgba(79,209,197,0.12);
+            color: var(--accent);
+            border: 1px solid rgba(79,209,197,0.25);
+        }
+
+        .badge-paid {
+            background: rgba(251,191,36,0.12);
+            color: var(--yellow);
+            border: 1px solid rgba(251,191,36,0.25);
+        }
+
+        .cert-reward-preview {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.18);
+            border-radius: 10px;
+            padding: 12px 14px;
+            margin-bottom: 20px;
+        }
+
+        .cert-reward-preview .reward-label {
+            display: block;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--yellow);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .cert-reward-items {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .cert-reward-items span {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
         /* ===== 반응형 ===== */
         @media (max-width: 480px) {
             .nav {
@@ -723,6 +775,7 @@
             <div class="room-grid">
                 <!-- 친목방 -->
                 <div class="room-card social">
+                    <span class="room-price-badge badge-free">무료 입장</span>
                     <div class="room-header">
                         <span class="room-icon">💬</span>
                         <h2>플로카 친목·고민방</h2>
@@ -737,11 +790,12 @@
                         <span class="room-feature">고민 상담</span>
                         <span class="room-feature">정보 공유</span>
                     </div>
-                    <a href="https://open.kakao.com/o/gJ1UcJsi" target="_blank" class="room-btn">친목방 입장하기</a>
+                    <a href="https://open.kakao.com/o/gJ1UcJsi" target="_blank" class="room-btn">무료로 입장하기</a>
                 </div>
 
                 <!-- 인증방 -->
                 <div class="room-card cert">
+                    <span class="room-price-badge badge-paid">입장료 5,000원</span>
                     <div class="room-header">
                         <span class="room-icon">🔥</span>
                         <h2>루틴 만들기 인증방</h2>
@@ -756,9 +810,18 @@
                         <span class="room-feature">월간 보상</span>
                         <span class="room-feature">레벨업</span>
                     </div>
+                    <div class="cert-reward-preview">
+                        <span class="reward-label">월간 보상</span>
+                        <div class="cert-reward-items">
+                            <span>🥇 1등 — 배달의민족 상품권 2만원</span>
+                            <span>🥈 2등 — 컴포즈 커피 5천원</span>
+                            <span>🥉 3등 — 아메리카노 1잔</span>
+                            <span>🎲 랜덤 1명 — 아메리카노 (순위 무관)</span>
+                        </div>
+                    </div>
                     <div class="room-btns">
-                        <a href="https://open.kakao.com/o/gOW56u7h" target="_blank" class="room-btn">인증방 입장하기</a>
-                        <a href="https://msh9176-moondi.github.io/lulubot/" target="_blank" class="room-btn-secondary">랭킹 확인하기</a>
+                        <a href="https://open.kakao.com/o/sfscLABf" target="_blank" class="room-btn">입장 문의하기</a>
+                        <a href="#cert-system" class="room-btn-secondary">인증방 시스템이란?</a>
                     </div>
                 </div>
 
@@ -786,14 +849,14 @@
                         <span class="room-feature">공부 / 업무</span>
                         <span class="room-feature">바디더블링</span>
                     </div>
-                    <a href="https://open.kakao.com/o/s0Cp66Og" target="_blank" class="room-btn">집중스페이스 입장</a>
+                    <a href="https://open.kakao.com/o/sfscLABf" target="_blank" class="room-btn">입장 문의하기</a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ===== 인증 카테고리 ===== -->
-    <section class="cert-system">
+    <section class="cert-system" id="cert-system">
         <div class="container">
             <div class="section-header">
                 <h2>인증 카테고리 & 경험치</h2>
@@ -842,6 +905,12 @@
                     <h4>일기</h4>
                     <p class="exp">+1 EXP (하루 1회)</p>
                     <p class="tags">#일기 #감사일기 #하루기록</p>
+                </div>
+                <div class="category-card">
+                    <div class="emoji">🔄</div>
+                    <h4>복귀</h4>
+                    <p class="exp">+10 EXP (한달 1회)</p>
+                    <p class="tags">#복귀</p>
                 </div>
             </div>
         </div>
@@ -933,6 +1002,10 @@
                     <div class="reward-item">
                         <div class="medal">🥉</div>
                         <p><strong>3등</strong><br>아메리카노</p>
+                    </div>
+                    <div class="reward-item">
+                        <div class="medal">🎲</div>
+                        <p><strong>랜덤 1명</strong><br>아메리카노</p>
                     </div>
                 </div>
             </div>
