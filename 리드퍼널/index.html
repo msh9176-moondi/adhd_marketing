@@ -526,7 +526,9 @@
 
         .nav-links {
             display: flex;
-            gap: 24px;
+            gap: 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .nav-links a {
@@ -535,6 +537,7 @@
             font-size: 14px;
             font-weight: 500;
             transition: color 0.3s;
+            white-space: nowrap;
         }
 
         .nav-links a:hover,
@@ -561,12 +564,44 @@
         }
 
         @media (max-width: 480px) {
+            .nav {
+                top: auto;
+                bottom: 0;
+                border-bottom: none;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                padding: 12px 0;
+                padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            }
+
+            .nav-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 0;
+            }
+
+            .nav-logo {
+                display: none;
+            }
+
             .nav-links {
-                gap: 16px;
+                gap: 0;
+                justify-content: space-around;
+                width: 100%;
+                overflow-x: visible;
+                flex-wrap: nowrap;
             }
 
             .nav-links a {
-                font-size: 13px;
+                font-size: 10px;
+                padding: 6px 4px;
+                text-align: center;
+                white-space: nowrap;
+                flex-shrink: 1;
+                min-width: 0;
+            }
+
+            body {
+                padding-bottom: 70px;
             }
         }
     </style>
@@ -580,7 +615,7 @@
                 <a href="index.html" class="active">홈</a>
                 <a href="patterns.html">유형 분석</a>
                 <a href="community.html">커뮤니티</a>
-                <a href="postit.html">실행력 강화 포스트잇</a>
+                <a href="postit.html" class="long-text">포스트잇</a>
                 <a href="coaching.html">상담</a>
             </div>
         </div>
