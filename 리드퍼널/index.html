@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -12,21 +11,14 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADHD를 위한 현실 대처 가이드 | FLOCA</title>
-    <meta name="description" content="약을 먹어도 삶이 그대로인 ADHD를 위한 현실 대처 가이드. 무료 PDF를 받아보세요.">
+    <title>FLOCA | ADHD를 위한 사회적 스타트업</title>
+    <meta name="description" content="ADHD를 앓고 있는 성인, 아이들, 그리고 그들의 가족을 위한 사회적 스타트업 FLOCA. 환경 디자인으로 실행 가능한 삶을 만듭니다.">
 
-    <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="[무료 PDF] ADHD 현실 대처 가이드">
-    <meta property="og:description" content="약을 먹어도 삶이 그대로인 당신에게. 실제로 적용 가능한 현실적인 대처법을 담았습니다.">
-    <meta property="og:image" content="PDF사진.png">
+    <meta property="og:title" content="FLOCA | ADHD를 위한 사회적 스타트업">
+    <meta property="og:description" content="미루지 않고, 잊지 않고, 어지럽히지 않아도 되는 환경을 설계합니다.">
+    <meta property="og:image" content="og-thumbnail.png">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="ADHD를 위한 현실 대처 가이드 | 무료 PDF">
-    <meta name="twitter:description" content="약을 먹어도 삶이 그대로인 당신에게. 무료 PDF를 받아보세요.">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
@@ -41,17 +33,13 @@
             --text: #ffffff;
             --text-muted: rgba(255,255,255,0.7);
             --text-subtle: rgba(255,255,255,0.5);
-            --success: #2e8b57;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -59,6 +47,7 @@
             line-height: 1.7;
             color: var(--text);
             background: var(--dark);
+            overflow-x: hidden;
         }
 
         .container {
@@ -67,447 +56,16 @@
             padding: 0 20px;
         }
 
-        /* ===== 히어로 섹션 ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 100px 20px 60px;
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(42,123,155,0.15) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .brand-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(79,209,197,0.15);
-            border: 1px solid rgba(79,209,197,0.3);
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-bottom: 32px;
-            letter-spacing: 1px;
-        }
-
-        .hero h1 {
-            font-size: 32px;
-            font-weight: 900;
-            line-height: 1.4;
-            margin-bottom: 20px;
-            word-break: keep-all;
-        }
-
-        .hero h1 .highlight {
-            color: var(--accent);
-        }
-
-        .hero-subtitle {
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.9;
-            margin-bottom: 32px;
-            word-break: keep-all;
-        }
-
-        .hero-image {
-            max-width: 420px;
-            width: 90%;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-            margin-bottom: 24px;
-        }
-
-        .test-start-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(79,209,197,0.4);
-        }
-
-        .test-start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
-        }
-
-        .hero-note {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
-
-        .test-link {
-            display: inline-block;
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 12px 24px;
-            border: 1px solid rgba(79,209,197,0.3);
-            border-radius: 30px;
-            margin-bottom: 40px;
-            transition: all 0.3s;
-        }
-
-        .test-link:hover {
-            background: rgba(79,209,197,0.15);
-            border-color: var(--accent);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid var(--text-subtle);
-            border-bottom: 2px solid var(--text-subtle);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        /* ===== 공감 섹션 ===== */
-        .empathy {
-            background: var(--dark-light);
-            padding: 80px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: 26px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            word-break: keep-all;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        .problem-grid {
-            display: grid;
-            gap: 12px;
-        }
-
-        .problem-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s;
-        }
-
-        .problem-card:hover {
-            background: rgba(255,255,255,0.06);
-            border-color: rgba(79,209,197,0.3);
-        }
-
-        .problem-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .problem-card p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
-
-        /* ===== 내용 섹션 ===== */
-        .benefits {
-            background: var(--dark);
-            padding: 80px 0;
-        }
-
-        .benefit-list {
-            display: grid;
-            gap: 16px;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-        }
-
-        .benefit-check {
-            width: 24px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark);
-            font-size: 14px;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .benefit-item p {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.7;
-        }
-
-        /* ===== 신뢰 섹션 ===== */
-        .trust {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 80px 0;
-        }
-
-        .trust-content {
-            text-align: center;
-        }
-
-        .trust h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 24px;
-        }
-
-        .trust-quote {
-            font-size: 17px;
-            line-height: 2;
-            word-break: keep-all;
-        }
-
-        .trust-quote strong {
-            color: #fff;
-        }
-
-        /* ===== CTA 섹션 ===== */
-        .cta {
-            background: var(--dark-light);
-            padding: 80px 0;
-        }
-
-        .cta-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .cta-header h2 {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 12px;
-        }
-
-        .cta-header p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
-
-        .form-card {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 40px 28px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 16px 18px;
-            font-size: 16px;
-            background: rgba(255,255,255,0.08);
-            border: 2px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            color: var(--text);
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .form-group input::placeholder {
-            color: var(--text-subtle);
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--accent);
-            background: rgba(255,255,255,0.1);
-        }
-
-        .form-group input.error {
-            border-color: #e74c3c;
-        }
-
-        .error-message {
-            font-size: 13px;
-            color: #e74c3c;
-            margin-top: 6px;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 18px 24px;
-            font-size: 17px;
-            font-weight: 700;
-            color: var(--dark);
-            background: var(--accent);
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-family: inherit;
-            box-shadow: 0 8px 24px rgba(79,209,197,0.3);
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 32px rgba(79,209,197,0.4);
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        .form-note {
-            text-align: center;
-            font-size: 13px;
-            color: var(--text-subtle);
-            margin-top: 20px;
-            line-height: 1.7;
-        }
-
-        /* 성공 메시지 */
-        .success-message {
-            display: none;
-            text-align: center;
-            padding: 40px 24px;
-        }
-
-        .success-message.show {
-            display: block;
-        }
-
-        .success-icon {
-            width: 72px;
-            height: 72px;
-            background: var(--success);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 24px;
-            font-size: 36px;
-            color: white;
-            box-shadow: 0 8px 24px rgba(46,139,87,0.3);
-        }
-
-        .success-message h3 {
-            font-size: 24px;
-            margin-bottom: 12px;
-        }
-
-        .success-message p {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        #lead-form.hidden {
-            display: none;
-        }
-
-        /* ===== 푸터 ===== */
-        .footer {
-            background: var(--primary);
-            padding: 48px 0;
-            text-align: center;
-        }
-
-        .footer p {
-            font-size: 17px;
-            font-weight: 500;
-            line-height: 1.9;
-            word-break: keep-all;
-        }
-
-        /* ===== 반응형 ===== */
         /* ===== 네비게이션 ===== */
         .nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
+            top: 0; left: 0; right: 0;
+            background: rgba(15,15,26,0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255,255,255,0.1);
             z-index: 1000;
             padding: 16px 0;
         }
-
         .nav-container {
             max-width: 640px;
             margin: 0 auto;
@@ -516,21 +74,18 @@
             justify-content: space-between;
             align-items: center;
         }
-
         .nav-logo {
             font-size: 18px;
             font-weight: 700;
             color: var(--accent);
             text-decoration: none;
         }
-
         .nav-links {
             display: flex;
             gap: 20px;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-
         .nav-links a {
             color: var(--text-muted);
             text-decoration: none;
@@ -539,50 +94,323 @@
             transition: color 0.3s;
             white-space: nowrap;
         }
-
         .nav-links a:hover,
-        .nav-links a.active {
+        .nav-links a.active { color: var(--accent); }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 100px;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+            position: relative;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(79,209,197,0.12);
+            border: 1px solid rgba(79,209,197,0.3);
             color: var(--accent);
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+        .hero h1 {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+        .hero h1 .accent { color: var(--accent); }
+        .hero-sub {
+            font-size: 17px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 48px;
+            word-break: keep-all;
+        }
+        .hero-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .btn-main {
+            display: block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 18px 28px;
+            border-radius: 14px;
+            text-align: center;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(79,209,197,0.35);
+        }
+        .btn-main:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
+        }
+        .btn-outline {
+            display: block;
+            color: var(--accent);
+            font-size: 15px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            border: 1px solid rgba(79,209,197,0.3);
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .btn-outline:hover { background: rgba(79,209,197,0.08); }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+        .scroll-hint span {
+            display: block;
+            width: 20px; height: 20px;
+            border-right: 2px solid var(--text-subtle);
+            border-bottom: 2px solid var(--text-subtle);
+            transform: rotate(45deg);
+        }
+        @keyframes bounce {
+            0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
         }
 
-        @media (min-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .hero-image {
-                max-width: 520px;
-            }
-
-            .section-header h2 {
-                font-size: 32px;
-            }
-
-            .cta-header h2 {
-                font-size: 32px;
-            }
+        /* ===== 공통 섹션 ===== */
+        .section { padding: 80px 0; }
+        .label-tag {
+            display: inline-block;
+            background: rgba(79,209,197,0.1);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            letter-spacing: 2px;
+        }
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+        .section-desc {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.8;
+            word-break: keep-all;
+            margin-bottom: 40px;
         }
 
+        /* ===== 스토리 섹션 ===== */
+        .story { background: var(--dark-light); }
+        .story-body {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 2;
+            word-break: keep-all;
+        }
+        .story-body p { margin-bottom: 20px; }
+        .story-body p:last-child { margin-bottom: 0; }
+        .story-callout {
+            margin: 36px 0 0;
+            padding: 28px 24px;
+            background: rgba(79,209,197,0.07);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 16px 16px 0;
+        }
+        .story-callout p {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+        .story-callout span { color: var(--accent); }
+
+        /* ===== 우리가 하는 일 ===== */
+        .what { background: var(--dark); }
+        .what-grid { display: grid; gap: 20px; }
+        .what-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 20px;
+            padding: 32px 24px;
+            transition: all 0.3s;
+        }
+        .what-card:hover {
+            border-color: rgba(79,209,197,0.25);
+            background: rgba(79,209,197,0.04);
+        }
+        .what-card .icon { font-size: 32px; margin-bottom: 16px; }
+        .what-card .en {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-subtle);
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+        .what-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .what-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        /* ===== 철학 섹션 ===== */
+        .mission { background: var(--dark-light); }
+        .mission-quote {
+            margin-bottom: 32px;
+            padding: 32px 24px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            text-align: center;
+        }
+        .mission-quote blockquote {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+        .mission-body {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 2;
+            word-break: keep-all;
+        }
+        .mission-body p { margin-bottom: 20px; }
+        .mission-body p:last-child { margin-bottom: 0; }
+        .mission-body strong { color: var(--text); }
+
+        /* ===== 공감 섹션 ===== */
+        .empathy {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+        }
+        .empathy .label-tag {
+            background: rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .empathy .section-title { color: #fff; }
+        .empathy .section-desc { color: rgba(255,255,255,0.8); }
+        .empathy-body {
+            font-size: 15px;
+            line-height: 2;
+            word-break: keep-all;
+        }
+        .empathy-body p { margin-bottom: 20px; }
+        .empathy-body p:last-child { margin-bottom: 0; }
+        .empathy-body strong { color: #fff; font-weight: 700; }
+
+        /* ===== 가치 섹션 ===== */
+        .values { background: var(--dark); }
+        .values-list { display: grid; gap: 14px; }
+        .value-row {
+            display: flex;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+        }
+        .value-icon {
+            width: 40px; height: 40px;
+            background: rgba(79,209,197,0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        .value-row h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 4px;
+        }
+        .value-row p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section { background: var(--dark-light); padding: 80px 0; }
+        .cta-box {
+            background: rgba(79,209,197,0.07);
+            border: 2px solid rgba(79,209,197,0.2);
+            border-radius: 24px;
+            padding: 48px 28px;
+            text-align: center;
+        }
+        .cta-box h2 {
+            font-size: 26px;
+            font-weight: 900;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+        .cta-box p {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 36px;
+            line-height: 1.8;
+        }
+        .cta-btns { display: flex; flex-direction: column; gap: 12px; }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            background: var(--primary);
+            padding: 48px 0;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 2;
+            word-break: keep-all;
+        }
+
+        /* ===== 모바일 네비게이션 ===== */
         @media (max-width: 480px) {
             .nav {
-                top: auto;
-                bottom: 0;
+                top: auto; bottom: 0;
                 border-bottom: none;
                 border-top: 1px solid rgba(255,255,255,0.1);
                 padding: 12px 0;
                 padding-bottom: calc(12px + env(safe-area-inset-bottom));
             }
-
-            .nav-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
+            .nav-container { flex-direction: row; justify-content: center; gap: 0; }
+            .nav-logo { display: none; }
             .nav-links {
                 gap: 0;
                 justify-content: space-around;
@@ -590,7 +418,6 @@
                 overflow-x: visible;
                 flex-wrap: nowrap;
             }
-
             .nav-links a {
                 font-size: 10px;
                 padding: 6px 4px;
@@ -599,267 +426,191 @@
                 flex-shrink: 1;
                 min-width: 0;
             }
+            body { padding-bottom: 70px; }
+        }
 
-            body {
-                padding-bottom: 70px;
-            }
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 44px; }
+            .section-title { font-size: 32px; }
         }
     </style>
 </head>
 <body>
-    <!-- ===== 네비게이션 ===== -->
+    <!-- 네비게이션 -->
     <nav class="nav">
         <div class="nav-container">
             <a href="index.html" class="nav-logo">FLOCA</a>
             <div class="nav-links">
                 <a href="index.html" class="active">홈</a>
-                <a href="patterns.html">유형 분석</a>
+                <a href="adhd-test.html">간편검사</a>
                 <a href="community.html">커뮤니티</a>
-                <a href="postit.html" class="long-text">포스트잇</a>
+                <a href="podcast.html">팟캐스트</a>
+                <a href="postit.html">포스트잇</a>
                 <a href="coaching.html">상담</a>
             </div>
         </div>
     </nav>
 
-    <!-- ===== 히어로 섹션 ===== -->
+    <!-- 히어로 -->
     <section class="hero">
-        <span class="brand-badge">FLOCA | 3분 테스트</span>
+        <span class="hero-badge">ADHD를 위한 사회적 스타트업</span>
         <h1>
-            나는 왜 맨날<br>
-            <span class="highlight">미룰까?</span>
+            <span class="accent">실행 가능한 삶</span>을<br>
+            함께 만듭니다
         </h1>
-        <p class="hero-subtitle">
-            의지가 약해서가 아닙니다.<br>
-            내 뇌에 맞지 않는 방식으로<br>
-            계속 시도했을 수 있어요.
+        <p class="hero-sub">
+            미루지 않고, 잊지 않고, 어지럽히지 않아도 되는<br>
+            환경을 우리가 설계합니다.
         </p>
-        <img src="PDF사진.png" alt="ADHD 실행 패턴 분석" class="hero-image">
-        <a href="survey.html" class="test-start-btn">
-            3분 만에 내 실행 패턴 분석하기 →
-        </a>
-        <p class="hero-note">6가지 ADHD 실행 패턴 중 나는 어떤 유형?</p>
-        <div class="scroll-indicator">
-            <span></span>
+        <div class="hero-btns">
+            <a href="adhd-test.html" class="btn-main">ADHD 간편검사 해보기 →</a>
+            <a href="postit.html" class="btn-outline">무료 포스트잇 체험단 신청</a>
         </div>
+        <div class="scroll-hint"><span></span></div>
     </section>
 
-    <!-- ===== 공감 섹션 ===== -->
-    <section class="empathy">
+    <!-- 스토리 -->
+    <section class="section story">
         <div class="container">
-            <div class="section-header">
-                <h2>혹시 이런 고민,<br>계속 반복하고 있지 않나요?</h2>
-                <p>하나라도 해당된다면, 테스트로 내 패턴을 확인해보세요.</p>
+            <span class="label-tag">OUR STORY</span>
+            <h2 class="section-title">우리가 시작한 이유</h2>
+            <div class="story-body">
+                <p>처음 시작은 그저 저와 같은 ADHD를 앓고 있는 사람들의 고통을 조금이라도 덜어주고 싶었기에 시작했습니다. 그들을 실제로 도왔고, 감사 인사도 받으니 점점 욕심이 생겨났습니다.</p>
+                <p>이제는 ADHD를 앓고 있는 성인 그리고 아이들, 그리고 그들의 가족들에게도 도움이 되고자 합니다.</p>
+                <p>한국의 사회구조와 분위기는 ADHD에게 그다지 친절하지 않습니다. 아이들은 일반학교에도 특수학교에도 속하기 애매한 현실이고, 어른들은 뒤늦게 부랴부랴 현실을 바라보며 제대로 살아보려 하고 있습니다.</p>
+                <p>점점 ADHD 환자는 늘어나고, 뒤늦게 알게 되는 사람들도 유의미한 상승 수치를 보이는 지금 — 그들을 위한 구조적인 변화가 필요한 시점입니다.</p>
             </div>
-
-            <div class="problem-grid">
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>해야 할 일을 알면서도 자꾸 미루게 된다</p>
-                </div>
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>시작은 하는데 끝까지 마무리하지 못한다</p>
-                </div>
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>시간관리가 안 돼서 지각, 밀림, 후회가 반복된다</p>
-                </div>
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>계획을 세워도 며칠 못 가 무너진다</p>
-                </div>
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>약을 먹어도 인생 전체가 바로 달라지지는 않는다</p>
-                </div>
-                <div class="problem-card">
-                    <span class="problem-icon">?</span>
-                    <p>노력은 하는데 결과가 잘 안 나와 자책하게 된다</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== 신뢰 섹션 ===== -->
-    <section class="trust">
-        <div class="container">
-            <div class="trust-content">
-                <h2>왜 이 자료를 만들었나요?</h2>
-                <p class="trust-quote">
-                    저 역시 ADHD로 인해 실수, 지연, 무기력, 자기혐오를<br>
-                    반복하며 오래 헤맸습니다.<br><br>
-                    그 과정에서 알게 된 것들을 정리했습니다.<br>
-                    <strong>'그래서 현실에서 어떻게 적용할 것인가'</strong>에<br>
-                    초점을 맞춘 출발 가이드입니다.
+            <div class="story-callout">
+                <p>
+                    <span>ADHD를 위한 사회적 스타트업</span><br>
+                    'FLOCA'를 시작합니다.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- ===== CTA 섹션 ===== -->
-    <section class="cta">
+    <!-- 우리가 하는 일 -->
+    <section class="section what">
         <div class="container">
-            <div class="cta-header">
-                <h2>지금 바로 확인해보세요</h2>
-                <p>3분이면 내 실행 패턴을 알 수 있어요</p>
-            </div>
-
-            <div class="form-card" style="text-align: center;">
-                <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.8;">
-                    테스트 결과에 따라<br>
-                    <strong style="color: var(--accent);">유형별 맞춤 PDF와 자료</strong>를 안내해드려요.
-                </p>
-                <a href="survey.html" class="submit-btn" style="display: block; text-decoration: none; text-align: center;">
-                    내 실행 패턴 분석하기 →
-                </a>
-                <p class="form-note" style="margin-top: 20px;">
-                    테스트 후 맞춤 자료를 받아보세요.<br>
-                    진단 목적이 아닌, 나를 이해하기 위한 도구입니다.
-                </p>
-            </div>
-
-            <div style="text-align: center; margin-top: 32px; padding: 24px; background: rgba(255,255,255,0.03); border-radius: 12px;">
-                <p style="font-size: 14px; color: var(--text-subtle); margin-bottom: 12px;">테스트 없이 PDF만 받고 싶다면</p>
-                <a href="#pdf-form" style="color: var(--accent); font-size: 14px;">무료 PDF 바로 받기 ↓</a>
+            <span class="label-tag">WHAT WE DO</span>
+            <h2 class="section-title">우리가 하는 일</h2>
+            <div class="what-grid">
+                <div class="what-card">
+                    <div class="icon">🌱</div>
+                    <div class="en">EXPERIENCE</div>
+                    <h3>실행 가능한 경험</h3>
+                    <p>ADHD인이 '미루지 않고, 잊지 않고, 어지럽히지 않고' 일상을 지속할 수 있도록 돕습니다. 사람과의 관계에서 오해받지 않고, 무너진 루틴을 다시 세우며, 자신의 꿈을 다시 찾을 수 있도록 지원합니다.</p>
+                </div>
+                <div class="what-card">
+                    <div class="icon">🛠️</div>
+                    <div class="en">PRODUCT</div>
+                    <h3>ADHD 친화적 도구</h3>
+                    <p>ADHD 친화적 보조도구와 인테리어 솔루션을 만듭니다. 플래너, 공간, 가구, 환경 — 그 어떤 형태든 뇌가 더 쉽게 집중하고 실행할 수 있는 구조를 설계합니다.</p>
+                </div>
+                <div class="what-card">
+                    <div class="icon">💡</div>
+                    <div class="en">VALUE</div>
+                    <h3>환경으로 만드는 변화</h3>
+                    <p>시간 감각의 문제는 ADHD 친화형 플래너로, 조직화의 어려움은 구조화된 환경 디자인으로, 실행의 어려움은 도파민 보상 시스템과 환경 트리거로 극복합니다.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== PDF 폼 섹션 (보조) ===== -->
-    <section class="cta" id="pdf-form" style="padding-top: 40px;">
+    <!-- 철학 -->
+    <section class="section mission">
         <div class="container">
-            <div class="form-card">
-                <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
-                    테스트 없이 PDF만 받기
-                </p>
-                <form id="lead-form">
-                    <div class="form-group">
-                        <label for="name">이름</label>
-                        <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
-                        <p class="error-message" id="name-error">이름을 입력해주세요.</p>
+            <span class="label-tag">OUR MISSION</span>
+            <h2 class="section-title">우리의 철학</h2>
+            <div class="mission-quote">
+                <blockquote>"문제는 사람 안에 있지 않습니다.<br>문제는 환경에 있습니다."</blockquote>
+            </div>
+            <div class="mission-body">
+                <p>사람이 실수하는 이유는 언제나 개인의 의지 부족 때문만은 아닙니다. 많은 경우, 사용자의 특성을 고려하지 않은 <strong>잘못된 디자인에서 비롯됩니다.</strong></p>
+                <p>출구의 손잡이가 숨겨져 있다면, 우리는 그 문을 열지 못합니다. 아니, 그것이 '문'이라는 사실조차 인식하지 못할 수도 있습니다. 그것은 우리의 잘못이 아니라, <strong>출구를 잘못 디자인한 디자이너의 책임입니다.</strong></p>
+                <p>ADHD로 인한 실수, 지각, 관계의 오해 역시 마찬가지입니다. 우리는 기존의 물건과 환경을 ADHD인에게 적합한 형태로 리디자인하여, <strong>그들이 실행할 수 있는 세상</strong>을 만들고자 합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 공감 -->
+    <section class="section empathy">
+        <div class="container">
+            <span class="label-tag">EMPATHY</span>
+            <h2 class="section-title">우리는 알고 있습니다</h2>
+            <p class="section-desc">당신이 게으른 게 아닙니다</p>
+            <div class="empathy-body">
+                <p>우리는 자주 오해받습니다. 그리고 ADHD임을 알기 전에는, 우리 스스로조차 왜 그런지 이해하지 못합니다.</p>
+                <p>성인이 되어서야 비로소 "아, 내가 ADHD였구나" 하고 알게 되었을 때, 그제야 우리는 자신을 이해하기 시작하는 첫걸음을 내딛습니다. 하지만 그 이후에도, 우리의 삶은 여전히 쉽지 않습니다.</p>
+                <p>병원에서 처방받은 약은 도움이 되지만, <strong>그 약이 우리의 삶 전체를 마법처럼 바꾸어주지는 않습니다.</strong> 그것은 마치 근본적인 수리는 하지 않은 채 단지 공구(약)만 건네받고 "이제 알아서 고쳐보라"고 말하는 것과 같습니다.</p>
+                <p>세상에는 ADHD를 극복하기 위한 책이 너무 많습니다. 내용은 훌륭하지만, 우리가 그 책을 끝까지 읽지 못한다는 사실은 그 누구도 이야기하지 않습니다.</p>
+                <p><strong>전달되지 못한 지식은, 결국 죽은 지식입니다.</strong></p>
+                <p>우리는 ADHD의 특성에 맞는 전달 방식과 환경이 필요합니다. 그래서 우리는 그것을 디자인으로 말합니다. 디자인은 언어보다 빠르게 이해되고, 논문보다 쉽게 공감되며, 그 어떤 설명보다 <strong>따뜻하고 직관적으로 다가갈 수 있기 때문입니다.</strong></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 가치 -->
+    <section class="section values">
+        <div class="container">
+            <span class="label-tag">OUR VALUES</span>
+            <h2 class="section-title">FLOCA가 만드는 환경</h2>
+            <div class="values-list">
+                <div class="value-row">
+                    <div class="value-icon">⏰</div>
+                    <div>
+                        <h4>시간 감각 지원</h4>
+                        <p>ADHD 친화형 플래너와 타임 트리거로 시간 감각의 어려움을 해결합니다.</p>
                     </div>
-                    <div class="form-group">
-                        <label for="email">이메일</label>
-                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
-                        <p class="error-message" id="email-error">올바른 이메일 주소를 입력해주세요.</p>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon">🗂️</div>
+                    <div>
+                        <h4>구조화된 환경</h4>
+                        <p>물리적·시각적 환경 디자인으로 조직화의 어려움을 완화합니다.</p>
                     </div>
-                    <button type="submit" class="submit-btn">무료 PDF 지금 받기</button>
-                    <p class="form-note">
-                        스팸 메일은 보내지 않습니다.
-                    </p>
-                </form>
-
-                <div class="success-message" id="success-message">
-                    <div class="success-icon">&#10003;</div>
-                    <h3>신청이 완료되었습니다!</h3>
-                    <p>
-                        입력하신 이메일로 PDF를 보내드렸습니다.<br>
-                        메일함을 확인해주세요.
-                    </p>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon">⚡</div>
+                    <div>
+                        <h4>실행 트리거</h4>
+                        <p>도파민 보상 시스템과 환경 트리거로 실행의 어려움을 극복합니다.</p>
+                    </div>
+                </div>
+                <div class="value-row">
+                    <div class="value-icon">🤝</div>
+                    <div>
+                        <h4>커뮤니티 연결</h4>
+                        <p>같은 경험을 가진 사람들과 함께 루틴을 만들고, 서로를 이해합니다.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== 푸터 ===== -->
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>지금 시작해보세요</h2>
+                <p>당신의 뇌 유형에 맞는<br>첫 번째 도구를 찾아드립니다.</p>
+                <div class="cta-btns">
+                    <a href="adhd-test.html" class="btn-main">ADHD 간편검사 해보기 →</a>
+                    <a href="postit.html" class="btn-outline">포스트잇 무료 체험단 신청</a>
+                    <a href="coaching.html" class="btn-outline">1:1 무료 상담 받기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
     <section class="footer">
         <div class="container">
             <p>
-                당신이 계속 실패한 게 아니라,<br>
-                지금까지의 방식이 당신에게 맞지 않았을 수 있습니다.
+                환경이 바뀌면 실행이 바뀝니다.<br>
+                우리는 그 환경을 만듭니다.
             </p>
         </div>
     </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('lead-form');
-            const nameInput = document.getElementById('name');
-            const emailInput = document.getElementById('email');
-            const nameError = document.getElementById('name-error');
-            const emailError = document.getElementById('email-error');
-            const successMessage = document.getElementById('success-message');
-
-            function isValidEmail(email) {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                return emailRegex.test(email);
-            }
-
-            function showError(input, errorElement) {
-                input.classList.add('error');
-                errorElement.classList.add('show');
-            }
-
-            function hideError(input, errorElement) {
-                input.classList.remove('error');
-                errorElement.classList.remove('show');
-            }
-
-            nameInput.addEventListener('input', function() {
-                if (this.value.trim()) {
-                    hideError(this, nameError);
-                }
-            });
-
-            emailInput.addEventListener('input', function() {
-                if (isValidEmail(this.value.trim())) {
-                    hideError(this, emailError);
-                }
-            });
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                let isValid = true;
-
-                if (!nameInput.value.trim()) {
-                    showError(nameInput, nameError);
-                    isValid = false;
-                } else {
-                    hideError(nameInput, nameError);
-                }
-
-                if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
-                    showError(emailInput, emailError);
-                    isValid = false;
-                } else {
-                    hideError(emailInput, emailError);
-                }
-
-                if (isValid) {
-                    const submitBtn = form.querySelector('.submit-btn');
-                    submitBtn.disabled = true;
-                    submitBtn.textContent = '처리 중...';
-
-                    // GA 이벤트: 리드 제출
-                    gtag('event', 'lead_submit', {
-                        'event_category': 'conversion',
-                        'event_label': 'pdf_signup'
-                    });
-
-                    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz59rkWc3MHBgIxTNKsmKObJOhWR43tXAXzi8MC10ILMcVgBaseXXFWXqMTGQX2rLY/exec';
-
-                    fetch(GOOGLE_SCRIPT_URL, {
-                        method: 'POST',
-                        mode: 'no-cors',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({
-                            name: nameInput.value.trim(),
-                            email: emailInput.value.trim()
-                        })
-                    })
-                    .then(function() {
-                        window.location.href = 'thanks.html';
-                    })
-                    .catch(function(error) {
-                        console.error('Error:', error);
-                        window.location.href = 'thanks.html';
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-HSNDRX38MB');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHD를 위한 현실 대처 가이드 | FLOCA</title>
+    <meta name="description" content="약을 먹어도 삶이 그대로인 ADHD를 위한 현실 대처 가이드. 무료 PDF를 받아보세요.">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="[무료 PDF] ADHD 현실 대처 가이드">
+    <meta property="og:description" content="약을 먹어도 삶이 그대로인 당신에게. 실제로 적용 가능한 현실적인 대처법을 담았습니다.">
+    <meta property="og:image" content="PDF사진.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ADHD를 위한 현실 대처 가이드 | 무료 PDF">
+    <meta name="twitter:description" content="약을 먹어도 삶이 그대로인 당신에게. 무료 PDF를 받아보세요.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2a7b9b;
+            --primary-dark: #1e6a87;
+            --accent: #4fd1c5;
+            --dark: #0f0f1a;
+            --dark-light: #1a1a2e;
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.7);
+            --text-subtle: rgba(255,255,255,0.5);
+            --success: #2e8b57;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--dark);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 섹션 ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 60px;
+            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(42,123,155,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(79,209,197,0.15);
+            border: 1px solid rgba(79,209,197,0.3);
+            color: var(--accent);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+        }
+
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            line-height: 1.4;
+            margin-bottom: 20px;
+            word-break: keep-all;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.9;
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero-image {
+            max-width: 420px;
+            width: 90%;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            margin-bottom: 24px;
+        }
+
+        .test-start-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(79,209,197,0.4);
+        }
+
+        .test-start-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
+        }
+
+        .hero-note {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .test-link {
+            display: inline-block;
+            color: var(--accent);
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            padding: 12px 24px;
+            border: 1px solid rgba(79,209,197,0.3);
+            border-radius: 30px;
+            margin-bottom: 40px;
+            transition: all 0.3s;
+        }
+
+        .test-link:hover {
+            background: rgba(79,209,197,0.15);
+            border-color: var(--accent);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-subtle);
+            border-bottom: 2px solid var(--text-subtle);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== 공감 섹션 ===== */
+        .empathy {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 26px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        .problem-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .problem-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.3s;
+        }
+
+        .problem-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(79,209,197,0.3);
+        }
+
+        .problem-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .problem-card p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        /* ===== 내용 섹션 ===== */
+        .benefits {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .benefit-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 20px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+        }
+
+        .benefit-check {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .benefit-item p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== 신뢰 섹션 ===== */
+        .trust {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 80px 0;
+        }
+
+        .trust-content {
+            text-align: center;
+        }
+
+        .trust h2 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .trust-quote {
+            font-size: 17px;
+            line-height: 2;
+            word-break: keep-all;
+        }
+
+        .trust-quote strong {
+            color: #fff;
+        }
+
+        /* ===== CTA 섹션 ===== */
+        .cta {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
+        .cta-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .cta-header h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .cta-header p {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .form-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 18px;
+            font-size: 16px;
+            background: rgba(255,255,255,0.08);
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            color: var(--text);
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+
+        .form-group input::placeholder {
+            color: var(--text-subtle);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .form-group input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            font-size: 13px;
+            color: #e74c3c;
+            margin-top: 6px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px 24px;
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--dark);
+            background: var(--accent);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: inherit;
+            box-shadow: 0 8px 24px rgba(79,209,197,0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(79,209,197,0.4);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .form-note {
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-subtle);
+            margin-top: 20px;
+            line-height: 1.7;
+        }
+
+        /* 성공 메시지 */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 72px;
+            height: 72px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 8px 24px rgba(46,139,87,0.3);
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .success-message p {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        #lead-form.hidden {
+            display: none;
+        }
+
+        /* ===== 푸터 ===== */
+        .footer {
+            background: var(--primary);
+            padding: 48px 0;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 17px;
+            font-weight: 500;
+            line-height: 1.9;
+            word-break: keep-all;
+        }
+
+        /* ===== 반응형 ===== */
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 15, 26, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            padding: 16px 0;
+        }
+
+        .nav-container {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+            white-space: nowrap;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+        }
+
+        @media (min-width: 768px) {
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-image {
+                max-width: 520px;
+            }
+
+            .section-header h2 {
+                font-size: 32px;
+            }
+
+            .cta-header h2 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav {
+                top: auto;
+                bottom: 0;
+                border-bottom: none;
+                border-top: 1px solid rgba(255,255,255,0.1);
+                padding: 12px 0;
+                padding-bottom: calc(12px + env(safe-area-inset-bottom));
+            }
+
+            .nav-container {
+                flex-direction: row;
+                justify-content: center;
+                gap: 0;
+            }
+
+            .nav-logo {
+                display: none;
+            }
+
+            .nav-links {
+                gap: 0;
+                justify-content: space-around;
+                width: 100%;
+                overflow-x: visible;
+                flex-wrap: nowrap;
+            }
+
+            .nav-links a {
+                font-size: 10px;
+                padding: 6px 4px;
+                text-align: center;
+                white-space: nowrap;
+                flex-shrink: 1;
+                min-width: 0;
+            }
+
+            body {
+                padding-bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="adhd-test.html" class="active">간편검사</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="podcast.html">팟캐스트</a>
+                <a href="postit.html">포스트잇</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 히어로 섹션 ===== -->
+    <section class="hero">
+        <span class="brand-badge">FLOCA | 3분 테스트</span>
+        <h1>
+            나는 왜 맨날<br>
+            <span class="highlight">미룰까?</span>
+        </h1>
+        <p class="hero-subtitle">
+            의지가 약해서가 아닙니다.<br>
+            내 뇌에 맞지 않는 방식으로<br>
+            계속 시도했을 수 있어요.
+        </p>
+        <img src="PDF사진.png" alt="ADHD 실행 패턴 분석" class="hero-image">
+        <a href="survey.html" class="test-start-btn">
+            3분 만에 내 실행 패턴 분석하기 →
+        </a>
+        <p class="hero-note">6가지 ADHD 실행 패턴 중 나는 어떤 유형?</p>
+        <div class="scroll-indicator">
+            <span></span>
+        </div>
+    </section>
+
+    <!-- ===== 공감 섹션 ===== -->
+    <section class="empathy">
+        <div class="container">
+            <div class="section-header">
+                <h2>혹시 이런 고민,<br>계속 반복하고 있지 않나요?</h2>
+                <p>하나라도 해당된다면, 테스트로 내 패턴을 확인해보세요.</p>
+            </div>
+
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>해야 할 일을 알면서도 자꾸 미루게 된다</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>시작은 하는데 끝까지 마무리하지 못한다</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>시간관리가 안 돼서 지각, 밀림, 후회가 반복된다</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>계획을 세워도 며칠 못 가 무너진다</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>약을 먹어도 인생 전체가 바로 달라지지는 않는다</p>
+                </div>
+                <div class="problem-card">
+                    <span class="problem-icon">?</span>
+                    <p>노력은 하는데 결과가 잘 안 나와 자책하게 된다</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 신뢰 섹션 ===== -->
+    <section class="trust">
+        <div class="container">
+            <div class="trust-content">
+                <h2>왜 이 자료를 만들었나요?</h2>
+                <p class="trust-quote">
+                    저 역시 ADHD로 인해 실수, 지연, 무기력, 자기혐오를<br>
+                    반복하며 오래 헤맸습니다.<br><br>
+                    그 과정에서 알게 된 것들을 정리했습니다.<br>
+                    <strong>'그래서 현실에서 어떻게 적용할 것인가'</strong>에<br>
+                    초점을 맞춘 출발 가이드입니다.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA 섹션 ===== -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-header">
+                <h2>지금 바로 확인해보세요</h2>
+                <p>3분이면 내 실행 패턴을 알 수 있어요</p>
+            </div>
+
+            <div class="form-card" style="text-align: center;">
+                <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.8;">
+                    테스트 결과에 따라<br>
+                    <strong style="color: var(--accent);">유형별 맞춤 PDF와 자료</strong>를 안내해드려요.
+                </p>
+                <a href="survey.html" class="submit-btn" style="display: block; text-decoration: none; text-align: center;">
+                    내 실행 패턴 분석하기 →
+                </a>
+                <p class="form-note" style="margin-top: 20px;">
+                    테스트 후 맞춤 자료를 받아보세요.<br>
+                    진단 목적이 아닌, 나를 이해하기 위한 도구입니다.
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 32px; padding: 24px; background: rgba(255,255,255,0.03); border-radius: 12px;">
+                <p style="font-size: 14px; color: var(--text-subtle); margin-bottom: 12px;">테스트 없이 PDF만 받고 싶다면</p>
+                <a href="#pdf-form" style="color: var(--accent); font-size: 14px;">무료 PDF 바로 받기 ↓</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PDF 폼 섹션 (보조) ===== -->
+    <section class="cta" id="pdf-form" style="padding-top: 40px;">
+        <div class="container">
+            <div class="form-card">
+                <p style="text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">
+                    테스트 없이 PDF만 받기
+                </p>
+                <form id="lead-form">
+                    <div class="form-group">
+                        <label for="name">이름</label>
+                        <input type="text" id="name" name="name" placeholder="이름을 입력해주세요" required>
+                        <p class="error-message" id="name-error">이름을 입력해주세요.</p>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">이메일</label>
+                        <input type="email" id="email" name="email" placeholder="example@email.com" required>
+                        <p class="error-message" id="email-error">올바른 이메일 주소를 입력해주세요.</p>
+                    </div>
+                    <button type="submit" class="submit-btn">무료 PDF 지금 받기</button>
+                    <p class="form-note">
+                        스팸 메일은 보내지 않습니다.
+                    </p>
+                </form>
+
+                <div class="success-message" id="success-message">
+                    <div class="success-icon">&#10003;</div>
+                    <h3>신청이 완료되었습니다!</h3>
+                    <p>
+                        입력하신 이메일로 PDF를 보내드렸습니다.<br>
+                        메일함을 확인해주세요.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== 푸터 ===== -->
+    <section class="footer">
+        <div class="container">
+            <p>
+                당신이 계속 실패한 게 아니라,<br>
+                지금까지의 방식이 당신에게 맞지 않았을 수 있습니다.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('lead-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const nameError = document.getElementById('name-error');
+            const emailError = document.getElementById('email-error');
+            const successMessage = document.getElementById('success-message');
+
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            function showError(input, errorElement) {
+                input.classList.add('error');
+                errorElement.classList.add('show');
+            }
+
+            function hideError(input, errorElement) {
+                input.classList.remove('error');
+                errorElement.classList.remove('show');
+            }
+
+            nameInput.addEventListener('input', function() {
+                if (this.value.trim()) {
+                    hideError(this, nameError);
+                }
+            });
+
+            emailInput.addEventListener('input', function() {
+                if (isValidEmail(this.value.trim())) {
+                    hideError(this, emailError);
+                }
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                let isValid = true;
+
+                if (!nameInput.value.trim()) {
+                    showError(nameInput, nameError);
+                    isValid = false;
+                } else {
+                    hideError(nameInput, nameError);
+                }
+
+                if (!emailInput.value.trim() || !isValidEmail(emailInput.value.trim())) {
+                    showError(emailInput, emailError);
+                    isValid = false;
+                } else {
+                    hideError(emailInput, emailError);
+                }
+
+                if (isValid) {
+                    const submitBtn = form.querySelector('.submit-btn');
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '처리 중...';
+
+                    // GA 이벤트: 리드 제출
+                    gtag('event', 'lead_submit', {
+                        'event_category': 'conversion',
+                        'event_label': 'pdf_signup'
+                    });
+
+                    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz59rkWc3MHBgIxTNKsmKObJOhWR43tXAXzi8MC10ILMcVgBaseXXFWXqMTGQX2rLY/exec';
+
+                    fetch(GOOGLE_SCRIPT_URL, {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            name: nameInput.value.trim(),
+                            email: emailInput.value.trim()
+                        })
+                    })
+                    .then(function() {
+                        window.location.href = 'thanks.html';
+                    })
+                    .catch(function(error) {
+                        console.error('Error:', error);
+                        window.location.href = 'thanks.html';
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
