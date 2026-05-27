@@ -247,6 +247,29 @@
             box-shadow: 0 8px 24px rgba(0,0,0,0.3);
         }
 
+        .room-explain {
+            background: rgba(167,139,250,0.08);
+            border-left: 3px solid #a78bfa;
+            border-radius: 0 12px 12px 0;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+
+        .room-explain .explain-label {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #a78bfa;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .room-explain p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
         .room-btns {
             display: flex;
             flex-direction: column;
@@ -743,16 +766,25 @@
                 <div class="room-card focus">
                     <div class="room-header">
                         <span class="room-icon">🎧</span>
-                        <h2>집중스페이스 (바디더블링)</h2>
+                        <h2>집중스페이스</h2>
                     </div>
                     <p class="room-desc">
-                        대화 없이 공부, 독서, 업무 등 집중할 수 있어요.<br>
-                        조용한 바디더블링이 필요할 때 이용하세요.
+                        혼자서는 집중이 안 되는데, 카페나 도서관에 가면 신기하게 되는 경험 있으신가요?<br>
+                        그게 바로 <strong style="color:#a78bfa">바디더블링(Body Doubling)</strong> 효과입니다.
+                    </p>
+                    <div class="room-explain">
+                        <span class="explain-label">바디더블링이란?</span>
+                        <p>옆에 누군가 있다는 것만으로 ADHD 뇌의 실행력이 높아지는 현상이에요. 대화 없이, 같은 공간에 함께 있는 것만으로도 충분합니다.</p>
+                    </div>
+                    <p class="room-desc">
+                        FLOCA는 ZEP 메타버스 공간에서 이 경험을 온라인으로 제공합니다.<br>
+                        아바타로 입장해 각자 할 일을 조용히 해요. 말 없이, 그냥 함께.
                     </p>
                     <div class="room-features">
+                        <span class="room-feature">🌐 ZEP 메타버스</span>
                         <span class="room-feature">무음 집중</span>
+                        <span class="room-feature">공부 / 업무</span>
                         <span class="room-feature">바디더블링</span>
-                        <span class="room-feature">공부/업무</span>
                     </div>
                     <a href="https://open.kakao.com/o/s0Cp66Og" target="_blank" class="room-btn">집중스페이스 입장</a>
                 </div>
