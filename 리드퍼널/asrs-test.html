@@ -1031,13 +1031,13 @@
             state.answers = {};
             state.history = ['start'];
             state.currentPage = 'question';
-            render();
+            render(true);
         }
 
         function goToPage(page) {
             state.history.push(state.currentPage);
             state.currentPage = page;
-            render();
+            render(true);
         }
 
         function goToStart() {
@@ -1046,13 +1046,13 @@
             state.currentQuestion = 0;
             state.answers = {};
             state.history = [];
-            render();
+            render(true);
         }
 
         function goBack() {
             if (state.currentQuestion > 0) {
                 state.currentQuestion--;
-                render();
+                render(true);
             }
         }
 
@@ -1065,20 +1065,20 @@
             const questionsToUse = state.testMode === 'quick' ? QUESTIONS.slice(0, 6) : QUESTIONS;
             if (state.currentQuestion < questionsToUse.length - 1) {
                 state.currentQuestion++;
-                render();
+                render(true);
             }
         }
 
         function goToAnalyzing() {
             state.currentPage = 'analyzing';
-            render();
+            render(true);
         }
 
         function resetTest() {
             goToStart();
         }
 
-        function render() {
+        function render(scrollTop = false) {
             const app = document.getElementById('app');
             let html = '';
             switch (state.currentPage) {
@@ -1089,7 +1089,7 @@
                 default: html = renderStartPage();
             }
             app.innerHTML = html;
-            window.scrollTo(0, 0);
+            if (scrollTop) window.scrollTo(0, 0);
         }
 
         document.addEventListener('DOMContentLoaded', render);
