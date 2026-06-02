@@ -484,18 +484,153 @@
             display: none;
         }
 
+        /* ===== 더 많은 콘텐츠 ===== */
+        .more-content {
+            background: var(--dark);
+            padding: 80px 0;
+        }
+
+        .channel-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .channel-card {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 14px;
+            padding: 20px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .channel-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--accent);
+            transform: translateX(4px);
+        }
+
+        .channel-icon {
+            font-size: 28px;
+        }
+
+        .channel-info {
+            flex: 1;
+        }
+
+        .channel-info strong {
+            display: block;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .channel-info span {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .channel-arrow {
+            font-size: 20px;
+            color: var(--accent);
+        }
+
         /* ===== 푸터 ===== */
         .footer {
-            background: var(--primary);
-            padding: 48px 0;
+            background: var(--dark-light);
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 40px;
+        }
+
+        .footer-brand {
             text-align: center;
         }
 
-        .footer p {
-            font-size: 17px;
-            font-weight: 500;
-            line-height: 1.9;
-            word-break: keep-all;
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: rgba(79,209,197,0.15);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-social img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-info p {
+            font-size: 13px;
+            color: var(--text-subtle);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer-info .company {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-copyright p {
+            font-size: 12px;
+            color: var(--text-subtle);
         }
 
         /* ===== 반응형 ===== */
@@ -697,36 +832,7 @@
         </div>
     </section>
 
-    <!-- ===== CTA 섹션 ===== -->
-    <section class="cta">
-        <div class="container">
-            <div class="cta-header">
-                <h2>지금 바로 확인해보세요</h2>
-                <p>3분이면 내 실행 패턴을 알 수 있어요</p>
-            </div>
-
-            <div class="form-card" style="text-align: center;">
-                <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.8;">
-                    테스트 결과에 따라<br>
-                    <strong style="color: var(--accent);">유형별 맞춤 PDF와 자료</strong>를 안내해드려요.
-                </p>
-                <a href="survey.html" class="submit-btn" style="display: block; text-decoration: none; text-align: center;">
-                    내 실행 패턴 분석하기 →
-                </a>
-                <p class="form-note" style="margin-top: 20px;">
-                    테스트 후 맞춤 자료를 받아보세요.<br>
-                    진단 목적이 아닌, 나를 이해하기 위한 도구입니다.
-                </p>
-            </div>
-
-            <div style="text-align: center; margin-top: 32px; padding: 24px; background: rgba(255,255,255,0.03); border-radius: 12px;">
-                <p style="font-size: 14px; color: var(--text-subtle); margin-bottom: 12px;">테스트 없이 PDF만 받고 싶다면</p>
-                <a href="#pdf-form" style="color: var(--accent); font-size: 14px;">무료 PDF 바로 받기 ↓</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== PDF 폼 섹션 (보조) ===== -->
+    <!-- ===== PDF 폼 섹션 ===== -->
     <section class="cta" id="pdf-form" style="padding-top: 40px;">
         <div class="container">
             <div class="form-card">
@@ -762,15 +868,73 @@
         </div>
     </section>
 
-    <!-- ===== 푸터 ===== -->
-    <section class="footer">
+    <!-- ===== 더 많은 콘텐츠 ===== -->
+    <section class="more-content">
         <div class="container">
-            <p>
-                당신이 계속 실패한 게 아니라,<br>
-                지금까지의 방식이 당신에게 맞지 않았을 수 있습니다.
-            </p>
+            <div class="section-header">
+                <h2>더 많은 ADHD 정보</h2>
+                <p>다양한 채널에서 ADHD 팁과 정보를 확인하세요</p>
+            </div>
+            <div class="channel-grid">
+                <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" class="channel-card">
+                    <span class="channel-icon">📺</span>
+                    <div class="channel-info">
+                        <strong>유튜브</strong>
+                        <span>영상으로 보는 ADHD 팁</span>
+                    </div>
+                    <span class="channel-arrow">→</span>
+                </a>
+                <a href="https://blog.naver.com/msh4688" target="_blank" class="channel-card">
+                    <span class="channel-icon">📝</span>
+                    <div class="channel-info">
+                        <strong>블로그</strong>
+                        <span>깊이 있는 정보글</span>
+                    </div>
+                    <span class="channel-arrow">→</span>
+                </a>
+                <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" class="channel-card">
+                    <span class="channel-icon">📖</span>
+                    <div class="channel-info">
+                        <strong>브런치</strong>
+                        <span>에세이와 칼럼</span>
+                    </div>
+                    <span class="channel-arrow">→</span>
+                </a>
+            </div>
         </div>
     </section>
+
+    <!-- ===== 푸터 ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">FLOCA</div>
+                    <p class="footer-tagline">
+                        당신이 계속 실패한 게 아니라,<br>
+                        지금까지의 방식이 당신에게 맞지 않았을 수 있습니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" title="유튜브"><img src="LOGO/U-TUBE.png" alt="유튜브"></a>
+                        <a href="https://www.instagram.com/floca_for_adhd/" target="_blank" title="인스타그램"><img src="LOGO/INSTA.png" alt="인스타그램"></a>
+                        <a href="https://www.threads.com/@floca_for_adhd" target="_blank" title="스레드"><img src="LOGO/THREAD.png" alt="스레드"></a>
+                        <a href="https://blog.naver.com/msh4688" target="_blank" title="블로그"><img src="LOGO/BLOG.png" alt="블로그"></a>
+                        <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" title="브런치"><img src="LOGO/BRUNCH.png" alt="브런치"></a>
+                    </div>
+                </div>
+
+                <div class="footer-info">
+                    <p class="company">플로카(FLOCA)</p>
+                    <p>대표: 문성하 | 연락처: 010-5808-9989</p>
+                    <p>부산광역시 부산진구 동천로 116, 3층 301호 A7,8(전포동)</p>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>© 2025 FLOCA. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {

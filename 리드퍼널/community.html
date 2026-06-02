@@ -585,6 +585,100 @@
             font-size: 20px;
         }
 
+        /* ===== 푸터 리디자인 ===== */
+        .footer {
+            background: var(--dark-light);
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: rgba(79,209,197,0.15);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-social img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-info p {
+            font-size: 13px;
+            color: var(--text-subtle);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer-info .company {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-copyright p {
+            font-size: 12px;
+            color: var(--text-subtle);
+        }
+
         /* ===== 위기 지원 ===== */
         .crisis {
             background: rgba(248,113,113,0.1);
@@ -682,6 +776,52 @@
         .cert-reward-items span {
             font-size: 13px;
             color: var(--text-muted);
+        }
+
+        /* ===== 랭킹 버튼 ===== */
+        .ranking-btn {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            background: linear-gradient(135deg, rgba(251,191,36,0.15) 0%, rgba(251,191,36,0.05) 100%);
+            border: 2px solid var(--yellow);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 32px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .ranking-btn:hover {
+            background: linear-gradient(135deg, rgba(251,191,36,0.25) 0%, rgba(251,191,36,0.1) 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(251,191,36,0.2);
+        }
+
+        .ranking-btn-icon {
+            font-size: 36px;
+        }
+
+        .ranking-btn-text {
+            flex: 1;
+        }
+
+        .ranking-btn-text strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--yellow);
+            margin-bottom: 4px;
+        }
+
+        .ranking-btn-text span {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .ranking-btn-arrow {
+            font-size: 24px;
+            color: var(--yellow);
         }
 
         /* ===== 반응형 ===== */
@@ -803,8 +943,8 @@
                         <h2>루틴 만들기 인증방</h2>
                     </div>
                     <p class="room-desc">
-                        매일 인증하고 경험치를 쌓아요.<br>
-                        혼자는 어렵지만, 함께하면 루틴이 만들어져요.
+                        인증하고 경험치를 쌓아요.<br>
+                        서로 응원하고 북돋으며, 함께 루틴을 만들어가요.
                     </p>
                     <div class="room-features">
                         <span class="room-feature">주 3회 인증 필수</span>
@@ -815,10 +955,7 @@
                     <div class="cert-reward-preview">
                         <span class="reward-label">월간 보상</span>
                         <div class="cert-reward-items">
-                            <span>🥇 1등 — 배달의민족 상품권 2만원</span>
-                            <span>🥈 2등 — 컴포즈 커피 5천원</span>
-                            <span>🥉 3등 — 아메리카노 1잔</span>
-                            <span>🎲 랜덤 1명 — 아메리카노 (순위 무관)</span>
+                            <span>🎲 랜덤 n명 — 보상 랜덤</span>
                         </div>
                     </div>
                     <div class="room-btns">
@@ -864,6 +1001,15 @@
                 <h2>인증 카테고리 & 경험치</h2>
                 <p>사진 + 해시태그로 인증하면 EXP가 쌓여요</p>
             </div>
+
+            <a href="https://msh9176-moondi.github.io/lulubot/admin/result.html" target="_blank" class="ranking-btn">
+                <span class="ranking-btn-icon">🏆</span>
+                <div class="ranking-btn-text">
+                    <strong>지금 랭킹 보러가기</strong>
+                    <span>실시간 순위와 EXP를 확인해보세요</span>
+                </div>
+                <span class="ranking-btn-arrow">→</span>
+            </a>
 
             <div class="category-grid">
                 <div class="category-card">
@@ -1132,14 +1278,35 @@
     </section>
 
     <!-- ===== 푸터 ===== -->
-    <section class="footer">
+    <footer class="footer">
         <div class="container">
-            <p>
-                실패가 아니라,<br>
-                다시 돌아오는 구조를<br>
-                함께 연습합니다.
-            </p>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">FLOCA</div>
+                    <p class="footer-tagline">
+                        실패가 아니라,<br>
+                        다시 돌아오는 구조를 함께 연습합니다.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" title="유튜브"><img src="LOGO/U-TUBE.png" alt="유튜브"></a>
+                        <a href="https://www.instagram.com/floca_for_adhd/" target="_blank" title="인스타그램"><img src="LOGO/INSTA.png" alt="인스타그램"></a>
+                        <a href="https://www.threads.com/@floca_for_adhd" target="_blank" title="스레드"><img src="LOGO/THREAD.png" alt="스레드"></a>
+                        <a href="https://blog.naver.com/msh4688" target="_blank" title="블로그"><img src="LOGO/BLOG.png" alt="블로그"></a>
+                        <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" title="브런치"><img src="LOGO/BRUNCH.png" alt="브런치"></a>
+                    </div>
+                </div>
+
+                <div class="footer-info">
+                    <p class="company">플로카(FLOCA)</p>
+                    <p>대표: 문성하 | 연락처: 010-5808-9989</p>
+                    <p>부산광역시 부산진구 동천로 116, 3층 301호 A7,8(전포동)</p>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>© 2025 FLOCA. All rights reserved.</p>
+                </div>
+            </div>
         </div>
-    </section>
+    </footer>
 </body>
 </html>

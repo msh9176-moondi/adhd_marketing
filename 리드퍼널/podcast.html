@@ -876,11 +876,97 @@
             color: var(--text-subtle);
         }
 
-        footer .footer-logo {
-            font-size: 16px;
-            font-weight: 700;
+        footer {
+            background: var(--dark-light);
+            padding: 60px 0 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 24px;
+            font-weight: 900;
             color: var(--teal);
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+        }
+
+        .footer-tagline {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 24px;
+        }
+
+        .footer-social a {
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: rgba(249,115,22,0.15);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-social img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-info p {
+            font-size: 13px;
+            color: var(--text-subtle);
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .footer-info .company {
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            padding-top: 24px;
+            margin-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-copyright p {
+            font-size: 12px;
+            color: var(--text-subtle);
             display: block;
         }
 
@@ -1110,6 +1196,29 @@
 
         .hero-benefit strong {
             color: #fbbf24;
+        }
+
+        /* ===== 인증 스크린샷 갤러리 ===== */
+        .proof-gallery {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+        .proof-gallery::-webkit-scrollbar { display: none; }
+        .proof-img {
+            height: 420px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .proof-img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 32px rgba(249,115,22,0.3);
         }
 
         /* ===== 반응형 ===== */
@@ -1695,6 +1804,49 @@
         </div>
     </section>
 
+    <!-- ===== 실제 인증 스크린샷 ===== -->
+    <section class="real-proof" style="background: var(--dark); padding: 60px 0;">
+        <div class="container">
+            <span class="section-tag">실제 참여 현장</span>
+            <h2 class="section-title">이렇게 함께<br>실행하고 있어요</h2>
+
+            <!-- 실행 인증 -->
+            <p style="font-size: 14px; color: var(--accent); font-weight: 700; margin: 28px 0 12px;">📝 10분 실행 변화표 인증</p>
+            <p class="section-desc" style="margin-bottom: 16px;">팟캐스트를 들으면서 각자의 미룬 일을 10분짜리 행동으로 바꿔 적습니다.</p>
+            <div class="proof-gallery">
+                <img src="patcast/1.png" alt="10분 실행 변화표 양식 안내" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/2.png" alt="실행 변화표 작성 예시" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/3.png" alt="참여자들 인증 1" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/4.png" alt="참여자들 인증 2" class="proof-img" onclick="openModal(this.src)">
+            </div>
+
+            <!-- 복귀 인증 -->
+            <p style="font-size: 14px; color: var(--accent); font-weight: 700; margin: 32px 0 12px;">🔄 복귀 인증</p>
+            <p class="section-desc" style="margin-bottom: 16px;">무너진 날이 있어도 다시 돌아옵니다. 복귀 자체가 훈련입니다.</p>
+            <div>
+                <img src="patcast/5.png" alt="참여자들 복귀 인증" style="width: 100%; max-width: 400px; border-radius: 16px; border: 1px solid var(--border); cursor: pointer;" onclick="openModal(this.src)">
+            </div>
+
+            <!-- 실행 후기 -->
+            <p style="font-size: 14px; color: var(--accent); font-weight: 700; margin: 32px 0 12px;">💬 10분 실행 후기</p>
+            <p class="section-desc" style="margin-bottom: 16px;">10분 실행 후 느낀 점을 공유합니다. 작은 변화들이 쌓입니다.</p>
+            <div class="proof-gallery">
+                <img src="patcast/6.png" alt="10분 실행 후기 1" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/7.png" alt="10분 실행 후기 2" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/8.png" alt="10분 실행 후기 3" class="proof-img" onclick="openModal(this.src)">
+                <img src="patcast/9.png" alt="10분 실행 후기 4" class="proof-img" onclick="openModal(this.src)">
+            </div>
+
+            <p style="text-align: center; font-size: 12px; color: var(--text-subtle); margin-top: 12px;">👆 이미지를 탭하면 크게 볼 수 있어요</p>
+        </div>
+    </section>
+
+    <!-- 이미지 모달 -->
+    <div id="imgModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.95); z-index:9999; padding:20px; cursor:pointer;" onclick="closeModal()">
+        <img id="modalImg" src="" style="max-width:100%; max-height:100%; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); border-radius:12px;">
+        <span style="position:absolute; top:20px; right:24px; color:#fff; font-size:32px; font-weight:300;">×</span>
+    </div>
+
     <!-- ===== 8. 참여 후 기대 변화 ===== -->
     <section class="changes">
         <div class="container">
@@ -1836,8 +1988,31 @@
     <!-- ===== 푸터 ===== -->
     <footer>
         <div class="container">
-            <span class="footer-logo">FLOCA</span>
-            <p>ADHD와 함께 살아가는 방법을 함께 찾습니다</p>
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">FLOCA</div>
+                    <p class="footer-tagline">
+                        ADHD와 함께 살아가는 방법을 함께 찾습니다
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" title="유튜브"><img src="LOGO/U-TUBE.png" alt="유튜브"></a>
+                        <a href="https://www.instagram.com/floca_for_adhd/" target="_blank" title="인스타그램"><img src="LOGO/INSTA.png" alt="인스타그램"></a>
+                        <a href="https://www.threads.com/@floca_for_adhd" target="_blank" title="스레드"><img src="LOGO/THREAD.png" alt="스레드"></a>
+                        <a href="https://blog.naver.com/msh4688" target="_blank" title="블로그"><img src="LOGO/BLOG.png" alt="블로그"></a>
+                        <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" title="브런치"><img src="LOGO/BRUNCH.png" alt="브런치"></a>
+                    </div>
+                </div>
+
+                <div class="footer-info">
+                    <p class="company">플로카(FLOCA)</p>
+                    <p>대표: 문성하 | 연락처: 010-5808-9989</p>
+                    <p>부산광역시 부산진구 동천로 116, 3층 301호 A7,8(전포동)</p>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>© 2025 FLOCA. All rights reserved.</p>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -1849,6 +2024,21 @@
             document.getElementById('season-' + n).style.display = 'block';
             btn.classList.add('active');
         }
+
+        function openModal(src) {
+            document.getElementById('modalImg').src = src;
+            document.getElementById('imgModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('imgModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
     </script>
 
 </body>
