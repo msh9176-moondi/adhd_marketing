@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코치 가이드 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .guide-hero {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
+      color: white; padding: 60px 20px; text-align: center;
+    }
+    .guide-hero h1 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
+    .guide-hero p { font-size: 16px; opacity: 0.9; line-height: 1.8; max-width: 500px; margin: 0 auto; }
+
+    .guide-section { padding: 40px 20px; }
+    .guide-section:nth-child(even) { background: var(--bg); }
+    .guide-container { max-width: 700px; margin: 0 auto; }
+
+    .guide-title { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: var(--text); display: flex; align-items: center; gap: 10px; }
+    .guide-title span { font-size: 28px; }
+
+    .flow-steps { display: flex; flex-direction: column; gap: 0; }
+    .flow-step {
+      display: flex; align-items: flex-start; gap: 16px; padding: 20px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .flow-step:last-child { border-bottom: none; }
+    .flow-num {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
+      color: white; font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .flow-num.coach { background: var(--accent); }
+    .flow-content { flex: 1; }
+    .flow-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .flow-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
+    .flow-who { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
+    .flow-who.coachee { background: var(--primary-light); color: var(--primary); }
+    .flow-who.coach { background: var(--accent-light); color: var(--accent); }
+    .flow-who.both { background: #FEF3C7; color: #92400E; }
+
+    .role-card {
+      background: var(--card); border-radius: 16px; padding: 24px;
+      border: 1px solid var(--border); margin-bottom: 16px;
+    }
+    .role-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .role-list { list-style: none; padding: 0; margin: 0; }
+    .role-list li { font-size: 14px; color: var(--text); line-height: 1.8; padding: 6px 0; padding-left: 24px; position: relative; }
+    .role-list li::before { content: "•"; position: absolute; left: 8px; color: var(--primary); font-weight: bold; }
+
+    .dashboard-preview {
+      background: var(--card); border-radius: 16px; padding: 20px;
+      border: 1px solid var(--border);
+    }
+    .preview-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .preview-item:last-child { border-bottom: none; }
+    .preview-icon { font-size: 24px; flex-shrink: 0; }
+    .preview-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .preview-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    .guide-cta {
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      padding: 48px 20px; text-align: center;
+    }
+    .guide-cta h2 { font-size: 24px; font-weight: 800; color: white; margin-bottom: 12px; }
+    .guide-cta p { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: 24px; }
+    .guide-cta .btn { background: white; color: var(--primary); font-size: 16px; padding: 16px 40px; }
+    .guide-cta .btn:hover { background: #F0F9FF; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coach-home.html">코치 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="guide-hero">
+  <h1>FLOCA 코칭 플랫폼<br/>코치 가이드</h1>
+  <p>ADHD 코칭 파일럿 프로그램의 전체 흐름과<br/>코치로서의 역할을 안내합니다.</p>
+</div>
+
+<!-- 프로그램 소개 -->
+<div class="guide-section">
+  <div class="guide-container">
+    <div class="guide-title"><span>📋</span> 프로그램 소개</div>
+    <div class="role-card">
+      <p style="font-size:15px;line-height:1.9;color:var(--text);">
+        <strong>FLOCA ADHD 코칭 프로그램</strong>은 ADHD 성향을 가진 분들의 <strong>실행력 회복, 루틴 형성, 시간관리</strong>를 돕는 4주 1:1 코칭 프로그램입니다.
+      </p>
+      <div style="margin-top:16px;padding:16px;background:var(--bg);border-radius:12px;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center;">
+          <div>
+            <div style="font-size:28px;font-weight:900;color:var(--primary);">4주</div>
+            <div style="font-size:12px;color:var(--text-muted);">코칭 기간</div>
+          </div>
+          <div>
+            <div style="font-size:28px;font-weight:900;color:var(--accent);">4회</div>
+            <div style="font-size:12px;color:var(--text-muted);">주 1회 세션</div>
+          </div>
+          <div>
+            <div style="font-size:28px;font-weight:900;color:var(--success);">1:1</div>
+            <div style="font-size:12px;color:var(--text-muted);">코치 : 피코치</div>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:13px;color:var(--text-muted);margin-top:16px;line-height:1.7;">
+        * 이 프로그램은 의료 진단이나 치료를 대체하지 않습니다. 생활 관리와 실행력 회복을 돕는 코칭 서비스입니다.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- 전체 플로우 -->
+<div class="guide-section">
+  <div class="guide-container">
+    <div class="guide-title"><span>🔄</span> 전체 진행 플로우</div>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <div class="flow-title">피코치 신청</div>
+          <div class="flow-desc">피코치가 신청서를 작성하고 프로그램에 참여 의사를 밝힙니다.</div>
+          <span class="flow-who coachee">피코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <div class="flow-title">사전 설문 작성</div>
+          <div class="flow-desc">실행력, 루틴, 시간관리, 자기효능감, 커리어 5개 영역을 측정합니다. 코칭 후 변화를 비교하는 기준 데이터가 됩니다.</div>
+          <span class="flow-who coachee">피코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <div class="flow-title">코치 선택</div>
+          <div class="flow-desc">피코치가 코치 프로필을 보고 함께할 코치를 선택합니다.</div>
+          <span class="flow-who coachee">피코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num coach">4</div>
+        <div class="flow-content">
+          <div class="flow-title">코치 수락 & 웰컴 메시지</div>
+          <div class="flow-desc">코치가 피코치 정보를 확인하고 수락합니다. 웰컴 메시지를 보내 첫 연락을 시작합니다.</div>
+          <span class="flow-who coach">코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">5</div>
+        <div class="flow-content">
+          <div class="flow-title">목표 합의서 작성</div>
+          <div class="flow-desc">코치와 통화/메시지로 상담하며, 피코치가 직접 목표 합의서를 작성합니다. 코칭 주제, 바람직한 결과, 실행 방안, 현재/목표 점수를 정합니다.</div>
+          <span class="flow-who both">코치 유도 → 피코치 작성</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num coach">6</div>
+        <div class="flow-content">
+          <div class="flow-title">4주 코칭 진행 (4회기)</div>
+          <div class="flow-desc">주 1회 세션을 진행합니다. 매 회기마다 코치는 세션 일지를, 피코치는 성찰 일지를 작성합니다.</div>
+          <span class="flow-who coach">코치</span> <span class="flow-who coachee" style="margin-left:4px;">피코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">7</div>
+        <div class="flow-content">
+          <div class="flow-title">사후 설문 작성</div>
+          <div class="flow-desc">코칭 종료 후 같은 5개 영역을 다시 측정합니다. 사전 설문과 비교하여 변화를 확인합니다.</div>
+          <span class="flow-who coachee">피코치</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">8</div>
+        <div class="flow-content">
+          <div class="flow-title">결과 보고서 확인</div>
+          <div class="flow-desc">사전/사후 점수 비교, 목표 달성도, 회기별 변화를 담은 결과 보고서를 확인합니다.</div>
+          <span class="flow-who both">코치 & 피코치</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 코치 역할 -->
+<div class="guide-section">
+  <div class="guide-container">
+    <div class="guide-title"><span>👩‍💼</span> 코치의 역할</div>
+    <div class="role-card">
+      <h3 style="color:var(--accent);">코치가 하는 일</h3>
+      <ul class="role-list">
+        <li>피코치가 배정되면 정보를 확인하고 <strong>수락</strong>합니다</li>
+        <li><strong>웰컴 메시지</strong>를 보내 첫 연락을 시작합니다</li>
+        <li>통화/메시지로 상담하며 피코치가 <strong>목표 합의서를 작성하도록 유도</strong>합니다</li>
+        <li>주 1회 세션을 진행하고 <strong>세션 일지</strong>를 작성합니다</li>
+        <li>피코치의 변화를 관찰하고 <strong>결과 보고서</strong>를 확인합니다</li>
+      </ul>
+    </div>
+    <div class="role-card" style="border-color:#FECACA;">
+      <h3 style="color:#DC2626;">코치가 하지 않는 일</h3>
+      <ul class="role-list">
+        <li>피코치 대신 목표 합의서를 <strong>작성하지 않습니다</strong> (유도만)</li>
+        <li>의료 진단이나 치료를 <strong>제공하지 않습니다</strong></li>
+        <li>피코치의 선택을 <strong>강요하지 않습니다</strong></li>
+      </ul>
+    </div>
+    <div class="alert alert-info">
+      <strong>코칭의 본질</strong><br/>
+      코치는 질문하고, 피코치가 스스로 생각하고 결정하도록 돕습니다. 답을 주는 것이 아니라 답을 찾도록 유도합니다.
+    </div>
+  </div>
+</div>
+
+<!-- 대시보드 안내 -->
+<div class="guide-section">
+  <div class="guide-container">
+    <div class="guide-title"><span>💻</span> 대시보드 사용법</div>
+    <div class="dashboard-preview">
+      <div class="preview-item">
+        <div class="preview-icon">🔔</div>
+        <div class="preview-text">
+          <h4>수락 대기 알림</h4>
+          <p>새로운 피코치가 배정되면 "수락 대기" 배지가 표시됩니다. 피코치 정보를 확인하고 수락 버튼을 눌러주세요.</p>
+        </div>
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">💌</div>
+        <div class="preview-text">
+          <h4>웰컴 메시지</h4>
+          <p>수락 시 웰컴 메시지 템플릿이 제공됩니다. 복사해서 피코치에게 보내주세요.</p>
+        </div>
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">📋</div>
+        <div class="preview-text">
+          <h4>목표 합의서</h4>
+          <p>피코치가 작성한 목표 합의서를 확인할 수 있습니다. 미작성 시 양식 미리보기로 구조를 파악하세요.</p>
+        </div>
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">📝</div>
+        <div class="preview-text">
+          <h4>세션 일지 작성</h4>
+          <p>각 회기마다 세션 일지를 작성합니다. "작성하기" 버튼을 눌러 기록하세요.</p>
+        </div>
+      </div>
+      <div class="preview-item">
+        <div class="preview-icon">📊</div>
+        <div class="preview-text">
+          <h4>사전 설문 점수</h4>
+          <p>피코치의 사전 설문 점수를 확인할 수 있습니다. 점수가 낮은 영역을 참고하여 코칭 방향을 설정하세요.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="guide-cta">
+  <h2>준비되셨나요?</h2>
+  <p>코치 대시보드로 이동해서 피코치를 만나보세요.</p>
+  <a href="coach-home.html" class="btn">코치 대시보드 입장하기 →</a>
+</div>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 코치 가이드</p>
+</footer>
+</body>
+</html>
