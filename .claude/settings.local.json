@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(ls:*)",
+      "Bash(git pull:*)",
+      "Bash(start:*)",
+      "Bash(timeout:*)",
+      "Bash(dir \"C:\\\\Users\\\\MY\\\\Desktop\\\\GitHub\\\\adhd_marketing\\\\리드퍼널\\\\patcast\")",
+      "Bash(grep:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(findstr:*)",
+      "Bash(git mv:*)"
+    ]
+  }
+}
