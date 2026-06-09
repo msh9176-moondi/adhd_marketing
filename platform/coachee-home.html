@@ -95,6 +95,16 @@
       </div>
     </div>
 
+    <!-- 코치님의 메시지 -->
+    <div id="welcomeMessageBox" class="card" style="display:none;margin-bottom:20px;background:linear-gradient(135deg,#F0FDF4,#EFF6FF);border:1px solid #BBF7D0;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:24px;">💌</span>
+        <div class="card-title" style="margin:0;">코치님의 메시지</div>
+      </div>
+      <div id="welcomeMessageContent" style="font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap;background:white;padding:16px;border-radius:12px;"></div>
+      <div id="welcomeMessageDate" style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:right;"></div>
+    </div>
+
     <!-- 다음 회기 안내 -->
     <div id="nextSessionBox" style="display:none;" class="next-session-box">
       <div>
@@ -157,6 +167,14 @@
       if (goal) {
         document.getElementById('topicEl').innerHTML = `<span class="topic">코칭 주제: ${goal.topic}</span>`;
       }
+    }
+
+    // 코치님의 메시지
+    const welcomeMsg = DB.get('welcomeMessages').find(w => w.coacheeId === coacheeId);
+    if (welcomeMsg) {
+      document.getElementById('welcomeMessageBox').style.display = 'block';
+      document.getElementById('welcomeMessageContent').textContent = welcomeMsg.message;
+      document.getElementById('welcomeMessageDate').textContent = fmtDate(welcomeMsg.sentAt) + ' 수신';
     }
 
     // 다음 회기 박스
