@@ -161,40 +161,44 @@ function calcCategoryScores(answers) {
 // ===== Coach Data =====
 const COACHES = [
   {
-    id: 'coach1', name: '김지은', avatar: '👩‍💼',
-    specialties: ['실행력', '루틴'],
-    coachingMethods: ['전화', '온라인'],
-    availableTimes: '평일 저녁 7pm~10pm',
-    bio: '실행력 회복과 루틴 형성 전문',
-    detail: '10년간 ADHD 성향을 직접 경험하며, 루틴 붕괴와 실행 차단이 삶에 미치는 영향을 깊이 이해합니다. 함께 작고 안정적인 첫 걸음을 찾아가는 코칭을 합니다.',
-    maxCoachees: 1
-  },
-  {
-    id: 'coach2', name: '박도현', avatar: '👨‍💻',
-    specialties: ['시간관리', '감정 조절'],
+    id: 'coach1', name: '고경숙', avatar: '🌸',
+    phone: '010-6601-0019',
+    specialties: ['미루기', '시간관리', '루틴형성', '감정조절', '목표설정'],
     coachingMethods: ['온라인'],
-    availableTimes: '주말 오전 10am~1pm',
-    bio: '시간 지각과 감정 조절 전문',
-    detail: '시간 개념이 잘 작동하지 않을 때 일상이 얼마나 혼란스러운지 압니다. 현실적인 시간 관리 전략과 감정 파도를 다루는 코칭을 제공합니다.',
-    maxCoachees: 1
+    availableTimes: '평일 저녁 6pm~10pm, 주말 오후 2pm~6pm',
+    bio: '행복으로 안내하는 마음성장 파트너',
+    detail: '플래너 사용, 공부/업무 실행을 함께 다루며, 작은 변화부터 시작해 지속 가능한 루틴을 만들어갑니다.',
+    maxCoachees: 3
   },
   {
-    id: 'coach3', name: '이서연', avatar: '👩‍🎨',
-    specialties: ['커리어', '실행력'],
-    coachingMethods: ['전화', '온라인'],
-    availableTimes: '화·목 오후 2pm~6pm',
-    bio: '커리어 방향과 실행력 전문',
-    detail: '"내가 뭘 해야 할지 모르겠어요"라는 말 들어왔어요. 강점을 찾고, 방향을 설정하고, 실제로 움직일 수 있는 작은 계획을 세우는 코칭을 합니다.',
-    maxCoachees: 1
+    id: 'coach2', name: '정승혜', avatar: '💼',
+    phone: '010-5149-3445',
+    specialties: ['미루기', '시간관리', '루틴형성', '감정조절', '소진관리'],
+    coachingMethods: ['온라인'],
+    availableTimes: '평일 저녁 6pm~10pm',
+    bio: '현장의 경험을 바탕으로 개인의 잠재력과 조직의 성과를 연결하는 성장코치',
+    detail: '목표설정, 플래너 사용, 공부/업무 실행, 소진 관리까지 폭넓게 다루며, 실질적인 성장을 돕습니다.',
+    maxCoachees: 3
   },
   {
-    id: 'coach4', name: '최민준', avatar: '👨‍🏫',
-    specialties: ['루틴', '시간관리'],
-    coachingMethods: ['오프라인', '온라인'],
-    availableTimes: '월·수 저녁 6pm~9pm',
-    bio: '루틴 설계와 시간관리 전문',
-    detail: '규칙적인 삶이 ADHD 뇌에 왜 그렇게 어려운지 데이터와 경험으로 설명해드립니다. 뇌 친화적인 루틴과 시간 블록 설계를 함께 해드립니다.',
-    maxCoachees: 1
+    id: 'coach3', name: '조승희', avatar: '🌿',
+    phone: '010-6607-8942',
+    specialties: ['미루기', '시간관리', '루틴형성', '감정조절', '목표설정'],
+    coachingMethods: ['온라인'],
+    availableTimes: '평일 낮 오전~오후 5pm, 주말 오후 2pm~6pm',
+    bio: '일상의 작은 변화가 의미있는 성장으로 이어질 수 있도록 함께하는 코치',
+    detail: '작은 변화의 힘을 믿으며, 일상에서 실천 가능한 전략을 함께 찾아갑니다.',
+    maxCoachees: 3
+  },
+  {
+    id: 'coach4', name: '김지민', avatar: '✨',
+    phone: '010-5000-0590',
+    specialties: ['미루기', '시간관리', '루틴형성', '감정조절', '목표설정'],
+    coachingMethods: ['온라인'],
+    availableTimes: '평일 저녁 6pm~10pm, 주말 오전 10am~1pm, 주말 오후 2pm~6pm',
+    bio: '성장과 회복을 위한 성찰파트너',
+    detail: '플래너 사용, 공부/업무 실행을 함께 다루며, 성찰을 통한 지속 가능한 변화를 만들어갑니다.',
+    maxCoachees: 3
   }
 ];
 

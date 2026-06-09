@@ -11,8 +11,8 @@
   <div class="nav-inner">
     <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
     <div class="nav-links">
-      <a href="apply.html" class="active">신청</a>
-      <a href="coaches.html">코치</a>
+      <a href="apply.html" class="active">신청하기</a>
+      <a href="login.html">로그인</a>
       <a href="admin.html" class="nav-admin">관리자</a>
     </div>
   </div>
@@ -139,15 +139,6 @@
         </div>
 
         <div class="form-group">
-          <label class="form-label">일상생활이 심각하게 무너졌다고 느끼나요?</label>
-          <div class="radio-group">
-            <label class="radio-item"><input type="radio" name="risk2" value="no"/><span>아니요, 어느 정도 유지하고 있어요</span></label>
-            <label class="radio-item"><input type="radio" name="risk2" value="partial"/><span>부분적으로 무너지고 있어요</span></label>
-            <label class="radio-item"><input type="radio" name="risk2" value="yes"/><span>네, 많이 무너져 있습니다</span></label>
-          </div>
-        </div>
-
-        <div class="form-group">
           <label class="form-label">현재 전문적인 치료가 필요하다고 느끼나요?</label>
           <div class="radio-group">
             <label class="radio-item"><input type="radio" name="risk3" value="no"/><span>아니요</span></label>
@@ -203,9 +194,8 @@
 
   function checkRisk() {
     const r1 = document.querySelector('input[name=risk1]:checked')?.value;
-    const r2 = document.querySelector('input[name=risk2]:checked')?.value;
     const r3 = document.querySelector('input[name=risk3]:checked')?.value;
-    const isRisk = r1 === 'yes' || r1 === 'yes_strong' || r2 === 'yes' || r3 === 'yes';
+    const isRisk = r1 === 'yes' || r1 === 'yes_strong' || r3 === 'yes';
     document.getElementById('riskAlert').style.display = isRisk ? 'block' : 'none';
   }
 
@@ -224,9 +214,8 @@
     }
 
     const r1 = document.querySelector('input[name=risk1]:checked')?.value || 'no';
-    const r2 = document.querySelector('input[name=risk2]:checked')?.value || 'no';
     const r3 = document.querySelector('input[name=risk3]:checked')?.value || 'no';
-    const riskFlag = r1 === 'yes' || r1 === 'yes_strong' || r2 === 'yes' || r3 === 'yes';
+    const riskFlag = r1 === 'yes' || r1 === 'yes_strong' || r3 === 'yes';
 
     const difficulties = [...document.querySelectorAll('#difficulties input:checked')].map(c => c.value);
     const topics = [...document.querySelectorAll('#topics input:checked')].map(c => c.value);
@@ -235,7 +224,7 @@
     const coachee = {
       id: genId(), name, phone, email: document.getElementById('email').value,
       adhdStatus, difficulties, topics, availableTimes,
-      riskFlag, riskAnswers: { r1, r2, r3 },
+      riskFlag, riskAnswers: { r1, r3 },
       consentPrivacy: true, consentNonMedical: true,
       status: 'applied', createdAt: new Date().toISOString()
     };

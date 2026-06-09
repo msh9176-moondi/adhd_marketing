@@ -58,15 +58,47 @@
     }
     .session-card-info p { font-size: 13px; color: var(--primary); margin-top: 2px; }
     .session-card-info h4 { font-size: 15px; font-weight: 700; }
+
+    /* 역할 선택 탭 */
+    .role-tabs { display: flex; gap: 10px; margin-bottom: 28px; }
+    .role-tab {
+      flex: 1; padding: 16px 12px; border: 2px solid var(--border);
+      border-radius: 14px; text-align: center; cursor: pointer;
+      transition: all .2s; background: white;
+    }
+    .role-tab:hover { border-color: var(--primary); }
+    .role-tab.active { border-color: var(--primary); background: var(--primary-light); }
+    .role-tab .role-icon { font-size: 28px; margin-bottom: 6px; }
+    .role-tab .role-name { font-size: 14px; font-weight: 700; }
+    .role-tab .role-desc { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    .role-content { display: none; }
+    .role-content.active { display: block; }
   </style>
 </head>
 <body>
 <div class="login-wrap">
   <div class="login-card">
     <div class="login-logo">FLOCA <span>코칭</span></div>
-    <div class="login-title">내 코칭 대시보드로</div>
-    <div class="login-sub">전화번호 또는 이름으로 내 코칭을 찾을 수 있어요.</div>
+    <div class="login-title">로그인</div>
+    <div class="login-sub">역할을 선택하고 로그인하세요.</div>
 
+    <!-- 역할 선택 -->
+    <div class="role-tabs">
+      <div class="role-tab active" id="role-coachee" onclick="switchRole('coachee')">
+        <div class="role-icon">🙋</div>
+        <div class="role-name">피코치</div>
+        <div class="role-desc">코칭 받는 분</div>
+      </div>
+      <div class="role-tab" id="role-coach" onclick="switchRole('coach')">
+        <div class="role-icon">👩‍💼</div>
+        <div class="role-name">코치</div>
+        <div class="role-desc">코칭 하는 분</div>
+      </div>
+    </div>
+
+    <!-- 피코치 로그인 -->
+    <div class="role-content active" id="content-coachee">
     <!-- 자동 감지: 이전 세션 -->
     <div id="savedSession" style="display:none;">
       <div class="session-card">
@@ -134,9 +166,20 @@
 
     <div class="divider-line">처음이신가요?</div>
     <a href="apply.html" class="btn btn-outline btn-full">코칭 신청하기</a>
+    </div>
 
-    <p style="margin-top:16px;font-size:12px;color:var(--text-muted);text-align:center;line-height:1.7;">
-      코치님이라면 → <a href="coach-home.html" style="color:var(--primary);">코치 대시보드</a><br/>
+    <!-- 코치 로그인 -->
+    <div class="role-content" id="content-coach">
+      <p style="font-size:14px;color:var(--text-muted);margin-bottom:20px;line-height:1.7;">
+        코치 프로필을 선택하고 대시보드에 입장하세요.
+      </p>
+      <div id="coachPickList" style="display:flex;flex-direction:column;gap:10px;margin-bottom:20px;"></div>
+      <button class="btn btn-primary btn-full btn-lg" id="coachEnterBtn" disabled onclick="goCoachDashboard()">
+        대시보드 입장하기
+      </button>
+    </div>
+
+    <p style="margin-top:24px;font-size:12px;color:var(--text-muted);text-align:center;">
       관리자라면 → <a href="admin.html" style="color:var(--primary);">관리자 대시보드</a>
     </p>
   </div>
@@ -251,7 +294,55 @@
     el.innerHTML = msg;
   }
 
+  // 역할 전환
+  let currentRole = 'coachee';
+  let selectedCoachId = null;
+
+  function switchRole(role) {
+    currentRole = role;
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.role-content').forEach(c => c.classList.remove('active'));
+    document.getElementById(`role-${role}`).classList.add('active');
+    document.getElementById(`content-${role}`).classList.add('active');
+    hideResult();
+  }
+
+  // 코치 선택 렌더
+  function renderCoachPicker() {
+    const list = document.getElementById('coachPickList');
+    if (!list) return;
+    list.innerHTML = '';
+
+    COACHES.forEach(coach => {
+      const item = document.createElement('div');
+      item.className = 'method-tab';
+      item.dataset.id = coach.id;
+      item.innerHTML = `
+        <span class="icon">${coach.avatar}</span>
+        <div>
+          <h4>${coach.name}</h4>
+          <p>${coach.specialties.join(' · ')}</p>
+        </div>
+      `;
+      item.addEventListener('click', () => {
+        document.querySelectorAll('#coachPickList .method-tab').forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+        selectedCoachId = coach.id;
+        document.getElementById('coachEnterBtn').disabled = false;
+      });
+      list.appendChild(item);
+    });
+  }
+
+  function goCoachDashboard() {
+    if (selectedCoachId) {
+      localStorage.setItem('selectedCoachId', selectedCoachId);
+      window.location.href = 'coach-home.html';
+    }
+  }
+
   checkSavedSession();
+  renderCoachPicker();
 </script>
 </body>
 </html>
