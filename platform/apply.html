@@ -138,14 +138,6 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">현재 전문적인 치료가 필요하다고 느끼나요?</label>
-          <div class="radio-group">
-            <label class="radio-item"><input type="radio" name="risk3" value="no"/><span>아니요</span></label>
-            <label class="radio-item"><input type="radio" name="risk3" value="maybe"/><span>잘 모르겠어요</span></label>
-            <label class="radio-item"><input type="radio" name="risk3" value="yes"/><span>그럴 것 같아요</span></label>
-          </div>
-        </div>
       </div>
 
       <!-- 동의 -->
@@ -194,8 +186,7 @@
 
   function checkRisk() {
     const r1 = document.querySelector('input[name=risk1]:checked')?.value;
-    const r3 = document.querySelector('input[name=risk3]:checked')?.value;
-    const isRisk = r1 === 'yes' || r1 === 'yes_strong' || r3 === 'yes';
+    const isRisk = r1 === 'yes' || r1 === 'yes_strong';
     document.getElementById('riskAlert').style.display = isRisk ? 'block' : 'none';
   }
 
@@ -214,8 +205,7 @@
     }
 
     const r1 = document.querySelector('input[name=risk1]:checked')?.value || 'no';
-    const r3 = document.querySelector('input[name=risk3]:checked')?.value || 'no';
-    const riskFlag = r1 === 'yes' || r1 === 'yes_strong' || r3 === 'yes';
+    const riskFlag = r1 === 'yes' || r1 === 'yes_strong';
 
     const difficulties = [...document.querySelectorAll('#difficulties input:checked')].map(c => c.value);
     const topics = [...document.querySelectorAll('#topics input:checked')].map(c => c.value);
@@ -224,7 +214,7 @@
     const coachee = {
       id: genId(), name, phone, email: document.getElementById('email').value,
       adhdStatus, difficulties, topics, availableTimes,
-      riskFlag, riskAnswers: { r1, r3 },
+      riskFlag, riskAnswers: { r1 },
       consentPrivacy: true, consentNonMedical: true,
       status: 'applied', createdAt: new Date().toISOString()
     };
