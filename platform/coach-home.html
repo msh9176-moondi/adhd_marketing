@@ -396,7 +396,6 @@
                 📋 목표 합의서
                 ${goal ? '<span class="badge badge-success">작성완료</span>' : '<span class="badge badge-warn">미작성</span>'}
               </div>
-              <a href="goal-agreement.html?id=${coachee.id}&role=coach" class="btn btn-sm ${goal ? 'btn-outline' : 'btn-primary'}">${goal ? '확인/수정' : '함께 작성하기'}</a>
             </div>
             ${goal ? `
             <div style="background:white;border-radius:10px;padding:14px;border:1px solid var(--border);">
@@ -426,12 +425,17 @@
                 ✓ 피코치 동의: ${goal.coacheeConsent ? '완료' : '대기'} · 코치 확인: ${goal.coachConsent ? '완료' : '대기'}
               </div>
             </div>` : `
-            <div style="background:white;border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
-              <div style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">
-                피코치와 통화/메시지로 상담하며<br/>목표 합의서를 함께 작성해주세요.
+            <div style="background:white;border-radius:10px;padding:16px;border:1px solid var(--border);">
+              <div style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:14px;">
+                피코치가 아직 작성하지 않았습니다.<br/>
+                통화/메시지로 코칭하며 피코치가 직접 작성하도록 유도해주세요.
               </div>
-              <div style="font-size:12px;color:var(--text-light);">
-                <strong>합의서 항목:</strong> 코칭 주제, 바람직한 결과, 실행 방안, 현재/목표 점수
+              <div style="background:var(--bg);border-radius:8px;padding:12px;font-size:12px;color:var(--text-light);">
+                <strong>합의서 질문 항목:</strong><br/>
+                • 코칭 주제: "이번 4주간 가장 바꾸고 싶은 것이 무엇인가요?"<br/>
+                • 바람직한 결과: "4주 후 어떤 상태가 되고 싶으세요?"<br/>
+                • 실행 방안: "구체적으로 어떻게 해볼 수 있을까요?"<br/>
+                • 현재/목표 점수: "지금 상태를 1~10점으로 표현하면?"
               </div>
             </div>`}
           </div>
