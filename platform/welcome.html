@@ -54,6 +54,74 @@
 
     .next-cta { position: sticky; bottom: 24px; padding: 0 20px; }
     @media (max-width: 640px) { .roadmap { gap: 0; } .road-line { width: 24px; } .road-dot { width: 36px; height: 36px; font-size: 14px; } }
+
+    /* 사전 설문 버튼 강조 */
+    .survey-cta-box {
+      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      border-radius: 20px;
+      padding: 28px 24px;
+      text-align: center;
+      margin-bottom: 24px;
+      box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+    }
+    .survey-cta-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .survey-cta-sub {
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 20px;
+    }
+    .btn-survey {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: white;
+      color: #2563EB;
+      font-size: 18px;
+      font-weight: 800;
+      padding: 18px 40px;
+      border-radius: 16px;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+      animation: pulse 2s infinite;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-survey:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.2);
+    }
+    .btn-survey .arrow {
+      display: inline-block;
+      animation: bounce-right 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+      50% { box-shadow: 0 4px 24px rgba(255,255,255,0.5), 0 0 0 8px rgba(255,255,255,0.2); }
+    }
+    @keyframes bounce-right {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(6px); }
+    }
+    .survey-time {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.2);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      color: white;
+      margin-top: 16px;
+    }
   </style>
 </head>
 <body>
@@ -148,17 +216,31 @@
       </div>
     </div>
 
+    <!-- 사전 설문 CTA -->
+    <div class="survey-cta-box">
+      <div class="survey-cta-title">
+        <span>📋</span>
+        <span>지금 바로 사전 설문을 작성해주세요!</span>
+      </div>
+      <div class="survey-cta-sub">
+        코칭 효과 측정을 위한 기초 데이터입니다. 솔직하게 답해주세요.
+      </div>
+      <a id="surveyBtn" href="pre-survey.html" class="btn-survey">
+        <span>사전 설문 시작하기</span>
+        <span class="arrow">→</span>
+      </a>
+      <div class="survey-time">
+        <span>⏱️</span>
+        <span>약 5분 소요 · 15문항</span>
+      </div>
+    </div>
+
     <!-- 안내 박스 -->
     <div class="alert alert-info" style="margin-bottom:28px;">
       <strong>💡 알아두세요</strong><br/>
-      사전 설문은 코칭 효과를 측정하기 위한 기초 데이터예요.<br/>
-      솔직하게 지금 상태를 답해주실수록 코칭이 더 도움이 됩니다.
+      사전 설문은 나중에 코칭 효과를 비교하는 기준이 됩니다.<br/>
+      지금 상태를 솔직하게 답해주실수록 코칭이 더 도움이 됩니다.
     </div>
-
-    <a id="surveyBtn" href="pre-survey.html" class="btn btn-primary btn-full btn-lg">
-      사전 설문 시작하기 →
-    </a>
-    <p style="text-align:center;font-size:13px;color:var(--text-light);margin-top:12px;">약 5분 소요 · 15문항</p>
   </div>
 </main>
 
