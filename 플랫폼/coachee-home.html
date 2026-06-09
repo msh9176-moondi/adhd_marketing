@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>내 코칭 현황 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .my-coach-card {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
+      border-radius: 20px; padding: 28px; color: white; margin-bottom: 20px;
+      display: flex; gap: 20px; align-items: center;
+    }
+    .my-coach-avatar { font-size: 52px; flex-shrink: 0; }
+    .my-coach-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+    .my-coach-info p { font-size: 13px; opacity: .8; line-height: 1.6; }
+    .my-coach-info .topic { display: inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 20px; margin-top: 8px; }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; }
+    .timeline-item { display: flex; gap: 16px; position: relative; }
+    .timeline-item:not(:last-child)::before {
+      content: ''; position: absolute; left: 19px; top: 40px; bottom: 0;
+      width: 2px; background: var(--border); z-index: 0;
+    }
+    .timeline-item:not(:last-child).done::before { background: var(--accent); }
+    .tl-dot {
+      width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; font-weight: 700; position: relative; z-index: 1;
+      background: var(--border); color: var(--text-muted);
+    }
+    .tl-dot.done { background: var(--accent); color: white; }
+    .tl-dot.active { background: var(--primary); color: white; animation: pulse 2s infinite; }
+    .tl-dot.followup { background: var(--orange-light); color: var(--orange); }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(59,130,196,.4);} 50%{box-shadow:0 0 0 8px rgba(59,130,196,0);} }
+    .tl-content { flex: 1; padding: 8px 0 24px; }
+    .tl-title { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+    .tl-date { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+    .tl-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    .score-mini { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .score-chip { background: var(--bg); border-radius: 10px; padding: 8px 12px; text-align: center; }
+    .score-chip-num { font-size: 18px; font-weight: 900; color: var(--primary); }
+    .score-chip-label { font-size: 11px; color: var(--text-muted); }
+
+    .next-session-box {
+      background: var(--primary-light); border: 1px solid #BFDBFE;
+      border-radius: 14px; padding: 18px 20px; display: flex;
+      align-items: center; justify-content: space-between; gap: 12px;
+      margin-bottom: 20px;
+    }
+    .next-session-box p { font-size: 14px; color: var(--primary); font-weight: 600; }
+    .next-session-box span { font-size: 13px; color: var(--text-muted); }
+
+    .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .action-btn-card {
+      background: var(--card); border-radius: 14px; border: 1px solid var(--border);
+      padding: 20px 16px; text-align: center; text-decoration: none;
+      color: inherit; transition: all .2s;
+    }
+    .action-btn-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.08); }
+    .action-btn-card .icon { font-size: 28px; margin-bottom: 8px; }
+    .action-btn-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .action-btn-card p { font-size: 12px; color: var(--text-muted); }
+
+    @media (max-width: 480px) { .my-coach-card { flex-direction: column; text-align: center; } .action-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coachee-home.html" class="active">내 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1 id="pageTitle">내 코칭 현황</h1>
+  <p id="pageSubtitle">4주 코칭 진행 상황을 확인하세요.</p>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+
+    <!-- 나의 코치 -->
+    <div id="myCoachCard" class="my-coach-card">
+      <div class="my-coach-avatar" id="coachAvatar">👩‍💼</div>
+      <div class="my-coach-info">
+        <h3 id="coachNameEl">코치 배정 중</h3>
+        <p id="coachSpecEl">관리자가 곧 코치를 배정합니다.</p>
+        <div id="topicEl"></div>
+      </div>
+    </div>
+
+    <!-- 다음 회기 안내 -->
+    <div id="nextSessionBox" style="display:none;" class="next-session-box">
+      <div>
+        <p id="nextSessionTitle"></p>
+        <span id="nextSessionDate"></span>
+      </div>
+      <a id="nextSessionBtn" href="#" class="btn btn-primary btn-sm">일지 작성하기 →</a>
+    </div>
+
+    <!-- 사전 설문 점수 -->
+    <div id="scoreSection" class="card" style="margin-bottom:20px;display:none;">
+      <div class="card-title">📊 내 사전 설문 점수</div>
+      <div class="card-subtitle">코칭 전 현재 상태 (1~5점, 높을수록 좋음)</div>
+      <div class="score-mini" id="scoreMini"></div>
+    </div>
+
+    <!-- 타임라인 -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-title" style="margin-bottom:20px;">코칭 여정</div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+
+    <!-- 빠른 실행 버튼 -->
+    <div class="action-grid" id="actionGrid"></div>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 오늘도 한 걸음씩 나아가고 있어요 💪</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id') || localStorage.getItem('currentCoacheeId');
+  if (!coacheeId) { window.location.href = 'login.html'; }
+
+  function render() {
+    const coachee = DB.getItem('coachees', coacheeId);
+    if (!coachee) { window.location.href = 'apply.html'; return; }
+
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const coach = matching ? getCoach(matching.coachId) : null;
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
+    const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+    const preSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
+    const postSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'post');
+    const completedSessions = sessions.filter(s => s.completed).length;
+    const nextSessionNum = [1,2,3,4].find(n => !sessions.find(s => s.sessionNumber === n && s.completed));
+
+    // 헤더
+    document.getElementById('pageTitle').textContent = `${coachee.name}님의 코칭 현황`;
+
+    // 코치 카드
+    if (coach) {
+      document.getElementById('coachAvatar').textContent = coach.avatar;
+      document.getElementById('coachNameEl').textContent = `${coach.name} 코치`;
+      document.getElementById('coachSpecEl').textContent = `${coach.specialties.join(' · ')} · ${coach.availableTimes}`;
+      if (goal) {
+        document.getElementById('topicEl').innerHTML = `<span class="topic">코칭 주제: ${goal.topic}</span>`;
+      }
+    }
+
+    // 다음 회기 박스
+    if (nextSessionNum && completedSessions < 4) {
+      const nextSess = sessions.find(s => s.sessionNumber === nextSessionNum);
+      document.getElementById('nextSessionBox').style.display = 'flex';
+      document.getElementById('nextSessionTitle').textContent = `${nextSessionNum}회기 성찰일지 작성이 필요해요`;
+      document.getElementById('nextSessionDate').textContent = nextSess ? fmtDate(nextSess.sessionDate) + ' 코칭' : '일정 미정';
+      document.getElementById('nextSessionBtn').href = `sessions.html?id=${coacheeId}`;
+    }
+
+    // 사전 점수
+    if (preSurvey) {
+      document.getElementById('scoreSection').style.display = 'block';
+      const mini = document.getElementById('scoreMini');
+      Object.entries(preSurvey.categoryScores).forEach(([key, val]) => {
+        if (key === 'total') return;
+        mini.innerHTML += `<div class="score-chip"><div class="score-chip-num">${val.average.toFixed(1)}</div><div class="score-chip-label">${val.name}</div></div>`;
+      });
+      mini.innerHTML += `<div class="score-chip" style="background:var(--primary-light);"><div class="score-chip-num" style="color:var(--primary-dark);">${preSurvey.categoryScores.total.toFixed(1)}</div><div class="score-chip-label">전체</div></div>`;
+    }
+
+    // 타임라인
+    const tl = document.getElementById('timeline');
+    const timelineItems = [
+      { label: '신청 완료', done: true, date: fmtDate(coachee.createdAt), body: '신청서와 위험군 체크를 완료했습니다.' },
+      { label: '사전 설문', done: !!preSurvey, date: preSurvey ? fmtDate(preSurvey.createdAt) : '미완료', body: preSurvey ? `전체 평균 ${preSurvey.categoryScores.total.toFixed(1)}점` : '사전 설문이 아직 완료되지 않았어요.', link: preSurvey ? null : `pre-survey.html?id=${coacheeId}`, linkText: '설문 작성하기' },
+      { label: '코치 선택 & 온보딩', done: !!matching, date: matching ? fmtDate(matching.matchedAt) : '미완료', body: coach ? `${coach.name} 코치님과 매칭됐습니다.` : '관리자가 코치를 배정 중입니다.' },
+      { label: '코칭 목표 합의', done: !!goal, date: goal ? fmtDate(goal.agreedAt) : '미완료', body: goal ? `주제: ${goal.topic}` : '목표 합의서를 작성해주세요.', link: (!goal && matching) ? `goal-agreement.html?id=${coacheeId}` : null, linkText: '합의서 작성하기' },
+      ...[1,2,3,4].map(n => {
+        const sess = sessions.find(s => s.sessionNumber === n);
+        const refl = reflections.find(r => r.sessionId === `sess_${coacheeId}_${n}`);
+        const isDone = sess?.completed && refl;
+        return { label: `${n}회기 코칭`, done: isDone, isActive: n === nextSessionNum && !isDone, date: sess ? fmtDate(sess.sessionDate) : (n === nextSessionNum ? '진행 예정' : '예정'), body: isDone ? (refl.learned || '완료') : (n === nextSessionNum ? '성찰일지를 작성해주세요.' : '이전 회기 완료 후 진행됩니다.'), link: (n === nextSessionNum || isDone) ? `sessions.html?id=${coacheeId}` : null, linkText: isDone ? '일지 보기' : '일지 작성하기' };
+      }),
+      { label: '사후 설문', done: !!postSurvey, date: postSurvey ? fmtDate(postSurvey.createdAt) : '4회기 완료 후', body: postSurvey ? '완료됐습니다.' : '4주 코칭 완료 후 작성합니다.', link: (completedSessions >= 4 && !postSurvey) ? `post-survey.html?id=${coacheeId}` : null, linkText: '설문 작성하기' },
+      { label: '결과 리포트', done: !!postSurvey, date: postSurvey ? '확인 가능' : '사후 설문 완료 후', body: postSurvey ? '코칭 전후 변화를 확인하세요!' : '사후 설문 완료 후 자동 생성됩니다.', link: postSurvey ? `report.html?id=${coacheeId}` : null, linkText: '보고서 보기', isSpecial: true },
+      { label: '사후 관리 (4주 후)', done: false, isFollowup: true, date: '코칭 완료 후 4주', body: '코칭 후 변화가 유지되고 있는지 확인합니다.', link: postSurvey ? `followup.html?id=${coacheeId}` : null, linkText: '사후관리 작성하기' },
+    ];
+
+    timelineItems.forEach((item, i) => {
+      const div = document.createElement('div');
+      div.className = `timeline-item${item.done ? ' done' : ''}`;
+      const dotClass = item.done ? 'done' : item.isActive ? 'active' : item.isFollowup ? 'followup' : '';
+      const dotContent = item.done ? '✓' : item.isActive ? '▶' : item.isFollowup ? '★' : i + 1;
+      div.innerHTML = `
+        <div class="tl-dot ${dotClass}">${dotContent}</div>
+        <div class="tl-content">
+          <div class="tl-title">${item.label} ${item.isSpecial && item.done ? '🎉' : ''}</div>
+          <div class="tl-date">${item.date}</div>
+          <div class="tl-body">${item.body}</div>
+          ${item.link ? `<a href="${item.link}" class="btn btn-sm ${item.done ? 'btn-outline' : 'btn-primary'}" style="margin-top:10px;">${item.linkText}</a>` : ''}
+        </div>
+      `;
+      tl.appendChild(div);
+    });
+
+    // 빠른 실행 버튼
+    const actions = [
+      { icon: '📝', title: '성찰일지', desc: '이번 회기 성찰 작성', href: `sessions.html?id=${coacheeId}` },
+      { icon: '🎯', title: '목표 합의서', desc: '코칭 목표 확인', href: `goal-agreement.html?id=${coacheeId}` },
+      { icon: '📊', title: '결과보고서', desc: '사전/사후 변화 확인', href: postSurvey ? `report.html?id=${coacheeId}` : `post-survey.html?id=${coacheeId}` },
+      { icon: '🌱', title: '사후관리', desc: '4주 후 변화 체크', href: `followup.html?id=${coacheeId}` },
+    ];
+    const grid = document.getElementById('actionGrid');
+    actions.forEach(a => {
+      grid.innerHTML += `<a href="${a.href}" class="action-btn-card"><div class="icon">${a.icon}</div><h4>${a.title}</h4><p>${a.desc}</p></a>`;
+    });
+  }
+
+  render();
+</script>
+</body>
+</html>

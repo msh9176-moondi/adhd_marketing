@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>매칭 대기 중 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .waiting-hero {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
+      color: white; padding: 60px 20px; text-align: center;
+    }
+    .waiting-icon { font-size: 64px; margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite; display: block; }
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .waiting-hero h1 { font-size: 24px; font-weight: 900; margin-bottom: 10px; }
+    .waiting-hero p { font-size: 15px; opacity: .8; line-height: 1.9; }
+
+    /* 상태 카드 */
+    .status-card {
+      background: var(--card); border-radius: 20px; border: 1px solid var(--border);
+      overflow: hidden; margin-bottom: 20px;
+    }
+    .status-header {
+      padding: 20px 24px; display: flex; align-items: center; gap: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .status-dot {
+      width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+    }
+    .status-dot.pending { background: var(--orange); animation: blink 1.5s infinite; }
+    .status-dot.confirmed { background: var(--success); }
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+    .status-title { font-size: 16px; font-weight: 700; }
+    .status-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    /* 다음 단계 흐름 */
+    .next-steps { display: flex; flex-direction: column; gap: 0; }
+    .next-step {
+      display: flex; gap: 16px; padding: 16px 24px;
+      border-bottom: 1px solid var(--border); align-items: flex-start;
+    }
+    .next-step:last-child { border-bottom: none; }
+    .next-step-num {
+      width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700;
+    }
+    .step-done { background: var(--accent); color: white; }
+    .step-active { background: var(--primary); color: white; }
+    .step-wait { background: var(--border); color: var(--text-muted); }
+    .next-step-info h4 { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+    .next-step-info p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+    /* 코치 미니 카드 */
+    .coach-mini {
+      background: var(--bg); border-radius: 14px; padding: 18px 20px;
+      display: flex; align-items: center; gap: 14px; margin-bottom: 16px;
+    }
+    .coach-mini-avatar { font-size: 36px; flex-shrink: 0; }
+    .coach-mini-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .coach-mini-spec { font-size: 13px; color: var(--text-muted); }
+
+    /* 첫 연락 확인 섹션 */
+    .contact-confirm {
+      background: var(--card); border-radius: 20px; border: 2px solid var(--border);
+      padding: 28px; margin-bottom: 20px;
+    }
+    .contact-confirm.unlocked { border-color: var(--accent); }
+    .contact-confirm h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+    .contact-confirm p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.7; }
+    .contact-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+    .contact-option {
+      display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px;
+      border: 2px solid var(--border); border-radius: 12px; cursor: pointer;
+      transition: all .2s;
+    }
+    .contact-option:hover { border-color: var(--primary); background: var(--primary-light); }
+    .contact-option.selected { border-color: var(--primary); background: var(--primary-light); }
+    .contact-option input { accent-color: var(--primary); flex-shrink: 0; margin-top: 2px; }
+    .contact-option-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+    .contact-option-text p { font-size: 12px; color: var(--text-muted); margin: 0; }
+
+    /* 잠금 상태 */
+    .locked-overlay {
+      background: rgba(240,244,248,.95); border-radius: 16px; padding: 28px;
+      text-align: center; border: 2px dashed var(--border);
+    }
+    .locked-overlay .lock-icon { font-size: 36px; margin-bottom: 12px; }
+    .locked-overlay h4 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+    .locked-overlay p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+
+    /* 안내 박스 */
+    .guide-box {
+      background: var(--card); border-radius: 16px; border: 1px solid var(--border);
+      padding: 20px 24px; margin-bottom: 20px;
+    }
+    .guide-box h3 { font-size: 15px; font-weight: 700; margin-bottom: 12px; color: var(--text); }
+    .guide-item { display: flex; gap: 10px; padding: 8px 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .guide-item::before { content: '💡'; flex-shrink: 0; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coachee-home.html" id="myPageLink">내 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="waiting-hero">
+  <span class="waiting-icon">📬</span>
+  <h1>코치님께 신청이 전달됐어요</h1>
+  <p>코치님이 신청 내용을 확인하고<br/>
+  곧 연락드릴 거예요.<br/>
+  첫 연락 후 함께 코칭 목표를 정합니다.</p>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+
+    <!-- 선택한 코치 -->
+    <div class="coach-mini" id="coachMini">
+      <div class="coach-mini-avatar" id="coachAvatar">👩‍💼</div>
+      <div>
+        <div class="coach-mini-name" id="coachName">코치 배정 중</div>
+        <div class="coach-mini-spec" id="coachSpec"></div>
+      </div>
+    </div>
+
+    <!-- 현재 상태 카드 -->
+    <div class="status-card" id="statusCard">
+      <div class="status-header">
+        <div class="status-dot pending" id="statusDot"></div>
+        <div>
+          <div class="status-title" id="statusTitle">코치님 확인 중</div>
+          <div class="status-sub" id="statusSub">보통 1~2일 내 연락드려요</div>
+        </div>
+      </div>
+
+      <!-- 진행 흐름 -->
+      <div class="next-steps">
+        <div class="next-step">
+          <div class="next-step-num step-done">✓</div>
+          <div class="next-step-info">
+            <h4>코치 선택 완료</h4>
+            <p>코치님께 신청 내용과 "나를 소개합니다" 내용이 전달됐어요.</p>
+          </div>
+        </div>
+        <div class="next-step" id="step2">
+          <div class="next-step-num step-active" id="step2Dot">2</div>
+          <div class="next-step-info">
+            <h4>코치님 확인 & 첫 연락</h4>
+            <p>코치님이 신청을 수락하고 전화 또는 메시지로 먼저 연락드려요.<br/>
+            첫 인사와 간단한 상황 파악을 나눠요.</p>
+          </div>
+        </div>
+        <div class="next-step" id="step3">
+          <div class="next-step-num step-wait">3</div>
+          <div class="next-step-info">
+            <h4>코칭 목표 합의서 작성</h4>
+            <p>코치님과 충분히 이야기 나눈 후, 함께 코칭 목표를 정해요.</p>
+          </div>
+        </div>
+        <div class="next-step">
+          <div class="next-step-num step-wait">4</div>
+          <div class="next-step-info">
+            <h4>4주 코칭 시작</h4>
+            <p>목표가 합의되면 본격적인 코칭이 시작돼요.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 첫 연락 확인 -->
+    <div class="contact-confirm" id="contactConfirm">
+      <h3>📞 코치님과 첫 연락이 되셨나요?</h3>
+      <p>코치님과 전화 또는 메시지로 첫 인사를 나눈 후,<br/>
+      아래에서 확인해주세요. 그 다음 목표 합의서를 함께 작성해요.</p>
+
+      <div id="contactLocked" class="locked-overlay">
+        <div class="lock-icon">🔒</div>
+        <h4>아직 코치님 확인 전이에요</h4>
+        <p>코치님이 신청을 확인하면 이 섹션이 열려요.<br/>
+        보통 1~2일 내 연락드려요.</p>
+      </div>
+
+      <div id="contactUnlocked" style="display:none;">
+        <div class="contact-options" id="contactOptions">
+          <label class="contact-option">
+            <input type="radio" name="contactDone" value="yes" onchange="selectContact(this)"/>
+            <div class="contact-option-text">
+              <h4>✅ 네, 코치님과 첫 연락을 했어요</h4>
+              <p>간단한 인사와 코칭 방향을 이야기 나눴어요</p>
+            </div>
+          </label>
+          <label class="contact-option">
+            <input type="radio" name="contactDone" value="no" onchange="selectContact(this)"/>
+            <div class="contact-option-text">
+              <h4>⏳ 아직 연락을 못 받았어요</h4>
+              <p>조금 더 기다려볼게요</p>
+            </div>
+          </label>
+        </div>
+
+        <div id="noContactMsg" class="alert alert-info" style="display:none;margin-bottom:0;">
+          코치님께 신청 알림이 전달된 상태예요.<br/>
+          연락이 늦어진다면 관리자(문디)에게 카카오톡으로 문의해주세요.
+        </div>
+
+        <div id="proceedSection" style="display:none;">
+          <div class="alert alert-success" style="margin-bottom:16px;">
+            첫 연락 완료! 이제 코칭 목표 합의서를 작성할 수 있어요.
+          </div>
+          <a id="proceedBtn" href="#" class="btn btn-primary btn-full btn-lg">
+            코칭 목표 합의서 작성하러 가기 →
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 대기 중 안내 -->
+    <div class="guide-box">
+      <h3>기다리는 동안 이렇게 준비해두세요</h3>
+      <div class="guide-item">코칭에서 다루고 싶은 주제를 한 가지만 정해봐요.</div>
+      <div class="guide-item">지금 가장 힘든 순간을 짧게 메모해두면 첫 대화가 수월해요.</div>
+      <div class="guide-item">코치님의 가능 시간을 확인해두면 일정 잡기가 빨라요.</div>
+      <div class="guide-item">궁금한 것, 걱정되는 것도 미리 적어두면 좋아요.</div>
+    </div>
+
+    <a href="coachee-home.html" id="homeLink" class="btn btn-outline btn-full">
+      내 대시보드로 돌아가기
+    </a>
+
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 문의: 카카오톡 채널 FLOCA</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  document.getElementById('myPageLink').href = `coachee-home.html?id=${coacheeId}`;
+  document.getElementById('homeLink').href = `coachee-home.html?id=${coacheeId}`;
+  document.getElementById('proceedBtn').href = `pledge.html?id=${coacheeId}`;
+
+  function init() {
+    // 코치 정보
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const coach = matching ? getCoach(matching.coachId) : null;
+    if (coach) {
+      document.getElementById('coachAvatar').textContent = coach.avatar;
+      document.getElementById('coachName').textContent = coach.name + ' 코치';
+      document.getElementById('coachSpec').textContent = coach.specialties.join(' · ') + ' · ' + coach.coachingMethods.join('/');
+    }
+
+    // 상태 확인: admin이 매칭 확정했는지
+    const coachee = DB.getItem('coachees', coacheeId);
+    const isConfirmed = matching?.status === 'confirmed' || coachee?.matchConfirmed;
+
+    if (isConfirmed) {
+      // 잠금 해제
+      document.getElementById('statusDot').classList.replace('pending', 'confirmed');
+      document.getElementById('statusTitle').textContent = '코치님이 신청을 확인했어요 ✓';
+      document.getElementById('statusSub').textContent = '첫 연락 후 목표 합의서를 작성해주세요';
+      document.getElementById('step2Dot').className = 'next-step-num step-done';
+      document.getElementById('step2Dot').textContent = '✓';
+
+      document.getElementById('contactLocked').style.display = 'none';
+      document.getElementById('contactUnlocked').style.display = 'block';
+      document.getElementById('contactConfirm').classList.add('unlocked');
+    }
+  }
+
+  function selectContact(radio) {
+    document.querySelectorAll('.contact-option').forEach(o => {
+      o.classList.toggle('selected', o.querySelector('input') === radio);
+    });
+    document.getElementById('noContactMsg').style.display = radio.value === 'no' ? 'block' : 'none';
+    document.getElementById('proceedSection').style.display = radio.value === 'yes' ? 'block' : 'none';
+
+    if (radio.value === 'yes') {
+      DB.updateItem('coachees', coacheeId, { firstContactDone: true });
+      const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+      if (matching) DB.upsert('matchings', { ...matching, firstContactDone: true });
+    }
+  }
+
+  // 페이지 포커스 시 상태 재확인 (관리자가 확정했을 때 반영)
+  window.addEventListener('focus', init);
+  init();
+</script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코칭 목표 합의서 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .score-picker { display: flex; gap: 8px; flex-wrap: wrap; }
+    .score-pick-btn {
+      width: 44px; height: 44px; border: 2px solid var(--border); border-radius: 10px;
+      background: white; cursor: pointer; font-size: 16px; font-weight: 700;
+      color: var(--text-muted); transition: all .2s; font-family: inherit;
+    }
+    .score-pick-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .score-pick-btn.selected { border-color: var(--primary); background: var(--primary); color: white; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청</a>
+      <a href="coaches.html">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>코칭 목표 합의서</h1>
+  <p>코치·피코치가 함께 코칭 방향을 설정합니다.</p>
+</div>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">신청서</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">사전설문</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">코치선택</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot active">4</div><div class="step-label">목표합의</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">5</div><div class="step-label">코칭</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">6</div><div class="step-label">사후설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">7</div><div class="step-label">보고서</div></div>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+    <div class="alert alert-info">
+      이 합의서는 코칭의 방향을 맞추기 위한 문서이며, 진단·치료·의료적 판단을 대체하지 않습니다.
+    </div>
+
+    <div class="agreement-doc" id="agreementDoc">
+      <div class="agreement-title">ADHD 코칭 목표 합의서</div>
+      <div class="agreement-sub">FLOCA 코칭 플랫폼 · 2026 파일럿 프로그램</div>
+
+      <div class="agreement-row">
+        <div class="agreement-key">피코치</div>
+        <div class="agreement-val" id="docCoacheeName" style="font-weight:600;">-</div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-key">코치</div>
+        <div class="agreement-val" id="docCoachName" style="font-weight:600;">-</div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-key">코칭 기간</div>
+        <div class="agreement-val">4주 (주 1회, 총 4회기)</div>
+      </div>
+      <div class="agreement-row">
+        <div class="agreement-key">코칭 방식</div>
+        <div class="agreement-val">전화 또는 온라인</div>
+      </div>
+    </div>
+
+    <form id="goalForm">
+      <div class="card">
+        <div class="card-title">코칭 목표 설정</div>
+
+        <div class="form-group">
+          <label class="form-label">코칭 주제 <span style="color:var(--warn)">*</span></label>
+          <input type="text" class="form-input" id="topic" placeholder="예: 아침 루틴 정착, 일 시작하기, 시간 관리" required/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">바람직한 결과 (4주 후 어떤 상태가 되고 싶나요?) <span style="color:var(--warn)">*</span></label>
+          <textarea class="form-textarea" id="desiredOutcome" placeholder="예: 매일 아침 8시에 일어나서 오전에 핵심 업무 1개를 완료할 수 있다." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">실행 방안 (구체적으로 어떻게 할 건가요?) <span style="color:var(--warn)">*</span></label>
+          <textarea class="form-textarea" id="actionPlan" placeholder="예: 매일 저녁 다음날 할 일 3개를 적는다. 기상 후 10분 루틴을 정한다." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">평가 방법 (어떻게 성과를 확인할까요?)</label>
+          <input type="text" class="form-input" id="evaluationMethod" placeholder="예: 주간 실행률 체크, 회기별 점수 변화 확인"/>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">현재 점수 (1~10점) <span style="color:var(--warn)">*</span></label>
+            <div class="score-picker" id="currentScorePicker">
+              <button type="button" class="score-pick-btn" data-type="current" data-val="1">1</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="2">2</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="3">3</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="4">4</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="5">5</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="6">6</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="7">7</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="8">8</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="9">9</button>
+              <button type="button" class="score-pick-btn" data-type="current" data-val="10">10</button>
+            </div>
+            <input type="hidden" id="currentScore" value=""/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">목표 점수 (1~10점) <span style="color:var(--warn)">*</span></label>
+            <div class="score-picker" id="targetScorePicker">
+              <button type="button" class="score-pick-btn" data-type="target" data-val="1">1</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="2">2</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="3">3</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="4">4</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="5">5</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="6">6</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="7">7</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="8">8</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="9">9</button>
+              <button type="button" class="score-pick-btn" data-type="target" data-val="10">10</button>
+            </div>
+            <input type="hidden" id="targetScore" value=""/>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">동의 및 서명</div>
+        <div class="alert alert-warn" style="margin-bottom:16px;">
+          이 합의서는 코칭의 방향을 맞추기 위한 문서이며, 의료적 처치나 진단을 의미하지 않습니다.
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
+          <label class="check-item" id="coacheeConsentCheck">
+            <input type="checkbox" id="coacheeConsent"/>
+            <label>위 내용을 확인하고, 4주간 성실히 코칭에 참여할 것을 약속합니다. (피코치 동의)</label>
+          </label>
+          <label class="check-item" id="coachConsentCheck">
+            <input type="checkbox" id="coachConsent"/>
+            <label>위 내용을 확인하고, 피코치의 목표 달성을 위해 최선을 다할 것을 약속합니다. (코치 확인용)</label>
+          </label>
+        </div>
+        <div class="sig-box">
+          <p>서명일: <span id="sigDate"></span></p>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <button type="submit" class="btn btn-primary btn-full btn-lg">합의서 저장하고 코칭 시작하기 →</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 합의서는 코칭 방향 설정용 문서이며 법적 효력을 갖지 않습니다.</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  document.getElementById('sigDate').textContent = new Date().toLocaleDateString('ko-KR');
+
+  function init() {
+    const coachee = DB.getItem('coachees', coacheeId);
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    if (!coachee) { window.location.href = 'apply.html'; return; }
+
+    document.getElementById('docCoacheeName').textContent = coachee.name;
+    if (matching) {
+      const coach = getCoach(matching.coachId);
+      if (coach) document.getElementById('docCoachName').textContent = coach.name;
+    }
+
+    // Pre-fill existing agreement
+    const existing = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    if (existing) {
+      document.getElementById('topic').value = existing.topic || '';
+      document.getElementById('desiredOutcome').value = existing.desiredOutcome || '';
+      document.getElementById('actionPlan').value = existing.actionPlan || '';
+      document.getElementById('evaluationMethod').value = existing.evaluationMethod || '';
+      if (existing.currentScore) setScore('current', existing.currentScore);
+      if (existing.targetScore) setScore('target', existing.targetScore);
+    }
+  }
+
+  function setScore(type, val) {
+    document.getElementById(`${type}Score`).value = val;
+    document.querySelectorAll(`.score-pick-btn[data-type="${type}"]`).forEach(btn => {
+      btn.classList.toggle('selected', parseInt(btn.dataset.val) === val);
+    });
+  }
+
+  document.querySelectorAll('.score-pick-btn').forEach(btn => {
+    btn.addEventListener('click', () => setScore(btn.dataset.type, parseInt(btn.dataset.val)));
+  });
+
+  document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => cb.closest('.check-item').classList.toggle('checked', cb.checked));
+  });
+
+  document.getElementById('goalForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const topic = document.getElementById('topic').value.trim();
+    const desiredOutcome = document.getElementById('desiredOutcome').value.trim();
+    const actionPlan = document.getElementById('actionPlan').value.trim();
+    const currentScore = parseInt(document.getElementById('currentScore').value);
+    const targetScore = parseInt(document.getElementById('targetScore').value);
+    const coacheeConsent = document.getElementById('coacheeConsent').checked;
+
+    if (!topic || !desiredOutcome || !actionPlan) { alert('필수 항목을 모두 입력해주세요.'); return; }
+    if (!currentScore || !targetScore) { alert('현재 점수와 목표 점수를 선택해주세요.'); return; }
+    if (!coacheeConsent) { alert('피코치 동의를 체크해주세요.'); return; }
+
+    const coachee = DB.getItem('coachees', coacheeId);
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const coach = matching ? getCoach(matching.coachId) : null;
+
+    const agreement = {
+      id: 'goal_' + coacheeId, coacheeId,
+      coachId: matching?.coachId || null,
+      coacheeName: coachee?.name, coachName: coach?.name,
+      topic, desiredOutcome, actionPlan,
+      evaluationMethod: document.getElementById('evaluationMethod').value,
+      currentScore, targetScore,
+      coacheeConsent, coachConsent: document.getElementById('coachConsent').checked,
+      agreedAt: new Date().toISOString()
+    };
+
+    DB.upsert('goalAgreements', agreement);
+
+    DB.updateItem('coachees', coacheeId, { status: 'coaching' });
+    window.location.href = `coachee-home.html?id=${coacheeId}`;
+  });
+
+  init();
+</script>
+</body>
+</html>

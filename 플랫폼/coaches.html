@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코치 선택 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .coaches-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .method-tag { display: inline-block; background: var(--accent-light); color: #0D9488; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 20px; margin: 2px; }
+    .time-info { font-size: 13px; color: var(--text-muted); margin: 10px 0; display: flex; align-items: center; gap: 6px; }
+    .select-indicator { display: none; align-items: center; gap: 8px; padding: 10px 14px; background: var(--primary); color: white; border-radius: 10px; font-size: 14px; font-weight: 700; margin-top: 14px; }
+    .coach-card.selected .select-indicator { display: flex; }
+    .coach-card.full { opacity: .6; cursor: default; }
+    .coach-card.full:hover { transform: none; box-shadow: none; border-color: var(--border); }
+    @media (max-width: 640px) { .coaches-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청</a>
+      <a href="coaches.html" class="active">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>코치 선택</h1>
+  <p>나에게 맞는 코치를 선택해주세요. 전문 분야와 코칭 방식을 확인해보세요.</p>
+</div>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">신청서</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">사전설문</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot active">3</div><div class="step-label">코치선택</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">4</div><div class="step-label">목표합의</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">5</div><div class="step-label">코칭</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">6</div><div class="step-label">사후설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">7</div><div class="step-label">보고서</div></div>
+</div>
+
+<main class="main">
+  <div class="container">
+    <div id="surveyResult" class="card" style="margin-bottom:24px;display:none;">
+      <div class="card-title">📊 사전 설문 점수 요약</div>
+      <div class="card-subtitle">높을수록 해당 영역이 잘 기능하고 있다는 의미예요. (1~5점)</div>
+      <div id="scorePreview" class="score-compare" style="margin-top:16px;"></div>
+    </div>
+
+    <div style="margin-bottom:20px;">
+      <h2 style="font-size:18px;font-weight:700;margin-bottom:4px;">코치 소개</h2>
+      <p style="font-size:14px;color:var(--text-muted);">카드를 클릭하면 상세 소개를 볼 수 있어요.</p>
+    </div>
+
+    <div class="coaches-grid" id="coachesGrid"></div>
+
+    <div id="selectedInfo" class="alert alert-success" style="display:none;margin-top:20px;"></div>
+
+    <div style="margin-top:28px;">
+      <button id="selectBtn" class="btn btn-primary btn-full btn-lg" disabled>
+        이 코치와 함께하기 →
+      </button>
+    </div>
+
+    <div style="margin-top:16px;text-align:center;">
+      <p style="font-size:13px;color:var(--text-muted);">코치를 직접 선택하기 어렵다면 관리자가 배정해 드려요.</p>
+      <button class="btn btn-outline btn-sm" style="margin-top:8px;" onclick="requestMatch()">관리자 배정 요청</button>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 코치 배정은 관리자 승인 후 최종 확정됩니다.</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  let selectedCoachId = null;
+
+  function renderScorePreview() {
+    const survey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
+    if (!survey) return;
+    document.getElementById('surveyResult').style.display = 'block';
+    const container = document.getElementById('scorePreview');
+    Object.entries(survey.categoryScores).forEach(([key, val]) => {
+      if (key === 'total') return;
+      const avg = val.average.toFixed(1);
+      const pct = (val.average / 5) * 100;
+      container.innerHTML += `
+        <div class="score-row">
+          <div class="score-label">${val.name}</div>
+          <div class="score-bars">
+            <div class="bar-wrap">
+              <div class="bar-track"><div class="bar-fill-post" style="width:${pct}%"></div></div>
+              <div class="bar-val">${avg}</div>
+            </div>
+          </div>
+        </div>`;
+    });
+    const total = survey.categoryScores.total.toFixed(1);
+    container.innerHTML += `<div style="margin-top:12px;padding:12px 16px;background:var(--primary-light);border-radius:10px;font-size:14px;"><strong>전체 평균: ${total}점 / 5점</strong></div>`;
+  }
+
+  function renderCoaches() {
+    const grid = document.getElementById('coachesGrid');
+    const matchings = DB.get('matchings');
+
+    COACHES.forEach(coach => {
+      // 이미 배정된 피코치 수 확인
+      const assignedCount = matchings.filter(m => m.coachId === coach.id).length;
+      const isFull = assignedCount >= coach.maxCoachees;
+
+      const card = document.createElement('div');
+      card.className = 'coach-card' + (isFull ? ' full' : '');
+      card.dataset.id = coach.id;
+      card.innerHTML = `
+        <div class="coach-avatar">${coach.avatar}</div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px;">
+          <div class="coach-name" style="margin-bottom:0;">${coach.name}</div>
+          ${isFull
+            ? `<span class="badge badge-warn">마감</span>`
+            : `<span class="badge badge-success">모집 중</span>`}
+        </div>
+        <div class="coach-bio">${coach.bio}</div>
+        <div class="coach-tags">
+          ${coach.specialties.map(s => `<span class="badge badge-primary">${s}</span>`).join('')}
+        </div>
+        <div class="coach-detail">${coach.detail}</div>
+        <div class="time-info">🕐 ${coach.availableTimes}</div>
+        <div>
+          ${coach.coachingMethods.map(m => `<span class="method-tag">${m}</span>`).join('')}
+        </div>
+        ${isFull
+          ? `<div style="margin-top:14px;padding:10px 14px;background:var(--warn-light);border-radius:10px;font-size:13px;color:#991B1B;text-align:center;">현재 다른 피코치와 코칭 중입니다</div>`
+          : `<div class="select-indicator">✓ 선택됨</div>`}
+      `;
+
+      if (!isFull) {
+        card.addEventListener('click', () => selectCoach(coach.id, coach.name));
+      }
+      grid.appendChild(card);
+    });
+  }
+
+  function selectCoach(id, name) {
+    // 마감 코치 클릭 방지
+    const matchings = DB.get('matchings');
+    const coach = getCoach(id);
+    const assignedCount = matchings.filter(m => m.coachId === id).length;
+    if (assignedCount >= coach.maxCoachees) return;
+
+    selectedCoachId = id;
+    document.querySelectorAll('.coach-card:not(.full)').forEach(c => {
+      c.classList.toggle('selected', c.dataset.id === id);
+    });
+    document.getElementById('selectedInfo').style.display = 'block';
+    document.getElementById('selectedInfo').textContent = `✅ ${name} 코치님을 선택했습니다.`;
+    document.getElementById('selectBtn').disabled = false;
+  }
+
+  document.getElementById('selectBtn').addEventListener('click', () => {
+    if (!selectedCoachId) return;
+    const matching = {
+      id: 'match_' + coacheeId,
+      coacheeId, coachId: selectedCoachId,
+      status: 'pending', matchedAt: new Date().toISOString()
+    };
+    DB.upsert('matchings', matching);
+    DB.updateItem('coachees', coacheeId, { status: 'matched', selectedCoachId });
+    window.location.href = `onboarding.html?id=${coacheeId}`;
+  });
+
+  function requestMatch() {
+    alert('관리자 배정 요청이 접수되었습니다. 관리자가 검토 후 코치를 배정해 드립니다.');
+    DB.updateItem('coachees', coacheeId, { status: 'pending_match' });
+  }
+
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+  else { renderScorePreview(); renderCoaches(); }
+</script>
+</body>
+</html>

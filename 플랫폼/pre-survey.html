@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>사전 설문 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청</a>
+      <a href="coaches.html">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>사전 설문</h1>
+  <p>지금 나의 상태를 솔직하게 기록해주세요. 코칭 후 변화를 측정하는 데 사용됩니다.</p>
+</div>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">신청서</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot active">2</div><div class="step-label">사전설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">3</div><div class="step-label">코치선택</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">4</div><div class="step-label">목표합의</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">5</div><div class="step-label">코칭</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">6</div><div class="step-label">사후설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">7</div><div class="step-label">보고서</div></div>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+        <span class="card-title" style="margin-bottom:0;">진행률</span>
+        <span id="progressText" style="font-size:14px;font-weight:700;color:var(--primary);">0 / 15</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+      <p style="font-size:12px;color:var(--text-light);margin-top:8px;">각 문항을 1점(전혀 그렇지 않다)~5점(매우 그렇다)으로 평가해주세요.</p>
+    </div>
+
+    <div class="alert alert-info">
+      <strong>설문 안내</strong><br/>
+      이 설문 결과는 자기보고식 참고 자료이며 의학적 판단 근거가 아닙니다.
+      코칭 효과를 측정하기 위한 기초 데이터로만 활용됩니다.
+    </div>
+
+    <form id="surveyForm">
+      <div id="questionsContainer"></div>
+
+      <div style="margin-top:28px;">
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn" disabled>
+          설문 완료하고 코치 선택하기 →
+        </button>
+        <p style="text-align:center;font-size:13px;color:var(--text-light);margin-top:10px;">모든 문항에 응답해야 제출할 수 있어요.</p>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 설문 결과는 코칭 효과 측정용으로만 사용됩니다.</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  const answers = {};
+  let answered = 0;
+  const total = SURVEY_CATEGORIES.flatMap(c => c.questions).length;
+
+  function renderQuestions() {
+    const container = document.getElementById('questionsContainer');
+    let qNum = 0;
+    SURVEY_CATEGORIES.forEach(cat => {
+      const catLabel = document.createElement('div');
+      catLabel.className = 'survey-category';
+      catLabel.textContent = cat.name;
+      container.appendChild(catLabel);
+
+      cat.questions.forEach(q => {
+        qNum++;
+        const group = document.createElement('div');
+        group.className = 'scale-group';
+        group.innerHTML = `
+          <div class="scale-num">${qNum}번</div>
+          <div class="scale-question">${q.text}</div>
+          <div class="scale-buttons" data-qid="${q.id}">
+            ${[1,2,3,4,5].map(n => `<button type="button" class="scale-btn" data-val="${n}">${n}</button>`).join('')}
+          </div>
+          <div class="scale-labels">
+            <span>전혀 그렇지 않다</span>
+            <span>매우 그렇다</span>
+          </div>
+        `;
+        container.appendChild(group);
+
+        group.querySelectorAll('.scale-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const qid = btn.closest('.scale-buttons').dataset.qid;
+            const val = parseInt(btn.dataset.val);
+            const wasAnswered = answers[qid] !== undefined;
+            answers[qid] = val;
+            btn.closest('.scale-buttons').querySelectorAll('.scale-btn').forEach(b => {
+              b.classList.toggle('selected', parseInt(b.dataset.val) === val);
+            });
+            if (!wasAnswered) {
+              answered++;
+              updateProgress();
+            }
+          });
+        });
+      });
+    });
+  }
+
+  function updateProgress() {
+    const pct = (answered / total) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('progressText').textContent = `${answered} / ${total}`;
+    document.getElementById('submitBtn').disabled = answered < total;
+  }
+
+  document.getElementById('surveyForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (Object.keys(answers).length < total) { alert('모든 문항에 응답해주세요.'); return; }
+
+    const categoryScores = calcCategoryScores(answers);
+    const survey = {
+      id: 'pre_' + coacheeId,
+      coacheeId, type: 'pre',
+      answers: { ...answers },
+      categoryScores,
+      createdAt: new Date().toISOString()
+    };
+
+    DB.upsert('surveys', survey);
+
+    DB.updateItem('coachees', coacheeId, { status: 'survey_done' });
+    window.location.href = `coaches.html?id=${coacheeId}`;
+  });
+
+  renderQuestions();
+</script>
+</body>
+</html>

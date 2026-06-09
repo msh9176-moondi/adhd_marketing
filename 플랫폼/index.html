@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ADHD 코칭 플랫폼 | FLOCA</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 50%, #0A2744 100%);
+      color: white; padding: 80px 20px; text-align: center;
+    }
+    .hero-badge { display: inline-block; background: rgba(79,209,197,.15); border: 1px solid rgba(79,209,197,.3); color: #5EEAD4; font-size: 13px; font-weight: 600; padding: 8px 20px; border-radius: 30px; margin-bottom: 28px; }
+    .hero h1 { font-size: 32px; font-weight: 900; line-height: 1.4; margin-bottom: 16px; word-break: keep-all; }
+    .hero h1 .hl { color: #5EEAD4; }
+    .hero p { font-size: 16px; opacity: .8; line-height: 1.9; margin-bottom: 40px; word-break: keep-all; }
+    .hero-ctas { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .hero-cta-main { background: #5EEAD4; color: #0D2137; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 12px; text-decoration: none; transition: all .3s; }
+    .hero-cta-main:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(94,234,212,.3); }
+    .hero-cta-sub { background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.25); color: white; font-size: 16px; font-weight: 600; padding: 16px 32px; border-radius: 12px; text-decoration: none; transition: all .3s; }
+    .hero-cta-sub:hover { background: rgba(255,255,255,.15); }
+    .pilot-badge { display: inline-block; background: rgba(255,180,0,.15); border: 1px solid rgba(255,180,0,.3); color: #FFB400; font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 20px; margin-bottom: 12px; }
+    .features { padding: 72px 20px; }
+    .features h2 { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .features-sub { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 48px; }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto; }
+    .feature-card { background: var(--card); border-radius: 16px; padding: 28px 22px; border: 1px solid var(--border); text-align: center; }
+    .feature-icon { font-size: 40px; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+    .flow { background: var(--card); padding: 72px 20px; border-top: 1px solid var(--border); }
+    .flow h2 { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .flow-sub { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 48px; }
+    .flow-steps { display: flex; gap: 0; max-width: 900px; margin: 0 auto; overflow-x: auto; }
+    .flow-step { flex: 1; min-width: 100px; text-align: center; padding: 0 8px; position: relative; }
+    .flow-step:not(:last-child)::after { content: '→'; position: absolute; right: -8px; top: 18px; font-size: 18px; color: var(--text-light); }
+    .flow-step-num { width: 40px; height: 40px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
+    .flow-step p { font-size: 12px; color: var(--text-muted); word-break: keep-all; line-height: 1.5; }
+    .pilot { background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%); padding: 72px 20px; }
+    .pilot-card { max-width: 640px; margin: 0 auto; background: var(--card); border-radius: 20px; padding: 40px; border: 1px solid var(--border); text-align: center; }
+    .pilot-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 24px; }
+    .pilot-info { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 32px; }
+    .pilot-item { background: var(--bg); border-radius: 12px; padding: 18px; }
+    .pilot-item .num { font-size: 28px; font-weight: 900; color: var(--primary); }
+    .pilot-item .desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+    .user-types { padding: 72px 20px; background: var(--card); border-top: 1px solid var(--border); }
+    .user-types h2 { text-align: center; font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+    .user-types-sub { text-align: center; font-size: 14px; color: var(--text-muted); margin-bottom: 40px; }
+    .user-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 860px; margin: 0 auto; }
+    .user-card { border-radius: 16px; padding: 28px; text-align: center; text-decoration: none; color: inherit; border: 2px solid var(--border); transition: all .2s; }
+    .user-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+    .user-card.coachee { border-color: #BFDBFE; background: #EFF6FF; }
+    .user-card.coach { border-color: #BBF7D0; background: #F0FDF4; }
+    .user-card.admin { border-color: #E9D5FF; background: #FAF5FF; }
+    .user-card-icon { font-size: 44px; margin-bottom: 14px; }
+    .user-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; }
+    .user-card p { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .disclaimer { max-width: 700px; margin: 48px auto 0; padding: 20px 24px; background: #FFFBEB; border: 1px solid #FDE68A; border-radius: 12px; font-size: 13px; color: #92400E; line-height: 1.7; text-align: center; }
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 24px; }
+      .features-grid, .user-grid { grid-template-columns: 1fr; }
+      .pilot-info { grid-template-columns: 1fr 1fr; }
+      .flow-steps { gap: 0; }
+    }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청하기</a>
+      <a href="login.html">내 대시보드</a>
+      <a href="coach-home.html">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <span class="hero-badge">2026 파일럿 프로그램</span>
+  <h1>
+    ADHD 실행 문제를<br/>
+    <span class="hl">기록하고, 코칭하고,<br/>변화로 검증합니다.</span>
+  </h1>
+  <p>
+    피코치와 코치를 연결하고, 목표 합의서·회기별 일지·<br/>
+    사전/사후 설문·결과보고서까지 한 번에 관리하는<br/>ADHD 코칭 운영 플랫폼
+  </p>
+  <div class="hero-ctas">
+    <a href="apply.html" class="hero-cta-main">코칭 신청하기</a>
+    <a href="coach-home.html" class="hero-cta-sub">코치로 참여하기</a>
+  </div>
+  <div id="returnBanner" style="display:none;margin-top:24px;">
+    <a id="returnLink" href="coachee-home.html"
+      style="display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:white;padding:12px 22px;border-radius:50px;font-size:14px;font-weight:600;text-decoration:none;transition:all .2s;">
+      👋 돌아오셨나요? <span id="returnName"></span>님 대시보드 →
+    </a>
+  </div>
+</section>
+
+<section class="features">
+  <h2>핵심 차별점</h2>
+  <p class="features-sub">단순한 연결이 아닙니다. 목표부터 변화 검증까지 전 과정을 기록합니다.</p>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <h3>코치 매칭</h3>
+      <p>전문 분야별 코치 프로필을 확인하고 직접 선택하거나 추천을 받을 수 있어요.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>목표 합의</h3>
+      <p>코치·피코치가 함께 코칭 목표를 설정하고 합의서를 작성합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📝</div>
+      <h3>회기별 기록</h3>
+      <p>코치 세션 일지와 피코치 성찰일지를 회기마다 함께 작성합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <h3>효과 검증</h3>
+      <p>사전·사후 설문으로 실행력, 루틴, 시간관리, 자기효능감 변화를 측정합니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📄</div>
+      <h3>자동 결과보고서</h3>
+      <p>4주 코칭 완료 후 변화량과 주요 내용이 담긴 결과보고서가 자동 생성됩니다.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🛡️</div>
+      <h3>안전한 운영</h3>
+      <p>위험군 자동 감지, 비의료적 코칭 원칙, 관리자 모니터링으로 안전하게 운영합니다.</p>
+    </div>
+  </div>
+</section>
+
+<section class="flow">
+  <h2>서비스 흐름</h2>
+  <p class="flow-sub">신청부터 결과보고서까지 전 과정이 플랫폼 안에서 이루어집니다.</p>
+  <div class="flow-steps">
+    <div class="flow-step"><div class="flow-step-num">1</div><p>신청서<br/>작성</p></div>
+    <div class="flow-step"><div class="flow-step-num">2</div><p>사전<br/>설문</p></div>
+    <div class="flow-step"><div class="flow-step-num">3</div><p>코치<br/>선택</p></div>
+    <div class="flow-step"><div class="flow-step-num">4</div><p>목표<br/>합의서</p></div>
+    <div class="flow-step"><div class="flow-step-num">5</div><p>4주<br/>코칭</p></div>
+    <div class="flow-step"><div class="flow-step-num">6</div><p>사후<br/>설문</p></div>
+    <div class="flow-step"><div class="flow-step-num">7</div><p>결과<br/>보고서</p></div>
+  </div>
+</section>
+
+<section class="pilot">
+  <div class="pilot-card">
+    <span class="pilot-badge">1차 파일럿</span>
+    <h2>2026년 파일럿 프로그램 안내</h2>
+    <div class="pilot-info">
+      <div class="pilot-item"><div class="num">4명</div><div class="desc">피코치 모집</div></div>
+      <div class="pilot-item"><div class="num">4명</div><div class="desc">코치 참여</div></div>
+      <div class="pilot-item"><div class="num">4주</div><div class="desc">코칭 기간</div></div>
+      <div class="pilot-item"><div class="num">3만원</div><div class="desc">참여비</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;">
+      전화 또는 온라인으로 진행됩니다.<br/>
+      코칭은 치료나 진단을 대체하지 않으며, 생활관리와 실행력 회복을 돕는 보조 서비스입니다.
+    </p>
+    <a href="apply.html" class="btn btn-primary btn-lg btn-full">지금 코칭 신청하기</a>
+  </div>
+  <div class="disclaimer">
+    ⚠️ 이 서비스는 ADHD 진단이나 치료를 제공하지 않습니다. 코칭은 생활관리, 실행력 회복, 루틴 형성을 돕는 보조 서비스입니다. 자해 위험, 극심한 우울 등 위기 상황이 있는 경우 전문 의료기관의 도움을 먼저 받아야 합니다.
+  </div>
+</section>
+
+<section class="user-types">
+  <h2>누가 이 플랫폼을 사용하나요?</h2>
+  <p class="user-types-sub">피코치, 코치, 관리자 각각의 역할로 참여합니다.</p>
+  <div class="user-grid">
+    <a href="apply.html" class="user-card coachee">
+      <div class="user-card-icon">🧑</div>
+      <h3>피코치</h3>
+      <p>ADHD 성향으로 실행 어려움이 있는 분<br/>코칭 신청 → 코치 선택 → 4주 참여</p>
+      <span class="btn btn-primary btn-sm">신청하기</span>
+    </a>
+    <a href="coach-home.html" class="user-card coach">
+      <div class="user-card-icon">👩‍💼</div>
+      <h3>코치</h3>
+      <p>전문 코치로 참여하고 싶은 분<br/>대시보드 → 피코치 확인 → 일지 작성</p>
+      <span class="btn btn-success btn-sm" style="display:inline-flex;">코치 대시보드 →</span>
+    </a>
+    <a href="admin.html" class="user-card admin">
+      <div class="user-card-icon">🗂️</div>
+      <h3>관리자</h3>
+      <p>매칭 관리, 진행 모니터링,<br/>결과 검증 및 보고서 확인</p>
+      <span class="btn btn-sm" style="background:#7C3AED;color:white;">대시보드 →</span>
+    </a>
+  </div>
+</section>
+
+<script src="app.js"></script>
+<script>
+  const savedId = localStorage.getItem('currentCoacheeId');
+  if (savedId) {
+    const coachee = DB.getItem('coachees', savedId);
+    if (coachee) {
+      document.getElementById('returnBanner').style.display = 'block';
+      document.getElementById('returnName').textContent = coachee.name;
+      document.getElementById('returnLink').href = `coachee-home.html?id=${savedId}`;
+    }
+  }
+</script>
+<footer class="footer">
+  <div class="container">
+    <p><strong>FLOCA</strong> · 부산광역시 부산진구 동천로 116, 3층 A7,8 · 대표 문성하</p>
+    <p>이 서비스는 ADHD 코칭 보조 플랫폼이며 의료적 진단·치료를 제공하지 않습니다. © 2026 FLOCA</p>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>사후관리 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .followup-hero { background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%); padding: 48px 20px; text-align: center; border-bottom: 1px solid var(--border); }
+    .followup-hero .icon { font-size: 52px; margin-bottom: 16px; }
+    .followup-hero h1 { font-size: 24px; font-weight: 900; margin-bottom: 8px; color: var(--text); }
+    .followup-hero p { font-size: 15px; color: var(--text-muted); line-height: 1.8; }
+    .quick-scale { display: flex; gap: 8px; margin-top: 12px; }
+    .quick-scale-btn {
+      flex: 1; padding: 12px 4px; border: 2px solid var(--border); border-radius: 10px;
+      background: white; cursor: pointer; font-size: 15px; font-weight: 700;
+      color: var(--text-muted); transition: all .2s; font-family: inherit; text-align: center;
+    }
+    .quick-scale-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .quick-scale-btn.selected { border-color: var(--primary); background: var(--primary); color: white; }
+    .continue-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .continue-item { display: flex; align-items: flex-start; gap: 8px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 10px; cursor: pointer; transition: all .2s; }
+    .continue-item:hover, .continue-item.checked { border-color: var(--accent); background: var(--accent-light); }
+    .continue-item input { accent-color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+    .continue-item label { font-size: 13px; cursor: pointer; }
+    .change-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+    .compare-card { background: var(--bg); border-radius: 12px; padding: 16px; text-align: center; }
+    .compare-card .num { font-size: 26px; font-weight: 900; }
+    .compare-card .label { font-size: 12px; color: var(--text-muted); }
+    .compare-card.pre .num { color: #93C5FD; }
+    .compare-card.post .num { color: var(--primary); }
+    .done-screen { text-align: center; padding: 60px 20px; display: none; }
+    .done-screen .check { width: 80px; height: 80px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; font-size: 36px; margin: 0 auto 20px; }
+    @media (max-width: 480px) { .continue-grid, .change-compare { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coachee-home.html" id="myPageLink">내 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="followup-hero">
+  <div class="icon">🌱</div>
+  <h1>사후관리 체크인</h1>
+  <p>코칭이 끝난 지 4주가 지났어요.<br/>그동안 변화가 잘 유지되고 있는지 확인해볼게요.</p>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+
+    <!-- 코칭 전후 비교 요약 -->
+    <div id="compareSection" class="card" style="margin-bottom:24px;display:none;">
+      <div class="card-title">📊 코칭 전후 변화 요약</div>
+      <div class="change-compare" id="compareGrid"></div>
+    </div>
+
+    <form id="followupForm">
+
+      <!-- 5개 영역 간략 재측정 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">지금 나의 상태 (간략 측정)</div>
+        <div class="card-subtitle">각 영역 한 문항씩, 1~5점으로 답해주세요.</div>
+
+        <div id="quickQuestions"></div>
+      </div>
+
+      <!-- 유지 중인 행동 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">코칭 후 지금도 유지 중인 것들</div>
+        <div class="card-subtitle">코칭에서 배운 것 중 지금도 하고 있는 행동을 체크해주세요.</div>
+        <div class="continue-grid" id="continueGrid">
+          <label class="continue-item"><input type="checkbox" value="아침 루틴 유지"/><label>아침 루틴 유지</label></label>
+          <label class="continue-item"><input type="checkbox" value="할 일 우선순위 정리"/><label>할 일 우선순위 정리</label></label>
+          <label class="continue-item"><input type="checkbox" value="미루기일지 작성"/><label>미루기일지 작성</label></label>
+          <label class="continue-item"><input type="checkbox" value="타이머 활용"/><label>타이머 활용</label></label>
+          <label class="continue-item"><input type="checkbox" value="작은 것부터 시작"/><label>작은 것부터 시작</label></label>
+          <label class="continue-item"><input type="checkbox" value="감정 기록"/><label>감정 기록하기</label></label>
+        </div>
+        <div class="form-group" style="margin-top:14px;margin-bottom:0;">
+          <label class="form-label">그 외 유지 중인 행동 (자유 입력)</label>
+          <textarea class="form-textarea" id="continuingBehaviors" placeholder="코칭 후 지속 중인 변화를 자유롭게 적어주세요." style="min-height:80px;"></textarea>
+        </div>
+      </div>
+
+      <!-- 현재 어려운 점 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="form-group" style="margin-bottom:16px;">
+          <label class="form-label">현재 어려운 점이나 다시 무너진 부분</label>
+          <textarea class="form-textarea" id="challenges" placeholder="예: 아침 루틴이 다시 무너지고 있어요. 업무가 바빠지면서 계획 세우는 게 힘들어졌어요."></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">코칭 후 가장 크게 달라진 점</label>
+          <textarea class="form-textarea" id="biggestChange" placeholder="예: 미루기가 조금 줄었어요. 완벽하지 않아도 시작할 수 있다는 걸 배웠어요."></textarea>
+        </div>
+      </div>
+
+      <!-- 추가 지원 -->
+      <div class="card" style="margin-bottom:16px;">
+        <div class="card-title">추가 지원 필요 여부</div>
+        <div class="form-group" style="margin-bottom:16px;">
+          <label class="form-label">지금 추가적인 코칭이나 지원이 필요하다고 느끼나요?</label>
+          <div class="radio-group" id="needsSupport">
+            <label class="radio-item"><input type="radio" name="support" value="no"/><span>아니요, 잘 유지되고 있어요</span></label>
+            <label class="radio-item"><input type="radio" name="support" value="maybe"/><span>조금 필요할 것 같아요</span></label>
+            <label class="radio-item"><input type="radio" name="support" value="yes"/><span>네, 다시 코칭을 받고 싶어요</span></label>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0;">
+          <label class="form-label">관심 있는 다음 프로그램 (복수 선택)</label>
+          <div class="check-grid" id="nextProgram">
+            <label class="check-item"><input type="checkbox" value="2차 코칭"/><label>2차 코칭 프로그램</label></label>
+            <label class="check-item"><input type="checkbox" value="그룹 루틴 코칭"/><label>그룹 루틴 코칭</label></label>
+            <label class="check-item"><input type="checkbox" value="ADHD 플래너"/><label>ADHD 플래너 구매</label></label>
+            <label class="check-item"><input type="checkbox" value="없음"/><label>현재는 없음</label></label>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <button type="submit" class="btn btn-accent btn-full btn-lg">사후관리 제출하기 →</button>
+      </div>
+    </form>
+
+    <!-- 완료 화면 -->
+    <div class="done-screen" id="doneScreen">
+      <div class="check">✓</div>
+      <h2 style="font-size:22px;font-weight:900;margin-bottom:12px;">사후관리 완료!</h2>
+      <p style="font-size:15px;color:var(--text-muted);line-height:1.8;margin-bottom:28px;">
+        4주 코칭을 완주하고 사후관리까지 완료하셨어요.<br/>
+        작은 변화들이 쌓여 큰 변화가 됩니다. 수고하셨어요 🙏
+      </p>
+      <a id="reportLinkFinal" href="#" class="btn btn-primary btn-lg">결과보고서 다시 보기</a>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 4주 완주 축하드립니다 🎉</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const QUICK_Q = [
+    { id: 'execution', label: '실행력', q: '나는 해야 할 일을 잘 시작할 수 있다.' },
+    { id: 'routine', label: '루틴', q: '나는 일상 루틴을 꾸준히 유지하고 있다.' },
+    { id: 'time', label: '시간관리', q: '나는 시간을 계획대로 잘 활용하고 있다.' },
+    { id: 'efficacy', label: '자기효능감', q: '나는 목표를 달성할 수 있다고 느낀다.' },
+    { id: 'career', label: '커리어', q: '나는 내 삶의 방향을 어느 정도 알고 있다.' },
+  ];
+
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+  document.getElementById('myPageLink').href = `coachee-home.html?id=${coacheeId}`;
+  document.getElementById('reportLinkFinal').href = `report.html?id=${coacheeId}`;
+
+  const quickAnswers = {};
+
+  function init() {
+    // 코칭 전후 비교
+    const preSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
+    const postSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'post');
+    if (preSurvey && postSurvey) {
+      document.getElementById('compareSection').style.display = 'block';
+      const grid = document.getElementById('compareGrid');
+      grid.innerHTML = `
+        <div class="compare-card pre">
+          <div class="num">${preSurvey.categoryScores.total.toFixed(2)}</div>
+          <div class="label">코칭 전 평균</div>
+        </div>
+        <div class="compare-card post">
+          <div class="num">${postSurvey.categoryScores.total.toFixed(2)}</div>
+          <div class="label">코칭 후 평균</div>
+        </div>`;
+    }
+
+    // 간략 설문 렌더
+    const container = document.getElementById('quickQuestions');
+    QUICK_Q.forEach(q => {
+      const div = document.createElement('div');
+      div.style.marginBottom = '20px';
+      div.innerHTML = `
+        <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">${q.label}</div>
+        <div style="font-size:14px;margin-bottom:10px;">${q.q}</div>
+        <div class="quick-scale" data-qid="${q.id}">
+          ${[1,2,3,4,5].map(n => `<button type="button" class="quick-scale-btn" data-val="${n}">${n}</button>`).join('')}
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-light);margin-top:4px;"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+      `;
+      container.appendChild(div);
+      div.querySelectorAll('.quick-scale-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const qid = btn.closest('.quick-scale').dataset.qid;
+          quickAnswers[qid] = parseInt(btn.dataset.val);
+          btn.closest('.quick-scale').querySelectorAll('.quick-scale-btn').forEach(b => b.classList.toggle('selected', parseInt(b.dataset.val) === quickAnswers[qid]));
+        });
+      });
+    });
+  }
+
+  document.querySelectorAll('.continue-item input, .check-item input').forEach(cb => {
+    cb.addEventListener('change', () => { cb.closest('.continue-item, .check-item').classList.toggle('checked', cb.checked); });
+  });
+  document.querySelectorAll('.radio-item input').forEach(rb => {
+    rb.addEventListener('change', () => { document.querySelectorAll(`input[name="${rb.name}"]`).forEach(r => r.closest('.radio-item').classList.toggle('selected', r.checked)); });
+  });
+
+  document.getElementById('followupForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const continuingChecked = [...document.querySelectorAll('#continueGrid input:checked')].map(c => c.value);
+    const nextProg = [...document.querySelectorAll('#nextProgram input:checked')].map(c => c.value);
+    const followup = {
+      id: 'followup_' + coacheeId, coacheeId,
+      shortScores: { ...quickAnswers },
+      continuingBehaviors: continuingChecked.join(', ') + '\n' + document.getElementById('continuingBehaviors').value,
+      challenges: document.getElementById('challenges').value,
+      biggestChange: document.getElementById('biggestChange').value,
+      needsSupport: document.querySelector('input[name="support"]:checked')?.value || '',
+      nextProgram: nextProg,
+      createdAt: new Date().toISOString()
+    };
+    const list = DB.get('followups') || [];
+    const idx = list.findIndex(f => f.coacheeId === coacheeId);
+    if (idx >= 0) list[idx] = followup; else list.push(followup);
+    DB.set('followups', list);
+    API.sync('followups', followup);
+
+    document.getElementById('followupForm').style.display = 'none';
+    document.getElementById('doneScreen').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  init();
+</script>
+</body>
+</html>

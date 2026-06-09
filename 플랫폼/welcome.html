@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>신청 완료 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .welcome-hero {
+      min-height: 60vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 60px 20px 40px; background: linear-gradient(135deg, #EFF6FF 0%, #F0FDF4 100%);
+    }
+    .check-circle {
+      width: 88px; height: 88px; border-radius: 50%;
+      background: var(--success); display: flex; align-items: center;
+      justify-content: center; font-size: 40px; margin: 0 auto 24px;
+      animation: popIn .5s cubic-bezier(.175,.885,.32,1.275);
+    }
+    @keyframes popIn {
+      from { transform: scale(0); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .confetti { font-size: 28px; margin-bottom: 12px; animation: fadeIn .8s .3s both; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+    .welcome-name { font-size: 28px; font-weight: 900; margin-bottom: 10px; color: var(--text); animation: fadeIn .6s .5s both; }
+    .welcome-name span { color: var(--primary); }
+    .welcome-sub { font-size: 16px; color: var(--text-muted); line-height: 1.8; animation: fadeIn .6s .7s both; }
+
+    .roadmap { display: flex; align-items: flex-start; justify-content: center; gap: 0; margin: 40px 0; overflow-x: auto; }
+    .road-step { display: flex; flex-direction: column; align-items: center; min-width: 80px; }
+    .road-dot {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--primary-light);
+      color: var(--primary); font-weight: 700; font-size: 16px;
+      display: flex; align-items: center; justify-content: center; margin-bottom: 8px;
+      border: 2px solid var(--primary);
+    }
+    .road-dot.done { background: var(--success); border-color: var(--success); color: white; }
+    .road-label { font-size: 11px; color: var(--text-muted); text-align: center; word-break: keep-all; line-height: 1.4; }
+    .road-line { width: 40px; height: 2px; background: var(--border); margin-top: 22px; flex-shrink: 0; }
+
+    .mail-preview {
+      background: var(--card); border-radius: 16px; border: 1px solid var(--border);
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .mail-header { background: #F8FAFC; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+    .mail-header-row { display: flex; gap: 8px; align-items: center; font-size: 13px; margin-bottom: 4px; }
+    .mail-header-row .label { color: var(--text-muted); width: 28px; flex-shrink: 0; }
+    .mail-subject { font-size: 15px; font-weight: 700; color: var(--text); }
+    .mail-body { padding: 24px 20px; font-size: 14px; line-height: 2; color: var(--text); }
+    .mail-body strong { color: var(--primary); }
+    .mail-body .mail-divider { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+    .mail-body .mail-sign { color: var(--text-muted); font-size: 13px; }
+
+    .next-cta { position: sticky; bottom: 24px; padding: 0 20px; }
+    @media (max-width: 640px) { .roadmap { gap: 0; } .road-line { width: 24px; } .road-dot { width: 36px; height: 36px; font-size: 14px; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coachee-home.html" id="myPageLink" style="display:none;">내 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="welcome-hero">
+  <div class="confetti">🎉</div>
+  <div class="check-circle">✓</div>
+  <h1 class="welcome-name"><span id="coacheeName">님</span>, 신청이 완료됐어요!</h1>
+  <p class="welcome-sub">
+    ADHD 코칭 파일럿 프로그램에 신청해주셔서 감사합니다.<br/>
+    담당자가 1~2일 내 연락드릴 예정이에요.<br/>
+    그 전에 <strong>사전 설문</strong>을 먼저 작성해두시면 더 빠르게 진행돼요.
+  </p>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+
+    <!-- 로드맵 -->
+    <div class="card" style="margin-bottom:24px;">
+      <div class="card-title" style="margin-bottom:20px;">앞으로 이런 순서로 진행돼요</div>
+      <div class="roadmap">
+        <div class="road-step">
+          <div class="road-dot done">✓</div>
+          <div class="road-label">신청서<br/>작성</div>
+        </div>
+        <div class="road-line"></div>
+        <div class="road-step">
+          <div class="road-dot">2</div>
+          <div class="road-label">사전<br/>설문</div>
+        </div>
+        <div class="road-line"></div>
+        <div class="road-step">
+          <div class="road-dot">3</div>
+          <div class="road-label">코치<br/>선택</div>
+        </div>
+        <div class="road-line"></div>
+        <div class="road-step">
+          <div class="road-dot">4</div>
+          <div class="road-label">목표<br/>합의</div>
+        </div>
+        <div class="road-line"></div>
+        <div class="road-step">
+          <div class="road-dot">5</div>
+          <div class="road-label">4주<br/>코칭</div>
+        </div>
+        <div class="road-line"></div>
+        <div class="road-step">
+          <div class="road-dot">6</div>
+          <div class="road-label">결과<br/>보고서</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 웰컴 메일 미리보기 -->
+    <div style="margin-bottom:8px;">
+      <div class="section-title" style="font-size:15px;">웰컴 메일 미리보기</div>
+      <div class="section-subtitle">관리자가 아래 내용으로 메일을 발송합니다.</div>
+    </div>
+    <div class="mail-preview">
+      <div class="mail-header">
+        <div class="mail-subject">[FLOCA 코칭] 파일럿 신청 완료 안내 및 다음 단계</div>
+        <div class="mail-header-row" style="margin-top:10px;"><span class="label">발신</span><span>coach@floca.co.kr (FLOCA 코칭팀)</span></div>
+        <div class="mail-header-row"><span class="label">수신</span><span id="mailTo">신청자</span></div>
+      </div>
+      <div class="mail-body">
+        안녕하세요, <strong id="mailName">신청자</strong>님 👋<br/><br/>
+        FLOCA ADHD 코칭 파일럿 프로그램에 신청해주셔서 진심으로 감사드립니다.<br/><br/>
+        신청 내용을 확인하였으며, 담당자가 <strong>1~2일 내</strong>에 연락드릴 예정입니다.<br/>
+        연락 전에 아래 사전 설문을 미리 작성해두시면 코칭 매칭이 더 빠르게 진행돼요.
+        <hr class="mail-divider"/>
+        <strong>📋 지금 바로 해주실 것</strong><br/>
+        사전 설문 작성 (약 5분 소요)<br/>
+        → 실행력 / 루틴 / 시간관리 / 자기효능감 / 커리어 5개 영역 측정<br/>
+        → 코칭 후 변화를 비교하는 기준 데이터가 됩니다.
+        <hr class="mail-divider"/>
+        궁금한 점은 카카오톡 채널로 편하게 문의해주세요.<br/><br/>
+        <div class="mail-sign">
+          감사합니다,<br/>
+          FLOCA 코칭팀 문디 드림<br/>
+          📞 010-5808-9989 | 🔗 floca.co.kr
+        </div>
+      </div>
+    </div>
+
+    <!-- 안내 박스 -->
+    <div class="alert alert-info" style="margin-bottom:28px;">
+      <strong>💡 알아두세요</strong><br/>
+      사전 설문은 코칭 효과를 측정하기 위한 기초 데이터예요.<br/>
+      솔직하게 지금 상태를 답해주실수록 코칭이 더 도움이 됩니다.
+    </div>
+
+    <a id="surveyBtn" href="pre-survey.html" class="btn btn-primary btn-full btn-lg">
+      사전 설문 시작하기 →
+    </a>
+    <p style="text-align:center;font-size:13px;color:var(--text-light);margin-top:12px;">약 5분 소요 · 15문항</p>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 신청해주셔서 감사합니다 🙏</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (coacheeId) {
+    const coachee = DB.getItem('coachees', coacheeId);
+    if (coachee) {
+      document.getElementById('coacheeName').textContent = coachee.name + '님';
+      document.getElementById('mailName').textContent = coachee.name;
+      document.getElementById('mailTo').textContent = coachee.email || coachee.phone || coachee.name;
+    }
+    document.getElementById('surveyBtn').href = `pre-survey.html?id=${coacheeId}`;
+    document.getElementById('myPageLink').href = `coachee-home.html?id=${coacheeId}`;
+    document.getElementById('myPageLink').style.display = 'inline';
+  }
+</script>
+</body>
+</html>

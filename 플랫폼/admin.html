@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>관리자 대시보드 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .admin-tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin-bottom: 28px; overflow-x: auto; }
+    .admin-tab { padding: 10px 20px; border: none; background: none; cursor: pointer; font-size: 14px; font-weight: 600; color: var(--text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all .2s; font-family: inherit; white-space: nowrap; }
+    .admin-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
+    .admin-panel { display: none; }
+    .admin-panel.active { display: block; }
+    .risk-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+    .risk-dot.warn { background: var(--warn); }
+    .risk-dot.ok { background: var(--success); }
+    .login-overlay {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; z-index: 999;
+    }
+    .login-card { background: var(--card); border-radius: 20px; padding: 48px 36px; max-width: 400px; width: 100%; border: 1px solid var(--border); text-align: center; }
+    .login-icon { font-size: 48px; margin-bottom: 16px; }
+    .login-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .login-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .progress-circle { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; font-size: 13px; font-weight: 700; background: var(--primary-light); color: var(--primary); }
+    .coachee-status { padding: 3px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+    .s-applied { background: #F1F5F9; color: var(--text-muted); }
+    .s-coaching { background: var(--primary-light); color: var(--primary); }
+    .s-completed { background: var(--success-light); color: #166534; }
+    .s-pending { background: var(--orange-light); color: #C2410C; }
+  </style>
+</head>
+<body>
+
+<!-- Login Overlay -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="login-icon">🗂️</div>
+    <h2>관리자 로그인</h2>
+    <p>관리자 비밀번호를 입력하세요.<br/>(데모용: <strong>admin1234</strong>)</p>
+    <div class="form-group" style="text-align:left;">
+      <input type="password" class="form-input" id="pwInput" placeholder="비밀번호"/>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="doLogin()">로그인</button>
+    <p style="margin-top:16px;font-size:12px;color:var(--text-light);">관리자 전용 페이지입니다.</p>
+  </div>
+</div>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청</a>
+      <a href="coaches.html">코치</a>
+      <a href="admin.html" class="active nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>관리자 대시보드</h1>
+  <p>파일럿 프로그램 전체 현황을 한눈에 확인합니다.</p>
+</div>
+
+<main class="main">
+  <div class="container">
+    <!-- Summary -->
+    <div id="summarySection" style="margin-bottom:28px;"></div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('coachees')">신청자 목록</button>
+      <button class="admin-tab" onclick="switchTab('coaches')">코치 현황</button>
+      <button class="admin-tab" onclick="switchTab('effects')">효과 검증</button>
+    </div>
+
+    <div id="panel-coachees" class="admin-panel active"></div>
+    <div id="panel-coaches" class="admin-panel"></div>
+    <div id="panel-effects" class="admin-panel"></div>
+
+    <!-- Google Sheets 연동 설정 -->
+    <div style="margin-top:32px;padding:24px;background:var(--card);border-radius:14px;border:2px solid var(--primary-light);">
+      <div style="font-size:15px;font-weight:700;margin-bottom:4px;">🔗 Google Sheets 연동</div>
+      <p style="font-size:13px;color:var(--text-muted);margin-bottom:16px;">
+        Apps Script 배포 URL을 입력하면 피코치·코치가 제출한 데이터가 실시간으로 Sheets에 저장되고, 아래 버튼으로 불러올 수 있습니다.
+      </p>
+      <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;">
+        <input type="url" id="sheetsUrlInput" class="form-input" style="flex:1;min-width:240px;" placeholder="https://script.google.com/macros/s/.../exec"/>
+        <button class="btn btn-primary btn-sm" onclick="saveUrl()">URL 저장</button>
+      </div>
+      <div id="urlStatus" style="font-size:13px;margin-bottom:16px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px;">
+        <button class="btn btn-accent btn-sm" id="pullBtn" onclick="pullFromSheets()">⬇ Sheets에서 데이터 불러오기</button>
+        <button class="btn btn-outline btn-sm" id="testBtn" onclick="testConnection()">🔌 연결 테스트</button>
+      </div>
+      <div id="testResult" style="display:none;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:12px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-outline btn-sm" onclick="loadDemo()">데모 데이터 생성</button>
+        <button class="btn btn-danger btn-sm" onclick="clearAll()">전체 데이터 삭제</button>
+      </div>
+      <div style="margin-top:16px;padding:12px 16px;background:var(--bg);border-radius:10px;">
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:6px;">Apps Script 설정 순서</div>
+        <ol style="font-size:12px;color:var(--text-muted);line-height:2;padding-left:18px;">
+          <li>Google Sheets 새 파일 생성</li>
+          <li>상단 메뉴 → 확장 프로그램 → Apps Script</li>
+          <li><code style="background:#E2E8F0;padding:1px 6px;border-radius:4px;">Code.gs</code> 파일 내용을 복사해서 붙여넣기</li>
+          <li>저장(Ctrl+S) → 배포 → 새 배포</li>
+          <li>유형: 웹 앱 / 액세스: <strong>모든 사용자</strong> 선택 → 배포</li>
+          <li>생성된 URL을 위 입력란에 붙여넣기</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 관리자 페이지 · 관리자 전용</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  function doLogin() {
+    const pw = document.getElementById('pwInput').value;
+    if (pw === 'admin1234') {
+      document.getElementById('loginOverlay').style.display = 'none';
+      initUrlInput();
+      renderAll();
+    } else {
+      alert('비밀번호가 틀렸습니다.');
+    }
+  }
+
+  function initUrlInput() {
+    const saved = API.getUrl();
+    if (saved) {
+      document.getElementById('sheetsUrlInput').value = saved;
+      document.getElementById('urlStatus').innerHTML = '<span style="color:var(--success);">✅ URL 설정됨 — Sheets 연동 활성화</span>';
+    } else {
+      document.getElementById('urlStatus').innerHTML = '<span style="color:var(--text-muted);">⬜ URL 미설정 — 로컬 저장 전용</span>';
+    }
+  }
+
+  function saveUrl() {
+    const url = document.getElementById('sheetsUrlInput').value.trim();
+    if (!url.startsWith('https://')) { alert('올바른 Apps Script URL을 입력해주세요.'); return; }
+    localStorage.setItem('sheetsUrl', url);
+    document.getElementById('urlStatus').innerHTML = '<span style="color:var(--success);">✅ URL 저장됨 — 이후 모든 폼 제출이 Sheets에 자동 저장됩니다.</span>';
+  }
+
+  async function testConnection() {
+    const btn = document.getElementById('testBtn');
+    const result = document.getElementById('testResult');
+    btn.textContent = '테스트 중...';
+    btn.disabled = true;
+    result.style.display = 'block';
+
+    if (!API.configured()) {
+      result.style.background = '#FEE2E2';
+      result.style.color = '#991B1B';
+      result.textContent = '❌ URL이 설정되지 않았습니다. 위 입력란에 Apps Script URL을 저장해주세요.';
+      btn.textContent = '🔌 연결 테스트';
+      btn.disabled = false;
+      return;
+    }
+
+    const ok = await API.test();
+    if (ok) {
+      result.style.background = '#DCFCE7';
+      result.style.color = '#166534';
+      result.textContent = '✅ 연결 성공! Google Sheets와 정상 연결됐습니다.';
+    } else {
+      result.style.background = '#FEE2E2';
+      result.style.color = '#991B1B';
+      result.innerHTML = `❌ 연결 실패. 아래 체크리스트를 확인해주세요:<br/>
+        <ol style="margin:8px 0 0 16px;line-height:2;">
+          <li>Apps Script → 배포 → <strong>액세스: 모든 사용자(익명 포함)</strong> 설정</li>
+          <li>Code.gs를 최신 내용으로 다시 붙여넣고 <strong>새 배포</strong>로 재배포</li>
+          <li>새로 생성된 URL을 다시 입력해주세요</li>
+        </ol>`;
+    }
+    btn.textContent = '🔌 연결 테스트';
+    btn.disabled = false;
+  }
+
+  async function pullFromSheets() {
+    if (!API.configured()) { alert('먼저 Sheets URL을 저장해주세요.'); return; }
+    const btn = event.target;
+    btn.textContent = '불러오는 중...';
+    btn.disabled = true;
+    try {
+      await API.pullAll();
+      renderAll();
+      alert('Sheets에서 최신 데이터를 불러왔습니다.');
+    } catch(e) {
+      alert('불러오기 실패: ' + e.message);
+    } finally {
+      btn.textContent = '⬇ Sheets에서 데이터 불러오기';
+      btn.disabled = false;
+    }
+  }
+  document.getElementById('pwInput').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+  function switchTab(name) {
+    document.querySelectorAll('.admin-tab').forEach((t, i) => {
+      const names = ['coachees', 'coaches', 'effects'];
+      t.classList.toggle('active', names[i] === name);
+    });
+    document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById(`panel-${name}`).classList.add('active');
+  }
+
+  function statusLabel(s) {
+    const map = {
+      applied: ['s-applied', '신청완료'],
+      survey_done: ['s-applied', '설문완료'],
+      matched: ['s-pending', '코치선택(대기)'],
+      pledged: ['s-pending', '서약완료(대기)'],
+      pending_match: ['s-pending', '배정대기'],
+      coaching: ['s-coaching', '코칭중'],
+      completed: ['s-completed', '완료']
+    };
+    const [cls, text] = map[s] || ['s-applied', s];
+    return `<span class="coachee-status ${cls}">${text}</span>`;
+  }
+
+  function confirmMatch(coacheeId) {
+    if (!confirm('매칭을 확정하면 피코치에게 대기 화면이 열립니다. 계속할까요?')) return;
+    // matching 상태 → confirmed
+    const matchings = DB.get('matchings');
+    const idx = matchings.findIndex(m => m.coacheeId === coacheeId);
+    if (idx >= 0) { matchings[idx].status = 'confirmed'; DB.set('matchings', matchings); }
+    // coachee 상태 업데이트
+    DB.updateItem('coachees', coacheeId, { matchConfirmed: true });
+    API.sync('matchings', matchings[idx]);
+    renderAll();
+    alert('매칭이 확정됐습니다. 피코치에게 연락해주세요.');
+  }
+
+  function progressLabel(coacheeId) {
+    const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId && s.completed);
+    return `<div class="progress-circle">${sessions.length}/4</div>`;
+  }
+
+  function renderSummary(coachees, matchings, sessions) {
+    const total = coachees.length;
+    const matched = matchings.length;
+    const coaching = coachees.filter(c => c.status === 'coaching' || c.status === 'matched').length;
+    const completed = coachees.filter(c => c.status === 'completed').length;
+    const riskCount = coachees.filter(c => c.riskFlag).length;
+    const surveys = DB.get('surveys');
+    const preDone = surveys.filter(s => s.type === 'pre').length;
+    const postDone = surveys.filter(s => s.type === 'post').length;
+
+    document.getElementById('summarySection').innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px;">
+        <div class="stat-card"><div class="stat-num">${total}</div><div class="stat-label">총 신청자</div></div>
+        <div class="stat-card"><div class="stat-num">${matched}</div><div class="stat-label">매칭 완료</div></div>
+        <div class="stat-card"><div class="stat-num accent">${coaching}</div><div class="stat-label">코칭 진행 중</div></div>
+        <div class="stat-card"><div class="stat-num accent">${completed}</div><div class="stat-label">코칭 완료</div></div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+        <div class="stat-card"><div class="stat-num warn">${riskCount}</div><div class="stat-label">위험군 주의</div></div>
+        <div class="stat-card"><div class="stat-num">${total ? Math.round(preDone/total*100) : 0}%</div><div class="stat-label">사전 설문 완료율</div></div>
+        <div class="stat-card"><div class="stat-num">${total ? Math.round(postDone/total*100) : 0}%</div><div class="stat-label">사후 설문 완료율</div></div>
+      </div>`;
+  }
+
+  function renderCoacheesTable(coachees, matchings) {
+    if (coachees.length === 0) {
+      document.getElementById('panel-coachees').innerHTML = `<div class="alert alert-info">신청자 데이터가 없습니다. 데모 데이터를 생성하거나 신청서를 작성해주세요.</div>`;
+      return;
+    }
+    let rows = coachees.map(c => {
+      const matching = matchings.find(m => m.coacheeId === c.id);
+      const coach = matching ? getCoach(matching.coachId) : null;
+      const riskDot = c.riskFlag ? '<span class="risk-dot warn"></span>주의' : '<span class="risk-dot ok"></span>-';
+      const isConfirmed = matching?.status === 'confirmed' || c.matchConfirmed;
+      const needsConfirm = matching && !isConfirmed && (c.status === 'matched' || c.status === 'pledged');
+      const matchBtn = needsConfirm
+        ? `<button onclick="confirmMatch('${c.id}')" class="btn btn-sm btn-accent" style="margin-right:4px;">✓ 매칭확정</button>`
+        : isConfirmed ? `<span class="badge badge-success" style="margin-right:4px;">확정됨</span>` : '';
+      return `<tr>
+        <td><strong>${c.name}</strong><br/><span style="font-size:12px;color:var(--text-muted);">${c.phone || ''}</span></td>
+        <td>${fmtDate(c.createdAt)}</td>
+        <td><span class="badge badge-gray">${c.adhdStatus}</span></td>
+        <td>${(c.difficulties || []).join(', ') || '-'}</td>
+        <td>${riskDot}</td>
+        <td>${statusLabel(c.status)}</td>
+        <td>${coach ? coach.name : '<span style="color:var(--text-light);">미배정</span>'}</td>
+        <td>${progressLabel(c.id)}</td>
+        <td>
+          ${matchBtn}
+          <a href="sessions.html?id=${c.id}" class="btn btn-sm btn-outline" style="margin-right:4px;">일지</a>
+          <a href="report.html?id=${c.id}" class="btn btn-sm btn-primary">보고서</a>
+        </td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('panel-coachees').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>이름/연락처</th><th>신청일</th><th>ADHD 상태</th><th>주요 어려움</th>
+            <th>위험군</th><th>상태</th><th>코치</th><th>진행</th><th>관리</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderCoachesTable(coachees, matchings) {
+    let rows = COACHES.map(coach => {
+      const assigned = matchings.filter(m => m.coachId === coach.id);
+      const activeCount = assigned.filter(m => {
+        const c = coachees.find(co => co.id === m.coacheeId);
+        return c && c.status !== 'completed';
+      }).length;
+      return `<tr>
+        <td><strong>${coach.avatar} ${coach.name}</strong></td>
+        <td>${coach.specialties.map(s => `<span class="badge badge-primary" style="margin:1px;">${s}</span>`).join('')}</td>
+        <td>${coach.coachingMethods.join(', ')}</td>
+        <td>${coach.availableTimes}</td>
+        <td><strong>${activeCount}</strong> / ${coach.maxCoachees}</td>
+        <td>${activeCount < coach.maxCoachees ? '<span class="badge badge-success">모집 가능</span>' : '<span class="badge badge-warn">마감</span>'}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('panel-coaches').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>코치</th><th>전문분야</th><th>코칭방식</th><th>가능시간</th><th>현재 인원</th><th>상태</th></tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderEffectsTable(coachees) {
+    const surveys = DB.get('surveys');
+    const rows = coachees.map(c => {
+      const pre = surveys.find(s => s.coacheeId === c.id && s.type === 'pre');
+      const post = surveys.find(s => s.coacheeId === c.id && s.type === 'post');
+      const matching = DB.get('matchings').find(m => m.coacheeId === c.id);
+      const coach = matching ? getCoach(matching.coachId) : null;
+      const preAvg = pre ? pre.categoryScores.total.toFixed(2) : '-';
+      const postAvg = post ? post.categoryScores.total.toFixed(2) : '-';
+      let diffCell = '-';
+      if (pre && post) {
+        const diff = post.categoryScores.total - pre.categoryScores.total;
+        const cls = diff > 0 ? 'change-positive' : diff < 0 ? 'change-negative' : '';
+        diffCell = `<span class="${cls}">${diff > 0 ? '+' : ''}${diff.toFixed(2)}</span>`;
+      }
+      const satisfaction = post?.extraAnswers?.p1 ? `${post.extraAnswers.p1}/5` : '-';
+      const recommend = post?.extraAnswers?.p4 ? `${post.extraAnswers.p4}/5` : '-';
+      return `<tr>
+        <td>${c.name}</td>
+        <td>${coach?.name || '-'}</td>
+        <td>${preAvg}</td>
+        <td>${postAvg}</td>
+        <td>${diffCell}</td>
+        <td>${satisfaction}</td>
+        <td>${recommend}</td>
+        <td>${post ? `<a href="report.html?id=${c.id}" class="btn btn-primary btn-sm">보기</a>` : '<span style="color:var(--text-light);font-size:13px;">미완료</span>'}</td>
+      </tr>`;
+    }).join('');
+
+    const noData = coachees.length === 0 ? `<tr><td colspan="8" style="text-align:center;color:var(--text-muted);padding:32px;">데이터가 없습니다.</td></tr>` : '';
+
+    document.getElementById('panel-effects').innerHTML = `
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>피코치</th><th>코치</th><th>사전 평균</th><th>사후 평균</th><th>변화량</th><th>만족도</th><th>추천의향</th><th>보고서</th></tr></thead>
+          <tbody>${rows || noData}</tbody>
+        </table>
+      </div>`;
+  }
+
+  function renderAll() {
+    const coachees = DB.get('coachees');
+    const matchings = DB.get('matchings');
+    const sessions = DB.get('sessions');
+    renderSummary(coachees, matchings, sessions);
+    renderCoacheesTable(coachees, matchings);
+    renderCoachesTable(coachees, matchings);
+    renderEffectsTable(coachees);
+  }
+
+  function loadDemo() {
+    if (confirm('데모 데이터를 생성하면 기존 데이터가 초기화됩니다. 계속할까요?')) {
+      seedDemoData();
+      renderAll();
+      alert('데모 데이터 4명이 생성되었습니다.');
+    }
+  }
+
+  function clearAll() {
+    if (confirm('모든 데이터를 삭제합니다. 되돌릴 수 없어요. 계속할까요?')) {
+      ['coachees','surveys','matchings','goalAgreements','sessions','reflections'].forEach(k => localStorage.removeItem(k));
+      renderAll();
+      alert('데이터가 초기화되었습니다.');
+    }
+  }
+</script>
+</body>
+</html>

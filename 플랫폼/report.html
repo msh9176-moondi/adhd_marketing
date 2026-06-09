@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>결과 리포트 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .section { margin-bottom: 24px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .section-icon { font-size: 22px; }
+    .change-chip { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 13px; font-weight: 700; }
+    .chip-up { background: var(--success-light); color: #166534; }
+    .chip-down { background: var(--warn-light); color: #991B1B; }
+    .chip-same { background: #F1F5F9; color: var(--text-muted); }
+    .session-summary { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .sess-card { border: 1px solid var(--border); border-radius: 12px; padding: 16px; background: #FAFBFD; }
+    .sess-num { font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .sess-topic { font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .sess-score { font-size: 12px; color: var(--text-muted); }
+    .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .extra-item { background: var(--bg); border-radius: 12px; padding: 16px; text-align: center; }
+    .extra-val { font-size: 28px; font-weight: 900; color: var(--primary); }
+    .extra-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+    .star-row { display: flex; gap: 4px; justify-content: center; margin-top: 4px; }
+    .star { font-size: 20px; }
+    .action-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .action-tag { padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+    .tag-new { background: var(--accent-light); color: #0D9488; }
+    .tag-keep { background: var(--primary-light); color: var(--primary); }
+    .tag-stop { background: var(--warn-light); color: #991B1B; }
+    .print-btn { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
+    @media print { .nav, .print-btn, .steps, .footer { display: none!important; } .main { padding-top: 0; } }
+    @media (max-width: 640px) { .session-summary, .extra-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html">신청</a>
+      <a href="coaches.html">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">신청서</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">사전설문</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">코치선택</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">목표합의</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">코칭</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">사후설문</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot active">7</div><div class="step-label">보고서</div></div>
+</div>
+
+<main class="main">
+  <div class="container-sm" id="reportContent">
+    <div id="reportBody"></div>
+  </div>
+</main>
+
+<a href="javascript:window.print()" class="btn btn-primary print-btn">🖨️ 인쇄/저장</a>
+
+<footer class="footer">
+  <div class="container">
+    <p>본 결과보고서는 ADHD 코칭 프로그램 참여 과정에서 작성된 자기보고식 설문과 회기별 기록을 바탕으로 생성된 참고 자료입니다.</p>
+    <p>의학적 진단이나 치료 효과를 보장하는 문서가 아닙니다. © 2026 FLOCA</p>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  function stars(n) {
+    return Array(5).fill('').map((_, i) => `<span class="star">${i < n ? '⭐' : '☆'}</span>`).join('');
+  }
+
+  function changeChip(diff) {
+    if (diff > 0.1) return `<span class="change-chip chip-up">▲ +${diff.toFixed(1)}</span>`;
+    if (diff < -0.1) return `<span class="change-chip chip-down">▼ ${diff.toFixed(1)}</span>`;
+    return `<span class="change-chip chip-same">→ 변화없음</span>`;
+  }
+
+  function scoreBar(val, color) {
+    const pct = (val / 5) * 100;
+    return `<div style="flex:1;height:10px;background:var(--border);border-radius:100px;overflow:hidden;">
+      <div style="height:100%;width:${pct}%;background:${color};border-radius:100px;"></div></div>`;
+  }
+
+  function render() {
+    const coachee = DB.getItem('coachees', coacheeId);
+    const preSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
+    const postSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'post');
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
+    const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+    const coach = matching ? getCoach(matching.coachId) : null;
+
+    if (!preSurvey) {
+      document.getElementById('reportBody').innerHTML = `<div class="alert alert-warn">사전 설문 데이터가 없습니다. <a href="pre-survey.html?id=${coacheeId}">사전 설문 하러 가기</a></div>`;
+      return;
+    }
+
+    const hasPost = !!postSurvey;
+    const preTotal = preSurvey.categoryScores.total;
+    const postTotal = hasPost ? postSurvey.categoryScores.total : null;
+    const totalDiff = hasPost ? (postTotal - preTotal) : null;
+
+    let html = '';
+
+    // Hero
+    html += `<div class="report-hero">
+      <div class="report-names">${coachee?.name || '-'} · ${coach?.name || '코치 미배정'}</div>
+      <div class="report-title">ADHD 코칭 결과 리포트</div>
+      <div class="report-period">파일럿 프로그램 · 4주 · ${sessions.length}회기 완료</div>
+      ${hasPost && totalDiff !== null ? `<div style="margin-top:16px;font-size:22px;font-weight:900;">전체 평균 변화: ${totalDiff > 0 ? '+' : ''}${totalDiff.toFixed(2)}점 ${totalDiff > 0 ? '📈' : totalDiff < 0 ? '📉' : '➡️'}</div>` : ''}
+    </div>`;
+
+    // Score comparison
+    if (hasPost) {
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">📊</span><h2 style="font-size:18px;font-weight:700;">영역별 변화</h2></div>
+        <div class="bar-legend">
+          <span><span class="legend-dot" style="background:#93C5FD;"></span>사전</span>
+          <span><span class="legend-dot" style="background:var(--primary);"></span>사후</span>
+        </div>
+        <div class="score-compare">`;
+      SURVEY_CATEGORIES.forEach(cat => {
+        const pre = preSurvey.categoryScores[cat.id]?.average || 0;
+        const post = postSurvey.categoryScores[cat.id]?.average || 0;
+        const diff = post - pre;
+        html += `<div class="score-row">
+          <div class="score-label">${cat.name}</div>
+          <div class="score-bars">
+            <div class="bar-wrap">${scoreBar(pre, '#93C5FD')}<div class="bar-val" style="color:var(--text-muted);">${pre.toFixed(1)}</div></div>
+            <div class="bar-wrap">${scoreBar(post, 'var(--primary)')}<div class="bar-val">${post.toFixed(1)}</div></div>
+          </div>
+          <div style="width:80px;text-align:right;">${changeChip(diff)}</div>
+        </div>`;
+      });
+      html += `</div>
+        <hr class="divider"/>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;">
+          <strong>전체 평균</strong>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <span style="color:var(--text-muted);">${preTotal.toFixed(2)}</span>
+            <span>→</span>
+            <span style="font-weight:700;">${postTotal.toFixed(2)}</span>
+            ${changeChip(totalDiff)}
+          </div>
+        </div>
+      </div>`;
+    } else {
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">📊</span><h2 style="font-size:18px;font-weight:700;">사전 설문 점수</h2></div>
+        <div class="score-compare">`;
+      SURVEY_CATEGORIES.forEach(cat => {
+        const pre = preSurvey.categoryScores[cat.id]?.average || 0;
+        html += `<div class="score-row">
+          <div class="score-label">${cat.name}</div>
+          <div class="score-bars"><div class="bar-wrap">${scoreBar(pre, 'var(--primary)')}<div class="bar-val">${pre.toFixed(1)}</div></div></div>
+        </div>`;
+      });
+      html += `</div><div class="alert alert-info" style="margin-top:16px;">사후 설문이 아직 완료되지 않았습니다. <a href="post-survey.html?id=${coacheeId}">사후 설문 하러 가기</a></div></div>`;
+    }
+
+    // Goal agreement
+    if (goal) {
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">🎯</span><h2 style="font-size:18px;font-weight:700;">코칭 목표</h2></div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div style="display:flex;gap:12px;"><span style="width:80px;color:var(--text-muted);font-size:13px;">주제</span><span style="font-size:14px;">${goal.topic}</span></div>
+          <div style="display:flex;gap:12px;"><span style="width:80px;color:var(--text-muted);font-size:13px;">목표</span><span style="font-size:14px;">${goal.desiredOutcome}</span></div>
+          <div style="display:flex;gap:12px;"><span style="width:80px;color:var(--text-muted);font-size:13px;">점수</span><span style="font-size:14px;"><strong>${goal.currentScore}점</strong> → 목표 <strong>${goal.targetScore}점</strong></span></div>
+        </div>
+      </div>`;
+    }
+
+    // Sessions
+    if (sessions.length > 0) {
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">📝</span><h2 style="font-size:18px;font-weight:700;">회기별 요약</h2></div>
+        <div class="session-summary">`;
+      sessions.forEach(sess => {
+        const refl = reflections.find(r => r.sessionId === sess.id);
+        html += `<div class="sess-card">
+          <div class="sess-num">${sess.sessionNumber}회기 · ${fmtDate(sess.sessionDate)}</div>
+          <div class="sess-topic">${sess.sessionGoal || sess.wrapUp || '-'}</div>
+          ${refl ? `<div class="sess-score">목표: ${refl.targetScore || '-'} / 현재: ${refl.currentScore || '-'}</div>` : ''}
+        </div>`;
+      });
+      html += `</div>`;
+
+      // Key actions from last session
+      const lastSess = sessions[sessions.length - 1];
+      if (lastSess?.nextAction || lastSess?.outcome) {
+        html += `<hr class="divider"/>
+          <div class="card-title" style="font-size:15px;margin-bottom:12px;">주요 실행 행동</div>
+          <div class="action-tags">`;
+        if (lastSess.nextAction) html += `<span class="action-tag tag-new">✓ ${lastSess.nextAction}</span>`;
+        html += `</div>`;
+      }
+      html += `</div>`;
+    }
+
+    // Satisfaction
+    if (hasPost && postSurvey.extraAnswers) {
+      const ex = postSurvey.extraAnswers;
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">⭐</span><h2 style="font-size:18px;font-weight:700;">코칭 만족도</h2></div>
+        <div class="extra-grid">
+          ${POST_EXTRA.map(q => `<div class="extra-item">
+            <div class="extra-val">${ex[q.id] || '-'}</div>
+            <div class="star-row">${stars(ex[q.id] || 0)}</div>
+            <div class="extra-label">${q.text}</div>
+          </div>`).join('')}
+        </div>`;
+      if (postSurvey.bestPart) html += `<hr class="divider"/><div class="form-group" style="margin-bottom:12px;"><div class="form-label" style="margin-bottom:6px;">가장 도움이 된 점</div><div style="font-size:14px;color:var(--text);padding:12px 14px;background:var(--bg);border-radius:10px;">${postSurvey.bestPart}</div></div>`;
+      if (postSurvey.regret) html += `<div class="form-group"><div class="form-label" style="margin-bottom:6px;">아쉬웠던 점</div><div style="font-size:14px;color:var(--text);padding:12px 14px;background:var(--bg);border-radius:10px;">${postSurvey.regret}</div></div>`;
+      html += `</div>`;
+    }
+
+    // Reflections highlight
+    if (reflections.length > 0) {
+      html += `<div class="card section">
+        <div class="section-header"><span class="section-icon">💬</span><h2 style="font-size:18px;font-weight:700;">피코치 성찰 하이라이트</h2></div>`;
+      reflections.forEach(r => {
+        if (r.learned || r.felt) {
+          html += `<div style="padding:14px;background:var(--bg);border-radius:12px;margin-bottom:10px;">
+            <div style="font-size:12px;font-weight:700;color:var(--primary);margin-bottom:6px;">${r.sessionId?.split('_').pop()}회기</div>
+            ${r.learned ? `<div style="font-size:13px;margin-bottom:4px;"><strong>배운 점:</strong> ${r.learned}</div>` : ''}
+            ${r.felt ? `<div style="font-size:13px;color:var(--text-muted);">${r.felt}</div>` : ''}
+          </div>`;
+        }
+      });
+      html += `</div>`;
+    }
+
+    // Disclaimer
+    html += `<div class="alert alert-warn" style="font-size:13px;line-height:1.8;">
+      본 결과보고서는 ADHD 코칭 프로그램 참여 과정에서 작성된 자기보고식 설문과 회기별 기록을 바탕으로 생성된 참고 자료입니다. 의학적 진단이나 치료 효과를 보장하는 문서가 아닙니다.
+    </div>`;
+
+    if (!hasPost) {
+      html += `<div style="text-align:center;margin-top:24px;">
+        <a href="post-survey.html?id=${coacheeId}" class="btn btn-primary btn-lg">사후 설문 작성하기 →</a>
+      </div>`;
+    }
+
+    document.getElementById('reportBody').innerHTML = html;
+  }
+
+  render();
+</script>
+</body>
+</html>

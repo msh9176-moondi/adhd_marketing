@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코칭 신청 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="apply.html" class="active">신청</a>
+      <a href="coaches.html">코치</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>코칭 신청하기</h1>
+  <p>4주 1:1 ADHD 코칭 파일럿 프로그램 신청서</p>
+</div>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot active">1</div><div class="step-label">신청서</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">2</div><div class="step-label">사전설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">3</div><div class="step-label">코치선택</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">4</div><div class="step-label">목표합의</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">5</div><div class="step-label">코칭</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">6</div><div class="step-label">사후설문</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">7</div><div class="step-label">보고서</div></div>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+    <div class="alert alert-info">
+      <strong>📋 안내사항</strong><br/>
+      이 서비스는 ADHD 진단이나 치료를 제공하지 않습니다. 집중, 루틴, 실행력 회복을 돕는 코칭 보조 서비스입니다.
+    </div>
+
+    <div id="riskAlert" class="alert alert-warn" style="display:none;">
+      <strong>⚠️ 안내드립니다</strong><br/>
+      응답 내용에 따라 코칭보다 전문 의료기관 또는 위기 상담기관의 도움을 먼저 받으시는 것을 권장드립니다.<br/>
+      위기 상담 전화: <strong>1393</strong> (자살예방상담전화) / <strong>1577-0199</strong> (정신건강위기상담전화)
+    </div>
+
+    <form id="applyForm">
+      <!-- 기본 정보 -->
+      <div class="card">
+        <div class="card-title">기본 정보</div>
+        <div class="card-subtitle">비밀이 보장됩니다. 닉네임을 사용하셔도 괜찮아요.</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">이름 또는 닉네임 <span style="color:var(--warn)">*</span></label>
+            <input type="text" class="form-input" id="name" placeholder="예: 지원, 주의산만고양이" required/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">연락처 <span style="color:var(--warn)">*</span></label>
+            <input type="tel" class="form-input" id="phone" placeholder="010-0000-0000" required/>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">이메일</label>
+          <input type="email" class="form-input" id="email" placeholder="선택사항, 결과보고서 전송용"/>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">참여 가능 시간 <span style="color:var(--warn)">*</span></label>
+          <div class="check-grid" id="availableTimes">
+            <label class="check-item"><input type="checkbox" value="평일 낮"/><label>평일 낮 (오전~오후)</label></label>
+            <label class="check-item"><input type="checkbox" value="평일 저녁"/><label>평일 저녁 (6pm~10pm)</label></label>
+            <label class="check-item"><input type="checkbox" value="주말 오전"/><label>주말 오전 (10am~1pm)</label></label>
+            <label class="check-item"><input type="checkbox" value="주말 오후"/><label>주말 오후 (2pm~6pm)</label></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ADHD 현황 -->
+      <div class="card">
+        <div class="card-title">ADHD 현황</div>
+        <div class="card-subtitle">진단 여부와 상관없이 신청하실 수 있어요.</div>
+
+        <div class="form-group">
+          <label class="form-label">ADHD 진단 여부 <span style="color:var(--warn)">*</span></label>
+          <div class="radio-group" id="adhdStatus">
+            <label class="radio-item"><input type="radio" name="adhdStatus" value="진단받음"/><span>진단받았습니다</span></label>
+            <label class="radio-item"><input type="radio" name="adhdStatus" value="의심됨"/><span>진단은 없지만 의심됩니다</span></label>
+            <label class="radio-item"><input type="radio" name="adhdStatus" value="진단은 없지만 실행 어려움이 있음"/><span>진단은 없지만 실행 어려움이 있습니다</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">현재 가장 큰 어려움 (복수 선택)</label>
+          <div class="check-grid" id="difficulties">
+            <label class="check-item"><input type="checkbox" value="실행 시작"/><label>일을 시작하기 어려워요</label></label>
+            <label class="check-item"><input type="checkbox" value="시간관리"/><label>시간 관리가 안 돼요</label></label>
+            <label class="check-item"><input type="checkbox" value="루틴 유지"/><label>루틴을 유지하기 어려워요</label></label>
+            <label class="check-item"><input type="checkbox" value="감정 조절"/><label>감정 조절이 힘들어요</label></label>
+            <label class="check-item"><input type="checkbox" value="커리어 방향"/><label>커리어 방향을 모르겠어요</label></label>
+            <label class="check-item"><input type="checkbox" value="미루기"/><label>미루기가 너무 심해요</label></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">코칭에서 다루고 싶은 주제 (복수 선택)</label>
+          <div class="check-grid" id="topics">
+            <label class="check-item"><input type="checkbox" value="실행력"/><label>실행력 회복</label></label>
+            <label class="check-item"><input type="checkbox" value="루틴"/><label>루틴 형성</label></label>
+            <label class="check-item"><input type="checkbox" value="시간관리"/><label>시간 관리</label></label>
+            <label class="check-item"><input type="checkbox" value="감정 조절"/><label>감정 조절</label></label>
+            <label class="check-item"><input type="checkbox" value="커리어"/><label>커리어 방향</label></label>
+            <label class="check-item"><input type="checkbox" value="자기효능감"/><label>자기효능감 회복</label></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 위험군 체크 -->
+      <div class="card" style="border-color:#FECACA;">
+        <div class="card-title" style="color:var(--warn);">안전 확인 문항</div>
+        <div class="card-subtitle">솔직하게 답해주세요. 아래 응답은 비밀이 보장되며, 적절한 안내를 드리기 위해 사용됩니다.</div>
+
+        <div class="form-group">
+          <label class="form-label">최근 2주간 자해나 자살에 대한 생각이 있었나요?</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="risk1" value="no"/><span>아니요</span></label>
+            <label class="radio-item"><input type="radio" name="risk1" value="yes"/><span>가끔 스쳐갑니다</span></label>
+            <label class="radio-item"><input type="radio" name="risk1" value="yes_strong"/><span>자주, 또는 강하게 있었습니다</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">일상생활이 심각하게 무너졌다고 느끼나요?</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="risk2" value="no"/><span>아니요, 어느 정도 유지하고 있어요</span></label>
+            <label class="radio-item"><input type="radio" name="risk2" value="partial"/><span>부분적으로 무너지고 있어요</span></label>
+            <label class="radio-item"><input type="radio" name="risk2" value="yes"/><span>네, 많이 무너져 있습니다</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">현재 전문적인 치료가 필요하다고 느끼나요?</label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="risk3" value="no"/><span>아니요</span></label>
+            <label class="radio-item"><input type="radio" name="risk3" value="maybe"/><span>잘 모르겠어요</span></label>
+            <label class="radio-item"><input type="radio" name="risk3" value="yes"/><span>그럴 것 같아요</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- 동의 -->
+      <div class="card">
+        <div class="card-title">동의 확인</div>
+        <div style="display:flex;flex-direction:column;gap:12px;">
+          <label class="check-item" id="consent1Check">
+            <input type="checkbox" id="consentPrivacy"/>
+            <label>개인정보 수집 및 이용에 동의합니다. (코칭 운영 목적으로만 사용)</label>
+          </label>
+          <label class="check-item" id="consent2Check">
+            <input type="checkbox" id="consentNonMedical"/>
+            <label>이 코칭은 의료 진단이나 치료를 대체하지 않음을 확인합니다.</label>
+          </label>
+        </div>
+      </div>
+
+      <div style="margin-top:24px;">
+        <button type="submit" class="btn btn-primary btn-full btn-lg">신청서 제출하고 사전 설문 시작하기 →</button>
+      </div>
+    </form>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 이 서비스는 의료행위가 아닌 코칭/생활관리 보조 서비스입니다.</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  // 체크박스 선택 스타일
+  document.querySelectorAll('.check-item input[type=checkbox]').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.check-item').classList.toggle('checked', cb.checked);
+    });
+  });
+  document.querySelectorAll('.radio-item input[type=radio]').forEach(rb => {
+    rb.addEventListener('change', () => {
+      const name = rb.name;
+      document.querySelectorAll(`input[name="${name}"]`).forEach(r => {
+        r.closest('.radio-item').classList.toggle('selected', r.checked);
+      });
+      checkRisk();
+    });
+  });
+
+  function checkRisk() {
+    const r1 = document.querySelector('input[name=risk1]:checked')?.value;
+    const r2 = document.querySelector('input[name=risk2]:checked')?.value;
+    const r3 = document.querySelector('input[name=risk3]:checked')?.value;
+    const isRisk = r1 === 'yes' || r1 === 'yes_strong' || r2 === 'yes' || r3 === 'yes';
+    document.getElementById('riskAlert').style.display = isRisk ? 'block' : 'none';
+  }
+
+  document.getElementById('applyForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    if (!name || !phone) { alert('이름과 연락처를 입력해주세요.'); return; }
+
+    const adhdStatus = document.querySelector('input[name=adhdStatus]:checked')?.value;
+    if (!adhdStatus) { alert('ADHD 진단 여부를 선택해주세요.'); return; }
+
+    if (!document.getElementById('consentPrivacy').checked || !document.getElementById('consentNonMedical').checked) {
+      alert('동의 항목을 모두 체크해주세요.'); return;
+    }
+
+    const r1 = document.querySelector('input[name=risk1]:checked')?.value || 'no';
+    const r2 = document.querySelector('input[name=risk2]:checked')?.value || 'no';
+    const r3 = document.querySelector('input[name=risk3]:checked')?.value || 'no';
+    const riskFlag = r1 === 'yes' || r1 === 'yes_strong' || r2 === 'yes' || r3 === 'yes';
+
+    const difficulties = [...document.querySelectorAll('#difficulties input:checked')].map(c => c.value);
+    const topics = [...document.querySelectorAll('#topics input:checked')].map(c => c.value);
+    const availableTimes = [...document.querySelectorAll('#availableTimes input:checked')].map(c => c.value);
+
+    const coachee = {
+      id: genId(), name, phone, email: document.getElementById('email').value,
+      adhdStatus, difficulties, topics, availableTimes,
+      riskFlag, riskAnswers: { r1, r2, r3 },
+      consentPrivacy: true, consentNonMedical: true,
+      status: 'applied', createdAt: new Date().toISOString()
+    };
+
+    DB.addItem('coachees', coachee);
+    localStorage.setItem('currentCoacheeId', coachee.id);
+    window.location.href = `welcome.html?id=${coachee.id}`;
+  });
+</script>
+</body>
+</html>

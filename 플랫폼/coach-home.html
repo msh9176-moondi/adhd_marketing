@@ -1,0 +1,379 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코치 대시보드 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .coach-select-screen {
+      min-height: 80vh; display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+    }
+    .coach-select-card {
+      background: var(--card); border-radius: 20px; padding: 40px 32px;
+      max-width: 480px; width: 100%; border: 1px solid var(--border); text-align: center;
+    }
+    .coach-select-card h2 { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .coach-select-card p { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .coach-pick-grid { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+    .coach-pick-item {
+      display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+      border: 2px solid var(--border); border-radius: 12px; cursor: pointer;
+      transition: all .2s; text-align: left;
+    }
+    .coach-pick-item:hover { border-color: var(--primary); background: var(--primary-light); }
+    .coach-pick-item.selected { border-color: var(--primary); background: var(--primary-light); }
+    .coach-pick-avatar { font-size: 32px; flex-shrink: 0; }
+    .coach-pick-info { flex: 1; }
+    .coach-pick-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .coach-pick-spec { font-size: 13px; color: var(--text-muted); }
+
+    .dashboard { padding: 32px 0 80px; }
+    .greeting { margin-bottom: 28px; }
+    .greeting h2 { font-size: 22px; font-weight: 900; margin-bottom: 4px; }
+    .greeting p { font-size: 14px; color: var(--text-muted); }
+
+    .coachee-card {
+      background: var(--card); border-radius: 16px; border: 1px solid var(--border);
+      overflow: hidden; margin-bottom: 16px; transition: box-shadow .2s;
+    }
+    .coachee-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.08); }
+    .coachee-card-head {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px; cursor: pointer;
+    }
+    .coachee-head-left { display: flex; align-items: center; gap: 14px; }
+    .coachee-avatar {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--primary-light);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 700; color: var(--primary); flex-shrink: 0;
+    }
+    .coachee-name { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
+    .coachee-meta { font-size: 13px; color: var(--text-muted); }
+    .coachee-card-body { padding: 0 22px 20px; display: none; }
+    .coachee-card-body.open { display: block; }
+    .chevron { font-size: 18px; color: var(--text-light); transition: transform .2s; }
+    .chevron.open { transform: rotate(180deg); }
+
+    .session-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 0; border-bottom: 1px solid var(--border);
+    }
+    .session-row:last-child { border-bottom: none; }
+    .session-row-left { display: flex; align-items: center; gap: 10px; }
+    .session-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex-shrink: 0;
+    }
+    .session-dot.done { background: var(--accent); }
+    .session-dot.active { background: var(--primary); }
+    .session-num { font-size: 14px; font-weight: 600; }
+    .session-date { font-size: 12px; color: var(--text-muted); }
+    .session-row-right { display: flex; gap: 8px; }
+
+    .info-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
+
+    .empty-state {
+      text-align: center; padding: 60px 20px; color: var(--text-muted);
+    }
+    .empty-state-icon { font-size: 48px; margin-bottom: 16px; }
+    .empty-state p { font-size: 15px; line-height: 1.8; }
+
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 24px; }
+    .mini-stat { background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--border); text-align: center; }
+    .mini-stat-num { font-size: 24px; font-weight: 900; color: var(--primary); }
+    .mini-stat-label { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+
+    .goal-box { background: var(--bg); border-radius: 12px; padding: 14px; margin-bottom: 14px; }
+    .goal-box-label { font-size: 12px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+    .goal-box-val { font-size: 13px; color: var(--text); line-height: 1.6; }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coach-home.html" class="active">코치 홈</a>
+      <a href="apply.html">피코치 신청</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<!-- 코치 선택 화면 -->
+<div id="selectScreen" class="coach-select-screen">
+  <div class="coach-select-card">
+    <div style="font-size:48px;margin-bottom:16px;">👩‍💼</div>
+    <h2>코치로 입장하기</h2>
+    <p>본인의 코치 프로필을 선택해주세요.</p>
+    <div class="coach-pick-grid" id="coachPickGrid"></div>
+    <button class="btn btn-primary btn-full" id="enterBtn" disabled onclick="enterDashboard()">
+      대시보드로 입장하기
+    </button>
+  </div>
+</div>
+
+<!-- 대시보드 화면 -->
+<div id="dashboardScreen" style="display:none;">
+  <div class="page-header">
+    <h1 id="dashTitle">코치 대시보드</h1>
+    <p id="dashSubtitle">담당 피코치 현황을 확인하고 세션 일지를 작성하세요.</p>
+  </div>
+
+  <main class="dashboard">
+    <div class="container">
+      <div class="greeting">
+        <h2 id="greetingName"></h2>
+        <p id="greetingSpec"></p>
+      </div>
+
+      <div class="stat-row" id="statRow"></div>
+
+      <div id="coacheesArea"></div>
+
+      <div style="margin-top:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
+        <button class="btn btn-accent btn-sm" id="syncBtn" onclick="syncData()">⬇ Sheets에서 최신 데이터 불러오기</button>
+        <button class="btn btn-outline btn-sm" onclick="logout()">다른 코치로 전환</button>
+      </div>
+    </div>
+  </main>
+</div>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 코치 전용 페이지</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  let myCoachId = null;
+
+  // 코치 선택 렌더
+  function renderCoachPicker() {
+    const grid = document.getElementById('coachPickGrid');
+    COACHES.forEach(coach => {
+      const item = document.createElement('div');
+      item.className = 'coach-pick-item';
+      item.dataset.id = coach.id;
+      item.innerHTML = `
+        <div class="coach-pick-avatar">${coach.avatar}</div>
+        <div class="coach-pick-info">
+          <div class="coach-pick-name">${coach.name}</div>
+          <div class="coach-pick-spec">${coach.specialties.join(' · ')} · ${coach.coachingMethods.join('/')}</div>
+        </div>
+      `;
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.coach-pick-item').forEach(i => i.classList.remove('selected'));
+        item.classList.add('selected');
+        myCoachId = coach.id;
+        document.getElementById('enterBtn').disabled = false;
+      });
+      grid.appendChild(item);
+    });
+  }
+
+  async function enterDashboard() {
+    if (!myCoachId) return;
+    document.getElementById('selectScreen').style.display = 'none';
+    document.getElementById('dashboardScreen').style.display = 'block';
+
+    // Sheets에서 최신 데이터 자동 로드
+    if (API.configured()) {
+      document.getElementById('syncBtn').textContent = '⏳ 최신 데이터 불러오는 중...';
+      document.getElementById('syncBtn').disabled = true;
+      await API.pullAll();
+      document.getElementById('syncBtn').textContent = '⬇ Sheets에서 최신 데이터 불러오기';
+      document.getElementById('syncBtn').disabled = false;
+    }
+
+    renderDashboard();
+  }
+
+  function logout() {
+    myCoachId = null;
+    document.getElementById('selectScreen').style.display = 'flex';
+    document.getElementById('dashboardScreen').style.display = 'none';
+    document.querySelectorAll('.coach-pick-item').forEach(i => i.classList.remove('selected'));
+    document.getElementById('enterBtn').disabled = true;
+  }
+
+  function renderDashboard() {
+    const coach = getCoach(myCoachId);
+    const matchings = DB.get('matchings').filter(m => m.coachId === myCoachId);
+    const coachees = matchings.map(m => DB.getItem('coachees', m.coacheeId)).filter(Boolean);
+    const allSessions = DB.get('sessions').filter(s => s.coachId === myCoachId);
+    const completedSessions = allSessions.filter(s => s.completed);
+
+    // 헤더
+    document.getElementById('greetingName').textContent = `안녕하세요, ${coach.name} 코치님 👋`;
+    document.getElementById('greetingSpec').textContent = `전문분야: ${coach.specialties.join(', ')} · ${coach.availableTimes}`;
+
+    // 통계
+    const activeCount = coachees.filter(c => c.status !== 'completed').length;
+    const doneCount = coachees.filter(c => c.status === 'completed').length;
+    document.getElementById('statRow').innerHTML = `
+      <div class="mini-stat"><div class="mini-stat-num">${coachees.length}</div><div class="mini-stat-label">담당 피코치</div></div>
+      <div class="mini-stat"><div class="mini-stat-num" style="color:var(--accent);">${activeCount}</div><div class="mini-stat-label">코칭 진행 중</div></div>
+      <div class="mini-stat"><div class="mini-stat-num" style="color:var(--success);">${doneCount}</div><div class="mini-stat-label">코칭 완료</div></div>
+    `;
+
+    const area = document.getElementById('coacheesArea');
+
+    if (coachees.length === 0) {
+      area.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-state-icon">🙋</div>
+          <p>아직 배정된 피코치가 없습니다.<br/>관리자가 매칭을 완료하면 여기서 확인할 수 있어요.</p>
+          <a href="admin.html" class="btn btn-outline" style="margin-top:20px;">관리자 페이지에서 데모 데이터 생성</a>
+        </div>`;
+      return;
+    }
+
+    area.innerHTML = '';
+    coachees.forEach(coachee => {
+      const sessions = DB.get('sessions').filter(s => s.coacheeId === coachee.id).sort((a,b) => a.sessionNumber - b.sessionNumber);
+      const reflections = DB.get('reflections').filter(r => r.coacheeId === coachee.id);
+      const goal = DB.get('goalAgreements').find(g => g.coacheeId === coachee.id);
+      const preSurvey = DB.get('surveys').find(s => s.coacheeId === coachee.id && s.type === 'pre');
+      const onboarding = DB.get('onboardings').find(o => o.coacheeId === coachee.id);
+      const completedCount = sessions.filter(s => s.completed).length;
+      const nextSession = [1,2,3,4].find(n => !sessions.find(s => s.sessionNumber === n && s.completed));
+
+      const card = document.createElement('div');
+      card.className = 'coachee-card';
+      card.innerHTML = `
+        <div class="coachee-card-head" onclick="toggleCard('cc-${coachee.id}', this)">
+          <div class="coachee-head-left">
+            <div class="coachee-avatar">${coachee.name[0]}</div>
+            <div>
+              <div class="coachee-name">${coachee.name}</div>
+              <div class="coachee-meta">${coachee.adhdStatus} · ${completedCount}/4회기 완료</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            ${nextSession ? `<span class="badge badge-primary">${nextSession}회기 작성 필요</span>` : '<span class="badge badge-success">전체 완료</span>'}
+            <span class="chevron" id="chev-cc-${coachee.id}">▼</span>
+          </div>
+        </div>
+        <div class="coachee-card-body" id="cc-${coachee.id}">
+
+          ${onboarding ? `
+          <div style="background:linear-gradient(135deg,#F0FDF4,#EFF6FF);border-radius:14px;padding:18px 20px;margin-bottom:16px;border:1px solid var(--border);">
+            <div style="font-size:13px;font-weight:700;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:6px;">
+              🙋 피코치가 작성한 소개
+            </div>
+            ${onboarding.selfIntro ? `
+            <div style="margin-bottom:12px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">자기소개</div>
+              <div style="font-size:14px;color:var(--text);line-height:1.7;background:white;padding:10px 14px;border-radius:10px;">${onboarding.selfIntro}</div>
+            </div>` : ''}
+            ${onboarding.expectations ? `
+            <div style="margin-bottom:12px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">이번 코칭에서 기대하는 것</div>
+              <div style="font-size:14px;color:var(--text);line-height:1.7;background:white;padding:10px 14px;border-radius:10px;">${onboarding.expectations}</div>
+            </div>` : ''}
+            ${onboarding.concerns ? `
+            <div style="margin-bottom:12px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:4px;">걱정되는 것</div>
+              <div style="font-size:14px;color:var(--text);line-height:1.7;background:white;padding:10px 14px;border-radius:10px;">${onboarding.concerns}</div>
+            </div>` : ''}
+            ${onboarding.preferredCommunication?.length ? `
+            <div style="margin-bottom:4px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">선호 소통 방식</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                ${onboarding.preferredCommunication.map(c => `<span class="badge badge-accent">${c}</span>`).join('')}
+              </div>
+            </div>` : ''}
+            ${onboarding.preferredMeetingTime?.length ? `
+            <div style="margin-top:10px;">
+              <div style="font-size:11px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">첫 미팅 희망 시간</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                ${onboarding.preferredMeetingTime.map(t => `<span class="badge badge-primary">${t}</span>`).join('')}
+              </div>
+            </div>` : ''}
+          </div>` : `
+          <div style="background:var(--warn-light);border-radius:12px;padding:14px 16px;margin-bottom:16px;font-size:13px;color:#991B1B;">
+            ⚠️ 피코치가 아직 "나를 소개합니다"를 작성하지 않았습니다.
+          </div>`}
+
+          ${goal ? `
+          <div class="goal-box">
+            <div class="goal-box-label">코칭 목표</div>
+            <div class="goal-box-val">${goal.topic} — ${goal.desiredOutcome}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+            <div class="goal-box"><div class="goal-box-label">현재 점수</div><div class="goal-box-val" style="font-weight:700;color:var(--primary);">${goal.currentScore}점</div></div>
+            <div class="goal-box"><div class="goal-box-label">목표 점수</div><div class="goal-box-val" style="font-weight:700;color:var(--accent);">${goal.targetScore}점</div></div>
+          </div>` : '<div class="alert alert-info" style="margin-bottom:14px;">목표 합의서가 아직 작성되지 않았습니다.</div>'}
+
+          ${preSurvey ? `
+          <div style="margin-bottom:14px;">
+            <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:8px;">사전 설문 점수</div>
+            <div style="display:flex;flex-wrap:wrap;gap:8px;">
+              ${Object.entries(preSurvey.categoryScores).filter(([k]) => k !== 'total').map(([, v]) =>
+                `<div style="background:var(--bg);border-radius:8px;padding:8px 12px;text-align:center;">
+                  <div style="font-size:11px;color:var(--text-muted);">${v.name}</div>
+                  <div style="font-size:16px;font-weight:700;color:var(--primary);">${v.average.toFixed(1)}</div>
+                </div>`
+              ).join('')}
+              <div style="background:var(--primary-light);border-radius:8px;padding:8px 12px;text-align:center;">
+                <div style="font-size:11px;color:var(--primary);">전체</div>
+                <div style="font-size:16px;font-weight:700;color:var(--primary);">${preSurvey.categoryScores.total.toFixed(1)}</div>
+              </div>
+            </div>
+          </div>` : ''}
+
+          <div style="font-size:13px;font-weight:600;color:var(--text-muted);margin-bottom:10px;">회기별 일지</div>
+          ${[1,2,3,4].map(n => {
+            const sess = sessions.find(s => s.sessionNumber === n);
+            const refl = reflections.find(r => r.sessionId === `sess_${coachee.id}_${n}`);
+            const isDone = sess?.completed;
+            return `<div class="session-row">
+              <div class="session-row-left">
+                <div class="session-dot ${isDone ? 'done' : (n === nextSession ? 'active' : '')}"></div>
+                <div>
+                  <div class="session-num">${n}회기 ${isDone ? '✓' : (n === nextSession ? '← 작성 필요' : '')}</div>
+                  <div class="session-date">${sess ? fmtDate(sess.sessionDate) : '미작성'} ${refl ? '· 피코치 성찰일지 ✓' : ''}</div>
+                </div>
+              </div>
+              <div class="session-row-right">
+                <a href="sessions.html?id=${coachee.id}" class="btn btn-sm ${isDone ? 'btn-outline' : 'btn-primary'}">${isDone ? '수정' : '작성하기'}</a>
+              </div>
+            </div>`;
+          }).join('')}
+
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+            <a href="goal-agreement.html?id=${coachee.id}" class="btn btn-outline btn-sm">목표합의서 보기</a>
+            <a href="report.html?id=${coachee.id}" class="btn btn-accent btn-sm">결과보고서 보기</a>
+          </div>
+        </div>
+      `;
+      area.appendChild(card);
+    });
+  }
+
+  function toggleCard(id, headEl) {
+    const body = document.getElementById(id);
+    const chev = document.getElementById('chev-' + id);
+    const isOpen = body.classList.toggle('open');
+    chev.classList.toggle('open', isOpen);
+  }
+
+  async function syncData() {
+    if (!API.configured()) {
+      alert('관리자 페이지에서 Sheets URL을 먼저 설정해주세요.');
+      return;
+    }
+    const btn = document.getElementById('syncBtn');
+    btn.textContent = '불러오는 중...';
+    btn.disabled = true;
+    await API.pullAll();
+    renderDashboard();
+    btn.textContent = '⬇ Sheets에서 최신 데이터 불러오기';
+    btn.disabled = false;
+  }
+
+  renderCoachPicker();
+</script>
+</body>
+</html>

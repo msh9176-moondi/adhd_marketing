@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>코치 소개 & 라포 형성 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .coach-profile-hero {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
+      color: white; padding: 48px 20px; text-align: center;
+    }
+    .coach-profile-avatar { font-size: 72px; margin-bottom: 16px; }
+    .coach-profile-name { font-size: 26px; font-weight: 900; margin-bottom: 6px; }
+    .coach-profile-tags { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 16px; }
+    .coach-profile-tag { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); color: white; font-size: 13px; font-weight: 600; padding: 4px 14px; border-radius: 20px; }
+    .coach-profile-quote { font-size: 15px; opacity: .85; line-height: 1.9; max-width: 480px; margin: 0 auto; font-style: italic; }
+    .coach-detail-card { background: var(--card); border-radius: 16px; border: 1px solid var(--border); padding: 24px; margin-bottom: 8px; }
+    .coach-detail-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .coach-detail-row:last-child { border-bottom: none; }
+    .coach-detail-key { width: 72px; font-size: 13px; color: var(--text-muted); font-weight: 600; flex-shrink: 0; }
+    .coach-detail-val { font-size: 14px; }
+    .intro-section { background: linear-gradient(135deg, #F0FDF4 0%, #EFF6FF 100%); border-radius: 16px; padding: 24px; border: 1px solid var(--border); margin-bottom: 16px; }
+    .intro-section h3 { font-size: 17px; font-weight: 700; margin-bottom: 4px; }
+    .intro-section p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    .comm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .comm-item { display: flex; align-items: flex-start; gap: 8px; padding: 12px; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all .2s; }
+    .comm-item:hover { border-color: var(--accent); background: var(--accent-light); }
+    .comm-item.selected { border-color: var(--accent); background: var(--accent-light); }
+    .comm-item input { accent-color: var(--accent); margin-top: 2px; flex-shrink: 0; }
+    .comm-item label { font-size: 13px; cursor: pointer; line-height: 1.5; }
+    @media (max-width: 480px) { .comm-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">FLOCA <span>코칭</span></a>
+    <div class="nav-links">
+      <a href="coachee-home.html" id="myPageLink">내 대시보드</a>
+      <a href="admin.html" class="nav-admin">관리자</a>
+    </div>
+  </div>
+</nav>
+
+<div class="steps">
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">신청서</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">사전설문</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot done">✓</div><div class="step-label">코치선택</div></div>
+  <div class="step-line done"></div>
+  <div class="step-col"><div class="step-dot active">4</div><div class="step-label">라포형성</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">5</div><div class="step-label">서약</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">6</div><div class="step-label">목표합의</div></div>
+  <div class="step-line"></div>
+  <div class="step-col"><div class="step-dot">7</div><div class="step-label">코칭</div></div>
+</div>
+
+<!-- 코치 프로필 히어로 -->
+<div class="coach-profile-hero" id="coachHero">
+  <div class="coach-profile-avatar" id="coachAvatar">👩‍💼</div>
+  <div class="coach-profile-name" id="coachName">코치님을 소개합니다</div>
+  <div class="coach-profile-tags" id="coachTags"></div>
+  <p class="coach-profile-quote" id="coachQuote">배정된 코치 정보를 불러오는 중...</p>
+</div>
+
+<main class="main">
+  <div class="container-sm">
+
+    <!-- 코치 상세 -->
+    <div class="coach-detail-card" style="margin-bottom:24px;">
+      <div class="card-title" style="margin-bottom:14px;">코치 상세 정보</div>
+      <div id="coachDetailRows"></div>
+    </div>
+
+    <!-- 나를 소개합니다 -->
+    <div class="intro-section">
+      <h3>🙋 나를 소개합니다</h3>
+      <p>코치님이 첫 세션 전에 읽어볼 거예요. 솔직하게 편하게 적어주세요.</p>
+
+      <form id="onboardingForm">
+        <div class="form-group">
+          <label class="form-label">코치님께 전달하고 싶은 자기소개</label>
+          <textarea class="form-textarea" id="selfIntro" placeholder="예: 저는 디자이너인데 아이디어는 많은데 실행이 항상 막혀요. 완벽해야 시작하는 스타일이라 작은 것부터 시작하는 게 정말 힘들어요." style="min-height:120px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">이번 코칭에서 가장 기대하는 것</label>
+          <textarea class="form-textarea" id="expectations" placeholder="예: 아침 루틴을 딱 하나라도 꾸준히 유지하고 싶어요. 매일 실패해서 자책하는 걸 줄이고 싶어요."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">코칭에서 걱정되거나 어려울 것 같은 것</label>
+          <textarea class="form-textarea" id="concerns" placeholder="예: 과제를 못 했을 때 코치님께 실망을 드릴 것 같아서 걱정돼요. 또 가끔 약속을 잊어버릴 수도 있어요."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">나에게 맞는 소통 방식</label>
+          <div class="comm-grid" id="commGrid">
+            <label class="comm-item">
+              <input type="checkbox" value="빠른 피드백 선호"/>
+              <label>💬 답변이 빠를수록 좋아요</label>
+            </label>
+            <label class="comm-item">
+              <input type="checkbox" value="생각할 시간 필요"/>
+              <label>🤔 생각할 시간을 주세요</label>
+            </label>
+            <label class="comm-item">
+              <input type="checkbox" value="구체적 지시 선호"/>
+              <label>📋 구체적으로 알려주세요</label>
+            </label>
+            <label class="comm-item">
+              <input type="checkbox" value="자율성 선호"/>
+              <label>🕊️ 스스로 결정하게 해주세요</label>
+            </label>
+            <label class="comm-item">
+              <input type="checkbox" value="칭찬에 동기부여"/>
+              <label>🌟 칭찬에 힘이 나요</label>
+            </label>
+            <label class="comm-item">
+              <input type="checkbox" value="솔직한 피드백 선호"/>
+              <label>💪 솔직한 피드백이 좋아요</label>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">첫 미팅 희망 시간대 (복수 선택)</label>
+          <div class="check-grid" id="meetingTime">
+            <label class="check-item"><input type="checkbox" value="평일 낮"/><label>평일 낮 (오전~오후)</label></label>
+            <label class="check-item"><input type="checkbox" value="평일 저녁"/><label>평일 저녁 (6~10pm)</label></label>
+            <label class="check-item"><input type="checkbox" value="주말 오전"/><label>주말 오전 (10am~1pm)</label></label>
+            <label class="check-item"><input type="checkbox" value="주말 오후"/><label>주말 오후 (2~6pm)</label></label>
+          </div>
+        </div>
+
+        <div style="margin-top:24px;">
+          <button type="submit" class="btn btn-primary btn-full btn-lg">저장하고 서약서 작성하기 →</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>FLOCA 코칭 플랫폼 · 코치님이 첫 세션 전에 꼭 읽어봅니다 🙏</p>
+</footer>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  document.getElementById('myPageLink').href = `coachee-home.html?id=${coacheeId}`;
+
+  function init() {
+    const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const coach = matching ? getCoach(matching.coachId) : null;
+
+    if (coach) {
+      document.getElementById('coachAvatar').textContent = coach.avatar;
+      document.getElementById('coachName').textContent = coach.name + ' 코치';
+      document.getElementById('coachQuote').textContent = coach.detail;
+
+      const tags = document.getElementById('coachTags');
+      coach.specialties.forEach(s => {
+        const span = document.createElement('span');
+        span.className = 'coach-profile-tag';
+        span.textContent = s;
+        tags.appendChild(span);
+      });
+      coach.coachingMethods.forEach(m => {
+        const span = document.createElement('span');
+        span.className = 'coach-profile-tag';
+        span.textContent = m;
+        tags.appendChild(span);
+      });
+
+      document.getElementById('coachDetailRows').innerHTML = `
+        <div class="coach-detail-row"><div class="coach-detail-key">전문분야</div><div class="coach-detail-val">${coach.specialties.join(' · ')}</div></div>
+        <div class="coach-detail-row"><div class="coach-detail-key">코칭방식</div><div class="coach-detail-val">${coach.coachingMethods.join(', ')}</div></div>
+        <div class="coach-detail-row"><div class="coach-detail-key">가능시간</div><div class="coach-detail-val">${coach.availableTimes}</div></div>
+        <div class="coach-detail-row"><div class="coach-detail-key">한줄소개</div><div class="coach-detail-val">${coach.bio}</div></div>
+      `;
+    }
+
+    // 기존 데이터 불러오기
+    const existing = DB.get('onboardings')?.find(o => o.coacheeId === coacheeId);
+    if (existing) {
+      if (existing.selfIntro) document.getElementById('selfIntro').value = existing.selfIntro;
+      if (existing.expectations) document.getElementById('expectations').value = existing.expectations;
+      if (existing.concerns) document.getElementById('concerns').value = existing.concerns;
+    }
+  }
+
+  // 체크박스 스타일
+  document.querySelectorAll('.comm-item input, .check-item input').forEach(cb => {
+    cb.addEventListener('change', () => {
+      cb.closest('.comm-item, .check-item').classList.toggle('selected', cb.checked);
+      cb.closest('.comm-item, .check-item').classList.toggle('checked', cb.checked);
+    });
+  });
+
+  document.getElementById('onboardingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const commStyle = [...document.querySelectorAll('#commGrid input:checked')].map(c => c.value);
+    const meetingTimes = [...document.querySelectorAll('#meetingTime input:checked')].map(c => c.value);
+
+    const onboarding = {
+      id: 'onboard_' + coacheeId,
+      coacheeId,
+      selfIntro: document.getElementById('selfIntro').value,
+      expectations: document.getElementById('expectations').value,
+      concerns: document.getElementById('concerns').value,
+      preferredCommunication: commStyle,
+      preferredMeetingTime: meetingTimes,
+      createdAt: new Date().toISOString()
+    };
+
+    DB.upsert('onboardings', onboarding);
+
+    window.location.href = `waiting.html?id=${coacheeId}`;
+  });
+
+  init();
+</script>
+</body>
+</html>

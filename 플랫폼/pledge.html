@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>참여 서약 | FLOCA 코칭 플랫폼</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    body { background: #0F172A; }
+
+    /* ===== 진행 바 ===== */
+    .pledge-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(15,23,42,.95); backdrop-filter: blur(10px);
+      padding: 16px 20px;
+    }
+    .pledge-nav-inner { max-width: 480px; margin: 0 auto; display: flex; align-items: center; gap: 14px; }
+    .pledge-back { color: rgba(255,255,255,.5); font-size: 20px; cursor: pointer; background: none; border: none; padding: 0; line-height: 1; flex-shrink: 0; }
+    .pledge-back:hover { color: white; }
+    .pledge-progress-wrap { flex: 1; }
+    .pledge-progress-track { height: 4px; background: rgba(255,255,255,.15); border-radius: 100px; overflow: hidden; }
+    .pledge-progress-fill { height: 100%; background: linear-gradient(90deg, #3B82C4, #14B8A6); border-radius: 100px; transition: width .4s ease; }
+    .pledge-step-label { color: rgba(255,255,255,.5); font-size: 12px; margin-top: 6px; }
+
+    /* ===== 카드 스테이지 ===== */
+    .pledge-stage {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 100px 24px 120px;
+    }
+    .pledge-slide {
+      display: none; flex-direction: column; align-items: center;
+      text-align: center; max-width: 440px; width: 100%;
+      animation: slideIn .35s ease;
+    }
+    .pledge-slide.active { display: flex; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 서약 카드 */
+    .pledge-big-icon { font-size: 72px; margin-bottom: 28px; line-height: 1; }
+    .pledge-big-title { font-size: 26px; font-weight: 900; color: white; margin-bottom: 16px; line-height: 1.3; }
+    .pledge-big-desc {
+      font-size: 17px; color: rgba(255,255,255,.7); line-height: 1.9;
+      margin-bottom: 48px; word-break: keep-all;
+    }
+    .pledge-big-desc strong { color: #5EEAD4; }
+
+    /* 코치 약속 카드 (배경 다름) */
+    .coach-promise-card {
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 20px; padding: 28px; text-align: left; width: 100%;
+      margin-bottom: 36px;
+    }
+    .coach-promise-card h3 { font-size: 14px; font-weight: 700; color: #5EEAD4; margin-bottom: 16px; letter-spacing: .5px; }
+    .coach-promise-item { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .coach-promise-item:last-child { border-bottom: none; }
+    .coach-promise-item .dot { color: #5EEAD4; flex-shrink: 0; font-size: 12px; margin-top: 3px; }
+    .coach-promise-item p { font-size: 14px; color: rgba(255,255,255,.75); line-height: 1.6; }
+
+    /* 서명 슬라이드 */
+    .sign-slide { max-width: 440px; width: 100%; }
+    .sign-slide h2 { font-size: 24px; font-weight: 900; color: white; margin-bottom: 8px; }
+    .sign-slide > p { font-size: 15px; color: rgba(255,255,255,.6); margin-bottom: 32px; line-height: 1.8; }
+    .sign-input {
+      width: 100%; padding: 20px; font-size: 22px; font-weight: 700;
+      text-align: center; background: rgba(255,255,255,.08);
+      border: 2px dashed rgba(255,255,255,.2); border-radius: 14px;
+      color: white; outline: none; font-family: inherit; margin-bottom: 14px;
+      transition: border-color .2s;
+    }
+    .sign-input:focus { border-color: #5EEAD4; border-style: solid; background: rgba(255,255,255,.12); }
+    .sign-input::placeholder { color: rgba(255,255,255,.3); font-weight: 400; font-size: 16px; }
+    .sign-date-line { font-size: 13px; color: rgba(255,255,255,.4); text-align: center; margin-bottom: 28px; }
+    .sign-checks { display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .sign-check-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 14px 16px; cursor: pointer; transition: all .2s;
+    }
+    .sign-check-item:hover { border-color: rgba(94,234,212,.4); background: rgba(94,234,212,.05); }
+    .sign-check-item.checked { border-color: rgba(94,234,212,.5); background: rgba(94,234,212,.08); }
+    .sign-check-item input { accent-color: #5EEAD4; width: 18px; height: 18px; flex-shrink: 0; margin-top: 1px; }
+    .sign-check-item label { font-size: 14px; color: rgba(255,255,255,.8); cursor: pointer; line-height: 1.5; }
+
+    /* 버튼 */
+    .yn-btns { display: flex; gap: 12px; width: 100%; }
+    .yn-btn {
+      flex: 1; padding: 18px; border-radius: 14px; border: 2px solid transparent;
+      font-size: 18px; font-weight: 700; cursor: pointer; font-family: inherit;
+      transition: all .2s;
+    }
+    .yn-btn.yes { background: #5EEAD4; color: #0F172A; }
+    .yn-btn.yes:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(94,234,212,.3); }
+    .yn-btn.no { background: rgba(255,255,255,.07); color: rgba(255,255,255,.6); border-color: rgba(255,255,255,.15); }
+    .yn-btn.no:hover { background: rgba(255,255,255,.13); color: white; border-color: rgba(255,255,255,.3); }
+    .no-msg {
+      margin-top: 16px; padding: 14px 18px; background: rgba(249,115,22,.1);
+      border: 1px solid rgba(249,115,22,.3); border-radius: 12px;
+      font-size: 14px; color: rgba(255,180,100,.9); line-height: 1.7;
+      text-align: center; display: none;
+    }
+    .pledge-next-btn {
+      width: 100%; padding: 18px; border-radius: 14px; border: none;
+      font-size: 17px; font-weight: 700; cursor: pointer; font-family: inherit;
+      background: #5EEAD4; color: #0F172A; transition: all .2s;
+    }
+    .pledge-next-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(94,234,212,.3); }
+    .pledge-next-btn:disabled { opacity: .35; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    /* 번호 점 */
+    .pledge-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 36px; }
+    .pledge-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.2); transition: all .3s; }
+    .pledge-dot.active { background: #5EEAD4; width: 24px; border-radius: 100px; }
+    .pledge-dot.done { background: rgba(94,234,212,.5); }
+  </style>
+</head>
+<body>
+
+<!-- 상단 진행 바 -->
+<div class="pledge-nav">
+  <div class="pledge-nav-inner">
+    <button class="pledge-back" id="backBtn" onclick="prevSlide()">←</button>
+    <div class="pledge-progress-wrap">
+      <div class="pledge-progress-track">
+        <div class="pledge-progress-fill" id="progressFill" style="width:0%"></div>
+      </div>
+      <div class="pledge-step-label" id="stepLabel">1 / 7</div>
+    </div>
+  </div>
+</div>
+
+<!-- 메인 스테이지 -->
+<div class="pledge-stage">
+
+  <!-- 점 네비 -->
+  <div class="pledge-dots" id="dots"></div>
+
+  <!-- 슬라이드 1 -->
+  <div class="pledge-slide active" id="slide-0">
+    <div class="pledge-big-icon">🙋</div>
+    <div class="pledge-big-title">성실히 참여합니다</div>
+    <div class="pledge-big-desc">
+      4주 코칭 프로그램에<br/>
+      <strong>빠짐없이 임하겠습니다.</strong><br/><br/>
+      부득이한 사정이 생기면<br/>코치님께 미리 알리겠습니다.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(0)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예</button>
+    </div>
+    <div class="no-msg" id="no-0">괜찮아요. 완벽하지 않아도 됩니다.<br/>최선을 다하겠다는 마음만으로도 충분해요. 다시 읽어보고 "예"를 눌러주세요.</div>
+  </div>
+
+  <!-- 슬라이드 2 -->
+  <div class="pledge-slide" id="slide-1">
+    <div class="pledge-big-icon">⏰</div>
+    <div class="pledge-big-title">시간을 지킵니다</div>
+    <div class="pledge-big-desc">
+      매 회기 약속 시간에<br/>
+      <strong>준비된 상태로 임하겠습니다.</strong><br/><br/>
+      가능하면 10분 전에<br/>미리 준비할게요.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(1)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예</button>
+    </div>
+    <div class="no-msg" id="no-1">ADHD 특성상 시간 감각이 어려울 수 있어요.<br/>알람을 미리 맞춰두는 것도 좋은 방법이에요. 가능한 범위에서 노력해봐요.</div>
+  </div>
+
+  <!-- 슬라이드 3 -->
+  <div class="pledge-slide" id="slide-2">
+    <div class="pledge-big-icon">🏃</div>
+    <div class="pledge-big-title">과제를 실행합니다</div>
+    <div class="pledge-big-desc">
+      회기별 실행 과제를<br/>
+      <strong>최선을 다해 시도하겠습니다.</strong><br/><br/>
+      완벽하지 않아도 괜찮아요.<br/>시도하는 것 자체가 중요합니다.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(2)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예</button>
+    </div>
+    <div class="no-msg" id="no-2">실행 못 하는 날이 생겨도 괜찮아요.<br/>그 자체도 코칭에서 함께 다룰 수 있거든요. 시도하겠다는 마음이면 충분합니다.</div>
+  </div>
+
+  <!-- 슬라이드 4 -->
+  <div class="pledge-slide" id="slide-3">
+    <div class="pledge-big-icon">💬</div>
+    <div class="pledge-big-title">솔직하게 소통합니다</div>
+    <div class="pledge-big-desc">
+      어렵거나 힘든 것도<br/>
+      <strong>숨기지 않고 나누겠습니다.</strong><br/><br/>
+      솔직한 대화가<br/>코칭을 더 효과적으로 만들어요.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(3)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예</button>
+    </div>
+    <div class="no-msg" id="no-3">처음에는 어색해도 괜찮아요.<br/>코치님은 판단하지 않아요. 조금씩 열어가는 것으로도 충분합니다.</div>
+  </div>
+
+  <!-- 슬라이드 5 -->
+  <div class="pledge-slide" id="slide-4">
+    <div class="pledge-big-icon">📝</div>
+    <div class="pledge-big-title">피드백을 남깁니다</div>
+    <div class="pledge-big-desc">
+      코칭 종료 후 사후 설문에<br/>
+      <strong>성실히 응답하겠습니다.</strong><br/><br/>
+      이 데이터는 코칭 효과 검증과<br/>서비스 개선에 소중하게 쓰입니다.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(4)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예</button>
+    </div>
+    <div class="no-msg" id="no-4">딱 5분이면 돼요. 나의 변화를 숫자로 확인할 수 있는 소중한 기록이 됩니다.</div>
+  </div>
+
+  <!-- 슬라이드 6 -->
+  <div class="pledge-slide" id="slide-5">
+    <div class="pledge-big-icon">🏥</div>
+    <div class="pledge-big-title">코칭의 범위를<br/>이해합니다</div>
+    <div class="pledge-big-desc">
+      이 코칭은<br/>
+      <strong>의료적 치료나 진단이 아닙니다.</strong><br/><br/>
+      실행력 회복과 루틴 형성을 돕는<br/>생활 관리 보조 서비스예요.
+    </div>
+    <div class="yn-btns">
+      <button class="yn-btn no" onclick="showNo(5)">아니오</button>
+      <button class="yn-btn yes" onclick="nextSlide()">예, 이해했습니다</button>
+    </div>
+    <div class="no-msg" id="no-5">궁금한 점이 있으시면 코치님께 언제든지 물어볼 수 있어요.<br/>코칭의 범위를 함께 확인하면서 시작해도 됩니다.</div>
+  </div>
+
+  <!-- 슬라이드 7 - 코치 약속 -->
+  <div class="pledge-slide" id="slide-6">
+    <div class="pledge-big-icon">🤝</div>
+    <div class="pledge-big-title">코치도<br/>약속합니다</div>
+    <div class="coach-promise-card">
+      <h3>코치 선서</h3>
+      <div class="coach-promise-item"><span class="dot">●</span><p>비밀 보장 — 코칭 내용은 외부에 절대 공유하지 않습니다.</p></div>
+      <div class="coach-promise-item"><span class="dot">●</span><p>판단 없는 경청 — 어떤 이야기도 평가하지 않고 듣겠습니다.</p></div>
+      <div class="coach-promise-item"><span class="dot">●</span><p>피코치 중심 — 코치의 방식이 아닌 피코치에게 맞는 방법을 함께 찾겠습니다.</p></div>
+      <div class="coach-promise-item"><span class="dot">●</span><p>비의료 원칙 준수 — 진단·치료·약물 조언은 하지 않겠습니다.</p></div>
+    </div>
+    <button class="pledge-next-btn" onclick="nextSlide()">서약서 작성하러 가기 →</button>
+  </div>
+
+  <!-- 슬라이드 8 - 서명 -->
+  <div class="pledge-slide sign-slide" id="slide-7">
+    <div class="pledge-big-icon">✍️</div>
+    <h2>나의 이름으로<br/>서약합니다</h2>
+    <p>아래에 이름을 입력하면<br/>서약이 확인됩니다.</p>
+    <input type="text" class="sign-input" id="signName" placeholder="이름 또는 닉네임" autocomplete="off" oninput="checkReady()"/>
+    <div class="sign-date-line">서약일: <strong id="signDate" style="color:rgba(255,255,255,.7);"></strong></div>
+    <div class="sign-checks">
+      <label class="sign-check-item" id="checkA">
+        <input type="checkbox" id="agree1" onchange="toggleCheck(this); checkReady()"/>
+        <label for="agree1">위 서약 내용을 모두 읽고 이해했습니다.</label>
+      </label>
+      <label class="sign-check-item" id="checkB">
+        <input type="checkbox" id="agree2" onchange="toggleCheck(this); checkReady()"/>
+        <label for="agree2">이 코칭이 의료행위가 아님을 확인합니다.</label>
+      </label>
+    </div>
+    <button class="pledge-next-btn" id="pledgeBtn" onclick="submitPledge()" disabled>
+      서약하고 코칭 시작하기 →
+    </button>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+<script>
+  const coacheeId = getParam('id');
+  if (!coacheeId) { window.location.href = 'apply.html'; }
+
+  document.getElementById('signDate').textContent = new Date().toLocaleDateString('ko-KR');
+  const coachee = DB.getItem('coachees', coacheeId);
+  if (coachee?.name) document.getElementById('signName').value = coachee.name;
+
+  const TOTAL = 8; // 슬라이드 총 개수 (0~7)
+  let current = 0;
+
+  // 점 생성
+  const dotsEl = document.getElementById('dots');
+  for (let i = 0; i < TOTAL - 1; i++) { // 서명 슬라이드 제외
+    const d = document.createElement('div');
+    d.className = 'pledge-dot' + (i === 0 ? ' active' : '');
+    d.id = `dot-${i}`;
+    dotsEl.appendChild(d);
+  }
+
+  function updateUI() {
+    // 슬라이드
+    document.querySelectorAll('.pledge-slide').forEach((s, i) => {
+      s.classList.toggle('active', i === current);
+    });
+    // 점
+    document.querySelectorAll('.pledge-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+      d.classList.toggle('done', i < current);
+    });
+    // 진행 바
+    const pct = (current / (TOTAL - 1)) * 100;
+    document.getElementById('progressFill').style.width = pct + '%';
+    document.getElementById('stepLabel').textContent =
+      current < TOTAL - 1 ? `${current + 1} / ${TOTAL - 1}` : '서약 확인';
+    // 뒤로 버튼
+    document.getElementById('backBtn').style.opacity = current === 0 ? '0' : '1';
+    document.getElementById('backBtn').style.pointerEvents = current === 0 ? 'none' : 'auto';
+    // 마지막 슬라이드(서명)에서 점 숨김
+    dotsEl.style.opacity = current >= TOTAL - 1 ? '0' : '1';
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextSlide() {
+    if (current < TOTAL - 1) { current++; updateUI(); }
+  }
+
+  function prevSlide() {
+    if (current > 0) { current--; updateUI(); }
+  }
+
+  function showNo(idx) {
+    const msg = document.getElementById(`no-${idx}`);
+    if (!msg) return;
+    msg.style.display = 'block';
+    msg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function toggleCheck(cb) {
+    cb.closest('.sign-check-item').classList.toggle('checked', cb.checked);
+  }
+
+  function checkReady() {
+    const named = document.getElementById('signName').value.trim().length > 0;
+    const a1 = document.getElementById('agree1').checked;
+    const a2 = document.getElementById('agree2').checked;
+    document.getElementById('pledgeBtn').disabled = !(named && a1 && a2);
+  }
+
+  function submitPledge() {
+    const name = document.getElementById('signName').value.trim();
+    if (!name) { alert('이름을 입력해주세요.'); return; }
+
+    const pledge = {
+      id: 'pledge_' + coacheeId,
+      coacheeId, coacheeName: name,
+      signedAt: new Date().toISOString(), agreed: true
+    };
+    DB.upsert('pledges', pledge);
+    DB.updateItem('coachees', coacheeId, { status: 'pledged' });
+    window.location.href = `goal-agreement.html?id=${coacheeId}`;
+  }
+
+  updateUI();
+</script>
+</body>
+</html>
