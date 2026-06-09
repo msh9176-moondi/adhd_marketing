@@ -171,9 +171,23 @@
 <script src="app.js"></script>
 <script>
   const coacheeId = getParam('id');
+  const isPreview = getParam('preview') === 'true';
   if (!coacheeId) { window.location.href = 'apply.html'; }
 
   document.getElementById('sigDate').textContent = new Date().toLocaleDateString('ko-KR');
+
+  // 미리보기 모드 (코치용)
+  if (isPreview) {
+    document.querySelector('.page-header h1').textContent = '목표 합의서 양식 (미리보기)';
+    document.querySelector('.page-header p').textContent = '피코치가 작성하는 양식입니다. 코치는 수정할 수 없습니다.';
+    document.querySelector('button[type="submit"]').style.display = 'none';
+
+    // 모든 입력 필드 비활성화
+    document.querySelectorAll('input, textarea, button[type="button"]').forEach(el => {
+      el.disabled = true;
+      el.style.opacity = '0.7';
+    });
+  }
 
   function init() {
     const coachee = DB.getItem('coachees', coacheeId);
