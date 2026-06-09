@@ -115,10 +115,16 @@
   function renderCoaches() {
     const grid = document.getElementById('coachesGrid');
     const matchings = DB.get('matchings');
+    const coachees = DB.get('coachees');
 
     COACHES.forEach(coach => {
-      // 이미 배정된 피코치 수 확인
-      const assignedCount = matchings.filter(m => m.coachId === coach.id).length;
+      // 활성 매칭만 카운트 (완료된 코칭 제외)
+      const activeMatchings = matchings.filter(m => {
+        if (m.coachId !== coach.id) return false;
+        const coachee = coachees.find(c => c.id === m.coacheeId);
+        return coachee && coachee.status !== 'completed';
+      });
+      const assignedCount = activeMatchings.length;
       const isFull = assignedCount >= coach.maxCoachees;
 
       const card = document.createElement('div');
@@ -156,9 +162,14 @@
   function selectCoach(id, name) {
     // 마감 코치 클릭 방지
     const matchings = DB.get('matchings');
+    const coachees = DB.get('coachees');
     const coach = getCoach(id);
-    const assignedCount = matchings.filter(m => m.coachId === id).length;
-    if (assignedCount >= coach.maxCoachees) return;
+    const activeMatchings = matchings.filter(m => {
+      if (m.coachId !== id) return false;
+      const coachee = coachees.find(c => c.id === m.coacheeId);
+      return coachee && coachee.status !== 'completed';
+    });
+    if (activeMatchings.length >= coach.maxCoachees) return;
 
     selectedCoachId = id;
     document.querySelectorAll('.coach-card:not(.full)').forEach(c => {

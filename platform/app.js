@@ -168,7 +168,7 @@ const COACHES = [
     availableTimes: '평일 저녁 6pm~10pm, 주말 오후 2pm~6pm',
     bio: '행복으로 안내하는 마음성장 파트너',
     detail: '플래너 사용, 공부/업무 실행을 함께 다루며, 작은 변화부터 시작해 지속 가능한 루틴을 만들어갑니다.',
-    maxCoachees: 3
+    maxCoachees: 1
   },
   {
     id: 'coach2', name: '정승혜', avatar: '💼',
@@ -178,7 +178,7 @@ const COACHES = [
     availableTimes: '평일 저녁 6pm~10pm',
     bio: '현장의 경험을 바탕으로 개인의 잠재력과 조직의 성과를 연결하는 성장코치',
     detail: '목표설정, 플래너 사용, 공부/업무 실행, 소진 관리까지 폭넓게 다루며, 실질적인 성장을 돕습니다.',
-    maxCoachees: 3
+    maxCoachees: 1
   },
   {
     id: 'coach3', name: '조승희', avatar: '🌿',
@@ -188,7 +188,7 @@ const COACHES = [
     availableTimes: '평일 낮 오전~오후 5pm, 주말 오후 2pm~6pm',
     bio: '일상의 작은 변화가 의미있는 성장으로 이어질 수 있도록 함께하는 코치',
     detail: '작은 변화의 힘을 믿으며, 일상에서 실천 가능한 전략을 함께 찾아갑니다.',
-    maxCoachees: 3
+    maxCoachees: 1
   },
   {
     id: 'coach4', name: '김지민', avatar: '✨',
@@ -198,7 +198,7 @@ const COACHES = [
     availableTimes: '평일 저녁 6pm~10pm, 주말 오전 10am~1pm, 주말 오후 2pm~6pm',
     bio: '성장과 회복을 위한 성찰파트너',
     detail: '플래너 사용, 공부/업무 실행을 함께 다루며, 성찰을 통한 지속 가능한 변화를 만들어갑니다.',
-    maxCoachees: 3
+    maxCoachees: 1
   }
 ];
 
