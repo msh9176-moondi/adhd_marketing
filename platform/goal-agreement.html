@@ -171,9 +171,19 @@
 <script src="app.js"></script>
 <script>
   const coacheeId = getParam('id');
+  const role = getParam('role'); // 'coach' 또는 null
+  const isCoachMode = role === 'coach';
+
   if (!coacheeId) { window.location.href = 'apply.html'; }
 
   document.getElementById('sigDate').textContent = new Date().toLocaleDateString('ko-KR');
+
+  // 코치 모드 UI 조정
+  if (isCoachMode) {
+    document.querySelector('.page-header h1').textContent = '목표 합의서 작성/확인 (코치용)';
+    document.querySelector('.page-header p').textContent = '피코치와 상담하며 함께 작성해주세요.';
+    document.querySelector('button[type="submit"]').textContent = '합의서 저장하기';
+  }
 
   function init() {
     const coachee = DB.getItem('coachees', coacheeId);

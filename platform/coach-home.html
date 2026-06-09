@@ -389,15 +389,52 @@
             ⚠️ 피코치가 아직 "나를 소개합니다"를 작성하지 않았습니다.
           </div>`}
 
-          ${goal ? `
-          <div class="goal-box">
-            <div class="goal-box-label">코칭 목표</div>
-            <div class="goal-box-val">${goal.topic} — ${goal.desiredOutcome}</div>
+          <!-- 목표 합의서 섹션 -->
+          <div style="background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+              <div style="font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;">
+                📋 목표 합의서
+                ${goal ? '<span class="badge badge-success">작성완료</span>' : '<span class="badge badge-warn">미작성</span>'}
+              </div>
+              <a href="goal-agreement.html?id=${coachee.id}&role=coach" class="btn btn-sm ${goal ? 'btn-outline' : 'btn-primary'}">${goal ? '확인/수정' : '함께 작성하기'}</a>
+            </div>
+            ${goal ? `
+            <div style="background:white;border-radius:10px;padding:14px;border:1px solid var(--border);">
+              <div style="margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">코칭 주제</div>
+                <div style="font-size:14px;color:var(--text);font-weight:600;">${goal.topic}</div>
+              </div>
+              <div style="margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">바람직한 결과</div>
+                <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.desiredOutcome}</div>
+              </div>
+              <div style="margin-bottom:10px;">
+                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">실행 방안</div>
+                <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.actionPlan}</div>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+                <div style="text-align:center;padding:10px;background:var(--primary-light);border-radius:8px;">
+                  <div style="font-size:11px;color:var(--primary);">현재 점수</div>
+                  <div style="font-size:20px;font-weight:800;color:var(--primary);">${goal.currentScore}점</div>
+                </div>
+                <div style="text-align:center;padding:10px;background:var(--accent-light);border-radius:8px;">
+                  <div style="font-size:11px;color:var(--accent);">목표 점수</div>
+                  <div style="font-size:20px;font-weight:800;color:var(--accent);">${goal.targetScore}점</div>
+                </div>
+              </div>
+              <div style="margin-top:12px;font-size:12px;color:var(--text-muted);">
+                ✓ 피코치 동의: ${goal.coacheeConsent ? '완료' : '대기'} · 코치 확인: ${goal.coachConsent ? '완료' : '대기'}
+              </div>
+            </div>` : `
+            <div style="background:white;border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
+              <div style="font-size:13px;color:var(--text-muted);line-height:1.8;margin-bottom:12px;">
+                피코치와 통화/메시지로 상담하며<br/>목표 합의서를 함께 작성해주세요.
+              </div>
+              <div style="font-size:12px;color:var(--text-light);">
+                <strong>합의서 항목:</strong> 코칭 주제, 바람직한 결과, 실행 방안, 현재/목표 점수
+              </div>
+            </div>`}
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
-            <div class="goal-box"><div class="goal-box-label">현재 점수</div><div class="goal-box-val" style="font-weight:700;color:var(--primary);">${goal.currentScore}점</div></div>
-            <div class="goal-box"><div class="goal-box-label">목표 점수</div><div class="goal-box-val" style="font-weight:700;color:var(--accent);">${goal.targetScore}점</div></div>
-          </div>` : '<div class="alert alert-info" style="margin-bottom:14px;">목표 합의서가 아직 작성되지 않았습니다.</div>'}
 
           ${preSurvey ? `
           <div style="margin-bottom:14px;">
@@ -455,7 +492,6 @@
             </div>
           </div>` : `
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="goal-agreement.html?id=${coachee.id}" class="btn btn-outline btn-sm">목표합의서 보기</a>
             <a href="report.html?id=${coachee.id}" class="btn btn-accent btn-sm">결과보고서 보기</a>
           </div>`}
         </div>
