@@ -48,7 +48,7 @@ const API = {
 
   // 모든 타입 한번에 동기화 (관리자용)
   async pullAll() {
-    const types = ['coachees','surveys','matchings','goalAgreements','sessions','reflections'];
+    const types = ['coachees','surveys','matchings','goalAgreements','sessions','reflections','onboardings','welcomeMessages'];
     await Promise.all(types.map(t => this.pullAndCache(t)));
   }
 };
@@ -212,6 +212,7 @@ function seedDemoData() {
   DB.set('goalAgreements', []);
   DB.set('sessions', []);
   DB.set('reflections', []);
+  DB.set('onboardings', []);
 
   const demos = [
     { name: '이지원', phone: '010-1234-5678', email: 'jiwon@example.com', adhdStatus: '진단받음', difficulties: ['실행 시작', '루틴 유지'], topics: ['실행력', '루틴'], coachId: 'coach1', progress: 4 },
@@ -250,6 +251,18 @@ function seedDemoData() {
     }
 
     DB.addItem('matchings', { id: 'match_' + id, coacheeId: id, coachId: d.coachId, status: 'matched', matchedAt: createdAt });
+
+    // 온보딩 데이터 추가
+    DB.addItem('onboardings', {
+      id: 'onboard_' + id,
+      coacheeId: id,
+      selfIntro: d.selfIntro || `안녕하세요, ${d.name}입니다. 일상에서 실행력이 부족해서 고민이 많아요. 해야 할 일을 알면서도 시작하기가 너무 힘들어요.`,
+      expectations: d.expectations || '아침 루틴을 하나라도 꾸준히 유지하고 싶어요. 작은 성공 경험을 쌓고 싶습니다.',
+      concerns: d.concerns || '과제를 못 했을 때 실망시킬까봐 걱정돼요. 중간에 포기하지 않을 수 있을지 불안해요.',
+      preferredCommunication: ['빠른 피드백 선호', '칭찬에 동기부여'],
+      preferredMeetingTime: ['평일 저녁', '주말 오후'],
+      createdAt
+    });
 
     DB.addItem('goalAgreements', {
       id: 'goal_' + id, coacheeId: id, coachId: d.coachId,
