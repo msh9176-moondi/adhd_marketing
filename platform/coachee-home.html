@@ -163,15 +163,8 @@
       </div>
     </div>
 
-    <!-- 코치님의 메시지 -->
-    <div id="welcomeMessageBox" class="card" style="display:none;margin-bottom:20px;background:linear-gradient(135deg,#F0FDF4,#EFF6FF);border:1px solid #BBF7D0;">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
-        <span style="font-size:24px;">💌</span>
-        <div class="card-title" style="margin:0;">코치님의 메시지</div>
-      </div>
-      <div id="welcomeMessageContent" style="font-size:14px;line-height:1.8;color:var(--text);white-space:pre-wrap;background:white;padding:16px;border-radius:12px;"></div>
-      <div id="welcomeMessageDate" style="font-size:12px;color:var(--text-muted);margin-top:10px;text-align:right;"></div>
-    </div>
+    <!-- 서류함 -->
+    <div id="documentBoxArea"></div>
 
     <!-- 다음 회기 안내 -->
     <div id="nextSessionBox" style="display:none;" class="next-session-box">
@@ -220,6 +213,80 @@
     return 'draft';
   }
 
+  // 서류함 렌더링
+  function renderDocumentBox(coacheeId) {
+    const docs = DocumentBox.getCoacheeDocuments(coacheeId);
+    const { received, sent, drafts } = docs;
+    const unreadCount = received.filter(d => d.isNew).length;
+
+    const container = document.getElementById('documentBoxArea');
+    container.innerHTML = `
+      <div class="document-box">
+        <div class="document-box-header">
+          <h3>📬 내 서류함</h3>
+          ${unreadCount > 0 ? `<span class="unread-badge">${unreadCount}개 새 서류</span>` : ''}
+        </div>
+
+        ${renderDocSection('받은 서류', received, 'received')}
+        ${renderDocSection('보낸 서류', sent, 'sent')}
+        ${renderDocSection('작성 중', drafts, 'draft')}
+      </div>
+    `;
+  }
+
+  function renderDocSection(title, docs, sectionType) {
+    const badgeClass = sectionType === 'received' ? 'badge-primary' :
+                       sectionType === 'draft' ? 'badge-warn' : 'badge-success';
+
+    return `
+      <div class="doc-section">
+        <div class="doc-section-title">
+          <span>${title}</span>
+          <span class="badge ${badgeClass}">${docs.length}</span>
+        </div>
+        <div class="doc-list">
+          ${docs.length === 0 ? '<div class="doc-empty">없음</div>' : docs.map(d => renderDocItem(d)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderDocItem(item) {
+    const { type, doc, isNew, title, meta, link, status } = item;
+    const config = DocumentBox.types[type];
+
+    const statusDot = isNew ? '<span class="status-dot new">!</span>' :
+                      status === 'waiting' ? '<span class="status-dot waiting">⏳</span>' :
+                      status === 'completed' ? '<span class="status-dot completed">✓</span>' : '';
+
+    const clickHandler = link ? `onclick="openDocument('${type}', '${doc.id}', '${link}')"` :
+                          type === 'welcomeMessage' ? `onclick="showWelcomeMessage('${doc.id}')"` : '';
+
+    return `
+      <div class="doc-item ${isNew ? 'unread' : ''}" ${clickHandler}>
+        <div class="doc-icon">${config.icon}</div>
+        <div class="doc-info">
+          <div class="doc-title">${title}</div>
+          <div class="doc-meta">${meta}</div>
+        </div>
+        <div class="doc-status">${statusDot}</div>
+      </div>
+    `;
+  }
+
+  function openDocument(type, docId, link) {
+    DocumentBox.markAsRead(type, docId);
+    if (link) window.location.href = link;
+  }
+
+  function showWelcomeMessage(docId) {
+    const welcome = DB.get('welcomeMessages').find(w => w.id === docId);
+    if (!welcome) return;
+    DocumentBox.markAsRead('welcomeMessage', docId);
+    alert('💌 코치님의 메시지\n\n' + welcome.message);
+    renderDocumentBox(coacheeId); // 읽음 처리 후 새로고침
+  }
+
   function render() {
     const coachee = DB.getItem('coachees', coacheeId);
     if (!coachee) { window.location.href = 'apply.html'; return; }
@@ -257,13 +324,8 @@
       document.getElementById('pendingSignAlert').style.display = 'block';
     }
 
-    // 코치님의 메시지
-    const welcomeMsg = DB.get('welcomeMessages').find(w => w.coacheeId === coacheeId);
-    if (welcomeMsg) {
-      document.getElementById('welcomeMessageBox').style.display = 'block';
-      document.getElementById('welcomeMessageContent').textContent = welcomeMsg.message;
-      document.getElementById('welcomeMessageDate').textContent = fmtDate(welcomeMsg.sentAt) + ' 수신';
-    }
+    // 서류함 렌더링
+    renderDocumentBox(coacheeId);
 
     // 다음 회기 박스
     if (nextSessionNum && completedSessions < 4) {

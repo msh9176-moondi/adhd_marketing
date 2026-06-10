@@ -222,6 +222,9 @@
         </div>
       </a>
 
+      <!-- 서류함 -->
+      <div id="documentBoxArea"></div>
+
       <div class="stat-row" id="statRow"></div>
 
       <div id="coacheesArea"></div>
@@ -572,6 +575,9 @@
     document.getElementById('greetingName').textContent = `안녕하세요, ${coach.name} 코치님 👋`;
     document.getElementById('greetingSpec').textContent = `전문분야: ${coach.specialties.join(', ')} · ${coach.availableTimes}`;
 
+    // 서류함 렌더링
+    renderCoachDocumentBox(myCoachId);
+
     // 통계
     const activeCount = coachees.filter(c => c.status !== 'completed').length;
     const doneCount = coachees.filter(c => c.status === 'completed').length;
@@ -872,6 +878,83 @@ ${coachName} 드림`;
       closeWelcomeModal();
     }
   });
+
+  // 코치 서류함 렌더링
+  function renderCoachDocumentBox(coachId) {
+    const docs = DocumentBox.getCoachDocuments(coachId);
+    const { received, sent, drafts } = docs;
+    const unreadCount = received.filter(d => d.isNew).length;
+
+    const area = document.getElementById('documentBoxArea');
+    area.innerHTML = `
+      <div class="document-box">
+        <div class="document-box-header">
+          <h3>📬 내 서류함</h3>
+          ${unreadCount > 0 ? `<span class="unread-badge">${unreadCount}개 새 서류</span>` : ''}
+        </div>
+
+        ${renderCoachDocSection('받은 서류', received, 'received')}
+        ${renderCoachDocSection('보낸 서류', sent, 'sent')}
+        ${renderCoachDocSection('작성 중', drafts, 'drafts')}
+      </div>
+    `;
+  }
+
+  function renderCoachDocSection(title, docs, sectionType) {
+    const badgeClass = sectionType === 'received' ? 'badge-primary' :
+                       sectionType === 'drafts' ? 'badge-warn' : 'badge-success';
+
+    return `
+      <div class="doc-section">
+        <div class="doc-section-title">
+          <span>${title}</span>
+          <span class="badge ${badgeClass}">${docs.length}</span>
+        </div>
+        <div class="doc-list">
+          ${docs.length === 0 ? '<div class="doc-empty">없음</div>' : docs.map(d => renderCoachDocItem(d)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderCoachDocItem(item) {
+    const config = DocumentBox.types[item.type];
+    const icon = config?.icon || '📄';
+    const docId = item.doc?.id || '';
+
+    const statusDot = item.isNew ? '<span class="status-dot new">!</span>' :
+                      item.status === 'waiting' ? '<span class="status-dot waiting">⏳</span>' :
+                      item.status === 'completed' ? '<span class="status-dot completed">✓</span>' : '';
+
+    return `
+      <div class="doc-item ${item.isNew ? 'unread' : ''}" onclick="openCoachDocument('${item.type}', '${docId}', '${item.link || ''}', '${item.coacheeId || ''}')">
+        <div class="doc-icon">${icon}</div>
+        <div class="doc-info">
+          <div class="doc-title">${item.title}</div>
+          <div class="doc-meta">${item.meta || ''}</div>
+        </div>
+        <div class="doc-status">${statusDot}</div>
+      </div>
+    `;
+  }
+
+  function openCoachDocument(type, docId, link, coacheeId) {
+    // 읽음 처리
+    DocumentBox.markAsRead(type, docId);
+
+    if (type === 'goalAgreement') {
+      // 합의서 서명 모달 열기
+      openSignModal(coacheeId);
+    } else if (type === 'reflection') {
+      // 성찰일지 페이지로 이동
+      window.location.href = `sessions.html?id=${coacheeId}&role=coach`;
+    } else if (link) {
+      window.location.href = link;
+    }
+
+    // 서류함 다시 렌더링
+    renderCoachDocumentBox(myCoachId);
+  }
 
   // 로그인 페이지에서 선택한 코치가 있으면 자동 진입
   const savedCoachId = localStorage.getItem('selectedCoachId');

@@ -305,3 +305,226 @@ function seedDemoData() {
   });
   return true;
 }
+
+// ===== Document Box (서류함) =====
+const DocumentBox = {
+  // 서류 타입 설정
+  types: {
+    goalAgreement: { icon: '📋', name: '목표 합의서', key: 'goalAgreements' },
+    session: { icon: '📝', name: '세션 일지', key: 'sessions' },
+    reflection: { icon: '💭', name: '성찰일지', key: 'reflections' },
+    welcomeMessage: { icon: '💌', name: '웰컴 메시지', key: 'welcomeMessages' }
+  },
+
+  // 시간 경과 표시
+  getTimeAgo(dateStr) {
+    if (!dateStr) return '';
+    const diff = Date.now() - new Date(dateStr).getTime();
+    const minutes = Math.floor(diff / 60000);
+    if (minutes < 1) return '방금 전';
+    if (minutes < 60) return `${minutes}분 전`;
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return `${hours}시간 전`;
+    const days = Math.floor(hours / 24);
+    if (days < 7) return `${days}일 전`;
+    return fmtDate(dateStr);
+  },
+
+  // 합의서 상태 판별
+  getGoalStatus(goal) {
+    if (!goal) return null;
+    if (goal.status) return goal.status;
+    if (goal.coacheeConsent && goal.coachConsent) return 'completed';
+    if (goal.coacheeConsent) return 'pending_coach_sign';
+    return 'draft';
+  },
+
+  // 상태 텍스트
+  getStatusText(status, role) {
+    const texts = {
+      draft: '작성 중',
+      pending_coach_sign: role === 'coach' ? '서명 필요' : '코치 서명 대기',
+      revision_requested: '수정 요청됨',
+      completed: '완료',
+      sent: '전송됨',
+      new: '새로 도착'
+    };
+    return texts[status] || status;
+  },
+
+  // 피코치용 서류 분류
+  getCoacheeDocuments(coacheeId) {
+    const received = [];
+    const sent = [];
+    const drafts = [];
+
+    // 웰컴 메시지 (코치 → 피코치)
+    const welcome = DB.get('welcomeMessages').find(w => w.coacheeId === coacheeId);
+    if (welcome) {
+      received.push({
+        type: 'welcomeMessage',
+        doc: welcome,
+        isNew: !welcome.readAt,
+        title: '웰컴 메시지',
+        meta: this.getTimeAgo(welcome.sentAt),
+        link: null // 대시보드에서 바로 표시
+      });
+    }
+
+    // 목표 합의서
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    if (goal) {
+      const status = this.getGoalStatus(goal);
+      if (status === 'revision_requested') {
+        // 수정 요청 받음 → 받은 서류
+        received.push({
+          type: 'goalAgreement',
+          doc: goal,
+          isNew: !goal.revisionReadAt,
+          title: '목표 합의서',
+          meta: '수정 요청됨',
+          link: `goal-agreement.html?id=${coacheeId}`
+        });
+      } else if (status === 'completed') {
+        // 완료 → 받은 서류 (코치 서명 완료)
+        received.push({
+          type: 'goalAgreement',
+          doc: goal,
+          isNew: false,
+          title: '목표 합의서',
+          meta: '양측 서명 완료',
+          link: `goal-agreement.html?id=${coacheeId}`,
+          status: 'completed'
+        });
+      } else if (status === 'pending_coach_sign') {
+        // 코치 서명 대기 → 보낸 서류
+        sent.push({
+          type: 'goalAgreement',
+          doc: goal,
+          title: '목표 합의서',
+          meta: '코치 서명 대기',
+          link: `goal-agreement.html?id=${coacheeId}`,
+          status: 'waiting'
+        });
+      } else if (status === 'draft' || !goal.coacheeConsent) {
+        // 작성 중
+        drafts.push({
+          type: 'goalAgreement',
+          doc: goal,
+          title: '목표 합의서',
+          meta: '작성 중',
+          link: `goal-agreement.html?id=${coacheeId}`
+        });
+      }
+    }
+
+    // 성찰일지
+    const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+    reflections.forEach(r => {
+      const num = r.sessionId?.split('_')[2] || '';
+      sent.push({
+        type: 'reflection',
+        doc: r,
+        title: `${num}회기 성찰일지`,
+        meta: this.getTimeAgo(r.createdAt),
+        link: `sessions.html?id=${coacheeId}&role=coachee`,
+        status: 'completed'
+      });
+    });
+
+    return { received, sent, drafts };
+  },
+
+  // 코치용 서류 분류
+  getCoachDocuments(coachId) {
+    const matchings = DB.get('matchings').filter(m => m.coachId === coachId);
+    const coacheeIds = matchings.map(m => m.coacheeId);
+
+    const received = [];
+    const sent = [];
+    const drafts = [];
+
+    coacheeIds.forEach(coacheeId => {
+      const coachee = DB.getItem('coachees', coacheeId);
+      if (!coachee) return;
+
+      // 목표 합의서 (서명 필요)
+      const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+      if (goal) {
+        const status = this.getGoalStatus(goal);
+        if (status === 'pending_coach_sign') {
+          received.push({
+            type: 'goalAgreement',
+            doc: goal,
+            isNew: !goal.coachReadAt,
+            title: '목표 합의서',
+            meta: `${coachee.name} · 서명 필요`,
+            link: null, // 모달로 처리
+            coacheeId,
+            coacheeName: coachee.name
+          });
+        }
+      }
+
+      // 성찰일지 (확인 필요)
+      const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+      reflections.forEach(r => {
+        const num = r.sessionId?.split('_')[2] || '';
+        received.push({
+          type: 'reflection',
+          doc: r,
+          isNew: !r.coachReadAt,
+          title: `${num}회기 성찰일지`,
+          meta: `${coachee.name} · ${this.getTimeAgo(r.createdAt)}`,
+          link: `sessions.html?id=${coacheeId}&role=coach`,
+          coacheeId,
+          coacheeName: coachee.name
+        });
+      });
+    });
+
+    // 웰컴 메시지 (보낸 것)
+    const welcomes = DB.get('welcomeMessages').filter(w => w.coachId === coachId);
+    welcomes.forEach(w => {
+      const coachee = DB.getItem('coachees', w.coacheeId);
+      sent.push({
+        type: 'welcomeMessage',
+        doc: w,
+        title: '웰컴 메시지',
+        meta: `${coachee?.name || ''} · ${this.getTimeAgo(w.sentAt)}`,
+        status: 'completed'
+      });
+    });
+
+    // 세션 일지 (작성/완료)
+    const sessions = DB.get('sessions').filter(s => s.coachId === coachId);
+    sessions.forEach(s => {
+      const coachee = DB.getItem('coachees', s.coacheeId);
+      const item = {
+        type: 'session',
+        doc: s,
+        title: `${s.sessionNumber}회기 세션 일지`,
+        meta: `${coachee?.name || ''} · ${this.getTimeAgo(s.createdAt)}`,
+        link: `sessions.html?id=${s.coacheeId}&role=coach`
+      };
+      if (s.completed) {
+        item.status = 'completed';
+        sent.push(item);
+      } else {
+        drafts.push(item);
+      }
+    });
+
+    return { received, sent, drafts };
+  },
+
+  // 읽음 처리
+  markAsRead(type, docId) {
+    const key = this.types[type]?.key;
+    if (!key) return;
+    const doc = DB.get(key).find(d => d.id === docId);
+    if (doc && !doc.readAt) {
+      DB.upsert(key, { ...doc, readAt: new Date().toISOString() });
+    }
+  }
+};
