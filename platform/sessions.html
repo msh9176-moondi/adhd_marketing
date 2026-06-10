@@ -86,9 +86,19 @@
 <script src="app.js"></script>
 <script>
   const coacheeId = getParam('id');
+  const userRole = getParam('role') || 'coachee'; // 기본값은 피코치
   if (!coacheeId) { window.location.href = 'apply.html'; }
 
   let currentSession = 1;
+
+  // 역할에 따른 페이지 타이틀 변경
+  if (userRole === 'coach') {
+    document.querySelector('.page-header h1').textContent = '코치 세션 일지';
+    document.querySelector('.page-header p').textContent = '회기별 코칭 세션을 기록합니다.';
+  } else {
+    document.querySelector('.page-header h1').textContent = '성찰일지 작성';
+    document.querySelector('.page-header p').textContent = '회기별 성찰과 배운 점을 기록합니다.';
+  }
 
   function init() {
     const coachee = DB.getItem('coachees', coacheeId);
@@ -131,14 +141,10 @@
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
 
     const container = document.getElementById('sessionContent');
-    container.innerHTML = `
-      <div class="subtabs">
-        <button class="subtab active" id="subtab-coach" onclick="switchSubtab('coach')">🧑‍💼 코치 세션 일지</button>
-        <button class="subtab" id="subtab-coachee" onclick="switchSubtab('coachee')">🙋 피코치 성찰일지</button>
-      </div>
 
-      <!-- 코치 일지 -->
-      <div class="subtab-panel active" id="panel-coach">
+    // 코치용 UI
+    if (userRole === 'coach') {
+      container.innerHTML = `
         ${sess?.completed ? `<div class="complete-banner"><p>✅ 이 회기 일지가 저장되었습니다.</p><button class="btn btn-outline btn-sm" onclick="editSession(${n})">수정하기</button></div>` : ''}
         <form id="coachForm-${n}" onsubmit="saveSession(event, ${n})">
           <div class="card">
@@ -204,14 +210,14 @@
             ${n < 4 ? `<button type="button" class="btn btn-accent" onclick="saveAndNext(${n})">저장 후 ${n+1}회기로 →</button>` : `<button type="button" class="btn btn-success" onclick="goToPostSurvey()">저장 후 사후 설문하기 →</button>`}
           </div>
         </form>
-      </div>
-
-      <!-- 피코치 성찰일지 -->
-      <div class="subtab-panel" id="panel-coachee">
+      `;
+    } else {
+      // 피코치용 UI (성찰일지)
+      container.innerHTML = `
         ${refl ? `<div class="complete-banner"><p>✅ 성찰일지가 저장되었습니다.</p></div>` : ''}
         <form id="reflForm-${n}" onsubmit="saveReflection(event, ${n})">
           <div class="card">
-            <div class="card-title">${n}회기 성찰일지 (피코치)</div>
+            <div class="card-title">${n}회기 성찰일지</div>
             <div class="form-group">
               <label class="form-label">오늘의 코칭 주제</label>
               <input type="text" class="form-input" id="r-topic-${n}" value="${refl?.topic || ''}" placeholder="오늘 코칭에서 다룬 주제"/>
@@ -261,23 +267,16 @@
             <button type="submit" class="btn btn-accent btn-full">성찰일지 저장</button>
           </div>
         </form>
-      </div>
-    `;
-    // Re-attach radio styling
-    document.querySelectorAll('.radio-item input[type=radio]').forEach(rb => {
-      rb.addEventListener('change', () => {
-        const name = rb.name;
-        document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.closest('.radio-item').classList.toggle('selected', r.checked));
+      `;
+      // Re-attach radio styling
+      document.querySelectorAll('.radio-item input[type=radio]').forEach(rb => {
+        rb.addEventListener('change', () => {
+          const name = rb.name;
+          document.querySelectorAll(`input[name="${name}"]`).forEach(r => r.closest('.radio-item').classList.toggle('selected', r.checked));
+        });
+        if (rb.checked) rb.closest('.radio-item').classList.add('selected');
       });
-      if (rb.checked) rb.closest('.radio-item').classList.add('selected');
-    });
-  }
-
-  function switchSubtab(tab) {
-    document.querySelectorAll('.subtab').forEach(t => t.classList.remove('active'));
-    document.querySelectorAll('.subtab-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById(`subtab-${tab}`).classList.add('active');
-    document.getElementById(`panel-${tab}`).classList.add('active');
+    }
   }
 
   function getCoachFormData(n) {

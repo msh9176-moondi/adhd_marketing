@@ -271,7 +271,7 @@
       document.getElementById('nextSessionBox').style.display = 'flex';
       document.getElementById('nextSessionTitle').textContent = `${nextSessionNum}회기 성찰일지 작성이 필요해요`;
       document.getElementById('nextSessionDate').textContent = nextSess ? fmtDate(nextSess.sessionDate) + ' 코칭' : '일정 미정';
-      document.getElementById('nextSessionBtn').href = `sessions.html?id=${coacheeId}`;
+      document.getElementById('nextSessionBtn').href = `sessions.html?id=${coacheeId}&role=coachee`;
     }
 
     // 사전 점수
@@ -310,7 +310,7 @@
         const sess = sessions.find(s => s.sessionNumber === n);
         const refl = reflections.find(r => r.sessionId === `sess_${coacheeId}_${n}`);
         const isDone = sess?.completed && refl;
-        return { label: `${n}회기 코칭`, done: isDone, isActive: n === nextSessionNum && !isDone, date: sess ? fmtDate(sess.sessionDate) : (n === nextSessionNum ? '진행 예정' : '예정'), body: isDone ? (refl.learned || '완료') : (n === nextSessionNum ? '성찰일지를 작성해주세요.' : '이전 회기 완료 후 진행됩니다.'), link: (n === nextSessionNum || isDone) ? `sessions.html?id=${coacheeId}` : null, linkText: isDone ? '일지 보기' : '일지 작성하기' };
+        return { label: `${n}회기 코칭`, done: isDone, isActive: n === nextSessionNum && !isDone, date: sess ? fmtDate(sess.sessionDate) : (n === nextSessionNum ? '진행 예정' : '예정'), body: isDone ? (refl.learned || '완료') : (n === nextSessionNum ? '성찰일지를 작성해주세요.' : '이전 회기 완료 후 진행됩니다.'), link: (n === nextSessionNum || isDone) ? `sessions.html?id=${coacheeId}&role=coachee` : null, linkText: isDone ? '일지 보기' : '일지 작성하기' };
       }),
       { label: '사후 설문', done: !!postSurvey, date: postSurvey ? fmtDate(postSurvey.createdAt) : '4회기 완료 후', body: postSurvey ? '완료됐습니다.' : '4주 코칭 완료 후 작성합니다.', link: (completedSessions >= 4 && !postSurvey) ? `post-survey.html?id=${coacheeId}` : null, linkText: '설문 작성하기' },
       { label: '결과 리포트', done: !!postSurvey, date: postSurvey ? '확인 가능' : '사후 설문 완료 후', body: postSurvey ? '코칭 전후 변화를 확인하세요!' : '사후 설문 완료 후 자동 생성됩니다.', link: postSurvey ? `report.html?id=${coacheeId}` : null, linkText: '보고서 보기', isSpecial: true },
@@ -336,7 +336,7 @@
 
     // 빠른 실행 버튼
     const actions = [
-      { icon: '📝', title: '성찰일지', desc: '이번 회기 성찰 작성', href: `sessions.html?id=${coacheeId}` },
+      { icon: '📝', title: '성찰일지', desc: '이번 회기 성찰 작성', href: `sessions.html?id=${coacheeId}&role=coachee` },
       { icon: '🎯', title: '목표 합의서', desc: '코칭 목표 확인', href: `goal-agreement.html?id=${coacheeId}` },
       { icon: '📊', title: '결과보고서', desc: '사전/사후 변화 확인', href: postSurvey ? `report.html?id=${coacheeId}` : `post-survey.html?id=${coacheeId}` },
       { icon: '🌱', title: '사후관리', desc: '4주 후 변화 체크', href: `followup.html?id=${coacheeId}` },
