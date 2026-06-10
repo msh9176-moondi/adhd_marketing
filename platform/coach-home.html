@@ -122,6 +122,51 @@
     .modal-footer .btn { flex: 1; }
     .template-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
     .copy-success { color: var(--accent); font-size: 13px; margin-top: 8px; display: none; }
+
+    /* 서명 대기 배지 */
+    .sign-pending-badge {
+      background: linear-gradient(135deg, #F59E0B, #D97706);
+      color: white;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      animation: pulse-badge 2s infinite;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+      50% { box-shadow: 0 0 0 6px rgba(245, 158, 11, 0); }
+    }
+
+    /* 서명 모달 내 합의서 미리보기 */
+    .agreement-preview {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .agreement-preview-row {
+      margin-bottom: 12px;
+    }
+    .agreement-preview-row:last-child { margin-bottom: 0; }
+    .agreement-preview-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+    .agreement-preview-val {
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    .sign-check-box {
+      background: var(--primary-light);
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 16px;
+    }
   </style>
 </head>
 <body>
@@ -202,7 +247,49 @@
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeWelcomeModal()">취소</button>
-      <button class="btn btn-primary" onclick="copyAndAccept()">복사하고 수락 완료</button>
+      <button class="btn btn-primary" onclick="copyAndAccept()">수락하고 보내기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 합의서 서명 모달 -->
+<div class="modal-overlay" id="signModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>📋 목표 합의서 서명</h3>
+      <button class="modal-close" onclick="closeSignModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="template-hint">피코치가 작성한 목표 합의서를 확인하고 서명해주세요.</p>
+      <div class="agreement-preview" id="agreementPreview"></div>
+      <div class="sign-check-box">
+        <label class="check-item" id="coachSignCheck">
+          <input type="checkbox" id="coachConsentCheckbox"/>
+          <label>위 내용을 확인하고, 피코치의 목표 달성을 위해 최선을 다할 것을 약속합니다.</label>
+        </label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="openRevisionModal()">수정 요청</button>
+      <button class="btn btn-primary" onclick="signAgreement()">서명 완료</button>
+    </div>
+  </div>
+</div>
+
+<!-- 수정 요청 모달 -->
+<div class="modal-overlay" id="revisionModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3>✏️ 수정 요청하기</h3>
+      <button class="modal-close" onclick="closeRevisionModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p class="template-hint">피코치에게 전달할 수정 요청 내용을 작성해주세요.</p>
+      <textarea id="revisionNoteInput" placeholder="예: 목표 점수가 너무 높아요. 현실적인 목표로 수정해주세요."></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeRevisionModal()">취소</button>
+      <button class="btn btn-primary" onclick="requestRevision()">수정 요청 보내기</button>
     </div>
   </div>
 </div>
@@ -214,6 +301,216 @@
 <script src="app.js"></script>
 <script>
   let myCoachId = null;
+  let currentSignCoacheeId = null;
+
+  // 합의서 상태 판별 (기존 데이터 호환)
+  function getAgreementStatus(goal) {
+    if (!goal) return null;
+    if (goal.status) return goal.status;
+    // 기존 데이터 호환성
+    if (goal.coacheeConsent && goal.coachConsent) return 'completed';
+    if (goal.coacheeConsent) return 'pending_coach_sign';
+    return 'draft';
+  }
+
+  // 서명 대기 합의서 개수
+  function getPendingSignCount() {
+    const matchings = DB.get('matchings').filter(m => m.coachId === myCoachId);
+    const coacheeIds = matchings.map(m => m.coacheeId);
+    return DB.get('goalAgreements').filter(g =>
+      coacheeIds.includes(g.coacheeId) && getAgreementStatus(g) === 'pending_coach_sign'
+    ).length;
+  }
+
+  // 목표 합의서 섹션 렌더링
+  function renderGoalSection(coachee, goal) {
+    const status = getAgreementStatus(goal);
+    let statusBadge = '<span class="badge badge-warn">미작성</span>';
+    let statusText = '';
+
+    if (status === 'completed') {
+      statusBadge = '<span class="badge badge-success">서명 완료</span>';
+      statusText = `<div style="margin-top:12px;font-size:12px;color:var(--success);">✓ 양측 서명 완료 (${goal.agreedAt ? new Date(goal.agreedAt).toLocaleDateString('ko-KR') : ''})</div>`;
+    } else if (status === 'pending_coach_sign') {
+      statusBadge = '<span class="sign-pending-badge">서명 대기</span>';
+      statusText = `<div style="margin-top:12px;"><button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openSignModal('${coachee.id}');">서명하기</button></div>`;
+    } else if (status === 'revision_requested') {
+      statusBadge = '<span class="badge" style="background:#FEE2E2;color:#DC2626;">수정 요청됨</span>';
+      statusText = `<div style="margin-top:12px;font-size:12px;color:#DC2626;">피코치가 수정 중입니다.</div>`;
+    }
+
+    if (!goal) {
+      return `
+        <div style="background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+            <div style="font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;">
+              📋 목표 합의서
+              ${statusBadge}
+            </div>
+          </div>
+          <div style="background:white;border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
+            <div style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">
+              피코치가 아직 작성하지 않았습니다.
+            </div>
+            <a href="goal-agreement.html?id=${coachee.id}&preview=true" class="btn btn-outline btn-sm">양식 미리보기</a>
+          </div>
+        </div>`;
+    }
+
+    return `
+      <div style="background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+          <div style="font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;">
+            📋 목표 합의서
+            ${statusBadge}
+          </div>
+        </div>
+        <div style="background:white;border-radius:10px;padding:14px;border:1px solid var(--border);">
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">코칭 주제</div>
+            <div style="font-size:14px;color:var(--text);font-weight:600;">${goal.topic}</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">바람직한 결과</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.desiredOutcome}</div>
+          </div>
+          <div style="margin-bottom:10px;">
+            <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">실행 방안</div>
+            <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.actionPlan}</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+            <div style="text-align:center;padding:10px;background:var(--primary-light);border-radius:8px;">
+              <div style="font-size:11px;color:var(--primary);">현재 점수</div>
+              <div style="font-size:20px;font-weight:800;color:var(--primary);">${goal.currentScore}점</div>
+            </div>
+            <div style="text-align:center;padding:10px;background:var(--accent-light);border-radius:8px;">
+              <div style="font-size:11px;color:var(--accent);">목표 점수</div>
+              <div style="font-size:20px;font-weight:800;color:var(--accent);">${goal.targetScore}점</div>
+            </div>
+          </div>
+          ${statusText}
+        </div>
+      </div>`;
+  }
+
+  // 서명 모달 열기
+  function openSignModal(coacheeId) {
+    currentSignCoacheeId = coacheeId;
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    if (!goal) return;
+
+    const preview = document.getElementById('agreementPreview');
+    preview.innerHTML = `
+      <div class="agreement-preview-row">
+        <div class="agreement-preview-label">피코치</div>
+        <div class="agreement-preview-val" style="font-weight:600;">${goal.coacheeName}</div>
+      </div>
+      <div class="agreement-preview-row">
+        <div class="agreement-preview-label">코칭 주제</div>
+        <div class="agreement-preview-val" style="font-weight:600;">${goal.topic}</div>
+      </div>
+      <div class="agreement-preview-row">
+        <div class="agreement-preview-label">바람직한 결과</div>
+        <div class="agreement-preview-val">${goal.desiredOutcome}</div>
+      </div>
+      <div class="agreement-preview-row">
+        <div class="agreement-preview-label">실행 방안</div>
+        <div class="agreement-preview-val">${goal.actionPlan}</div>
+      </div>
+      ${goal.evaluationMethod ? `
+      <div class="agreement-preview-row">
+        <div class="agreement-preview-label">평가 방법</div>
+        <div class="agreement-preview-val">${goal.evaluationMethod}</div>
+      </div>` : ''}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;">
+        <div style="text-align:center;padding:8px;background:var(--primary-light);border-radius:8px;">
+          <div style="font-size:11px;color:var(--primary);">현재 점수</div>
+          <div style="font-size:18px;font-weight:700;color:var(--primary);">${goal.currentScore}점</div>
+        </div>
+        <div style="text-align:center;padding:8px;background:var(--accent-light);border-radius:8px;">
+          <div style="font-size:11px;color:var(--accent);">목표 점수</div>
+          <div style="font-size:18px;font-weight:700;color:var(--accent);">${goal.targetScore}점</div>
+        </div>
+      </div>
+    `;
+
+    document.getElementById('coachConsentCheckbox').checked = false;
+    document.getElementById('signModal').classList.add('show');
+  }
+
+  function closeSignModal() {
+    document.getElementById('signModal').classList.remove('show');
+    currentSignCoacheeId = null;
+  }
+
+  // 서명 완료
+  function signAgreement() {
+    if (!document.getElementById('coachConsentCheckbox').checked) {
+      alert('동의 체크박스를 선택해주세요.');
+      return;
+    }
+
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === currentSignCoacheeId);
+    if (!goal) return;
+
+    DB.upsert('goalAgreements', {
+      ...goal,
+      coachConsent: true,
+      coachSigAt: new Date().toISOString(),
+      status: 'completed',
+      agreedAt: new Date().toISOString()
+    });
+
+    // 피코치 상태를 coaching으로 변경
+    DB.updateItem('coachees', currentSignCoacheeId, { status: 'coaching' });
+
+    closeSignModal();
+    renderDashboard();
+    alert('서명이 완료되었습니다! 이제 코칭을 시작할 수 있습니다.');
+  }
+
+  // 수정 요청 모달
+  function openRevisionModal() {
+    closeSignModal();
+    document.getElementById('revisionNoteInput').value = '';
+    document.getElementById('revisionModal').classList.add('show');
+  }
+
+  function closeRevisionModal() {
+    document.getElementById('revisionModal').classList.remove('show');
+  }
+
+  // 수정 요청 보내기
+  function requestRevision() {
+    const note = document.getElementById('revisionNoteInput').value.trim();
+    if (!note) {
+      alert('수정 요청 내용을 입력해주세요.');
+      return;
+    }
+
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === currentSignCoacheeId);
+    if (!goal) return;
+
+    DB.upsert('goalAgreements', {
+      ...goal,
+      status: 'revision_requested',
+      revisionNote: note,
+      revisionRequestedAt: new Date().toISOString()
+    });
+
+    closeRevisionModal();
+    currentSignCoacheeId = null;
+    renderDashboard();
+    alert('수정 요청을 보냈습니다. 피코치가 수정 후 다시 제출하면 알림이 표시됩니다.');
+  }
+
+  // 모달 외부 클릭 시 닫기
+  document.getElementById('signModal').addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) closeSignModal();
+  });
+  document.getElementById('revisionModal').addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) closeRevisionModal();
+  });
 
   // 코치 선택 렌더
   function renderCoachPicker() {
@@ -278,10 +575,14 @@
     // 통계
     const activeCount = coachees.filter(c => c.status !== 'completed').length;
     const doneCount = coachees.filter(c => c.status === 'completed').length;
+    const pendingSignCount = getPendingSignCount();
     document.getElementById('statRow').innerHTML = `
       <div class="mini-stat"><div class="mini-stat-num">${coachees.length}</div><div class="mini-stat-label">담당 피코치</div></div>
       <div class="mini-stat"><div class="mini-stat-num" style="color:var(--accent);">${activeCount}</div><div class="mini-stat-label">코칭 진행 중</div></div>
-      <div class="mini-stat"><div class="mini-stat-num" style="color:var(--success);">${doneCount}</div><div class="mini-stat-label">코칭 완료</div></div>
+      <div class="mini-stat">
+        <div class="mini-stat-num" style="color:${pendingSignCount > 0 ? '#F59E0B' : 'var(--success)'};">${pendingSignCount}</div>
+        <div class="mini-stat-label">${pendingSignCount > 0 ? '서명 대기' : '서명 완료'}</div>
+      </div>
     `;
 
     const area = document.getElementById('coacheesArea');
@@ -404,48 +705,7 @@
           </div>`}
 
           <!-- 목표 합의서 섹션 -->
-          <div style="background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px;">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
-              <div style="font-size:14px;font-weight:700;color:var(--text);display:flex;align-items:center;gap:6px;">
-                📋 목표 합의서
-                ${goal ? '<span class="badge badge-success">작성완료</span>' : '<span class="badge badge-warn">미작성</span>'}
-              </div>
-            </div>
-            ${goal ? `
-            <div style="background:white;border-radius:10px;padding:14px;border:1px solid var(--border);">
-              <div style="margin-bottom:10px;">
-                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">코칭 주제</div>
-                <div style="font-size:14px;color:var(--text);font-weight:600;">${goal.topic}</div>
-              </div>
-              <div style="margin-bottom:10px;">
-                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">바람직한 결과</div>
-                <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.desiredOutcome}</div>
-              </div>
-              <div style="margin-bottom:10px;">
-                <div style="font-size:11px;color:var(--text-muted);margin-bottom:2px;">실행 방안</div>
-                <div style="font-size:13px;color:var(--text);line-height:1.6;">${goal.actionPlan}</div>
-              </div>
-              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
-                <div style="text-align:center;padding:10px;background:var(--primary-light);border-radius:8px;">
-                  <div style="font-size:11px;color:var(--primary);">현재 점수</div>
-                  <div style="font-size:20px;font-weight:800;color:var(--primary);">${goal.currentScore}점</div>
-                </div>
-                <div style="text-align:center;padding:10px;background:var(--accent-light);border-radius:8px;">
-                  <div style="font-size:11px;color:var(--accent);">목표 점수</div>
-                  <div style="font-size:20px;font-weight:800;color:var(--accent);">${goal.targetScore}점</div>
-                </div>
-              </div>
-              <div style="margin-top:12px;font-size:12px;color:var(--text-muted);">
-                ✓ 피코치 동의: ${goal.coacheeConsent ? '완료' : '대기'} · 코치 확인: ${goal.coachConsent ? '완료' : '대기'}
-              </div>
-            </div>` : `
-            <div style="background:white;border-radius:10px;padding:16px;border:1px solid var(--border);text-align:center;">
-              <div style="font-size:13px;color:var(--text-muted);margin-bottom:10px;">
-                피코치가 아직 작성하지 않았습니다.
-              </div>
-              <a href="goal-agreement.html?id=${coachee.id}&preview=true" class="btn btn-outline btn-sm">양식 미리보기</a>
-            </div>`}
-          </div>
+          ${renderGoalSection(coachee, goal)}
 
           ${preSurvey ? `
           <div style="margin-bottom:14px;">

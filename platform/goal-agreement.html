@@ -14,6 +14,41 @@
     }
     .score-pick-btn:hover { border-color: var(--primary); color: var(--primary); }
     .score-pick-btn.selected { border-color: var(--primary); background: var(--primary); color: white; }
+
+    /* 상태 배너 */
+    .status-banner {
+      padding: 16px 20px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status-banner.pending {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B;
+    }
+    .status-banner.completed {
+      background: linear-gradient(135deg, #D1FAE5 0%, #A7F3D0 100%);
+      border: 1px solid #10B981;
+    }
+    .status-banner.revision {
+      background: linear-gradient(135deg, #FEE2E2 0%, #FECACA 100%);
+      border: 1px solid #EF4444;
+    }
+    .status-banner .icon { font-size: 24px; }
+    .status-banner .text { font-size: 15px; font-weight: 600; color: var(--text); }
+    .status-banner .sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+    .revision-note-box {
+      background: #FEF2F2;
+      border: 1px solid #FECACA;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .revision-note-box .label { font-size: 13px; color: #DC2626; font-weight: 700; margin-bottom: 8px; }
+    .revision-note-box .note { font-size: 14px; color: var(--text); line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -51,6 +86,15 @@
 
 <main class="main">
   <div class="container-sm">
+    <!-- 상태 배너 -->
+    <div id="statusBanner" style="display:none;"></div>
+
+    <!-- 수정 요청 메모 -->
+    <div id="revisionNoteBox" class="revision-note-box" style="display:none;">
+      <div class="label">코치님의 수정 요청</div>
+      <div class="note" id="revisionNoteText"></div>
+    </div>
+
     <div class="alert alert-info">
       이 합의서는 코칭의 방향을 맞추기 위한 문서이며, 진단·치료·의료적 판단을 대체하지 않습니다.
     </div>
@@ -145,20 +189,19 @@
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;">
           <label class="check-item" id="coacheeConsentCheck">
             <input type="checkbox" id="coacheeConsent"/>
-            <label>위 내용을 확인하고, 4주간 성실히 코칭에 참여할 것을 약속합니다. (피코치 동의)</label>
+            <label>위 내용을 확인하고, 4주간 성실히 코칭에 참여할 것을 약속합니다. (피코치 서명)</label>
           </label>
-          <label class="check-item" id="coachConsentCheck">
-            <input type="checkbox" id="coachConsent"/>
-            <label>위 내용을 확인하고, 피코치의 목표 달성을 위해 최선을 다할 것을 약속합니다. (코치 확인용)</label>
-          </label>
+        </div>
+        <div class="alert alert-info" style="margin-bottom:0; padding:12px 16px; font-size:13px;">
+          피코치 서명 후 코치님의 서명을 받아야 합의서가 완료됩니다.
         </div>
         <div class="sig-box">
           <p>서명일: <span id="sigDate"></span></p>
         </div>
       </div>
 
-      <div style="margin-top:24px;">
-        <button type="submit" class="btn btn-primary btn-full btn-lg">합의서 저장하고 코칭 시작하기 →</button>
+      <div style="margin-top:24px;" id="submitBtnWrap">
+        <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">합의서 작성 완료 및 서명 →</button>
       </div>
     </form>
   </div>
@@ -176,17 +219,72 @@
 
   document.getElementById('sigDate').textContent = new Date().toLocaleDateString('ko-KR');
 
+  // 합의서 상태 판별 (기존 데이터 호환)
+  function getAgreementStatus(goal) {
+    if (!goal) return null;
+    if (goal.status) return goal.status;
+    // 기존 데이터 호환성
+    if (goal.coacheeConsent && goal.coachConsent) return 'completed';
+    if (goal.coacheeConsent) return 'pending_coach_sign';
+    return 'draft';
+  }
+
+  // 상태 배너 표시
+  function showStatusBanner(status, goal) {
+    const banner = document.getElementById('statusBanner');
+    if (status === 'pending_coach_sign') {
+      banner.className = 'status-banner pending';
+      banner.innerHTML = `
+        <div class="icon">⏳</div>
+        <div>
+          <div class="text">코치님의 서명을 기다리고 있어요</div>
+          <div class="sub">코치님이 확인 후 서명하면 합의서가 완료됩니다.</div>
+        </div>
+      `;
+      banner.style.display = 'flex';
+    } else if (status === 'completed') {
+      banner.className = 'status-banner completed';
+      banner.innerHTML = `
+        <div class="icon">✅</div>
+        <div>
+          <div class="text">양측 서명이 완료되었습니다</div>
+          <div class="sub">합의서 작성일: ${goal.agreedAt ? new Date(goal.agreedAt).toLocaleDateString('ko-KR') : '-'}</div>
+        </div>
+      `;
+      banner.style.display = 'flex';
+    } else if (status === 'revision_requested') {
+      banner.className = 'status-banner revision';
+      banner.innerHTML = `
+        <div class="icon">✏️</div>
+        <div>
+          <div class="text">코치님이 수정을 요청했어요</div>
+          <div class="sub">아래 내용을 확인하고 수정 후 다시 제출해주세요.</div>
+        </div>
+      `;
+      banner.style.display = 'flex';
+
+      // 수정 요청 메모 표시
+      if (goal.revisionNote) {
+        document.getElementById('revisionNoteText').textContent = goal.revisionNote;
+        document.getElementById('revisionNoteBox').style.display = 'block';
+      }
+    }
+  }
+
+  // 폼 비활성화
+  function disableForm() {
+    document.querySelectorAll('#goalForm input, #goalForm textarea, #goalForm button').forEach(el => {
+      el.disabled = true;
+      el.style.opacity = '0.7';
+    });
+    document.getElementById('submitBtnWrap').style.display = 'none';
+  }
+
   // 미리보기 모드 (코치용)
   if (isPreview) {
     document.querySelector('.page-header h1').textContent = '목표 합의서 양식 (미리보기)';
     document.querySelector('.page-header p').textContent = '피코치가 작성하는 양식입니다. 코치는 수정할 수 없습니다.';
-    document.querySelector('button[type="submit"]').style.display = 'none';
-
-    // 모든 입력 필드 비활성화
-    document.querySelectorAll('input, textarea, button[type="button"]').forEach(el => {
-      el.disabled = true;
-      el.style.opacity = '0.7';
-    });
+    disableForm();
   }
 
   function init() {
@@ -209,6 +307,17 @@
       document.getElementById('evaluationMethod').value = existing.evaluationMethod || '';
       if (existing.currentScore) setScore('current', existing.currentScore);
       if (existing.targetScore) setScore('target', existing.targetScore);
+
+      // 상태에 따른 UI 처리
+      const status = getAgreementStatus(existing);
+      if (status === 'pending_coach_sign' || status === 'completed') {
+        showStatusBanner(status, existing);
+        disableForm();
+      } else if (status === 'revision_requested') {
+        showStatusBanner(status, existing);
+        // 수정 요청 시에는 폼 활성화 유지, 버튼 텍스트 변경
+        document.getElementById('submitBtn').textContent = '수정 완료 및 재제출 →';
+      }
     }
   }
 
@@ -238,11 +347,14 @@
 
     if (!topic || !desiredOutcome || !actionPlan) { alert('필수 항목을 모두 입력해주세요.'); return; }
     if (!currentScore || !targetScore) { alert('현재 점수와 목표 점수를 선택해주세요.'); return; }
-    if (!coacheeConsent) { alert('피코치 동의를 체크해주세요.'); return; }
+    if (!coacheeConsent) { alert('서명 체크박스를 선택해주세요.'); return; }
 
     const coachee = DB.getItem('coachees', coacheeId);
     const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
     const coach = matching ? getCoach(matching.coachId) : null;
+
+    // 기존 합의서 확인 (수정 요청 후 재제출인 경우)
+    const existing = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
 
     const agreement = {
       id: 'goal_' + coacheeId, coacheeId,
@@ -251,13 +363,22 @@
       topic, desiredOutcome, actionPlan,
       evaluationMethod: document.getElementById('evaluationMethod').value,
       currentScore, targetScore,
-      coacheeConsent, coachConsent: document.getElementById('coachConsent').checked,
-      agreedAt: new Date().toISOString()
+      coacheeConsent: true,
+      coacheeSigAt: new Date().toISOString(),
+      coachConsent: false,
+      coachSigAt: null,
+      status: 'pending_coach_sign',
+      // 수정 요청 관련 필드 초기화 (재제출 시)
+      revisionNote: null,
+      revisionRequestedAt: null
     };
 
     DB.upsert('goalAgreements', agreement);
 
-    DB.updateItem('coachees', coacheeId, { status: 'coaching' });
+    // 피코치 상태는 아직 변경하지 않음 (코치 서명 후 변경)
+    // DB.updateItem('coachees', coacheeId, { status: 'coaching' });
+
+    alert('합의서가 제출되었습니다. 코치님의 서명을 기다려주세요.');
     window.location.href = `coachee-home.html?id=${coacheeId}`;
   });
 
