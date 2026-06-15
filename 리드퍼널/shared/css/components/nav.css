@@ -1,0 +1,95 @@
+/* ===== FLOCA Navigation Component ===== */
+/* 모든 페이지에서 공유하는 네비게이션 스타일 */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(15,15,26,0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-light, rgba(255,255,255,0.1));
+  z-index: 1000;
+  padding: 16px 0;
+}
+
+.nav-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent, #4fd1c5);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-links a {
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s;
+  white-space: nowrap;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent, #4fd1c5);
+}
+
+/* ===== Mobile Navigation (Bottom Bar) ===== */
+@media (max-width: 480px) {
+  .nav {
+    top: auto;
+    bottom: 0;
+    border-bottom: none;
+    border-top: 1px solid var(--border-light, rgba(255,255,255,0.1));
+    padding: 12px 0;
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  }
+
+  .nav-container {
+    flex-direction: row;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .nav-logo {
+    display: none;
+  }
+
+  .nav-links {
+    gap: 0;
+    justify-content: space-around;
+    width: 100%;
+    overflow-x: visible;
+    flex-wrap: nowrap;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+    padding: 6px 4px;
+    text-align: center;
+    white-space: nowrap;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+
+  body {
+    padding-bottom: 70px;
+  }
+}

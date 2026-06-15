@@ -1,0 +1,42 @@
+/* ===== FLOCA Light Theme ===== */
+/* 일기 페이지 등에서 사용하는 라이트 테마 */
+
+:root {
+  /* Background Colors */
+  --dark: #f8fafc;
+  --dark-light: #ffffff;
+
+  /* Text Colors */
+  --text: #1a1a2e;
+  --text-muted: rgba(26,26,46,0.7);
+  --text-subtle: rgba(26,26,46,0.5);
+
+  /* Border */
+  --border: rgba(0,0,0,0.08);
+  --border-light: rgba(0,0,0,0.1);
+
+  /* Primary/Accent */
+  --primary: #2a7b9b;
+  --primary-dark: #1e6a87;
+  --accent: #2a7b9b;
+  --accent-soft: rgba(42,123,155,0.1);
+  --accent-glow: rgba(42,123,155,0.2);
+}
+
+body {
+  color: var(--text);
+  background: var(--dark);
+}
+
+/* ===== Card Override for Light Theme ===== */
+.card {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+.card:hover {
+  background: #ffffff;
+  border-color: var(--primary);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}

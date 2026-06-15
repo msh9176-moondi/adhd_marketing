@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,98 +18,16 @@
     <meta property="og:description" content="긴급한 일, 가벼운 일, 하면 좋은 일. 3가지 색으로 오늘 할 일을 정리하세요. 배송비만 부담!">
     <meta property="og:image" content="payment/포스트잇2.png">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-yellow.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/footer.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
 
+    <!-- Page Specific CSS -->
     <style>
-        :root {
-            --primary: #f59e0b;
-            --primary-dark: #d97706;
-            --accent: #fbbf24;
-            --dark: #0f0f1a;
-            --dark-light: #1a1a2e;
-            --text: #ffffff;
-            --text-muted: rgba(255,255,255,0.7);
-            --text-subtle: rgba(255,255,255,0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--dark);
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== 네비게이션 ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            padding: 16px 0;
-        }
-
-        .nav-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent);
-        }
-
         /* ===== 히어로 섹션 ===== */
         .hero {
             min-height: 100vh;
@@ -169,13 +82,8 @@
             word-break: keep-all;
         }
 
-        .hero h1 .highlight {
-            color: var(--accent);
-        }
-
-        .hero h1 .free {
-            color: #f87171;
-        }
+        .hero h1 .highlight { color: var(--accent); }
+        .hero h1 .free { color: #f87171; }
 
         .hero-subtitle {
             font-size: 17px;
@@ -185,17 +93,6 @@
             word-break: keep-all;
         }
 
-        /* 공통 이미지 스타일 */
-        .content-image {
-            max-width: 280px;
-            width: 85%;
-            border-radius: 16px;
-            margin: 0 auto;
-            display: block;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-        }
-
-        /* 메인 제품 이미지 */
         .hero-image {
             max-width: 300px;
             width: 85%;
@@ -204,22 +101,84 @@
             margin-bottom: 32px;
         }
 
-        /* 문제 공감 이미지 */
+        .cta-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 14px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            box-shadow: 0 8px 32px rgba(251,191,36,0.4);
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(251,191,36,0.5);
+        }
+
+        .hero-note {
+            font-size: 14px;
+            color: var(--text-subtle);
+        }
+
+        .hero-note strong { color: #f87171; }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-right: 2px solid var(--text-subtle);
+            border-bottom: 2px solid var(--text-subtle);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+
+        /* ===== 공통 섹션 ===== */
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .section-header p {
+            color: var(--text-muted);
+            font-size: 15px;
+        }
+
+        /* ===== 문제 공감 섹션 ===== */
+        .why {
+            background: var(--dark-light);
+            padding: 80px 0;
+        }
+
         .problem-image {
             max-width: 280px;
             width: 85%;
             border-radius: 16px;
             margin: 0 auto;
-            display: block;
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-        }
-
-        /* 사용 이미지 */
-        .usage-image {
-            max-width: 280px;
-            width: 85%;
-            border-radius: 16px;
-            margin: 32px auto 0;
             display: block;
             box-shadow: 0 12px 40px rgba(0,0,0,0.4);
         }
@@ -286,121 +245,13 @@
             border-radius: 12px;
         }
 
-        .cta-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 14px;
-            margin-bottom: 16px;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(251,191,36,0.4);
-        }
-
-        .cta-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(251,191,36,0.5);
-        }
-
-        .hero-note {
-            font-size: 14px;
-            color: var(--text-subtle);
-        }
-
-        .hero-note strong {
-            color: #f87171;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid var(--text-subtle);
-            border-bottom: 2px solid var(--text-subtle);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 12px;
-            word-break: keep-all;
-        }
-
-        .section-header p {
-            color: var(--text-muted);
-            font-size: 15px;
-        }
-
-        /* ===== 왜 필요한가 섹션 ===== */
-        .why {
-            background: var(--dark);
-            padding: 80px 0;
-        }
-
-        .why-list {
-            display: grid;
-            gap: 12px;
-        }
-
-        .why-item {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .why-icon {
-            width: 40px;
-            height: 40px;
-            background: rgba(251,191,36,0.2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-
-        .why-item p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
-
         /* ===== 체험단 혜택 섹션 ===== */
         .benefits {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             padding: 80px 0;
         }
 
-        .benefits-content {
-            text-align: center;
-        }
+        .benefits-content { text-align: center; }
 
         .benefits h2 {
             font-size: 24px;
@@ -442,8 +293,15 @@
             line-height: 1.6;
         }
 
-        .benefit-item strong {
-            color: #fff;
+        .benefit-item strong { color: #fff; }
+
+        .usage-image {
+            max-width: 280px;
+            width: 85%;
+            border-radius: 16px;
+            margin: 32px auto 0;
+            display: block;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
         }
 
         /* ===== 참여 조건 섹션 ===== */
@@ -497,9 +355,7 @@
             padding-top: 2px;
         }
 
-        .condition-item p strong {
-            color: var(--text);
-        }
+        .condition-item p strong { color: var(--text); }
 
         .shipping-notice {
             margin-top: 24px;
@@ -559,160 +415,17 @@
             line-height: 1.8;
         }
 
-        .cta-card .cta-btn {
-            margin-bottom: 20px;
-        }
+        .cta-card .cta-btn { margin-bottom: 20px; }
 
         .cta-note {
             font-size: 13px;
             color: var(--text-subtle);
         }
 
-        /* ===== 푸터 ===== */
-        .footer {
-            background: var(--dark-light);
-            padding: 60px 0 40px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .footer-content {
-            display: grid;
-            gap: 40px;
-        }
-
-        .footer-brand {
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .footer-tagline {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .footer-social a {
-            width: 44px;
-            height: 44px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .footer-social a:hover {
-            background: rgba(251,191,36,0.15);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .footer-social img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-
-        .footer-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-info p {
-            font-size: 13px;
-            color: var(--text-subtle);
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        .footer-info .company {
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .footer-copyright {
-            text-align: center;
-            padding-top: 24px;
-            margin-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-copyright p {
-            font-size: 12px;
-            color: var(--text-subtle);
-        }
-
         /* ===== 반응형 ===== */
         @media (min-width: 768px) {
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .section-header h2 {
-                font-size: 32px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav {
-                top: auto;
-                bottom: 0;
-                border-bottom: none;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 12px 0;
-                padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            }
-
-            .nav-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 0;
-                justify-content: space-around;
-                width: 100%;
-                overflow-x: visible;
-                flex-wrap: nowrap;
-            }
-
-            .nav-links a {
-                font-size: 10px;
-                padding: 6px 4px;
-                text-align: center;
-                white-space: nowrap;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-
-            body {
-                padding-bottom: 70px;
-            }
+            .hero h1 { font-size: 40px; }
+            .section-header h2 { font-size: 32px; }
         }
     </style>
 </head>
@@ -726,7 +439,7 @@
                 <a href="adhd-test.html">자료 제공</a>
                 <a href="community.html">커뮤니티</a>
                 <a href="podcast.html">팟캐스트</a>
-                <a href="postit.html" class="active">제품</a>
+                <a href="postit.html">제품</a>
                 <a href="coaching.html">상담</a>
             </div>
         </div>
@@ -756,7 +469,7 @@
     </section>
 
     <!-- ===== 문제 공감 섹션 ===== -->
-    <section class="why" style="background: var(--dark-light);">
+    <section class="why">
         <div class="container">
             <div class="section-header">
                 <h2>뭘 먼저 해야 할지<br>고르다가...</h2>
@@ -926,5 +639,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
 </body>
 </html>

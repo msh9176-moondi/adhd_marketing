@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,96 +18,16 @@
     <meta property="og:description" content="같은 ADHD라도 무너지는 방식이 다릅니다. 6가지 실행 패턴 유형을 알아보세요.">
     <meta property="og:image" content="PDF사진.png">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
+    <link rel="stylesheet" href="shared/css/components/cards.css">
 
+    <!-- Page Specific CSS -->
     <style>
-        :root {
-            --primary: #2a7b9b;
-            --primary-dark: #1e6a87;
-            --accent: #4fd1c5;
-            --dark: #0f0f1a;
-            --dark-light: #1a1a2e;
-            --text: #ffffff;
-            --text-muted: rgba(255,255,255,0.7);
-            --text-subtle: rgba(255,255,255,0.5);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--dark);
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== 네비게이션 ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            padding: 16px 0;
-        }
-
-        .nav-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent);
-        }
-
         /* ===== 메인 섹션 ===== */
         .main {
             padding: 140px 0 80px;
@@ -128,7 +43,6 @@
             font-size: 32px;
             font-weight: 900;
             margin-bottom: 16px;
-            word-break: keep-all;
         }
 
         .section-header p {
@@ -147,14 +61,14 @@
             gap: 16px;
             padding: 24px;
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
             border-radius: 12px;
             transition: all 0.3s;
         }
 
         .benefit-item:hover {
             background: rgba(255,255,255,0.06);
-            border-color: rgba(79,209,197,0.3);
+            border-color: var(--accent-glow);
         }
 
         .benefit-check {
@@ -189,7 +103,7 @@
             padding: 40px;
             background: rgba(255,255,255,0.03);
             border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
         }
 
         .cta-section h2 {
@@ -204,66 +118,8 @@
             margin-bottom: 24px;
         }
 
-        .test-start-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 14px;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(79,209,197,0.4);
-        }
-
-        .test-start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
-        }
-
         /* ===== 반응형 ===== */
         @media (max-width: 480px) {
-            .nav {
-                top: auto;
-                bottom: 0;
-                border-bottom: none;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 12px 0;
-                padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            }
-
-            .nav-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 0;
-                justify-content: space-around;
-                width: 100%;
-                overflow-x: visible;
-                flex-wrap: nowrap;
-            }
-
-            .nav-links a {
-                font-size: 10px;
-                padding: 6px 4px;
-                text-align: center;
-                white-space: nowrap;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-
-            body {
-                padding-bottom: 70px;
-            }
-
             .section-header h1 {
                 font-size: 26px;
             }
@@ -277,7 +133,7 @@
             <a href="index.html" class="nav-logo">FLOCA</a>
             <div class="nav-links">
                 <a href="index.html">홈</a>
-                <a href="adhd-test.html">간편검사</a>
+                <a href="adhd-test.html">자료 제공</a>
                 <a href="community.html">커뮤니티</a>
                 <a href="podcast.html">팟캐스트</a>
                 <a href="postit.html">제품</a>
@@ -342,9 +198,12 @@
             <div class="cta-section">
                 <h2>나는 어떤 유형일까?</h2>
                 <p>3분 테스트로 내 실행 패턴을 확인해보세요</p>
-                <a href="survey.html" class="test-start-btn">내 유형 확인하기 →</a>
+                <a href="survey.html" class="btn-main">내 유형 확인하기 →</a>
             </div>
         </div>
     </section>
+
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
 </body>
 </html>

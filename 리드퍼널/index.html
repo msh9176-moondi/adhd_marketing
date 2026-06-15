@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,207 +29,30 @@
     }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/footer.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
+    <link rel="stylesheet" href="shared/css/components/hero.css">
+    <link rel="stylesheet" href="shared/css/components/cards.css">
 
+    <!-- Page Specific CSS -->
     <style>
-        :root {
-            --primary: #2a7b9b;
-            --primary-dark: #1e6a87;
-            --accent: #4fd1c5;
-            --dark: #0f0f1a;
-            --dark-light: #1a1a2e;
-            --text: #ffffff;
-            --text-muted: rgba(255,255,255,0.7);
-            --text-subtle: rgba(255,255,255,0.5);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--dark);
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== 네비게이션 ===== */
-        .nav {
-            position: fixed;
-            top: 0; left: 0; right: 0;
-            background: rgba(15,15,26,0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            padding: 16px 0;
-        }
-        .nav-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
-        .nav-links a:hover,
-        .nav-links a.active { color: var(--accent); }
-
-        /* ===== 히어로 ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 120px 20px 100px;
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-            position: relative;
-        }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            background: rgba(79,209,197,0.12);
-            border: 1px solid rgba(79,209,197,0.3);
-            color: var(--accent);
-            font-size: 12px;
-            font-weight: 700;
-            padding: 8px 20px;
-            border-radius: 30px;
-            margin-bottom: 32px;
-            letter-spacing: 2px;
-        }
-        .hero h1 {
-            font-size: 36px;
-            font-weight: 900;
-            line-height: 1.4;
-            margin-bottom: 24px;
-            word-break: keep-all;
-        }
-        .hero h1 .accent { color: var(--accent); }
-        .hero-sub {
-            font-size: 17px;
-            color: var(--text-muted);
-            line-height: 1.9;
-            margin-bottom: 48px;
-            word-break: keep-all;
-        }
-        .hero-btns {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            width: 100%;
-            max-width: 300px;
-        }
-        .btn-main {
-            display: block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 18px 28px;
-            border-radius: 14px;
-            text-align: center;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(79,209,197,0.35);
-        }
-        .btn-main:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
-        }
-        .btn-outline {
-            display: block;
-            color: var(--accent);
-            font-size: 15px;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 14px 28px;
-            border-radius: 14px;
-            border: 1px solid rgba(79,209,197,0.3);
-            text-align: center;
-            transition: all 0.3s;
-        }
-        .btn-outline:hover { background: rgba(79,209,197,0.08); }
-
-        .scroll-hint {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-        .scroll-hint span {
-            display: block;
-            width: 20px; height: 20px;
-            border-right: 2px solid var(--text-subtle);
-            border-bottom: 2px solid var(--text-subtle);
-            transform: rotate(45deg);
-        }
-        @keyframes bounce {
-            0%,20%,50%,80%,100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        /* ===== 공통 섹션 ===== */
-        .section { padding: 80px 0; }
-        .label-tag {
-            display: inline-block;
-            background: rgba(79,209,197,0.1);
-            color: var(--accent);
-            font-size: 11px;
-            font-weight: 700;
-            padding: 5px 14px;
-            border-radius: 20px;
-            margin-bottom: 16px;
-            letter-spacing: 2px;
-        }
+        /* ===== 섹션 공통 ===== */
         .section-title {
             font-size: 26px;
             font-weight: 700;
             line-height: 1.5;
             margin-bottom: 12px;
-            word-break: keep-all;
         }
+
         .section-desc {
             color: var(--text-muted);
             font-size: 15px;
             line-height: 1.8;
-            word-break: keep-all;
             margin-bottom: 40px;
         }
 
@@ -243,7 +62,6 @@
             font-size: 15px;
             color: var(--text-muted);
             line-height: 2;
-            word-break: keep-all;
         }
         .story-body p { margin-bottom: 20px; }
         .story-body p:last-child { margin-bottom: 0; }
@@ -259,44 +77,12 @@
             font-weight: 900;
             color: var(--text);
             line-height: 1.7;
-            word-break: keep-all;
         }
         .story-callout span { color: var(--accent); }
 
         /* ===== 우리가 하는 일 ===== */
         .what { background: var(--dark); }
         .what-grid { display: grid; gap: 20px; }
-        .what-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 20px;
-            padding: 32px 24px;
-            transition: all 0.3s;
-        }
-        .what-card:hover {
-            border-color: rgba(79,209,197,0.25);
-            background: rgba(79,209,197,0.04);
-        }
-        .what-card .icon { font-size: 32px; margin-bottom: 16px; }
-        .what-card .en {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-subtle);
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-        .what-card h3 {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-        .what-card p {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.8;
-            word-break: keep-all;
-        }
 
         /* ===== 철학 섹션 ===== */
         .mission { background: var(--dark-light); }
@@ -304,7 +90,7 @@
             margin-bottom: 32px;
             padding: 32px 24px;
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-light);
             border-radius: 20px;
             text-align: center;
         }
@@ -313,13 +99,11 @@
             font-weight: 900;
             color: var(--accent);
             line-height: 1.7;
-            word-break: keep-all;
         }
         .mission-body {
             font-size: 15px;
             color: var(--text-muted);
             line-height: 2;
-            word-break: keep-all;
         }
         .mission-body p { margin-bottom: 20px; }
         .mission-body p:last-child { margin-bottom: 0; }
@@ -338,7 +122,6 @@
         .empathy-body {
             font-size: 15px;
             line-height: 2;
-            word-break: keep-all;
         }
         .empathy-body p { margin-bottom: 20px; }
         .empathy-body p:last-child { margin-bottom: 0; }
@@ -347,185 +130,13 @@
         /* ===== 가치 섹션 ===== */
         .values { background: var(--dark); }
         .values-list { display: grid; gap: 14px; }
-        .value-row {
-            display: flex;
-            gap: 16px;
-            padding: 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 14px;
-        }
-        .value-icon {
-            width: 40px; height: 40px;
-            background: rgba(79,209,197,0.12);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            flex-shrink: 0;
-        }
-        .value-row h4 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 4px;
-        }
-        .value-row p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.7;
-            word-break: keep-all;
-        }
 
-        /* ===== CTA ===== */
+        /* ===== CTA 섹션 ===== */
         .cta-section { background: var(--dark-light); padding: 80px 0; }
-        .cta-box {
-            background: rgba(79,209,197,0.07);
-            border: 2px solid rgba(79,209,197,0.2);
-            border-radius: 24px;
-            padding: 48px 28px;
-            text-align: center;
-        }
-        .cta-box h2 {
-            font-size: 26px;
-            font-weight: 900;
-            margin-bottom: 12px;
-            word-break: keep-all;
-        }
-        .cta-box p {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin-bottom: 36px;
-            line-height: 1.8;
-        }
         .cta-btns { display: flex; flex-direction: column; gap: 12px; }
 
-        /* ===== 푸터 ===== */
-        .footer {
-            background: var(--dark-light);
-            padding: 60px 0 40px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .footer-content {
-            display: grid;
-            gap: 40px;
-        }
-
-        .footer-brand {
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .footer-tagline {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .footer-social a {
-            width: 44px;
-            height: 44px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .footer-social a:hover {
-            background: rgba(79,209,197,0.15);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .footer-social img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-
-        .footer-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-info p {
-            font-size: 13px;
-            color: var(--text-subtle);
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        .footer-info .company {
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .footer-copyright {
-            text-align: center;
-            padding-top: 24px;
-            margin-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-copyright p {
-            font-size: 12px;
-            color: var(--text-subtle);
-        }
-
-        /* ===== 모바일 네비게이션 ===== */
-        @media (max-width: 480px) {
-            .nav {
-                top: auto; bottom: 0;
-                border-bottom: none;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 12px 0;
-                padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            }
-            .nav-container { flex-direction: row; justify-content: center; gap: 0; }
-            .nav-logo { display: none; }
-            .nav-links {
-                gap: 0;
-                justify-content: space-around;
-                width: 100%;
-                overflow-x: visible;
-                flex-wrap: nowrap;
-            }
-            .nav-links a {
-                font-size: 10px;
-                padding: 6px 4px;
-                text-align: center;
-                white-space: nowrap;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-            body { padding-bottom: 70px; }
-        }
-
+        /* ===== 반응형 ===== */
         @media (min-width: 768px) {
-            .hero h1 { font-size: 44px; }
             .section-title { font-size: 32px; }
         }
     </style>
@@ -730,5 +341,8 @@
             </div>
         </div>
     </footer>
+
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
 </body>
 </html>

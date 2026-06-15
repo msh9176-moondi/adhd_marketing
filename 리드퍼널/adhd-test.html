@@ -1,14 +1,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,80 +23,32 @@
     <meta name="twitter:title" content="ADHD를 위한 현실 대처 가이드 | 무료 PDF">
     <meta name="twitter:description" content="약을 먹어도 삶이 그대로인 당신에게. 무료 PDF를 받아보세요.">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/footer.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
+    <link rel="stylesheet" href="shared/css/components/hero.css">
 
+    <!-- Page Specific CSS -->
     <style>
         :root {
-            --primary: #2a7b9b;
-            --primary-dark: #1e6a87;
-            --accent: #4fd1c5;
-            --dark: #0f0f1a;
-            --dark-light: #1a1a2e;
-            --text: #ffffff;
-            --text-muted: rgba(255,255,255,0.7);
-            --text-subtle: rgba(255,255,255,0.5);
             --success: #2e8b57;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--dark);
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ===== 히어로 섹션 ===== */
+        /* ===== 히어로 오버라이드 ===== */
         .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
             padding: 100px 20px 60px;
-            background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(42,123,155,0.15) 0%, transparent 70%);
-            pointer-events: none;
         }
 
         .brand-badge {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(79,209,197,0.15);
-            border: 1px solid rgba(79,209,197,0.3);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-glow);
             color: var(--accent);
             font-size: 13px;
             font-weight: 600;
@@ -113,22 +60,7 @@
 
         .hero h1 {
             font-size: 32px;
-            font-weight: 900;
-            line-height: 1.4;
             margin-bottom: 20px;
-            word-break: keep-all;
-        }
-
-        .hero h1 .highlight {
-            color: var(--accent);
-        }
-
-        .hero-subtitle {
-            font-size: 16px;
-            color: var(--text-muted);
-            line-height: 1.9;
-            margin-bottom: 32px;
-            word-break: keep-all;
         }
 
         .hero-image {
@@ -137,72 +69,6 @@
             border-radius: 16px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.5);
             margin-bottom: 24px;
-        }
-
-        .test-start-btn {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            font-size: 18px;
-            font-weight: 700;
-            text-decoration: none;
-            padding: 20px 40px;
-            border-radius: 14px;
-            margin-bottom: 20px;
-            transition: all 0.3s;
-            box-shadow: 0 8px 32px rgba(79,209,197,0.4);
-        }
-
-        .test-start-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(79,209,197,0.5);
-        }
-
-        .hero-note {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 40px;
-        }
-
-        .test-link {
-            display: inline-block;
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 500;
-            text-decoration: none;
-            padding: 12px 24px;
-            border: 1px solid rgba(79,209,197,0.3);
-            border-radius: 30px;
-            margin-bottom: 40px;
-            transition: all 0.3s;
-        }
-
-        .test-link:hover {
-            background: rgba(79,209,197,0.15);
-            border-color: var(--accent);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            width: 20px;
-            height: 20px;
-            border-right: 2px solid var(--text-subtle);
-            border-bottom: 2px solid var(--text-subtle);
-            transform: rotate(45deg);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
         }
 
         /* ===== 공감 섹션 ===== */
@@ -220,7 +86,6 @@
             font-size: 26px;
             font-weight: 700;
             margin-bottom: 12px;
-            word-break: keep-all;
         }
 
         .section-header p {
@@ -235,7 +100,7 @@
 
         .problem-card {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
             display: flex;
@@ -246,7 +111,7 @@
 
         .problem-card:hover {
             background: rgba(255,255,255,0.06);
-            border-color: rgba(79,209,197,0.3);
+            border-color: var(--accent-glow);
         }
 
         .problem-icon {
@@ -264,48 +129,6 @@
         .problem-card p {
             font-size: 15px;
             color: var(--text-muted);
-        }
-
-        /* ===== 내용 섹션 ===== */
-        .benefits {
-            background: var(--dark);
-            padding: 80px 0;
-        }
-
-        .benefit-list {
-            display: grid;
-            gap: 16px;
-        }
-
-        .benefit-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 20px;
-            background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 12px;
-        }
-
-        .benefit-check {
-            width: 24px;
-            height: 24px;
-            background: var(--accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--dark);
-            font-size: 14px;
-            font-weight: 700;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-
-        .benefit-item p {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.7;
         }
 
         /* ===== 신뢰 섹션 ===== */
@@ -327,38 +150,21 @@
         .trust-quote {
             font-size: 17px;
             line-height: 2;
-            word-break: keep-all;
         }
 
         .trust-quote strong {
             color: #fff;
         }
 
-        /* ===== CTA 섹션 ===== */
+        /* ===== CTA 폼 섹션 ===== */
         .cta {
             background: var(--dark-light);
             padding: 80px 0;
         }
 
-        .cta-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .cta-header h2 {
-            font-size: 28px;
-            font-weight: 900;
-            margin-bottom: 12px;
-        }
-
-        .cta-header p {
-            font-size: 15px;
-            color: var(--text-muted);
-        }
-
         .form-card {
             background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-light);
             border-radius: 24px;
             padding: 40px 28px;
         }
@@ -380,7 +186,7 @@
             padding: 16px 18px;
             font-size: 16px;
             background: rgba(255,255,255,0.08);
-            border: 2px solid rgba(255,255,255,0.1);
+            border: 2px solid var(--border-light);
             border-radius: 12px;
             color: var(--text);
             transition: all 0.2s;
@@ -424,7 +230,7 @@
             cursor: pointer;
             transition: all 0.3s;
             font-family: inherit;
-            box-shadow: 0 8px 24px rgba(79,209,197,0.3);
+            box-shadow: 0 8px 24px var(--accent-glow);
         }
 
         .submit-btn:hover {
@@ -432,16 +238,11 @@
             box-shadow: 0 12px 32px rgba(79,209,197,0.4);
         }
 
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
         .form-note {
             text-align: center;
             font-size: 13px;
             color: var(--text-subtle);
             margin-top: 20px;
-            line-height: 1.7;
         }
 
         /* 성공 메시지 */
@@ -500,7 +301,7 @@
             align-items: center;
             gap: 16px;
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
             border-radius: 14px;
             padding: 20px;
             text-decoration: none;
@@ -539,151 +340,7 @@
             color: var(--accent);
         }
 
-        /* ===== 푸터 ===== */
-        .footer {
-            background: var(--dark-light);
-            padding: 60px 0 40px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-        }
-
-        .footer-content {
-            display: grid;
-            gap: 40px;
-        }
-
-        .footer-brand {
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 900;
-            color: var(--accent);
-            margin-bottom: 12px;
-        }
-
-        .footer-tagline {
-            font-size: 15px;
-            color: var(--text-muted);
-            line-height: 1.8;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 24px;
-        }
-
-        .footer-social a {
-            width: 44px;
-            height: 44px;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .footer-social a:hover {
-            background: rgba(79,209,197,0.15);
-            border-color: var(--accent);
-            transform: translateY(-3px);
-        }
-
-        .footer-social img {
-            width: 22px;
-            height: 22px;
-            object-fit: contain;
-        }
-
-        .footer-info {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-info p {
-            font-size: 13px;
-            color: var(--text-subtle);
-            text-align: center;
-            line-height: 1.6;
-        }
-
-        .footer-info .company {
-            font-weight: 600;
-            color: var(--text-muted);
-        }
-
-        .footer-copyright {
-            text-align: center;
-            padding-top: 24px;
-            margin-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .footer-copyright p {
-            font-size: 12px;
-            color: var(--text-subtle);
-        }
-
         /* ===== 반응형 ===== */
-        /* ===== 네비게이션 ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            padding: 16px 0;
-        }
-
-        .nav-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent);
-        }
-
         @media (min-width: 768px) {
             .hero h1 {
                 font-size: 40px;
@@ -695,52 +352,6 @@
 
             .section-header h2 {
                 font-size: 32px;
-            }
-
-            .cta-header h2 {
-                font-size: 32px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav {
-                top: auto;
-                bottom: 0;
-                border-bottom: none;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 12px 0;
-                padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            }
-
-            .nav-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 0;
-                justify-content: space-around;
-                width: 100%;
-                overflow-x: visible;
-                flex-wrap: nowrap;
-            }
-
-            .nav-links a {
-                font-size: 10px;
-                padding: 6px 4px;
-                text-align: center;
-                white-space: nowrap;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-
-            body {
-                padding-bottom: 70px;
             }
         }
     </style>
@@ -768,7 +379,7 @@
             나는 왜 맨날<br>
             <span class="highlight">미룰까?</span>
         </h1>
-        <p class="hero-subtitle">
+        <p class="hero-sub">
             의지가 약해서가 아닙니다.<br>
             내 뇌에 맞지 않는 방식으로<br>
             계속 시도했을 수 있어요.
@@ -936,6 +547,10 @@
         </div>
     </footer>
 
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
+
+    <!-- Page Specific JS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('lead-form');
@@ -996,11 +611,7 @@
                     submitBtn.disabled = true;
                     submitBtn.textContent = '처리 중...';
 
-                    // GA 이벤트: 리드 제출
-                    gtag('event', 'lead_submit', {
-                        'event_category': 'conversion',
-                        'event_label': 'pdf_signup'
-                    });
+                    trackEvent('conversion', 'lead_submit', 'pdf_signup');
 
                     const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz59rkWc3MHBgIxTNKsmKObJOhWR43tXAXzi8MC10ILMcVgBaseXXFWXqMTGQX2rLY/exec';
 

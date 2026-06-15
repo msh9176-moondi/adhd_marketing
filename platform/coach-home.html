@@ -73,6 +73,57 @@
 
     .info-pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0; }
 
+    /* 점수 진행 그래프 */
+    .score-progress-card {
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
+      border-radius: 16px; padding: 20px; margin-bottom: 16px; color: white;
+    }
+    .score-progress-title {
+      font-size: 14px; font-weight: 700; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .score-chart {
+      display: flex; align-items: flex-end; gap: 12px; height: 120px;
+      padding-bottom: 24px; position: relative;
+    }
+    .score-chart::before {
+      content: ''; position: absolute; bottom: 24px; left: 0; right: 0;
+      border-bottom: 1px dashed rgba(255,255,255,0.2);
+    }
+    .score-bar-wrap {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px;
+    }
+    .score-bar {
+      width: 100%; max-width: 40px; border-radius: 6px 6px 0 0;
+      transition: height 0.3s; position: relative;
+    }
+    .score-bar.empty { background: rgba(255,255,255,0.1); height: 20px; }
+    .score-bar.filled { background: linear-gradient(180deg, #10B981 0%, #059669 100%); }
+    .score-bar.down { background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%); }
+    .score-bar-val {
+      position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+      font-size: 12px; font-weight: 700; white-space: nowrap;
+    }
+    .score-bar-label { font-size: 11px; color: rgba(255,255,255,0.7); }
+    .target-line {
+      position: absolute; left: 0; right: 0; border-top: 2px dashed #FCD34D;
+      display: flex; justify-content: flex-end;
+    }
+    .target-line span {
+      background: #FCD34D; color: #000; font-size: 10px; font-weight: 700;
+      padding: 2px 6px; border-radius: 4px; transform: translateY(-50%);
+    }
+    .score-summary {
+      display: flex; justify-content: space-between; margin-top: 16px;
+      padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .score-summary-item { text-align: center; }
+    .score-summary-val { font-size: 20px; font-weight: 800; }
+    .score-summary-val.up { color: #10B981; }
+    .score-summary-val.down { color: #F59E0B; }
+    .score-summary-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+
     .empty-state {
       text-align: center; padding: 60px 20px; color: var(--text-muted);
     }
@@ -167,6 +218,39 @@
       padding: 16px;
       margin-top: 16px;
     }
+
+    /* 코칭 모드 (통화 중 사용) */
+    .coaching-mode-overlay {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg); z-index: 9998; overflow-y: auto;
+      display: none; padding: 20px;
+    }
+    .coaching-mode-overlay.show { display: block; }
+    .coaching-mode-header {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 20px; background: linear-gradient(135deg, #DC2626, #B91C1C);
+      border-radius: 16px; color: white; margin-bottom: 20px;
+    }
+    .coaching-mode-header h2 { font-size: 18px; font-weight: 800; }
+    .coaching-mode-close { background: rgba(255,255,255,0.2); border: none; color: white; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+    .cm-section { background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+    .cm-section-title { font-size: 14px; font-weight: 700; color: var(--text-muted); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .cm-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .cm-info-item { background: var(--bg); border-radius: 10px; padding: 12px; }
+    .cm-info-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .cm-info-val { font-size: 14px; font-weight: 600; color: var(--text); }
+    .cm-task-box { background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 12px; padding: 16px; }
+    .cm-task-label { font-size: 12px; font-weight: 700; color: #92400E; margin-bottom: 6px; }
+    .cm-task-val { font-size: 14px; color: var(--text); line-height: 1.6; }
+    .cm-memo { width: 100%; min-height: 120px; border: 2px solid var(--border); border-radius: 12px; padding: 14px; font-size: 14px; font-family: inherit; resize: vertical; }
+    .cm-memo:focus { outline: none; border-color: var(--primary); }
+    .cm-quick-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .cm-quick-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; font-size: 12px; cursor: pointer; }
+    .cm-quick-btn:hover { background: var(--primary-light); border-color: var(--primary); }
+    .cm-score-row { display: flex; gap: 12px; justify-content: center; margin: 16px 0; }
+    .cm-score-item { text-align: center; padding: 12px 20px; background: var(--bg); border-radius: 12px; }
+    .cm-score-num { font-size: 28px; font-weight: 900; }
+    .cm-score-label { font-size: 11px; color: var(--text-muted); }
   </style>
 </head>
 <body>
@@ -203,9 +287,12 @@
 
   <main class="dashboard">
     <div class="container">
-      <div class="greeting">
-        <h2 id="greetingName"></h2>
-        <p id="greetingSpec"></p>
+      <div class="greeting" style="display:flex;justify-content:space-between;align-items:flex-start;">
+        <div>
+          <h2 id="greetingName"></h2>
+          <p id="greetingSpec"></p>
+        </div>
+        <button class="btn btn-outline btn-sm" onclick="logout()" style="flex-shrink:0;">다른 코치로 전환</button>
       </div>
 
       <!-- 코치 가이드 버튼 -->
@@ -279,6 +366,20 @@
   </div>
 </div>
 
+<!-- 성찰일지 상세 모달 -->
+<div class="modal-overlay" id="reflModal">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="reflModalTitle">📝 성찰일지</h3>
+      <button class="modal-close" onclick="closeReflModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="reflModalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary btn-full" onclick="closeReflModal()">확인</button>
+    </div>
+  </div>
+</div>
+
 <!-- 수정 요청 모달 -->
 <div class="modal-overlay" id="revisionModal">
   <div class="modal-box">
@@ -293,6 +394,65 @@
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeRevisionModal()">취소</button>
       <button class="btn btn-primary" onclick="requestRevision()">수정 요청 보내기</button>
+    </div>
+  </div>
+</div>
+
+<!-- 코칭 모드 오버레이 -->
+<div class="coaching-mode-overlay" id="coachingModeOverlay">
+  <div class="coaching-mode-header">
+    <div>
+      <h2 id="cmCoacheeName">🎧 코칭 중</h2>
+      <div style="font-size:13px;opacity:0.9;margin-top:4px;" id="cmSessionInfo"></div>
+    </div>
+    <button class="coaching-mode-close" onclick="closeCoachingMode()">코칭 종료</button>
+  </div>
+
+  <div style="max-width:600px;margin:0 auto;">
+    <!-- 피코치 핵심 정보 -->
+    <div class="cm-section">
+      <div class="cm-section-title">👤 피코치 정보</div>
+      <div class="cm-info-grid" id="cmCoacheeInfo"></div>
+    </div>
+
+    <!-- 지난 과제 -->
+    <div class="cm-section" id="cmLastTaskSection" style="display:none;">
+      <div class="cm-section-title">📋 지난 회기 과제</div>
+      <div class="cm-task-box">
+        <div class="cm-task-label">확인해야 할 과제</div>
+        <div class="cm-task-val" id="cmLastTask"></div>
+      </div>
+    </div>
+
+    <!-- 점수 현황 -->
+    <div class="cm-section">
+      <div class="cm-section-title">📊 점수 현황</div>
+      <div class="cm-score-row" id="cmScoreRow"></div>
+    </div>
+
+    <!-- 빠른 메모 -->
+    <div class="cm-section">
+      <div class="cm-section-title">✏️ 빠른 메모 <span style="font-weight:400;font-size:12px;">(통화 중 메모)</span></div>
+      <textarea class="cm-memo" id="cmMemo" placeholder="통화하면서 빠르게 메모하세요. 나중에 세션 일지에 정리할 수 있습니다."></textarea>
+      <div class="cm-quick-btns">
+        <button class="cm-quick-btn" onclick="addMemoTag('💡 인사이트: ')">💡 인사이트</button>
+        <button class="cm-quick-btn" onclick="addMemoTag('✅ 과제완료: ')">✅ 과제완료</button>
+        <button class="cm-quick-btn" onclick="addMemoTag('⚠️ 주의: ')">⚠️ 주의</button>
+        <button class="cm-quick-btn" onclick="addMemoTag('📌 다음과제: ')">📌 다음과제</button>
+        <button class="cm-quick-btn" onclick="addMemoTag('🎯 목표: ')">🎯 목표</button>
+      </div>
+    </div>
+
+    <!-- 이전 회기 요약 -->
+    <div class="cm-section" id="cmPrevSessionSection" style="display:none;">
+      <div class="cm-section-title">📝 이전 회기 요약</div>
+      <div id="cmPrevSessionContent"></div>
+    </div>
+
+    <!-- 액션 버튼 -->
+    <div style="display:flex;gap:12px;margin-top:20px;">
+      <button class="btn btn-outline" style="flex:1;" onclick="copyMemoAndClose()">메모 복사</button>
+      <a id="cmSessionLink" href="#" class="btn btn-primary" style="flex:2;">세션 일지 작성하기 →</a>
     </div>
   </div>
 </div>
@@ -323,6 +483,85 @@
     return DB.get('goalAgreements').filter(g =>
       coacheeIds.includes(g.coacheeId) && getAgreementStatus(g) === 'pending_coach_sign'
     ).length;
+  }
+
+  // 점수 진행 그래프 렌더링
+  function renderScoreGraph(coachee, reflections, goal) {
+    const targetScore = goal?.targetScore || 10;
+    const startScore = goal?.currentScore || 0;
+
+    // 1~4회기 성찰일지에서 현재 점수 추출
+    const scores = [1,2,3,4].map(n => {
+      const refl = reflections.find(r => r.sessionId === `sess_${coachee.id}_${n}`);
+      return refl?.currentScore || null;
+    });
+
+    // 유효한 점수만 필터
+    const validScores = scores.filter(s => s !== null);
+    if (validScores.length === 0 && !goal) {
+      return ''; // 데이터 없으면 표시 안함
+    }
+
+    const lastScore = validScores.length > 0 ? validScores[validScores.length - 1] : startScore;
+    const firstScore = validScores.length > 0 ? validScores[0] : startScore;
+    const totalChange = lastScore - startScore;
+    const trend = totalChange > 0 ? 'up' : (totalChange < 0 ? 'down' : '');
+
+    // 막대 높이 계산 (최대 100px)
+    const maxH = 80;
+    const getH = (score) => score ? Math.max(10, (score / 10) * maxH) : 0;
+    const targetLinePos = ((10 - targetScore) / 10) * maxH + 24; // bottom에서의 위치
+
+    return `
+      <div class="score-progress-card">
+        <div class="score-progress-title">
+          📊 점수 변화 추이
+          ${validScores.length > 0 ? `<span style="font-weight:400;font-size:12px;opacity:0.8;">(${validScores.length}회기 기록)</span>` : ''}
+        </div>
+        <div class="score-chart">
+          <div style="position:absolute;bottom:${100-targetLinePos}px;left:0;right:0;border-top:2px dashed #FCD34D;z-index:1;">
+            <span style="position:absolute;right:0;top:-10px;background:#FCD34D;color:#000;font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;">목표 ${targetScore}</span>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar ${startScore ? 'filled' : 'empty'}" style="height:${getH(startScore)}px;">
+              ${startScore ? `<div class="score-bar-val">${startScore}</div>` : ''}
+            </div>
+            <div class="score-bar-label">시작</div>
+          </div>
+          ${[1,2,3,4].map((n, i) => {
+            const score = scores[i];
+            const prevScore = i === 0 ? startScore : (scores[i-1] || startScore);
+            const isDown = score && prevScore && score < prevScore;
+            return `
+              <div class="score-bar-wrap">
+                <div class="score-bar ${score ? (isDown ? 'down' : 'filled') : 'empty'}" style="height:${getH(score) || 20}px;">
+                  ${score ? `<div class="score-bar-val">${score}</div>` : ''}
+                </div>
+                <div class="score-bar-label">${n}회기</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+        <div class="score-summary">
+          <div class="score-summary-item">
+            <div class="score-summary-val">${startScore || '-'}</div>
+            <div class="score-summary-label">시작 점수</div>
+          </div>
+          <div class="score-summary-item">
+            <div class="score-summary-val">${lastScore || '-'}</div>
+            <div class="score-summary-label">현재 점수</div>
+          </div>
+          <div class="score-summary-item">
+            <div class="score-summary-val ${trend}">${totalChange > 0 ? '+' : ''}${totalChange || '-'}</div>
+            <div class="score-summary-label">변화량</div>
+          </div>
+          <div class="score-summary-item">
+            <div class="score-summary-val" style="color:#FCD34D;">${targetScore}</div>
+            <div class="score-summary-label">목표</div>
+          </div>
+        </div>
+      </div>
+    `;
   }
 
   // 목표 합의서 섹션 렌더링
@@ -514,6 +753,9 @@
   document.getElementById('revisionModal').addEventListener('click', (e) => {
     if (e.target.classList.contains('modal-overlay')) closeRevisionModal();
   });
+  document.getElementById('reflModal').addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) closeReflModal();
+  });
 
   // 코치 선택 렌더
   function renderCoachPicker() {
@@ -541,6 +783,9 @@
 
   async function enterDashboard() {
     if (!myCoachId) return;
+    // 코치 세션 저장 (뒤로가기 시 유지)
+    localStorage.setItem('currentCoachId', myCoachId);
+
     document.getElementById('selectScreen').style.display = 'none';
     document.getElementById('dashboardScreen').style.display = 'block';
 
@@ -558,6 +803,7 @@
 
   function logout() {
     myCoachId = null;
+    localStorage.removeItem('currentCoachId'); // 로그아웃 시에만 삭제
     document.getElementById('selectScreen').style.display = 'flex';
     document.getElementById('dashboardScreen').style.display = 'none';
     document.querySelectorAll('.coach-pick-item').forEach(i => i.classList.remove('selected'));
@@ -710,6 +956,9 @@
             ⚠️ 피코치가 아직 "나를 소개합니다"를 작성하지 않았습니다.
           </div>`}
 
+          <!-- 점수 진행 그래프 -->
+          ${renderScoreGraph(coachee, reflections, goal)}
+
           <!-- 목표 합의서 섹션 -->
           ${renderGoalSection(coachee, goal)}
 
@@ -748,10 +997,14 @@
                 <div class="session-dot ${isDone ? 'done' : (n === nextSession ? 'active' : '')}"></div>
                 <div>
                   <div class="session-num">${n}회기 ${isDone ? '✓' : (n === nextSession ? '← 작성 필요' : '')}</div>
-                  <div class="session-date">${sess ? fmtDate(sess.sessionDate) : '미작성'} ${refl ? '· 피코치 성찰일지 ✓' : ''}</div>
+                  <div class="session-date">
+                    ${sess ? fmtDate(sess.sessionDate) : '미작성'}
+                    ${refl ? `<span style="color:#059669;font-weight:600;"> · 성찰 ✓ (${refl.currentScore || '-'}점)</span>` : ''}
+                  </div>
                 </div>
               </div>
               <div class="session-row-right">
+                ${refl ? `<button class="btn btn-sm btn-outline" style="font-size:11px;" onclick="event.stopPropagation();showReflModal('${coachee.id}',${n})">성찰일지</button>` : ''}
                 <a href="sessions.html?id=${coachee.id}&role=coach" class="btn btn-sm ${isDone ? 'btn-outline' : 'btn-primary'}">${isDone ? '수정' : '작성하기'}</a>
               </div>
             </div>`;
@@ -769,7 +1022,8 @@
             </div>
           </div>` : `
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
-            <a href="report.html?id=${coachee.id}" class="btn btn-accent btn-sm">결과보고서 보기</a>
+            <button class="btn btn-primary" onclick="event.stopPropagation(); openCoachingMode('${coachee.id}');">🎧 코칭 시작</button>
+            <a href="report.html?id=${coachee.id}" class="btn btn-outline btn-sm">결과보고서</a>
           </div>`}
         </div>
       `;
@@ -782,6 +1036,205 @@
     const chev = document.getElementById('chev-' + id);
     const isOpen = body.classList.toggle('open');
     chev.classList.toggle('open', isOpen);
+  }
+
+  // 성찰일지 모달
+  function showReflModal(coacheeId, sessionNum) {
+    const refl = DB.get('reflections').find(r => r.sessionId === `sess_${coacheeId}_${sessionNum}`);
+    if (!refl) return;
+
+    const coachee = DB.getItem('coachees', coacheeId);
+    document.getElementById('reflModalTitle').textContent = `📝 ${coachee?.name || ''} ${sessionNum}회기 성찰일지`;
+
+    const change = refl.currentScore && refl.previousScore ? refl.currentScore - refl.previousScore : 0;
+    const changeColor = change > 0 ? '#059669' : (change < 0 ? '#DC2626' : '#6B7280');
+    const changeIcon = change > 0 ? '▲' : (change < 0 ? '▼' : '=');
+
+    document.getElementById('reflModalBody').innerHTML = `
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;">
+        <div style="background:var(--bg);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--text-muted);margin-bottom:4px;">이전 점수</div>
+          <div style="font-size:24px;font-weight:800;color:var(--text-light);">${refl.previousScore || '-'}</div>
+        </div>
+        <div style="background:var(--primary-light);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--primary);margin-bottom:4px;">현재 점수</div>
+          <div style="font-size:24px;font-weight:800;color:var(--primary);">${refl.currentScore || '-'}</div>
+        </div>
+        <div style="background:var(--accent-light);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:11px;color:var(--accent);margin-bottom:4px;">목표 점수</div>
+          <div style="font-size:24px;font-weight:800;color:var(--accent);">${refl.targetScore || '-'}</div>
+        </div>
+      </div>
+      ${change !== 0 ? `
+      <div style="text-align:center;margin-bottom:20px;padding:10px;background:${change > 0 ? '#ECFDF5' : '#FEF2F2'};border-radius:10px;">
+        <span style="font-size:14px;font-weight:700;color:${changeColor};">${changeIcon} ${Math.abs(change)}점 ${change > 0 ? '상승' : '하락'}</span>
+      </div>` : ''}
+      ${refl.topic ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">이번 회기 주제</div>
+        <div style="font-size:14px;color:var(--text);background:var(--bg);padding:12px;border-radius:10px;">${refl.topic}</div>
+      </div>` : ''}
+      ${refl.previousActionDone !== undefined ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">지난 실행과제</div>
+        <div style="font-size:14px;padding:10px 12px;border-radius:10px;background:${refl.previousActionDone ? '#ECFDF5' : '#FEF2F2'};color:${refl.previousActionDone ? '#059669' : '#DC2626'};">
+          ${refl.previousActionDone ? '✅ 완료했습니다' : '❌ 완료하지 못했습니다'}
+        </div>
+      </div>` : ''}
+      ${refl.learned ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">배운 것</div>
+        <div style="font-size:14px;color:var(--text);background:var(--bg);padding:12px;border-radius:10px;line-height:1.7;">${refl.learned}</div>
+      </div>` : ''}
+      ${refl.felt ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">느낀 것</div>
+        <div style="font-size:14px;color:var(--text);background:var(--bg);padding:12px;border-radius:10px;line-height:1.7;">${refl.felt}</div>
+      </div>` : ''}
+      ${refl.actionPlan ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">다음 실행 계획</div>
+        <div style="font-size:14px;color:var(--text);background:var(--primary-light);padding:12px;border-radius:10px;line-height:1.7;">${refl.actionPlan}</div>
+      </div>` : ''}
+      ${refl.nextSessionExpectation ? `
+      <div>
+        <div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px;">다음 세션 기대</div>
+        <div style="font-size:14px;color:var(--text);background:var(--bg);padding:12px;border-radius:10px;line-height:1.7;">${refl.nextSessionExpectation}</div>
+      </div>` : ''}
+      <div style="margin-top:16px;font-size:11px;color:var(--text-light);text-align:right;">
+        작성일: ${refl.createdAt ? fmtDate(refl.createdAt) : '-'}
+      </div>
+    `;
+    document.getElementById('reflModal').classList.add('show');
+  }
+
+  function closeReflModal() {
+    document.getElementById('reflModal').classList.remove('show');
+  }
+
+  // 코칭 모드
+  let currentCoachingCoacheeId = null;
+
+  function openCoachingMode(coacheeId) {
+    currentCoachingCoacheeId = coacheeId;
+    const coachee = DB.getItem('coachees', coacheeId);
+    const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
+    const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+    const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+    const completedCount = sessions.filter(s => s.completed).length;
+    const nextSession = [1,2,3,4].find(n => !sessions.find(s => s.sessionNumber === n && s.completed)) || 4;
+    const prevSession = sessions.find(s => s.sessionNumber === nextSession - 1);
+
+    // 헤더
+    document.getElementById('cmCoacheeName').textContent = `🎧 ${coachee.name}님과 코칭 중`;
+    document.getElementById('cmSessionInfo').textContent = `${nextSession}회기 · ${completedCount}/4 완료`;
+
+    // 피코치 정보
+    document.getElementById('cmCoacheeInfo').innerHTML = `
+      <div class="cm-info-item">
+        <div class="cm-info-label">코칭 주제</div>
+        <div class="cm-info-val">${goal?.topic || '-'}</div>
+      </div>
+      <div class="cm-info-item">
+        <div class="cm-info-label">ADHD 상태</div>
+        <div class="cm-info-val">${coachee.adhdStatus || '-'}</div>
+      </div>
+      <div class="cm-info-item">
+        <div class="cm-info-label">다루고 싶은 주제</div>
+        <div class="cm-info-val">${coachee.topics?.join(', ') || '-'}</div>
+      </div>
+      <div class="cm-info-item">
+        <div class="cm-info-label">현재 어려움</div>
+        <div class="cm-info-val">${coachee.difficulties?.join(', ') || '-'}</div>
+      </div>
+    `;
+
+    // 지난 과제
+    if (prevSession?.nextAction) {
+      document.getElementById('cmLastTaskSection').style.display = 'block';
+      document.getElementById('cmLastTask').textContent = prevSession.nextAction;
+    } else {
+      document.getElementById('cmLastTaskSection').style.display = 'none';
+    }
+
+    // 점수 현황
+    const startScore = goal?.currentScore || '-';
+    const targetScore = goal?.targetScore || '-';
+    const latestRefl = reflections.sort((a,b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
+    const currentScore = latestRefl?.currentScore || startScore;
+
+    document.getElementById('cmScoreRow').innerHTML = `
+      <div class="cm-score-item">
+        <div class="cm-score-num" style="color:var(--text-light);">${startScore}</div>
+        <div class="cm-score-label">시작</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:20px;color:var(--text-muted);">→</div>
+      <div class="cm-score-item" style="background:var(--primary-light);">
+        <div class="cm-score-num" style="color:var(--primary);">${currentScore}</div>
+        <div class="cm-score-label">현재</div>
+      </div>
+      <div style="display:flex;align-items:center;font-size:20px;color:var(--text-muted);">→</div>
+      <div class="cm-score-item" style="background:var(--accent-light);">
+        <div class="cm-score-num" style="color:var(--accent);">${targetScore}</div>
+        <div class="cm-score-label">목표</div>
+      </div>
+    `;
+
+    // 이전 회기 요약
+    if (prevSession) {
+      document.getElementById('cmPrevSessionSection').style.display = 'block';
+      document.getElementById('cmPrevSessionContent').innerHTML = `
+        <div style="background:var(--bg);border-radius:10px;padding:14px;">
+          ${prevSession.sessionGoal ? `<div style="margin-bottom:10px;"><span style="font-size:11px;color:var(--text-muted);">목표</span><div style="font-size:13px;">${prevSession.sessionGoal}</div></div>` : ''}
+          ${prevSession.learning ? `<div style="margin-bottom:10px;"><span style="font-size:11px;color:var(--text-muted);">배운 점</span><div style="font-size:13px;">${prevSession.learning}</div></div>` : ''}
+          ${prevSession.outcome ? `<div><span style="font-size:11px;color:var(--text-muted);">성과</span><div style="font-size:13px;">${prevSession.outcome}</div></div>` : ''}
+        </div>
+      `;
+    } else {
+      document.getElementById('cmPrevSessionSection').style.display = 'none';
+    }
+
+    // 세션 링크
+    document.getElementById('cmSessionLink').href = `sessions.html?id=${coacheeId}&role=coach`;
+
+    // 메모 초기화
+    document.getElementById('cmMemo').value = '';
+
+    // 오버레이 열기
+    document.getElementById('coachingModeOverlay').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCoachingMode() {
+    const memo = document.getElementById('cmMemo').value;
+    if (memo.trim()) {
+      if (!confirm('작성 중인 메모가 있습니다. 정말 종료하시겠습니까?')) return;
+    }
+    document.getElementById('coachingModeOverlay').classList.remove('show');
+    document.body.style.overflow = '';
+    currentCoachingCoacheeId = null;
+  }
+
+  function addMemoTag(tag) {
+    const memo = document.getElementById('cmMemo');
+    memo.value += (memo.value ? '\n' : '') + tag;
+    memo.focus();
+  }
+
+  async function copyMemoAndClose() {
+    const memo = document.getElementById('cmMemo').value;
+    if (memo.trim()) {
+      try {
+        await navigator.clipboard.writeText(memo);
+        alert('메모가 클립보드에 복사되었습니다!');
+      } catch(e) {
+        const el = document.getElementById('cmMemo');
+        el.select();
+        document.execCommand('copy');
+        alert('메모가 클립보드에 복사되었습니다!');
+      }
+    }
+    closeCoachingMode();
   }
 
   async function syncData() {
@@ -956,11 +1409,10 @@ ${coachName} 드림`;
     renderCoachDocumentBox(myCoachId);
   }
 
-  // 로그인 페이지에서 선택한 코치가 있으면 자동 진입
-  const savedCoachId = localStorage.getItem('selectedCoachId');
+  // 저장된 코치 ID가 있으면 자동 진입 (세션 유지)
+  const savedCoachId = localStorage.getItem('currentCoachId');
   if (savedCoachId && COACHES.find(c => c.id === savedCoachId)) {
     myCoachId = savedCoachId;
-    localStorage.removeItem('selectedCoachId'); // 사용 후 삭제
     enterDashboard();
   } else {
     renderCoachPicker();

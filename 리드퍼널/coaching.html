@@ -1,22 +1,14 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADHD 무료 상담 | 미루기일기 템플릿 무료 증정</title>
-    <meta
-      name="description"
-      content="ADHD 당사자가 직접 운영하는 1:1 무료 상담. 미루기일기 템플릿 무료 증정. 판단 없이, 이해하는 대화."
-    />
+    <meta name="description" content="ADHD 당사자가 직접 운영하는 1:1 무료 상담. 미루기일기 템플릿 무료 증정. 판단 없이, 이해하는 대화." />
     <meta name="keywords" content="ADHD 무료상담, ADHD 코칭, ADHD 1:1 상담, 성인 ADHD 상담, ADHD 당사자 상담, ADHD 미루기 상담" />
     <link rel="canonical" href="https://msh9176-moondi.github.io/adhd_marketing/리드퍼널/coaching.html" />
 
@@ -31,106 +23,21 @@
     <meta name="twitter:title" content="ADHD 무료 상담 | 미루기일기 템플릿 증정" />
     <meta name="twitter:description" content="ADHD 당사자가 직접 상담해요. 판단 없이, 그냥 들어드려요." />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/footer.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
+    <link rel="stylesheet" href="shared/css/components/hero.css">
+    <link rel="stylesheet" href="shared/css/components/cards.css">
 
+    <!-- Page Specific CSS -->
     <style>
-      :root {
-        --primary: #2a7b9b;
-        --primary-dark: #1e6a87;
-        --accent: #4fd1c5;
-        --dark: #0f0f1a;
-        --dark-light: #1a1a2e;
-        --text: #ffffff;
-        --text-muted: rgba(255,255,255,0.7);
-        --text-subtle: rgba(255,255,255,0.5);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.7;
-        color: var(--text);
-        background: var(--dark);
-      }
-
-      .container {
-        max-width: 640px;
-        margin: 0 auto;
-        padding: 0 20px;
-      }
-
-      /* ===== 히어로 섹션 ===== */
+      /* ===== 히어로 오버라이드 ===== */
       .hero {
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
         padding: 100px 20px 60px;
-        background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-        position: relative;
-        overflow: hidden;
-      }
-
-      .hero::before {
-        content: '';
-        position: absolute;
-        top: 20%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(42,123,155,0.15) 0%, transparent 70%);
-        pointer-events: none;
-      }
-
-      .hero-badge {
-        display: inline-block;
-        background: rgba(79,209,197,0.15);
-        border: 1px solid rgba(79,209,197,0.3);
-        color: var(--accent);
-        font-size: 13px;
-        font-weight: 600;
-        padding: 8px 20px;
-        border-radius: 30px;
-        margin-bottom: 32px;
-        letter-spacing: 1px;
-      }
-
-      .hero h1 {
-        font-size: 42px;
-        font-weight: 900;
-        line-height: 1.3;
-        margin-bottom: 24px;
-        word-break: keep-all;
-      }
-
-      .hero h1 .highlight {
-        color: var(--accent);
-      }
-
-      .hero-subtitle {
-        font-size: 18px;
-        color: var(--text-muted);
-        line-height: 1.9;
-        margin-bottom: 40px;
-        word-break: keep-all;
       }
 
       .hero-cta {
@@ -145,7 +52,7 @@
         border-radius: 12px;
         text-decoration: none;
         transition: all 0.3s;
-        box-shadow: 0 8px 32px rgba(79,209,197,0.3);
+        box-shadow: 0 8px 32px var(--accent-glow);
       }
 
       .hero-cta:hover {
@@ -153,37 +60,8 @@
         box-shadow: 0 12px 40px rgba(79,209,197,0.4);
       }
 
-      .hero-note {
-        margin-top: 20px;
-        font-size: 14px;
-        color: var(--text-subtle);
-      }
-
-      .scroll-indicator {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        animation: bounce 2s infinite;
-      }
-
-      .scroll-indicator span {
-        display: block;
-        width: 24px;
-        height: 24px;
-        border-right: 2px solid var(--text-subtle);
-        border-bottom: 2px solid var(--text-subtle);
-        transform: rotate(45deg);
-      }
-
-      @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-        40% { transform: translateX(-50%) translateY(-10px); }
-        60% { transform: translateX(-50%) translateY(-5px); }
-      }
-
       /* ===== 공감 섹션 ===== */
-      .empathy {
+      .empathy-section {
         background: var(--dark-light);
         padding: 80px 0;
       }
@@ -197,7 +75,6 @@
         font-size: 28px;
         font-weight: 700;
         margin-bottom: 16px;
-        word-break: keep-all;
       }
 
       .empathy-header p {
@@ -208,33 +85,6 @@
       .empathy-grid {
         display: grid;
         gap: 16px;
-      }
-
-      .empathy-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
-        border-radius: 16px;
-        padding: 24px;
-        transition: all 0.3s;
-      }
-
-      .empathy-card:hover {
-        background: rgba(255,255,255,0.06);
-        border-color: rgba(79,209,197,0.3);
-        transform: translateX(8px);
-      }
-
-      .empathy-card p {
-        font-size: 16px;
-        color: var(--text-muted);
-        line-height: 1.8;
-      }
-
-      .empathy-card .quote {
-        color: var(--accent);
-        font-size: 18px;
-        font-weight: 600;
-        margin-bottom: 8px;
       }
 
       .empathy-bottom {
@@ -252,7 +102,7 @@
         color: var(--accent);
       }
 
-      /* ===== 의심 섹션 (ADHD인지 모르겠다면) ===== */
+      /* ===== 의심 섹션 ===== */
       .doubt {
         background: var(--dark);
         padding: 80px 0;
@@ -266,11 +116,6 @@
         font-size: 26px;
         font-weight: 700;
         margin-bottom: 24px;
-        word-break: keep-all;
-      }
-
-      .doubt h2 .highlight {
-        color: var(--accent);
       }
 
       .doubt-text {
@@ -282,7 +127,7 @@
 
       .doubt-list {
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border);
         border-radius: 16px;
         padding: 32px;
         text-align: left;
@@ -334,7 +179,6 @@
         font-size: 20px;
         line-height: 2;
         margin-bottom: 32px;
-        word-break: keep-all;
       }
 
       .trust-author {
@@ -390,7 +234,7 @@
 
       .reviews-image {
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border);
         border-radius: 20px;
         padding: 24px;
         overflow: hidden;
@@ -425,16 +269,10 @@
         animation: pulse 2s infinite;
       }
 
-      @keyframes pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-
       .offer-header h2 {
         font-size: 32px;
         font-weight: 900;
         margin-bottom: 16px;
-        word-break: keep-all;
       }
 
       .offer-header h2 .price-cross {
@@ -455,7 +293,7 @@
 
       .offer-card {
         background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid var(--border-light);
         border-radius: 20px;
         padding: 32px;
         display: flex;
@@ -557,7 +395,7 @@
       .step-content {
         flex: 1;
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border);
         border-radius: 16px;
         padding: 24px;
       }
@@ -617,7 +455,6 @@
         font-size: 26px;
         font-weight: 700;
         margin-bottom: 40px;
-        word-break: keep-all;
       }
 
       .safety-grid {
@@ -629,7 +466,7 @@
 
       .safety-item {
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.08);
+        border: 1px solid var(--border);
         border-radius: 16px;
         padding: 28px 20px;
       }
@@ -651,392 +488,6 @@
         line-height: 1.6;
       }
 
-      /* ===== 최종 CTA 섹션 ===== */
-      .final-cta {
-        background: linear-gradient(180deg, var(--dark) 0%, #0a0a12 100%);
-        padding: 100px 0;
-        text-align: center;
-      }
-
-      .final-cta h2 {
-        font-size: 32px;
-        font-weight: 900;
-        margin-bottom: 16px;
-        word-break: keep-all;
-      }
-
-      .final-cta h2 .highlight {
-        color: var(--accent);
-      }
-
-      .final-cta-subtitle {
-        font-size: 18px;
-        color: var(--text-muted);
-        margin-bottom: 48px;
-        line-height: 1.8;
-      }
-
-      .cta-box {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 24px;
-        padding: 48px 32px;
-        max-width: 480px;
-        margin: 0 auto;
-      }
-
-      .cta-box-badge {
-        display: inline-block;
-        background: #ff4757;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        padding: 10px 24px;
-        border-radius: 30px;
-        margin-bottom: 24px;
-        animation: pulse 2s infinite;
-      }
-
-      .cta-box h3 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-
-      .cta-box .price-info {
-        margin-bottom: 24px;
-      }
-
-      .cta-box .price-original {
-        text-decoration: line-through;
-        color: var(--text-subtle);
-        font-size: 16px;
-      }
-
-      .cta-box .price-free {
-        font-size: 28px;
-        font-weight: 900;
-        color: var(--accent);
-        margin-left: 12px;
-      }
-
-      .cta-box .cta-btn {
-        display: block;
-        background: #fee500;
-        color: #1a1a1a;
-        font-size: 18px;
-        font-weight: 700;
-        padding: 20px 32px;
-        border-radius: 12px;
-        text-decoration: none;
-        transition: all 0.3s;
-        margin-bottom: 16px;
-      }
-
-      .cta-box .cta-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 32px rgba(254,229,0,0.3);
-      }
-
-      .cta-box .cta-note {
-        font-size: 13px;
-        color: var(--text-subtle);
-      }
-
-      .social-links {
-        display: flex;
-        justify-content: center;
-        gap: 16px;
-        margin-top: 48px;
-      }
-
-      .social-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 56px;
-        height: 56px;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 50%;
-        transition: all 0.3s;
-      }
-
-      .social-btn:hover {
-        background: rgba(255,255,255,0.1);
-        transform: translateY(-3px);
-      }
-
-      .social-btn img {
-        width: 28px;
-        height: 28px;
-        object-fit: contain;
-      }
-
-      /* ===== 푸터 ===== */
-      .footer {
-        background: var(--dark-light);
-        padding: 60px 0 40px;
-        border-top: 1px solid rgba(255,255,255,0.08);
-      }
-
-      .footer-content {
-        display: grid;
-        gap: 40px;
-      }
-
-      .footer-brand {
-        text-align: center;
-      }
-
-      .footer-logo {
-        font-size: 24px;
-        font-weight: 900;
-        color: var(--accent);
-        margin-bottom: 12px;
-      }
-
-      .footer-tagline {
-        font-size: 15px;
-        color: var(--text-muted);
-        line-height: 1.8;
-      }
-
-      .footer-social {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-top: 24px;
-      }
-
-      .footer-social a {
-        width: 44px;
-        height: 44px;
-        background: rgba(255,255,255,0.05);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: all 0.3s;
-      }
-
-      .footer-social a:hover {
-        background: rgba(79,209,197,0.15);
-        border-color: var(--accent);
-        transform: translateY(-3px);
-      }
-
-      .footer-social img {
-        width: 22px;
-        height: 22px;
-        object-fit: contain;
-      }
-
-      .footer-info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        padding-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .footer-info p {
-        font-size: 13px;
-        color: var(--text-subtle);
-        text-align: center;
-        line-height: 1.6;
-      }
-
-      .footer-info .company {
-        font-weight: 600;
-        color: var(--text-muted);
-      }
-
-      .footer-copyright {
-        text-align: center;
-        padding-top: 24px;
-        margin-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .footer-copyright p {
-        font-size: 12px;
-        color: var(--text-subtle);
-      }
-
-      /* ===== 반응형 ===== */
-      @media (max-width: 768px) {
-        .hero h1 {
-          font-size: 28px;
-        }
-
-        .hero-subtitle {
-          font-size: 16px;
-        }
-
-        .empathy-header h2,
-        .doubt h2,
-        .process-header h2 {
-          font-size: 22px;
-        }
-
-        .offer-header h2 {
-          font-size: 24px;
-        }
-
-        .final-cta h2 {
-          font-size: 24px;
-        }
-
-        .safety-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .offer-card {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .trust-author {
-          flex-direction: column;
-          text-align: center;
-        }
-
-        .trust-author-info {
-          text-align: center;
-        }
-      }
-
-      /* ===== 플로팅 CTA ===== */
-      .floating-cta {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        background: #fee500;
-        color: #1a1a1a;
-        font-size: 15px;
-        font-weight: 700;
-        padding: 16px 32px;
-        border-radius: 50px;
-        text-decoration: none;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        transition: all 0.3s;
-        display: none;
-      }
-
-      .floating-cta.visible {
-        display: block;
-        animation: slideUp 0.3s ease;
-      }
-
-      @keyframes slideUp {
-        from {
-          opacity: 0;
-          transform: translateX(-50%) translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateX(-50%) translateY(0);
-        }
-      }
-
-      /* ===== 네비게이션 ===== */
-      .nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: rgba(15, 15, 26, 0.95);
-        backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(255,255,255,0.1);
-        z-index: 1000;
-        padding: 16px 0;
-      }
-
-      .nav-container {
-        max-width: 640px;
-        margin: 0 auto;
-        padding: 0 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .nav-logo {
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--accent);
-        text-decoration: none;
-      }
-
-      .nav-links {
-        display: flex;
-        gap: 20px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      .nav-links a {
-        color: var(--text-muted);
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 500;
-        transition: color 0.3s;
-        white-space: nowrap;
-      }
-
-      .nav-links a:hover,
-      .nav-links a.active {
-        color: var(--accent);
-      }
-
-      @media (max-width: 480px) {
-        .nav {
-          top: auto;
-          bottom: 0;
-          border-bottom: none;
-          border-top: 1px solid rgba(255,255,255,0.1);
-          padding: 12px 0;
-          padding-bottom: calc(12px + env(safe-area-inset-bottom));
-        }
-
-        .nav-container {
-          flex-direction: row;
-          justify-content: center;
-          gap: 0;
-        }
-
-        .nav-logo {
-          display: none;
-        }
-
-        .nav-links {
-          gap: 0;
-          justify-content: space-around;
-          width: 100%;
-          overflow-x: visible;
-          flex-wrap: nowrap;
-        }
-
-        .nav-links a {
-          font-size: 10px;
-          padding: 6px 4px;
-          text-align: center;
-          white-space: nowrap;
-          flex-shrink: 1;
-          min-width: 0;
-        }
-
-        body {
-          padding-bottom: 70px;
-        }
-      }
-
       /* ===== 코칭 프로그램 섹션 ===== */
       .coaching-program {
         background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
@@ -1050,8 +501,8 @@
 
       .coaching-badge {
         display: inline-block;
-        background: rgba(79,209,197,0.15);
-        border: 1px solid rgba(79,209,197,0.3);
+        background: var(--accent-soft);
+        border: 1px solid var(--accent-glow);
         color: var(--accent);
         font-size: 13px;
         font-weight: 600;
@@ -1074,7 +525,7 @@
 
       .coaching-card {
         background: rgba(255,255,255,0.03);
-        border: 1px solid rgba(255,255,255,0.1);
+        border: 1px solid var(--border-light);
         border-radius: 20px;
         padding: 32px 24px;
         margin-bottom: 24px;
@@ -1154,7 +605,7 @@
 
       .coaching-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 8px 24px rgba(79,209,197,0.3);
+        box-shadow: 0 8px 24px var(--accent-glow);
       }
 
       .coaching-warning {
@@ -1189,6 +640,156 @@
         padding-top: 12px;
         border-top: 1px solid rgba(255,255,255,0.06);
       }
+
+      /* ===== 최종 CTA 섹션 ===== */
+      .final-cta {
+        background: linear-gradient(180deg, var(--dark) 0%, #0a0a12 100%);
+        padding: 100px 0;
+        text-align: center;
+      }
+
+      .final-cta h2 {
+        font-size: 32px;
+        font-weight: 900;
+        margin-bottom: 16px;
+      }
+
+      .final-cta-subtitle {
+        font-size: 18px;
+        color: var(--text-muted);
+        margin-bottom: 48px;
+        line-height: 1.8;
+      }
+
+      .cta-box-final {
+        background: rgba(255,255,255,0.05);
+        border: 1px solid var(--border-light);
+        border-radius: 24px;
+        padding: 48px 32px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .cta-box-badge {
+        display: inline-block;
+        background: #ff4757;
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        padding: 10px 24px;
+        border-radius: 30px;
+        margin-bottom: 24px;
+        animation: pulse 2s infinite;
+      }
+
+      .cta-box-final h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .cta-box-final .price-info {
+        margin-bottom: 24px;
+      }
+
+      .cta-box-final .price-original {
+        text-decoration: line-through;
+        color: var(--text-subtle);
+        font-size: 16px;
+      }
+
+      .cta-box-final .price-free {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--accent);
+        margin-left: 12px;
+      }
+
+      .cta-kakao-btn {
+        display: block;
+        background: #fee500;
+        color: #1a1a1a;
+        font-size: 18px;
+        font-weight: 700;
+        padding: 20px 32px;
+        border-radius: 12px;
+        text-decoration: none;
+        transition: all 0.3s;
+        margin-bottom: 16px;
+      }
+
+      .cta-kakao-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 32px rgba(254,229,0,0.3);
+      }
+
+      .cta-box-final .cta-note {
+        font-size: 13px;
+        color: var(--text-subtle);
+      }
+
+      /* ===== 플로팅 CTA ===== */
+      .floating-cta {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1000;
+        background: #fee500;
+        color: #1a1a1a;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 16px 32px;
+        border-radius: 50px;
+        text-decoration: none;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        transition: all 0.3s;
+        display: none;
+      }
+
+      .floating-cta.visible {
+        display: block;
+        animation: slideUp 0.3s ease;
+      }
+
+      /* ===== 반응형 ===== */
+      @media (max-width: 768px) {
+        .hero h1 {
+          font-size: 28px;
+        }
+
+        .empathy-header h2,
+        .doubt h2,
+        .process-header h2 {
+          font-size: 22px;
+        }
+
+        .offer-header h2 {
+          font-size: 24px;
+        }
+
+        .final-cta h2 {
+          font-size: 24px;
+        }
+
+        .safety-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .offer-card {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .trust-author {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .trust-author-info {
+          text-align: center;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1214,7 +815,7 @@
         "나도 <span class="highlight">ADHD</span>인 걸까?"<br/>
         혼자 고민하고 계신가요?
       </h1>
-      <p class="hero-subtitle">
+      <p class="hero-sub">
         병원 가기는 무섭고, 주변에 말하기도 어렵고<br/>
         인터넷 검색만 하다가 더 혼란스러워지셨죠?<br/><br/>
         <strong>10년간 ADHD와 싸워온 선배</strong>에게<br/>
@@ -1230,7 +831,7 @@
     </section>
 
     <!-- ===== 공감 섹션 ===== -->
-    <section class="empathy">
+    <section class="empathy-section">
       <div class="container">
         <div class="empathy-header">
           <h2>혹시 이런 경험, 있으신가요?</h2>
@@ -1505,7 +1106,7 @@
             </p>
           </div>
 
-          <a href="/adhd_marketing/platform/apply.html" class="coaching-btn">
+          <a href="../platform/apply.html" class="coaching-btn">
             4주 코칭 프로그램 신청하기 →
           </a>
           <a href="https://open.kakao.com/o/sq1JNeHh" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:14px;color:var(--text-muted);text-decoration:none;">문의는 카카오톡으로 →</a>
@@ -1541,7 +1142,7 @@
           지금 힘든 게 진짜예요.
         </p>
 
-        <div class="cta-box">
+        <div class="cta-box-final">
           <span class="cta-box-badge">지금만 무료</span>
           <h3>미루기일기 템플릿 + 무료 상담</h3>
           <div class="price-info">
@@ -1550,7 +1151,7 @@
           </div>
           <a
             href="https://open.kakao.com/o/sq1JNeHh"
-            class="cta-btn"
+            class="cta-kakao-btn"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -1604,33 +1205,7 @@
       무료 상담 시작하기
     </a>
 
-    <script>
-      // 스크롤 시 플로팅 CTA 표시
-      const floatingCta = document.getElementById('floatingCta');
-      let lastScrollY = 0;
-
-      window.addEventListener('scroll', () => {
-        const scrollY = window.scrollY;
-        const heroHeight = document.querySelector('.hero').offsetHeight;
-
-        if (scrollY > heroHeight * 0.5) {
-          floatingCta.classList.add('visible');
-        } else {
-          floatingCta.classList.remove('visible');
-        }
-
-        lastScrollY = scrollY;
-      });
-
-      // GA 이벤트: 카카오톡 클릭 추적
-      document.querySelectorAll('a[href*="open.kakao.com"]').forEach(function(link) {
-        link.addEventListener('click', function() {
-          gtag('event', 'kakao_click', {
-            'event_category': 'conversion',
-            'event_label': 'coaching_page_kakao'
-          });
-        });
-      });
-    </script>
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
   </body>
 </html>

@@ -1,22 +1,14 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ADHD 실행 패턴 분석 | 3분 테스트</title>
-    <meta
-      name="description"
-      content="3분 안에 나의 ADHD 실행 패턴을 파악해보세요. 6가지 유형 복합 분석."
-    />
+    <meta name="description" content="3분 안에 나의 ADHD 실행 패턴을 파악해보세요. 6가지 유형 복합 분석." />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -32,40 +24,14 @@
     <!-- html2canvas for image capture -->
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
 
+    <!-- Page Specific CSS -->
     <style>
-      :root {
-        --primary: #2a7b9b;
-        --primary-dark: #1e6a87;
-        --accent: #4fd1c5;
-        --dark: #0f0f1a;
-        --dark-light: #1a1a2e;
-        --text: #ffffff;
-        --text-muted: rgba(255,255,255,0.7);
-        --text-subtle: rgba(255,255,255,0.5);
-        --success: #4ade80;
-        --warning: #fb923c;
-        --danger: #f87171;
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       body {
-        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.7;
-        color: var(--text);
-        background: var(--dark);
         min-height: 100vh;
       }
 

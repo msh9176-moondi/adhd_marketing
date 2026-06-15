@@ -1,0 +1,183 @@
+/* ===== FLOCA Card Components ===== */
+/* 카드 및 컨텐츠 박스 공통 스타일 */
+
+/* ===== Basic Card ===== */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: var(--accent-glow, rgba(79,209,197,0.3));
+}
+
+/* ===== Feature Card (What We Do) ===== */
+.what-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 20px;
+  padding: 32px 24px;
+  transition: all 0.3s;
+}
+
+.what-card:hover {
+  border-color: var(--accent-glow, rgba(79,209,197,0.25));
+  background: rgba(79,209,197,0.04);
+}
+
+.what-card .icon {
+  font-size: 32px;
+  margin-bottom: 16px;
+}
+
+.what-card .en {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-subtle, rgba(255,255,255,0.5));
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.what-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--accent, #4fd1c5);
+  margin-bottom: 12px;
+}
+
+.what-card p {
+  font-size: 14px;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  line-height: 1.8;
+  word-break: keep-all;
+}
+
+/* ===== Value Row ===== */
+.value-row {
+  display: flex;
+  gap: 16px;
+  padding: 20px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 14px;
+}
+
+.value-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--accent-soft, rgba(79,209,197,0.12));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.value-row h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--accent, #4fd1c5);
+  margin-bottom: 4px;
+}
+
+.value-row p {
+  font-size: 13px;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+/* ===== CTA Box ===== */
+.cta-box {
+  background: rgba(79,209,197,0.07);
+  border: 2px solid rgba(79,209,197,0.2);
+  border-radius: 24px;
+  padding: 48px 28px;
+  text-align: center;
+}
+
+.cta-box h2 {
+  font-size: 26px;
+  font-weight: 900;
+  margin-bottom: 12px;
+  word-break: keep-all;
+}
+
+.cta-box p {
+  font-size: 15px;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  margin-bottom: 36px;
+  line-height: 1.8;
+}
+
+/* ===== Quote/Callout Box ===== */
+.callout {
+  margin: 36px 0 0;
+  padding: 28px 24px;
+  background: rgba(79,209,197,0.07);
+  border-left: 3px solid var(--accent, #4fd1c5);
+  border-radius: 0 16px 16px 0;
+}
+
+.callout p {
+  font-size: 20px;
+  font-weight: 900;
+  color: var(--text, #ffffff);
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.callout span {
+  color: var(--accent, #4fd1c5);
+}
+
+/* ===== Empathy Card ===== */
+.empathy-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border, rgba(255,255,255,0.08));
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+
+.empathy-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: var(--accent-glow, rgba(79,209,197,0.3));
+  transform: translateX(8px);
+}
+
+.empathy-card .quote {
+  color: var(--accent, #4fd1c5);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.empathy-card p {
+  font-size: 16px;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  line-height: 1.8;
+}
+
+/* ===== Grid Layouts ===== */
+.card-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.card-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}

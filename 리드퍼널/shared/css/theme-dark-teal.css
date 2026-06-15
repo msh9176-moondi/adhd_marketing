@@ -1,0 +1,53 @@
+/* ===== FLOCA Dark Theme - Teal Accent ===== */
+/* 대부분의 페이지에서 사용하는 Teal 악센트 */
+
+:root {
+  /* Primary Colors */
+  --primary: #2a7b9b;
+  --primary-dark: #1e6a87;
+
+  /* Accent Colors */
+  --accent: #4fd1c5;
+  --accent-soft: rgba(79,209,197,0.15);
+  --accent-glow: rgba(79,209,197,0.3);
+  --accent-strong: rgba(79,209,197,0.35);
+}
+
+/* ===== Accent Elements ===== */
+.accent { color: var(--accent); }
+.highlight { color: var(--accent); }
+
+/* ===== Badge ===== */
+.badge {
+  display: inline-block;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border-radius: 30px;
+  letter-spacing: 1px;
+}
+
+.label-tag {
+  display: inline-block;
+  background: rgba(79,209,197,0.1);
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+/* ===== Primary Gradient Section ===== */
+.bg-primary-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+}
+
+.bg-primary-gradient .label-tag {
+  background: rgba(255,255,255,0.2);
+  color: #fff;
+}

@@ -29,6 +29,26 @@
     .info-row:last-child { border-bottom: none; }
     .info-key { width: 100px; font-size: 13px; color: var(--text-muted); font-weight: 600; flex-shrink: 0; }
     .info-val { font-size: 13px; }
+
+    /* 지난 과제 알림 */
+    .last-task-box {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1px solid #F59E0B; border-radius: 14px; padding: 18px 20px;
+      margin-bottom: 20px;
+    }
+    .last-task-title { font-size: 14px; font-weight: 700; color: #92400E; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+    .last-task-content { background: white; border-radius: 10px; padding: 14px; font-size: 14px; color: var(--text); line-height: 1.7; }
+    .last-task-date { font-size: 12px; color: #78350F; margin-top: 8px; }
+
+    /* 코치 피드백 미리보기 */
+    .coach-feedback-box {
+      background: var(--primary-light); border: 1px solid #BFDBFE;
+      border-radius: 14px; padding: 18px 20px; margin-bottom: 20px;
+    }
+    .coach-feedback-title { font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px; }
+    .coach-feedback-item { margin-bottom: 10px; }
+    .coach-feedback-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .coach-feedback-val { font-size: 13px; color: var(--text); line-height: 1.6; }
   </style>
 </head>
 <body>
@@ -144,8 +164,44 @@
 
     // 코치용 UI
     if (userRole === 'coach') {
+      // 이전 회기 정보
+      const prevSess = n > 1 ? DB.get('sessions').find(s => s.coacheeId === coacheeId && s.sessionNumber === n-1) : null;
+
       container.innerHTML = `
         ${sess?.completed ? `<div class="complete-banner"><p>✅ 이 회기 일지가 저장되었습니다.</p><button class="btn btn-outline btn-sm" onclick="editSession(${n})">수정하기</button></div>` : ''}
+
+        ${n > 1 && prevSess?.nextAction ? `
+        <div class="last-task-box">
+          <div class="last-task-title">📋 지난 회기에서 준 과제 (${n-1}회기)</div>
+          <div class="last-task-content">${prevSess.nextAction}</div>
+        </div>` : ''}
+
+        ${refl ? `
+        <div class="coach-feedback-box" style="background:#ECFDF5;border-color:#10B981;">
+          <div class="coach-feedback-title" style="color:#059669;">📝 피코치 ${n}회기 성찰일지</div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;">
+            <div style="background:white;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:10px;color:var(--text-muted);">이전</div>
+              <div style="font-size:20px;font-weight:800;color:var(--text-light);">${refl.previousScore || '-'}</div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:10px;color:var(--primary);">현재</div>
+              <div style="font-size:20px;font-weight:800;color:var(--primary);">${refl.currentScore || '-'}</div>
+            </div>
+            <div style="background:white;border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:10px;color:var(--accent);">목표</div>
+              <div style="font-size:20px;font-weight:800;color:var(--accent);">${refl.targetScore || '-'}</div>
+            </div>
+          </div>
+          ${refl.previousActionDone ? `<div class="coach-feedback-item"><div class="coach-feedback-label">과제 실행</div><div class="coach-feedback-val" style="color:${refl.previousActionDone.includes('완전') ? '#059669' : refl.previousActionDone.includes('못') ? '#DC2626' : '#D97706'};">${refl.previousActionDone}</div></div>` : ''}
+          ${refl.learned ? `<div class="coach-feedback-item"><div class="coach-feedback-label">배운 점</div><div class="coach-feedback-val">${refl.learned}</div></div>` : ''}
+          ${refl.felt ? `<div class="coach-feedback-item"><div class="coach-feedback-label">느낀 점</div><div class="coach-feedback-val">${refl.felt}</div></div>` : ''}
+          ${refl.actionPlan ? `<div class="coach-feedback-item"><div class="coach-feedback-label">이번 주 계획</div><div class="coach-feedback-val">${refl.actionPlan}</div></div>` : ''}
+        </div>` : `
+        <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:14px;padding:16px;margin-bottom:20px;font-size:13px;color:#92400E;">
+          ⏳ 피코치가 아직 ${n}회기 성찰일지를 작성하지 않았습니다.
+        </div>`}
+
         <form id="coachForm-${n}" onsubmit="saveSession(event, ${n})">
           <div class="card">
             <div class="card-title">${n}회기 코치 세션 일지</div>
@@ -213,14 +269,38 @@
       `;
     } else {
       // 피코치용 UI (성찰일지)
+      // 이전 회기 정보 가져오기
+      const prevSess = n > 1 ? DB.get('sessions').find(s => s.coacheeId === coacheeId && s.sessionNumber === n-1) : null;
+      const prevRefl = n > 1 ? DB.get('reflections').find(r => r.sessionId === `sess_${coacheeId}_${n-1}`) : null;
+
+      // 점수 자동 채우기
+      const autoTargetScore = refl?.targetScore || goal?.targetScore || '';
+      const autoPrevScore = refl?.previousScore || prevRefl?.currentScore || (n === 1 ? goal?.currentScore : '') || '';
+
       container.innerHTML = `
         ${refl ? `<div class="complete-banner"><p>✅ 성찰일지가 저장되었습니다.</p></div>` : ''}
+
+        ${n > 1 && prevSess?.nextAction ? `
+        <div class="last-task-box">
+          <div class="last-task-title">📋 지난 회기에서 받은 과제</div>
+          <div class="last-task-content">${prevSess.nextAction}</div>
+          <div class="last-task-date">${n-1}회기 (${prevSess.sessionDate ? fmtDate(prevSess.sessionDate) : ''}) 코치님이 작성</div>
+        </div>` : ''}
+
+        ${sess ? `
+        <div class="coach-feedback-box">
+          <div class="coach-feedback-title">💬 이번 회기 코치 기록 미리보기</div>
+          ${sess.sessionGoal ? `<div class="coach-feedback-item"><div class="coach-feedback-label">이번 회기 목표</div><div class="coach-feedback-val">${sess.sessionGoal}</div></div>` : ''}
+          ${sess.learning ? `<div class="coach-feedback-item"><div class="coach-feedback-label">코치가 본 배운 점</div><div class="coach-feedback-val">${sess.learning}</div></div>` : ''}
+          ${sess.nextAction ? `<div class="coach-feedback-item"><div class="coach-feedback-label">다음 과제</div><div class="coach-feedback-val" style="background:#ECFDF5;padding:10px;border-radius:8px;font-weight:600;">${sess.nextAction}</div></div>` : ''}
+        </div>` : ''}
+
         <form id="reflForm-${n}" onsubmit="saveReflection(event, ${n})">
           <div class="card">
             <div class="card-title">${n}회기 성찰일지</div>
             <div class="form-group">
               <label class="form-label">오늘의 코칭 주제</label>
-              <input type="text" class="form-input" id="r-topic-${n}" value="${refl?.topic || ''}" placeholder="오늘 코칭에서 다룬 주제"/>
+              <input type="text" class="form-input" id="r-topic-${n}" value="${refl?.topic || sess?.sessionGoal || ''}" placeholder="오늘 코칭에서 다룬 주제"/>
             </div>
             <div class="form-group">
               <label class="form-label">이전 과제 실행 여부</label>
@@ -232,16 +312,16 @@
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label class="form-label">목표 점수 (1~10)</label>
-                <input type="number" class="form-input" id="r-target-${n}" min="1" max="10" value="${refl?.targetScore || ''}" placeholder="1~10"/>
+                <label class="form-label">목표 점수 <span style="font-size:11px;color:var(--text-muted);">(자동)</span></label>
+                <input type="number" class="form-input" id="r-target-${n}" min="1" max="10" value="${autoTargetScore}" placeholder="1~10" style="${autoTargetScore ? 'background:#F0FDF4;' : ''}"/>
               </div>
               <div class="form-group">
-                <label class="form-label">이전 회기 점수</label>
-                <input type="number" class="form-input" id="r-prev-${n}" min="1" max="10" value="${refl?.previousScore || ''}" placeholder="1~10"/>
+                <label class="form-label">이전 점수 <span style="font-size:11px;color:var(--text-muted);">(자동)</span></label>
+                <input type="number" class="form-input" id="r-prev-${n}" min="1" max="10" value="${autoPrevScore}" placeholder="1~10" style="${autoPrevScore ? 'background:#F0FDF4;' : ''}"/>
               </div>
               <div class="form-group">
-                <label class="form-label">현재 점수</label>
-                <input type="number" class="form-input" id="r-current-${n}" min="1" max="10" value="${refl?.currentScore || ''}" placeholder="1~10"/>
+                <label class="form-label">현재 점수 <span style="font-size:11px;color:var(--primary);font-weight:600;">← 입력</span></label>
+                <input type="number" class="form-input" id="r-current-${n}" min="1" max="10" value="${refl?.currentScore || ''}" placeholder="1~10" style="border-color:var(--primary);"/>
               </div>
             </div>
           </div>

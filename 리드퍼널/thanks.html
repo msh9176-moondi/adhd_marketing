@@ -1,55 +1,27 @@
 <!doctype html>
 <html lang="ko">
 <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>신청 완료 | FLOCA</title>
     <meta name="description" content="무료 PDF 신청이 완료되었습니다. 이제 친목방에서 자기소개를 해보세요." />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
 
+    <!-- Page Specific CSS -->
     <style>
         :root {
-            --primary: #2a7b9b;
-            --accent: #4fd1c5;
-            --dark: #0f0f1a;
-            --dark-light: #1a1a2e;
-            --text: #ffffff;
-            --text-muted: rgba(255,255,255,0.7);
-            --text-subtle: rgba(255,255,255,0.5);
             --success: #2e8b57;
             --kakao: #FEE500;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            line-height: 1.7;
-            color: var(--text);
-            background: var(--dark);
-        }
-
-        .container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
         }
 
         /* ===== 완료 섹션 ===== */
@@ -83,7 +55,6 @@
             font-size: 16px;
             color: var(--text-muted);
             line-height: 1.9;
-            word-break: keep-all;
         }
 
         .completion-subtitle strong {
@@ -166,7 +137,7 @@
 
         .intro-card {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-light);
             border-radius: 20px;
             padding: 32px 24px;
         }
@@ -276,7 +247,7 @@
 
         .notice-card {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-light);
             border-radius: 16px;
             padding: 28px;
             text-align: center;
@@ -305,7 +276,7 @@
 
         .coaching-card {
             background: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid var(--border-light);
             border-radius: 16px;
             padding: 28px;
             text-align: center;
@@ -338,67 +309,16 @@
         }
 
         /* ===== 푸터 ===== */
-        .footer {
+        .footer-thanks {
             background: var(--primary);
             padding: 48px 0;
             text-align: center;
         }
 
-        .footer p {
+        .footer-thanks p {
             font-size: 17px;
             font-weight: 500;
             line-height: 1.9;
-            word-break: keep-all;
-        }
-
-        /* ===== 네비게이션 ===== */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(15, 15, 26, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            z-index: 1000;
-            padding: 16px 0;
-        }
-
-        .nav-container {
-            max-width: 640px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .nav-logo {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            transition: color 0.3s;
-            white-space: nowrap;
-        }
-
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: var(--accent);
         }
 
         /* ===== 반응형 ===== */
@@ -415,48 +335,6 @@
                 font-size: 24px;
             }
         }
-
-        @media (max-width: 480px) {
-            .nav {
-                top: auto;
-                bottom: 0;
-                border-bottom: none;
-                border-top: 1px solid rgba(255,255,255,0.1);
-                padding: 12px 0;
-                padding-bottom: calc(12px + env(safe-area-inset-bottom));
-            }
-
-            .nav-container {
-                flex-direction: row;
-                justify-content: center;
-                gap: 0;
-            }
-
-            .nav-logo {
-                display: none;
-            }
-
-            .nav-links {
-                gap: 0;
-                justify-content: space-around;
-                width: 100%;
-                overflow-x: visible;
-                flex-wrap: nowrap;
-            }
-
-            .nav-links a {
-                font-size: 10px;
-                padding: 6px 4px;
-                text-align: center;
-                white-space: nowrap;
-                flex-shrink: 1;
-                min-width: 0;
-            }
-
-            body {
-                padding-bottom: 70px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -466,7 +344,7 @@
             <a href="index.html" class="nav-logo">FLOCA</a>
             <div class="nav-links">
                 <a href="index.html">홈</a>
-                <a href="adhd-test.html">간편검사</a>
+                <a href="adhd-test.html">자료 제공</a>
                 <a href="community.html">커뮤니티</a>
                 <a href="podcast.html">팟캐스트</a>
                 <a href="postit.html">제품</a>
@@ -556,7 +434,7 @@
     </section>
 
     <!-- ===== 푸터 ===== -->
-    <section class="footer">
+    <section class="footer-thanks">
         <div class="container">
             <p>
                 당신이 계속 실패한 게 아니라,<br />
@@ -565,6 +443,10 @@
         </div>
     </section>
 
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
+
+    <!-- Page Specific JS -->
     <script>
         // 자기소개 복사 기능
         function copyIntro() {
@@ -575,7 +457,7 @@
             const copyHint = document.getElementById('copyHint');
 
             textarea.select();
-            textarea.setSelectionRange(0, 99999); // 모바일 대응
+            textarea.setSelectionRange(0, 99999);
 
             navigator.clipboard.writeText(textarea.value).then(function() {
                 copyBtn.classList.add('copied');
@@ -584,11 +466,7 @@
                 copyHint.textContent = '친목방에 붙여넣기 해주세요';
                 copyHint.style.color = '#4fd1c5';
 
-                // GA 이벤트
-                gtag('event', 'intro_copy', {
-                    'event_category': 'engagement',
-                    'event_label': 'thanks_page_intro_copied'
-                });
+                trackEvent('engagement', 'intro_copy', 'thanks_page_intro_copied');
 
                 setTimeout(function() {
                     copyBtn.classList.remove('copied');
@@ -598,7 +476,6 @@
                     copyHint.style.color = '';
                 }, 3000);
             }).catch(function() {
-                // fallback
                 document.execCommand('copy');
                 copyText.textContent = '복사 완료!';
             });
@@ -624,10 +501,7 @@
             const communityBtn = document.querySelector('.kakao-btn');
             if (communityBtn) {
                 communityBtn.addEventListener('click', function () {
-                    gtag('event', 'community_join_click', {
-                        'event_category': 'conversion',
-                        'event_label': 'thanks_page_community'
-                    });
+                    trackEvent('conversion', 'community_join_click', 'thanks_page_community');
                 });
             }
 
@@ -635,18 +509,12 @@
             const coachingBtn = document.querySelector('.coaching-btn');
             if (coachingBtn) {
                 coachingBtn.addEventListener('click', function () {
-                    gtag('event', 'coaching_click', {
-                        'event_category': 'conversion',
-                        'event_label': 'thanks_page_coaching'
-                    });
+                    trackEvent('conversion', 'coaching_click', 'thanks_page_coaching');
                 });
             }
 
             // 페이지 뷰 이벤트
-            gtag('event', 'pdf_thanks_view', {
-                'event_category': 'funnel',
-                'event_label': 'thanks_page_loaded'
-            });
+            trackEvent('funnel', 'pdf_thanks_view', 'thanks_page_loaded');
         });
     </script>
 </body>

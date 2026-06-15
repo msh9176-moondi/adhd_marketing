@@ -1,0 +1,44 @@
+/* ===== FLOCA Dark Theme Base ===== */
+/* 다크 테마 기본 변수 및 스타일 */
+
+:root {
+  /* Background Colors */
+  --dark: #0f0f1a;
+  --dark-light: #1a1a2e;
+
+  /* Text Colors */
+  --text: #ffffff;
+  --text-muted: rgba(255,255,255,0.7);
+  --text-subtle: rgba(255,255,255,0.5);
+
+  /* Border */
+  --border: rgba(255,255,255,0.08);
+  --border-light: rgba(255,255,255,0.1);
+}
+
+body {
+  color: var(--text);
+  background: var(--dark);
+}
+
+/* ===== Common Dark Theme Elements ===== */
+.card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s;
+}
+
+.card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(79,209,197,0.3);
+}
+
+/* ===== Gradient Backgrounds ===== */
+.bg-gradient-dark {
+  background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
+}
+
+.bg-dark { background: var(--dark); }
+.bg-dark-light { background: var(--dark-light); }

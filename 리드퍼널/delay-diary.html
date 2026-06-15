@@ -1,14 +1,9 @@
 <!doctype html>
 <html lang="ko">
   <head>
-    <!-- Google tag (gtag.js) -->
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-HSNDRX38MB');
-    </script>
+    <script src="shared/js/analytics.js"></script>
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,14 +12,11 @@
     <meta name="keywords" content="ADHD 미루기, 미루기일기, ADHD 실행장애, ADHD 미루기 극복, 성인 ADHD 미루기, ADHD 미루기일기 템플릿" />
     <link rel="canonical" href="https://msh9176-moondi.github.io/adhd_marketing/delay-diary.html" />
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-light.css">
 
+    <!-- Page Specific CSS -->
     <style>
       :root {
         --primary-color: #2a7b9b;
@@ -46,15 +38,7 @@
         --radius-lg: 16px;
       }
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
-
       body {
-        font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-        line-height: 1.7;
         color: var(--text-dark);
         background-color: var(--bg-light);
         min-height: 100vh;
@@ -62,7 +46,6 @@
 
       .container {
         max-width: 640px;
-        margin: 0 auto;
         padding: 24px 20px;
       }
 

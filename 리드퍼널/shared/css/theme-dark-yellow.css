@@ -1,0 +1,29 @@
+/* ===== FLOCA Dark Theme - Yellow Accent ===== */
+/* 포스트잇 제품 페이지 등에서 사용하는 Yellow/Amber 악센트 */
+
+:root {
+  /* Primary Colors */
+  --primary: #f59e0b;
+  --primary-dark: #d97706;
+
+  /* Accent Colors */
+  --accent: #fbbf24;
+  --accent-soft: rgba(251,191,36,0.15);
+  --accent-glow: rgba(251,191,36,0.3);
+  --accent-strong: rgba(251,191,36,0.35);
+
+  /* Additional Yellow Colors */
+  --yellow: #fbbf24;
+}
+
+/* ===== Badge Override ===== */
+.badge {
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-glow);
+  color: var(--accent);
+}
+
+.label-tag {
+  background: rgba(251,191,36,0.1);
+  color: var(--accent);
+}

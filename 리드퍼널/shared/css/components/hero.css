@@ -1,0 +1,115 @@
+/* ===== FLOCA Hero Component ===== */
+/* 히어로 섹션 공통 스타일 */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 120px 20px 100px;
+  background: linear-gradient(180deg, var(--dark, #0f0f1a) 0%, var(--dark-light, #1a1a2e) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(42,123,155,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--accent-soft, rgba(79,209,197,0.12));
+  border: 1px solid var(--accent-glow, rgba(79,209,197,0.3));
+  color: var(--accent, #4fd1c5);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 30px;
+  margin-bottom: 32px;
+  letter-spacing: 2px;
+}
+
+.hero h1 {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1.4;
+  margin-bottom: 24px;
+  word-break: keep-all;
+}
+
+.hero h1 .accent,
+.hero h1 .highlight {
+  color: var(--accent, #4fd1c5);
+}
+
+.hero-sub,
+.hero-subtitle {
+  font-size: 17px;
+  color: var(--text-muted, rgba(255,255,255,0.7));
+  line-height: 1.9;
+  margin-bottom: 48px;
+  word-break: keep-all;
+}
+
+.hero-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px;
+}
+
+.hero-note {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--text-subtle, rgba(255,255,255,0.5));
+}
+
+/* ===== Scroll Indicator ===== */
+.scroll-hint,
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: bounce 2s infinite;
+}
+
+.scroll-hint span,
+.scroll-indicator span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid var(--text-subtle, rgba(255,255,255,0.5));
+  border-bottom: 2px solid var(--text-subtle, rgba(255,255,255,0.5));
+  transform: rotate(45deg);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 28px;
+  }
+
+  .hero-sub,
+  .hero-subtitle {
+    font-size: 16px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero h1 {
+    font-size: 44px;
+  }
+}

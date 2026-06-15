@@ -12,9 +12,47 @@
       display: flex; gap: 20px; align-items: center;
     }
     .my-coach-avatar { font-size: 52px; flex-shrink: 0; }
+    .my-coach-info { flex: 1; }
     .my-coach-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
     .my-coach-info p { font-size: 13px; opacity: .8; line-height: 1.6; }
     .my-coach-info .topic { display: inline-block; background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.25); font-size: 12px; font-weight: 600; padding: 3px 12px; border-radius: 20px; margin-top: 8px; }
+    .my-coach-contact { margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .my-coach-contact a { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: white; padding: 6px 12px; border-radius: 8px; font-size: 12px; text-decoration: none; }
+    .my-coach-contact a:hover { background: rgba(255,255,255,0.25); }
+
+    /* 진행률 카드 */
+    .progress-card {
+      background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+      border-radius: 16px; padding: 20px; color: white; margin-bottom: 20px;
+    }
+    .progress-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .progress-title { font-size: 14px; font-weight: 700; }
+    .progress-fraction { font-size: 24px; font-weight: 900; }
+    .progress-bar-wrap { background: rgba(255,255,255,0.3); border-radius: 10px; height: 12px; overflow: hidden; }
+    .progress-bar-fill { background: white; height: 100%; border-radius: 10px; transition: width 0.5s; }
+    .progress-sessions { display: flex; justify-content: space-between; margin-top: 12px; }
+    .progress-session { text-align: center; flex: 1; }
+    .progress-session-dot { width: 24px; height: 24px; border-radius: 50%; margin: 0 auto 4px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; }
+    .progress-session-dot.done { background: white; color: #059669; }
+    .progress-session-dot.active { background: #FCD34D; color: #92400E; }
+    .progress-session-dot.pending { background: rgba(255,255,255,0.3); color: white; }
+    .progress-session-label { font-size: 11px; opacity: 0.9; }
+
+    /* 내 점수 변화 */
+    .my-score-card {
+      background: var(--card); border-radius: 16px; padding: 20px; margin-bottom: 20px;
+      border: 1px solid var(--border);
+    }
+    .my-score-title { font-size: 14px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .my-score-graph { display: flex; align-items: flex-end; gap: 8px; height: 100px; padding: 0 10px; }
+    .my-score-bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .my-score-bar { width: 100%; max-width: 36px; border-radius: 6px 6px 0 0; transition: height 0.3s; position: relative; }
+    .my-score-bar-val { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); font-size: 11px; font-weight: 700; }
+    .my-score-bar-label { font-size: 10px; color: var(--text-muted); }
+    .my-score-summary { display: flex; justify-content: center; gap: 24px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .my-score-stat { text-align: center; }
+    .my-score-stat-val { font-size: 24px; font-weight: 900; }
+    .my-score-stat-label { font-size: 11px; color: var(--text-muted); }
 
     .timeline { display: flex; flex-direction: column; gap: 0; }
     .timeline-item { display: flex; gap: 16px; position: relative; }
@@ -45,12 +83,18 @@
 
     .next-session-box {
       background: var(--primary-light); border: 1px solid #BFDBFE;
-      border-radius: 14px; padding: 18px 20px; display: flex;
-      align-items: center; justify-content: space-between; gap: 12px;
+      border-radius: 14px; padding: 18px 20px;
       margin-bottom: 20px;
     }
     .next-session-box p { font-size: 14px; color: var(--primary); font-weight: 600; }
     .next-session-box span { font-size: 13px; color: var(--text-muted); }
+    .next-session-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .last-task-alert {
+      background: #FEF3C7; border: 1px solid #F59E0B; border-radius: 10px;
+      padding: 14px; margin-top: 14px;
+    }
+    .last-task-alert-title { font-size: 12px; font-weight: 700; color: #92400E; margin-bottom: 6px; }
+    .last-task-alert-content { font-size: 14px; color: var(--text); line-height: 1.6; }
 
     .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     .action-btn-card {
@@ -127,8 +171,13 @@
 </nav>
 
 <div class="page-header">
-  <h1 id="pageTitle">내 코칭 현황</h1>
-  <p id="pageSubtitle">4주 코칭 진행 상황을 확인하세요.</p>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+    <div>
+      <h1 id="pageTitle">내 코칭 현황</h1>
+      <p id="pageSubtitle">4주 코칭 진행 상황을 확인하세요.</p>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="logout()" style="flex-shrink:0;">로그아웃</button>
+  </div>
 </div>
 
 <main class="main">
@@ -160,8 +209,15 @@
         <h3 id="coachNameEl">코치 배정 중</h3>
         <p id="coachSpecEl">관리자가 곧 코치를 배정합니다.</p>
         <div id="topicEl"></div>
+        <div id="coachContact" class="my-coach-contact" style="display:none;"></div>
       </div>
     </div>
+
+    <!-- 진행률 -->
+    <div id="progressCard" class="progress-card" style="display:none;"></div>
+
+    <!-- 내 점수 변화 -->
+    <div id="myScoreCard" class="my-score-card" style="display:none;"></div>
 
     <!-- 서류함 -->
     <div id="documentBoxArea"></div>
@@ -202,6 +258,11 @@
 <script>
   const coacheeId = getParam('id') || localStorage.getItem('currentCoacheeId');
   if (!coacheeId) { window.location.href = 'login.html'; }
+
+  function logout() {
+    localStorage.removeItem('currentCoacheeId');
+    window.location.href = 'login.html';
+  }
 
   // 합의서 상태 판별 (기존 데이터 호환)
   function getAgreementStatus(goal) {
@@ -304,6 +365,9 @@
     // 헤더
     document.getElementById('pageTitle').textContent = `${coachee.name}님의 코칭 현황`;
 
+    // 세션 저장 (뒤로가기 시 유지)
+    localStorage.setItem('currentCoacheeId', coacheeId);
+
     // 코치 카드
     if (coach) {
       document.getElementById('coachAvatar').textContent = coach.avatar;
@@ -312,6 +376,106 @@
       if (goal) {
         document.getElementById('topicEl').innerHTML = `<span class="topic">코칭 주제: ${goal.topic}</span>`;
       }
+      // 코치 연락처
+      document.getElementById('coachContact').style.display = 'flex';
+      document.getElementById('coachContact').innerHTML = `
+        ${coach.email ? `<a href="mailto:${coach.email}">📧 이메일</a>` : ''}
+        <a href="#" onclick="alert('코치님과의 연락은 카카오톡 또는 이메일을 이용해주세요.')">💬 문의하기</a>
+      `;
+    }
+
+    // 진행률 카드
+    if (matching) {
+      const progressCard = document.getElementById('progressCard');
+      progressCard.style.display = 'block';
+      const percent = (completedSessions / 4) * 100;
+
+      let sessionsHtml = '';
+      [1,2,3,4].forEach(n => {
+        const sess = sessions.find(s => s.sessionNumber === n);
+        const refl = reflections.find(r => r.sessionId === 'sess_' + coacheeId + '_' + n);
+        const isDone = sess?.completed && refl;
+        const isActive = n === nextSessionNum;
+        const dotClass = isDone ? 'done' : isActive ? 'active' : 'pending';
+        const dotContent = isDone ? '✓' : n;
+        sessionsHtml += '<div class="progress-session"><div class="progress-session-dot ' + dotClass + '">' + dotContent + '</div><div class="progress-session-label">' + n + '회기</div></div>';
+      });
+
+      progressCard.innerHTML = `
+        <div class="progress-header">
+          <div class="progress-title">📈 코칭 진행률</div>
+          <div class="progress-fraction">${completedSessions}/4</div>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:${percent}%;"></div>
+        </div>
+        <div class="progress-sessions">${sessionsHtml}</div>
+      `;
+    }
+
+    // 내 점수 변화 그래프
+    if (goal || reflections.length > 0) {
+      const startScore = goal?.currentScore || 0;
+      const targetScore = goal?.targetScore || 10;
+      const scores = [1,2,3,4].map(n => {
+        const refl = reflections.find(r => r.sessionId === 'sess_' + coacheeId + '_' + n);
+        return refl?.currentScore || null;
+      });
+      const validScores = scores.filter(s => s !== null);
+      const currentScore = validScores.length > 0 ? validScores[validScores.length - 1] : startScore;
+      const change = currentScore - startScore;
+
+      const maxH = 70;
+      const getH = (score) => score ? Math.max(8, (score / 10) * maxH) : 0;
+
+      // 막대 그래프 HTML 생성
+      let barsHtml = '';
+      // 시작 점수
+      barsHtml += '<div class="my-score-bar-wrap"><div class="my-score-bar" style="height:' + getH(startScore) + 'px;background:var(--text-light);">';
+      if (startScore) barsHtml += '<div class="my-score-bar-val">' + startScore + '</div>';
+      barsHtml += '</div><div class="my-score-bar-label">시작</div></div>';
+
+      // 회기별 점수
+      [1,2,3,4].forEach((n, i) => {
+        const score = scores[i];
+        const prevScore = i === 0 ? startScore : (scores[i-1] || startScore);
+        const color = score ? (score >= prevScore ? '#10B981' : '#F59E0B') : 'var(--border)';
+        const h = score ? getH(score) : 8;
+        barsHtml += '<div class="my-score-bar-wrap"><div class="my-score-bar" style="height:' + h + 'px;background:' + color + ';">';
+        if (score) barsHtml += '<div class="my-score-bar-val">' + score + '</div>';
+        barsHtml += '</div><div class="my-score-bar-label">' + n + '회기</div></div>';
+      });
+
+      // 목표 점수
+      barsHtml += '<div class="my-score-bar-wrap"><div class="my-score-bar" style="height:' + getH(targetScore) + 'px;background:var(--accent);opacity:0.5;border:2px dashed var(--accent);"><div class="my-score-bar-val" style="color:var(--accent);">' + targetScore + '</div></div><div class="my-score-bar-label">목표</div></div>';
+
+      // 변화량 색상
+      const changeColor = change > 0 ? '#10B981' : (change < 0 ? '#EF4444' : 'var(--text-muted)');
+      const changeText = change > 0 ? '+' + change : (change || '-');
+
+      document.getElementById('myScoreCard').style.display = 'block';
+      document.getElementById('myScoreCard').innerHTML = `
+        <div class="my-score-title">📊 내 점수 변화</div>
+        <div class="my-score-graph">${barsHtml}</div>
+        <div class="my-score-summary">
+          <div class="my-score-stat">
+            <div class="my-score-stat-val" style="color:var(--text-light);">${startScore || '-'}</div>
+            <div class="my-score-stat-label">시작</div>
+          </div>
+          <div class="my-score-stat">
+            <div class="my-score-stat-val" style="color:var(--primary);">${currentScore || '-'}</div>
+            <div class="my-score-stat-label">현재</div>
+          </div>
+          <div class="my-score-stat">
+            <div class="my-score-stat-val" style="color:${changeColor};">${changeText}</div>
+            <div class="my-score-stat-label">변화</div>
+          </div>
+          <div class="my-score-stat">
+            <div class="my-score-stat-val" style="color:var(--accent);">${targetScore}</div>
+            <div class="my-score-stat-label">목표</div>
+          </div>
+        </div>
+      `;
     }
 
     // 합의서 상태에 따른 알림 표시
@@ -330,10 +494,23 @@
     // 다음 회기 박스
     if (nextSessionNum && completedSessions < 4) {
       const nextSess = sessions.find(s => s.sessionNumber === nextSessionNum);
-      document.getElementById('nextSessionBox').style.display = 'flex';
-      document.getElementById('nextSessionTitle').textContent = `${nextSessionNum}회기 성찰일지 작성이 필요해요`;
-      document.getElementById('nextSessionDate').textContent = nextSess ? fmtDate(nextSess.sessionDate) + ' 코칭' : '일정 미정';
-      document.getElementById('nextSessionBtn').href = `sessions.html?id=${coacheeId}&role=coachee`;
+      const prevSess = nextSessionNum > 1 ? sessions.find(s => s.sessionNumber === nextSessionNum - 1) : null;
+
+      document.getElementById('nextSessionBox').style.display = 'block';
+      document.getElementById('nextSessionBox').innerHTML = `
+        <div class="next-session-header">
+          <div>
+            <p>${nextSessionNum}회기 성찰일지 작성이 필요해요</p>
+            <span>${nextSess?.sessionDate ? fmtDate(nextSess.sessionDate) + ' 코칭' : '<span style="color:#D97706;">일정 미정 - 코치님과 일정을 조율하세요</span>'}</span>
+          </div>
+          <a href="sessions.html?id=${coacheeId}&role=coachee" class="btn btn-primary btn-sm">일지 작성하기 →</a>
+        </div>
+        ${prevSess?.nextAction ? `
+        <div class="last-task-alert">
+          <div class="last-task-alert-title">📋 지난번 코치님이 준 과제</div>
+          <div class="last-task-alert-content">${prevSess.nextAction}</div>
+        </div>` : ''}
+      `;
     }
 
     // 사전 점수
