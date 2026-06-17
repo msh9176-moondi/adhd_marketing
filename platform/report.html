@@ -29,8 +29,12 @@
     .tag-new { background: var(--accent-light); color: #0D9488; }
     .tag-keep { background: var(--primary-light); color: var(--primary); }
     .tag-stop { background: var(--warn-light); color: #991B1B; }
-    .print-btn { position: fixed; bottom: 24px; right: 24px; z-index: 100; }
-    @media print { .nav, .print-btn, .steps, .footer { display: none!important; } .main { padding-top: 0; } }
+    .print-btn { display: none; } /* 하단 고정 버튼 제거, 콘텐츠 내 버튼으로 대체 */
+    @media print {
+      .nav, .print-btn, .steps, .footer { display: none!important; }
+      .main { padding-top: 0; }
+      * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    }
     @media (max-width: 640px) { .session-summary, .extra-grid { grid-template-columns: 1fr; } }
   </style>
 </head>
@@ -68,7 +72,24 @@
   </div>
 </main>
 
-<a href="javascript:window.print()" class="btn btn-primary print-btn">🖨️ 인쇄/저장</a>
+
+<!-- 축하 모달 -->
+<div id="celebrationModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);z-index:9999;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:white;border-radius:24px;padding:40px 32px;text-align:center;max-width:360px;width:100%;animation:celebrationPop 0.4s ease;">
+    <div style="font-size:64px;margin-bottom:16px;">🎉</div>
+    <div style="font-size:22px;font-weight:800;color:var(--text);margin-bottom:12px;">리포트 저장 완료!</div>
+    <div style="font-size:15px;color:var(--text-muted);line-height:1.7;margin-bottom:24px;">
+      수고하셨습니다!<br/>코칭 여정을 함께 해주셔서 감사합니다.
+    </div>
+    <button onclick="goToDashboard()" style="background:var(--primary);color:white;border:none;padding:14px 32px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;">대시보드로 돌아가기</button>
+  </div>
+</div>
+<style>
+  @keyframes celebrationPop {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+</style>
 
 <footer class="footer">
   <div class="container">
@@ -80,6 +101,7 @@
 <script src="app.js"></script>
 <script>
   const coacheeId = getParam('id');
+  const userRole = getParam('role') || 'coachee';
   if (!coacheeId) { window.location.href = 'apply.html'; }
 
   function stars(n) {
@@ -100,8 +122,20 @@
 
   function render() {
     const coachee = DB.getItem('coachees', coacheeId);
-    const preSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
-    const postSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'post');
+    const allSurveys = DB.get('surveys');
+    const preSurvey = allSurveys.find(s => s.coacheeId === coacheeId && s.type === 'pre');
+    const postSurvey = allSurveys.find(s => s.coacheeId === coacheeId && s.type === 'post');
+
+    // 디버깅: 콘솔에 설문 상태 출력
+    console.log('=== Report Debug ===');
+    console.log('coacheeId:', coacheeId);
+    console.log('All surveys:', allSurveys);
+    console.log('preSurvey found:', !!preSurvey);
+    console.log('postSurvey found:', !!postSurvey);
+    if (!postSurvey && allSurveys.length > 0) {
+      console.log('Survey coacheeIds:', allSurveys.map(s => s.coacheeId));
+      console.log('Survey types:', allSurveys.map(s => s.type));
+    }
     const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
     const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
@@ -173,7 +207,11 @@
           <div class="score-bars"><div class="bar-wrap">${scoreBar(pre, 'var(--primary)')}<div class="bar-val">${pre.toFixed(1)}</div></div></div>
         </div>`;
       });
-      html += `</div><div class="alert alert-info" style="margin-top:16px;">사후 설문이 아직 완료되지 않았습니다. <a href="post-survey.html?id=${coacheeId}">사후 설문 하러 가기</a></div></div>`;
+      if (userRole === 'coach') {
+        html += `</div><div class="alert alert-info" style="margin-top:16px;">⏳ 피코치가 아직 사후 설문을 완료하지 않았습니다.</div></div>`;
+      } else {
+        html += `</div><div class="alert alert-info" style="margin-top:16px;">사후 설문이 아직 완료되지 않았습니다. <a href="post-survey.html?id=${coacheeId}">사후 설문 하러 가기</a></div></div>`;
+      }
     }
 
     // Goal agreement
@@ -253,13 +291,46 @@
       본 결과보고서는 ADHD 코칭 프로그램 참여 과정에서 작성된 자기보고식 설문과 회기별 기록을 바탕으로 생성된 참고 자료입니다. 의학적 진단이나 치료 효과를 보장하는 문서가 아닙니다.
     </div>`;
 
-    if (!hasPost) {
+    // 디버그 정보 (개발용 - 나중에 제거)
+    html += `<details style="margin-top:16px;padding:12px;background:#f5f5f5;border-radius:8px;font-size:12px;">
+      <summary style="cursor:pointer;font-weight:600;">🔧 디버그 정보 (클릭해서 열기)</summary>
+      <div style="margin-top:10px;font-family:monospace;white-space:pre-wrap;">
+coacheeId: ${coacheeId}
+userRole: ${userRole}
+전체 설문 수: ${allSurveys.length}
+사전 설문: ${preSurvey ? '있음 (id: ' + preSurvey.id + ')' : '없음'}
+사후 설문: ${postSurvey ? '있음 (id: ' + postSurvey.id + ')' : '없음'}
+
+설문 목록:
+${allSurveys.map(s => '- id: ' + s.id + ', coacheeId: ' + s.coacheeId + ', type: ' + s.type).join('\n') || '(없음)'}
+      </div>
+    </details>`;
+
+    if (!hasPost && userRole !== 'coach') {
       html += `<div style="text-align:center;margin-top:24px;">
         <a href="post-survey.html?id=${coacheeId}" class="btn btn-primary btn-lg">사후 설문 작성하기 →</a>
       </div>`;
     }
 
+    // 저장 & 대시보드 버튼
+    html += `<div class="card" style="margin-top:16px;display:flex;gap:12px;">
+      <button onclick="saveReport()" class="btn btn-primary" style="flex:1;padding:16px;font-size:16px;">📥 저장</button>
+      <a href="${userRole === 'coach' ? 'coach-home.html' : 'coachee-home.html?id=' + coacheeId}" class="btn btn-outline" style="flex:1;padding:16px;font-size:16px;">🏠 대시보드</a>
+    </div>`;
+
     document.getElementById('reportBody').innerHTML = html;
+  }
+
+  function saveReport() {
+    window.print();
+    // 인쇄 대화상자 닫힌 후 축하 모달 표시
+    window.onafterprint = function() {
+      document.getElementById('celebrationModal').style.display = 'flex';
+    };
+  }
+
+  function goToDashboard() {
+    window.location.href = userRole === 'coach' ? 'coach-home.html' : `coachee-home.html?id=${coacheeId}`;
   }
 
   render();

@@ -49,6 +49,32 @@
     .coach-feedback-item { margin-bottom: 10px; }
     .coach-feedback-label { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
     .coach-feedback-val { font-size: 13px; color: var(--text); line-height: 1.6; }
+
+    /* 성찰일지 완료 모달 */
+    .celebration-modal {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center;
+      z-index: 9999; padding: 20px;
+    }
+    .celebration-modal.show { display: flex; }
+    .celebration-content {
+      background: white; border-radius: 24px; padding: 40px 32px; text-align: center;
+      max-width: 360px; width: 100%; animation: celebrationPop 0.4s ease;
+    }
+    @keyframes celebrationPop {
+      0% { transform: scale(0.8); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .celebration-icon { font-size: 64px; margin-bottom: 16px; }
+    .celebration-title { font-size: 22px; font-weight: 800; color: var(--text); margin-bottom: 12px; }
+    .celebration-sub { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; }
+    .celebration-timer { font-size: 13px; color: var(--text-light); margin-bottom: 16px; }
+    .celebration-btn {
+      background: var(--primary); color: white; border: none; padding: 14px 32px;
+      border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: all 0.2s;
+    }
+    .celebration-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
   </style>
 </head>
 <body>
@@ -103,6 +129,19 @@
   <p>FLOCA 코칭 플랫폼 · 일지는 자동 저장됩니다.</p>
 </footer>
 
+<!-- 일지 완료 축하 모달 -->
+<div class="celebration-modal" id="celebrationModal">
+  <div class="celebration-content">
+    <div class="celebration-icon" id="celebrationIcon">🎉</div>
+    <div class="celebration-title" id="celebrationTitle">작성 완료!</div>
+    <div class="celebration-sub" id="celebrationSub">
+      수고하셨습니다.
+    </div>
+    <div class="celebration-timer" id="celebrationTimer">3초 후 대시보드로 이동합니다...</div>
+    <button class="celebration-btn" onclick="goToDashboard()">대시보드로 돌아가기</button>
+  </div>
+</div>
+
 <script src="app.js"></script>
 <script>
   const coacheeId = getParam('id');
@@ -126,6 +165,16 @@
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
     const coach = matching ? getCoach(matching.coachId) : null;
 
+    // 코치가 페이지를 열면 모든 성찰일지 읽음 처리
+    if (userRole === 'coach') {
+      const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+      reflections.forEach(refl => {
+        if (!refl.coachReadAt) {
+          DB.upsert('reflections', { ...refl, coachReadAt: new Date().toISOString() });
+        }
+      });
+    }
+
     const summary = document.getElementById('summaryBox');
     summary.innerHTML = `
       <div class="info-row"><div class="info-key">피코치</div><div class="info-val">${coachee?.name || '-'}</div></div>
@@ -135,7 +184,19 @@
     `;
 
     updateTabStyles();
-    showSession(1);
+
+    // 다음 작성할 회기 자동 선택
+    let nextSession = 1;
+    if (userRole === 'coachee') {
+      // 피코치: 아직 성찰일지 작성 안 한 가장 낮은 회기
+      const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
+      nextSession = [1, 2, 3, 4].find(n => !reflections.find(r => r.sessionId === `sess_${coacheeId}_${n}`)) || 1;
+    } else {
+      // 코치: 아직 세션일지 작성 안 한 가장 낮은 회기
+      const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId);
+      nextSession = [1, 2, 3, 4].find(n => !sessions.find(s => s.sessionNumber === n)) || 1;
+    }
+    showSession(nextSession);
   }
 
   function updateTabStyles() {
@@ -261,9 +322,8 @@
               <textarea class="form-textarea" id="c-notes-${n}" style="min-height:70px;" placeholder="특이사항, 관찰 내용 등">${sess?.notes || ''}</textarea>
             </div>
           </div>
-          <div style="margin-top:20px;display:flex;gap:12px;">
-            <button type="submit" class="btn btn-primary" style="flex:1;">일지 저장</button>
-            ${n < 4 ? `<button type="button" class="btn btn-accent" onclick="saveAndNext(${n})">저장 후 ${n+1}회기로 →</button>` : `<button type="button" class="btn btn-success" onclick="goToPostSurvey()">저장 후 사후 설문하기 →</button>`}
+          <div style="margin-top:20px;">
+            <button type="submit" class="btn btn-primary btn-full">일지 저장</button>
           </div>
         </form>
       `;
@@ -384,19 +444,15 @@
     e.preventDefault();
     DB.upsert('sessions', getCoachFormData(n));
     updateTabStyles();
-    alert(`${n}회기 일지가 저장되었습니다.`);
-    showSession(n);
-  }
 
-  function saveAndNext(n) {
-    DB.upsert('sessions', getCoachFormData(n));
-    updateTabStyles();
-    showSession(n + 1);
-  }
+    // 해당 회기 성찰일지 읽음 처리
+    const reflId = `refl_${coacheeId}_${n}`;
+    const refl = DB.get('reflections').find(r => r.id === reflId);
+    if (refl && !refl.coachReadAt) {
+      DB.upsert('reflections', { ...refl, coachReadAt: new Date().toISOString() });
+    }
 
-  function goToPostSurvey() {
-    DB.upsert('sessions', getCoachFormData(4));
-    window.location.href = `post-survey.html?id=${coacheeId}`;
+    showCelebration('coach', n);
   }
 
   function saveReflection(e, n) {
@@ -417,8 +473,47 @@
       createdAt: new Date().toISOString()
     };
     DB.upsert('reflections', refl);
-    alert(`${n}회기 성찰일지가 저장되었습니다.`);
-    showSession(n);
+
+    showCelebration('coachee', n);
+  }
+
+  // 축하 모달 표시 및 대시보드 이동
+  let celebrationTimer = null;
+  function showCelebration(role, sessionNum) {
+    const modal = document.getElementById('celebrationModal');
+    const icon = document.getElementById('celebrationIcon');
+    const title = document.getElementById('celebrationTitle');
+    const sub = document.getElementById('celebrationSub');
+
+    if (role === 'coach') {
+      icon.textContent = '✨';
+      title.textContent = `${sessionNum}회기 일지 저장 완료!`;
+      sub.innerHTML = '꼼꼼한 기록이 피코치의 성장을 돕습니다.<br/>수고하셨습니다!';
+    } else {
+      icon.textContent = '🎉';
+      title.textContent = '성찰일지 작성 완료!';
+      sub.innerHTML = '오늘의 성찰이 내일의 성장이 됩니다.<br/>코치님께 전달되었어요.';
+    }
+
+    modal.classList.add('show');
+
+    let countdown = 3;
+    document.getElementById('celebrationTimer').textContent = `${countdown}초 후 대시보드로 이동합니다...`;
+
+    celebrationTimer = setInterval(() => {
+      countdown--;
+      if (countdown > 0) {
+        document.getElementById('celebrationTimer').textContent = `${countdown}초 후 대시보드로 이동합니다...`;
+      } else {
+        clearInterval(celebrationTimer);
+        goToDashboard();
+      }
+    }, 1000);
+  }
+
+  function goToDashboard() {
+    if (celebrationTimer) clearInterval(celebrationTimer);
+    window.location.href = userRole === 'coach' ? 'coach-home.html' : 'coachee-home.html';
   }
 
   function editSession(n) { showSession(n); }

@@ -171,7 +171,7 @@
 </nav>
 
 <div class="page-header">
-  <div style="display:flex;justify-content:space-between;align-items:flex-start;">
+  <div class="container-sm" style="display:flex;justify-content:space-between;align-items:flex-start;">
     <div>
       <h1 id="pageTitle">내 코칭 현황</h1>
       <p id="pageSubtitle">4주 코칭 진행 상황을 확인하세요.</p>
@@ -199,7 +199,7 @@
         <span>⏳</span>
         <span>코치님의 서명을 기다리고 있어요</span>
       </div>
-      <div class="pending-sign-alert-sub">목표 합의서를 제출했습니다. 코치님이 확인 후 서명하면 코칭이 시작됩니다.</div>
+      <div class="pending-sign-alert-sub">목표 합의서를 제출했습니다. 코치님이 확인 후 서명하면 코칭이 시작됩니다.<br/>서명 완료 후 <strong>새로고침</strong>하면 확인할 수 있어요.</div>
     </div>
 
     <!-- 나의 코치 -->
@@ -359,6 +359,7 @@
     const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
     const preSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'pre');
     const postSurvey = DB.get('surveys').find(s => s.coacheeId === coacheeId && s.type === 'post');
+    const followup = DB.get('followups').find(f => f.coacheeId === coacheeId);
     const completedSessions = sessions.filter(s => s.completed).length;
     const nextSessionNum = [1,2,3,4].find(n => !sessions.find(s => s.sessionNumber === n && s.completed));
 
@@ -553,7 +554,7 @@
       }),
       { label: '사후 설문', done: !!postSurvey, date: postSurvey ? fmtDate(postSurvey.createdAt) : '4회기 완료 후', body: postSurvey ? '완료됐습니다.' : '4주 코칭 완료 후 작성합니다.', link: (completedSessions >= 4 && !postSurvey) ? `post-survey.html?id=${coacheeId}` : null, linkText: '설문 작성하기' },
       { label: '결과 리포트', done: !!postSurvey, date: postSurvey ? '확인 가능' : '사후 설문 완료 후', body: postSurvey ? '코칭 전후 변화를 확인하세요!' : '사후 설문 완료 후 자동 생성됩니다.', link: postSurvey ? `report.html?id=${coacheeId}` : null, linkText: '보고서 보기', isSpecial: true },
-      { label: '사후 관리 (4주 후)', done: false, isFollowup: true, date: '코칭 완료 후 4주', body: '코칭 후 변화가 유지되고 있는지 확인합니다.', link: postSurvey ? `followup.html?id=${coacheeId}` : null, linkText: '사후관리 작성하기' },
+      { label: '사후 관리 (4주 후)', done: !!followup, isFollowup: !followup, date: followup ? fmtDate(followup.createdAt) : '코칭 완료 후 4주', body: followup ? '사후관리를 완료했습니다.' : '코칭 후 변화가 유지되고 있는지 확인합니다.', link: postSurvey ? `followup.html?id=${coacheeId}` : null, linkText: followup ? '사후관리 보기' : '사후관리 작성하기' },
     ];
 
     timelineItems.forEach((item, i) => {

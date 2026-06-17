@@ -313,6 +313,7 @@ const DocumentBox = {
     goalAgreement: { icon: '📋', name: '목표 합의서', key: 'goalAgreements' },
     session: { icon: '📝', name: '세션 일지', key: 'sessions' },
     reflection: { icon: '💭', name: '성찰일지', key: 'reflections' },
+    sessionBundle: { icon: '📒', name: '회기 일지', key: null },
     welcomeMessage: { icon: '💌', name: '웰컴 메시지', key: 'welcomeMessages' }
   },
 
@@ -466,20 +467,46 @@ const DocumentBox = {
         }
       }
 
-      // 성찰일지 (확인 필요)
+      // 회기별 통합 일지 (세션 + 성찰)
+      const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId);
       const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
-      reflections.forEach(r => {
-        const num = r.sessionId?.split('_')[2] || '';
-        received.push({
-          type: 'reflection',
-          doc: r,
-          isNew: !r.coachReadAt,
-          title: `${num}회기 성찰일지`,
-          meta: `${coachee.name} · ${this.getTimeAgo(r.createdAt)}`,
-          link: `sessions.html?id=${coacheeId}&role=coach`,
-          coacheeId,
-          coacheeName: coachee.name
-        });
+
+      // 1~4회기 각각 확인
+      [1, 2, 3, 4].forEach(n => {
+        const sess = sessions.find(s => s.sessionNumber === n);
+        const refl = reflections.find(r => r.sessionId === `sess_${coacheeId}_${n}`);
+
+        // 세션이나 성찰 중 하나라도 있으면 표시
+        if (sess || refl) {
+          const hasNewRefl = refl && !refl.coachReadAt;
+          const latestDate = refl?.createdAt || sess?.createdAt;
+
+          // 상태 텍스트 생성
+          let statusParts = [];
+          if (sess) statusParts.push('코치 ✓');
+          if (refl) statusParts.push('성찰 ✓');
+
+          const item = {
+            type: 'sessionBundle',
+            doc: { sessionId: `sess_${coacheeId}_${n}`, session: sess, reflection: refl },
+            isNew: hasNewRefl,
+            title: `${n}회기 일지`,
+            meta: `${coachee.name} · ${statusParts.join(' · ')}`,
+            link: `sessions.html?id=${coacheeId}&role=coach`,
+            coacheeId,
+            coacheeName: coachee.name,
+            status: sess?.completed ? 'completed' : (sess ? 'draft' : null)
+          };
+
+          if (hasNewRefl) {
+            // 새 성찰일지가 있으면 받은 서류로
+            received.push(item);
+          } else if (sess?.completed) {
+            sent.push(item);
+          } else if (sess) {
+            drafts.push(item);
+          }
+        }
       });
     });
 
@@ -496,35 +523,26 @@ const DocumentBox = {
       });
     });
 
-    // 세션 일지 (작성/완료)
-    const sessions = DB.get('sessions').filter(s => s.coachId === coachId);
-    sessions.forEach(s => {
-      const coachee = DB.getItem('coachees', s.coacheeId);
-      const item = {
-        type: 'session',
-        doc: s,
-        title: `${s.sessionNumber}회기 세션 일지`,
-        meta: `${coachee?.name || ''} · ${this.getTimeAgo(s.createdAt)}`,
-        link: `sessions.html?id=${s.coacheeId}&role=coach`
-      };
-      if (s.completed) {
-        item.status = 'completed';
-        sent.push(item);
-      } else {
-        drafts.push(item);
-      }
-    });
-
     return { received, sent, drafts };
   },
 
   // 읽음 처리
-  markAsRead(type, docId) {
+  markAsRead(type, docId, role = 'coachee') {
     const key = this.types[type]?.key;
     if (!key) return;
     const doc = DB.get(key).find(d => d.id === docId);
-    if (doc && !doc.readAt) {
-      DB.upsert(key, { ...doc, readAt: new Date().toISOString() });
+    if (!doc) return;
+
+    const now = new Date().toISOString();
+    // 코치가 읽는 경우 coachReadAt, 피코치가 읽는 경우 readAt
+    if (role === 'coach') {
+      if (!doc.coachReadAt) {
+        DB.upsert(key, { ...doc, coachReadAt: now });
+      }
+    } else {
+      if (!doc.readAt) {
+        DB.upsert(key, { ...doc, readAt: now });
+      }
     }
   }
 };

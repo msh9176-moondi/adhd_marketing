@@ -183,8 +183,15 @@
     };
 
     DB.upsert('surveys', survey);
-
     DB.updateItem('coachees', coacheeId, { status: 'completed' });
+
+    // 저장 확인
+    const saved = DB.get('surveys').find(s => s.id === 'post_' + coacheeId);
+    if (!saved) {
+      alert('저장에 실패했습니다. 다시 시도해주세요.');
+      return;
+    }
+
     window.location.href = `report.html?id=${coacheeId}`;
   });
 

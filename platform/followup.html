@@ -135,7 +135,7 @@
         4주 코칭을 완주하고 사후관리까지 완료하셨어요.<br/>
         작은 변화들이 쌓여 큰 변화가 됩니다. 수고하셨어요 🙏
       </p>
-      <a id="reportLinkFinal" href="#" class="btn btn-primary btn-lg">결과보고서 다시 보기</a>
+      <a id="dashboardLink" href="#" class="btn btn-primary btn-lg">🏠 대시보드로 돌아가기</a>
     </div>
   </div>
 </main>
@@ -157,7 +157,7 @@
   const coacheeId = getParam('id');
   if (!coacheeId) { window.location.href = 'apply.html'; }
   document.getElementById('myPageLink').href = `coachee-home.html?id=${coacheeId}`;
-  document.getElementById('reportLinkFinal').href = `report.html?id=${coacheeId}`;
+  document.getElementById('dashboardLink').href = `coachee-home.html?id=${coacheeId}`;
 
   const quickAnswers = {};
 
