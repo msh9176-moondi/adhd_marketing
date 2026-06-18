@@ -701,7 +701,7 @@
   async function enterDashboard() {
     if (!myCoachId) return;
     // 코치 세션 저장 (뒤로가기 시 유지)
-    localStorage.setItem('currentCoachId', myCoachId);
+    sessionStorage.setItem('currentCoachId', myCoachId);
 
     document.getElementById('selectScreen').style.display = 'none';
     document.getElementById('dashboardScreen').style.display = 'block';
@@ -720,7 +720,7 @@
 
   function logout() {
     myCoachId = null;
-    localStorage.removeItem('currentCoachId'); // 로그아웃 시에만 삭제
+    sessionStorage.removeItem('currentCoachId');
     document.getElementById('selectScreen').style.display = 'flex';
     document.getElementById('dashboardScreen').style.display = 'none';
     document.querySelectorAll('.coach-pick-item').forEach(i => i.classList.remove('selected'));
@@ -1205,10 +1205,13 @@ ${coachName} 드림`;
     renderCoachDocumentBox(myCoachId);
   }
 
-  // 저장된 코치 ID가 있으면 자동 진입 (세션 유지)
-  const savedCoachId = localStorage.getItem('currentCoachId');
-  if (savedCoachId && COACHES.find(c => c.id === savedCoachId)) {
-    myCoachId = savedCoachId;
+  // login.html에서 넘어온 코치 ID 또는 세션 유지 ID로 자동 진입
+  const loginCoachId = localStorage.getItem('selectedCoachId');
+  const savedCoachId = sessionStorage.getItem('currentCoachId');
+  const resolvedId = loginCoachId || savedCoachId;
+  if (resolvedId && COACHES.find(c => c.id === resolvedId)) {
+    myCoachId = resolvedId;
+    localStorage.removeItem('selectedCoachId');
     enterDashboard();
   } else {
     renderCoachPicker();
