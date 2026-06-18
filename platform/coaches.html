@@ -197,8 +197,19 @@
     DB.updateItem('coachees', coacheeId, { status: 'pending_match' });
   }
 
-  if (!coacheeId) { window.location.href = 'apply.html'; }
-  else { renderScorePreview(); renderCoaches(); }
+  if (!coacheeId) {
+    window.location.href = 'apply.html';
+  } else {
+    const existingMatch = DB.get('matchings').find(m => m.coacheeId === coacheeId);
+    const coacheeData = DB.getItem('coachees', coacheeId);
+    const lockedStatuses = ['pledged', 'coaching', 'completed'];
+    if (existingMatch && coacheeData && lockedStatuses.includes(coacheeData.status)) {
+      window.location.href = `coachee-home.html?id=${coacheeId}`;
+    } else {
+      renderScorePreview();
+      renderCoaches();
+    }
+  }
 </script>
 </body>
 </html>

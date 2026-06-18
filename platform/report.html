@@ -126,16 +126,6 @@
     const preSurvey = allSurveys.find(s => s.coacheeId === coacheeId && s.type === 'pre');
     const postSurvey = allSurveys.find(s => s.coacheeId === coacheeId && s.type === 'post');
 
-    // 디버깅: 콘솔에 설문 상태 출력
-    console.log('=== Report Debug ===');
-    console.log('coacheeId:', coacheeId);
-    console.log('All surveys:', allSurveys);
-    console.log('preSurvey found:', !!preSurvey);
-    console.log('postSurvey found:', !!postSurvey);
-    if (!postSurvey && allSurveys.length > 0) {
-      console.log('Survey coacheeIds:', allSurveys.map(s => s.coacheeId));
-      console.log('Survey types:', allSurveys.map(s => s.type));
-    }
     const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
     const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
@@ -291,21 +281,6 @@
       본 결과보고서는 ADHD 코칭 프로그램 참여 과정에서 작성된 자기보고식 설문과 회기별 기록을 바탕으로 생성된 참고 자료입니다. 의학적 진단이나 치료 효과를 보장하는 문서가 아닙니다.
     </div>`;
 
-    // 디버그 정보 (개발용 - 나중에 제거)
-    html += `<details style="margin-top:16px;padding:12px;background:#f5f5f5;border-radius:8px;font-size:12px;">
-      <summary style="cursor:pointer;font-weight:600;">🔧 디버그 정보 (클릭해서 열기)</summary>
-      <div style="margin-top:10px;font-family:monospace;white-space:pre-wrap;">
-coacheeId: ${coacheeId}
-userRole: ${userRole}
-전체 설문 수: ${allSurveys.length}
-사전 설문: ${preSurvey ? '있음 (id: ' + preSurvey.id + ')' : '없음'}
-사후 설문: ${postSurvey ? '있음 (id: ' + postSurvey.id + ')' : '없음'}
-
-설문 목록:
-${allSurveys.map(s => '- id: ' + s.id + ', coacheeId: ' + s.coacheeId + ', type: ' + s.type).join('\n') || '(없음)'}
-      </div>
-    </details>`;
-
     if (!hasPost && userRole !== 'coach') {
       html += `<div style="text-align:center;margin-top:24px;">
         <a href="post-survey.html?id=${coacheeId}" class="btn btn-primary btn-lg">사후 설문 작성하기 →</a>
@@ -322,11 +297,8 @@ ${allSurveys.map(s => '- id: ' + s.id + ', coacheeId: ' + s.coacheeId + ', type:
   }
 
   function saveReport() {
-    window.print();
-    // 인쇄 대화상자 닫힌 후 축하 모달 표시
-    window.onafterprint = function() {
-      document.getElementById('celebrationModal').style.display = 'flex';
-    };
+    document.getElementById('celebrationModal').style.display = 'flex';
+    setTimeout(() => window.print(), 300);
   }
 
   function goToDashboard() {

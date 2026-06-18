@@ -721,10 +721,14 @@
   function logout() {
     myCoachId = null;
     sessionStorage.removeItem('currentCoachId');
-    document.getElementById('selectScreen').style.display = 'flex';
-    document.getElementById('dashboardScreen').style.display = 'none';
-    document.querySelectorAll('.coach-pick-item').forEach(i => i.classList.remove('selected'));
-    document.getElementById('enterBtn').disabled = true;
+    window.location.href = 'login.html';
+  }
+
+  function rejectCoachee(coacheeId, name) {
+    if (!confirm(`${name}님을 거절하시겠습니까? 피코치는 다시 코치 선택 화면으로 이동합니다.`)) return;
+    DB.updateItem('coachees', coacheeId, { status: 'pre_match', selectedCoachId: null });
+    DB.set('matchings', DB.get('matchings').filter(m => m.coacheeId !== coacheeId));
+    renderDashboard();
   }
 
   function renderDashboard() {
@@ -935,7 +939,7 @@
               피코치 정보를 확인하고 수락하신 후, 웰컴 메시지를 보내주세요.
             </div>
             <div class="accept-actions">
-              <button class="btn btn-outline btn-sm" onclick="event.stopPropagation();">거절하기</button>
+              <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); rejectCoachee('${coachee.id}', '${coachee.name}');">거절하기</button>
               <button class="btn btn-primary" onclick="event.stopPropagation(); openWelcomeModal('${coachee.id}', '${coachee.name}', '${coachee.phone || ''}');">수락하고 웰컴 메시지 보내기</button>
             </div>
           </div>` : `

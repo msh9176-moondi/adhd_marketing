@@ -513,7 +513,7 @@
 
   function goToDashboard() {
     if (celebrationTimer) clearInterval(celebrationTimer);
-    window.location.href = userRole === 'coach' ? 'coach-home.html' : 'coachee-home.html';
+    window.location.href = userRole === 'coach' ? 'coach-home.html' : `coachee-home.html?id=${coacheeId}`;
   }
 
   function editSession(n) { showSession(n); }

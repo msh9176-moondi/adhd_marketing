@@ -574,17 +574,21 @@
       tl.appendChild(div);
     });
 
-    // 빠른 실행 버튼
+    // 빠른 실행 버튼 (단계별 조건 적용)
     const actions = [
-      { icon: '📝', title: '성찰일지', desc: '이번 회기 성찰 작성', href: `sessions.html?id=${coacheeId}&role=coachee` },
-      { icon: '🎯', title: '목표 합의서', desc: '코칭 목표 확인', href: `goal-agreement.html?id=${coacheeId}` },
-      { icon: '📊', title: '결과보고서', desc: '사전/사후 변화 확인', href: postSurvey ? `report.html?id=${coacheeId}` : `post-survey.html?id=${coacheeId}` },
-      { icon: '🌱', title: '사후관리', desc: '4주 후 변화 체크', href: `followup.html?id=${coacheeId}` },
-    ];
+      matching && { icon: '📝', title: '성찰일지', desc: '이번 회기 성찰 작성', href: `sessions.html?id=${coacheeId}&role=coachee` },
+      goal && { icon: '🎯', title: '목표 합의서', desc: '코칭 목표 확인', href: `goal-agreement.html?id=${coacheeId}` },
+      completedSessions >= 4 && { icon: '📊', title: '결과보고서', desc: '사전/사후 변화 확인', href: postSurvey ? `report.html?id=${coacheeId}` : `post-survey.html?id=${coacheeId}` },
+      postSurvey && { icon: '🌱', title: '사후관리', desc: '4주 후 변화 체크', href: `followup.html?id=${coacheeId}` },
+    ].filter(Boolean);
     const grid = document.getElementById('actionGrid');
-    actions.forEach(a => {
-      grid.innerHTML += `<a href="${a.href}" class="action-btn-card"><div class="icon">${a.icon}</div><h4>${a.title}</h4><p>${a.desc}</p></a>`;
-    });
+    if (actions.length === 0) {
+      grid.innerHTML = `<p style="font-size:13px;color:var(--text-muted);text-align:center;padding:20px 0;">코칭이 진행되면 빠른 실행 메뉴가 나타납니다.</p>`;
+    } else {
+      actions.forEach(a => {
+        grid.innerHTML += `<a href="${a.href}" class="action-btn-card"><div class="icon">${a.icon}</div><h4>${a.title}</h4><p>${a.desc}</p></a>`;
+      });
+    }
   }
 
   render();
