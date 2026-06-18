@@ -946,6 +946,7 @@
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
             ${nextSession ? `<a href="sessions.html?id=${coachee.id}&role=coach" class="btn btn-primary" onclick="event.stopPropagation();">📝 일지 작성하기</a>` : ''}
             <a href="report.html?id=${coachee.id}&role=coach" class="btn ${nextSession ? 'btn-outline btn-sm' : 'btn-primary'}" onclick="event.stopPropagation();">📊 결과보고서</a>
+            ${!welcomeSent ? `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openWelcomeModal('${coachee.id}', '${coachee.name}', '${coachee.phone || ''}');">💌 웰컴 메시지 보내기</button>` : ''}
           </div>`}
         </div>
       `;
@@ -1051,10 +1052,16 @@
   // 웰컴 메시지 관련
   let currentAcceptCoacheeId = null;
 
+  let isResendMode = false; // 재전송 모드 여부
+
   function openWelcomeModal(coacheeId, name, phone) {
     currentAcceptCoacheeId = coacheeId;
     const coach = getCoach(myCoachId);
     const coachName = coach?.name || '코치';
+
+    // 이미 코칭 중인 피코치인지 확인 (재전송 모드)
+    const coachee = DB.getItem('coachees', coacheeId);
+    isResendMode = coachee?.status === 'coaching';
 
     const template = `안녕하세요, ${name}님! 😊
 
@@ -1074,6 +1081,10 @@ ${coachName} 드림`;
     document.getElementById('welcomeMessage').value = template;
     document.getElementById('welcomeModal').classList.add('show');
     document.getElementById('copySuccess').style.display = 'none';
+
+    // 버튼 텍스트 변경
+    const submitBtn = document.querySelector('#welcomeModal .modal-footer .btn-primary');
+    submitBtn.textContent = isResendMode ? '복사하고 보내기' : '수락하고 보내기';
   }
 
   function closeWelcomeModal() {
@@ -1096,15 +1107,17 @@ ${coachName} 드림`;
       document.getElementById('copySuccess').style.display = 'block';
     }
 
-    // 피코치 상태를 coaching으로 변경
     if (currentAcceptCoacheeId) {
-      DB.updateItem('coachees', currentAcceptCoacheeId, {
-        status: 'coaching',
-        acceptedAt: new Date().toISOString(),
-        acceptedBy: myCoachId
-      });
+      // 재전송 모드가 아닐 때만 피코치 상태를 coaching으로 변경
+      if (!isResendMode) {
+        DB.updateItem('coachees', currentAcceptCoacheeId, {
+          status: 'coaching',
+          acceptedAt: new Date().toISOString(),
+          acceptedBy: myCoachId
+        });
+      }
 
-      // 웰컴 메시지 저장
+      // 웰컴 메시지 저장 (기존 메시지 덮어쓰기)
       const welcomeMsg = {
         id: 'welcome_' + currentAcceptCoacheeId,
         coacheeId: currentAcceptCoacheeId,
