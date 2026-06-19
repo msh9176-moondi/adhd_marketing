@@ -6,67 +6,305 @@
   <title>코치 가이드 | FLOCA 코칭 플랫폼</title>
   <link rel="stylesheet" href="style.css"/>
   <style>
+    /* ===== 전체 레이아웃 ===== */
+    body { background: #F8FAFC; }
+
     .guide-hero {
       background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
-      color: white; padding: 60px 20px; text-align: center;
+      color: white; padding: 56px 20px 48px; text-align: center;
     }
-    .guide-hero h1 { font-size: 32px; font-weight: 900; margin-bottom: 12px; }
-    .guide-hero p { font-size: 16px; opacity: 0.9; line-height: 1.8; max-width: 500px; margin: 0 auto; }
+    .guide-hero h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; line-height: 1.3; }
+    .guide-hero p { font-size: 15px; opacity: 0.85; line-height: 1.8; max-width: 480px; margin: 0 auto 28px; }
+    .hero-stats { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; }
+    .hero-stat { text-align: center; }
+    .hero-stat-num { font-size: 32px; font-weight: 900; color: #60A5FA; }
+    .hero-stat-label { font-size: 12px; opacity: 0.7; margin-top: 2px; }
 
-    .guide-section { padding: 40px 20px; }
-    .guide-section:nth-child(even) { background: var(--bg); }
-    .guide-container { max-width: 700px; margin: 0 auto; }
-
-    .guide-title { font-size: 22px; font-weight: 800; margin-bottom: 20px; color: var(--text); display: flex; align-items: center; gap: 10px; }
-    .guide-title span { font-size: 28px; }
-
-    .flow-steps { display: flex; flex-direction: column; gap: 0; }
-    .flow-step {
-      display: flex; align-items: flex-start; gap: 16px; padding: 20px 0;
-      border-bottom: 1px solid var(--border);
+    /* ===== 전체 여정 맵 ===== */
+    .journey-section {
+      padding: 48px 20px 32px;
+      background: white;
+      border-bottom: 1px solid #E2E8F0;
     }
-    .flow-step:last-child { border-bottom: none; }
-    .flow-num {
-      width: 36px; height: 36px; border-radius: 50%; background: var(--primary);
-      color: white; font-weight: 700; font-size: 16px;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    .section-title {
+      font-size: 20px; font-weight: 800; color: #1E293B;
+      text-align: center; margin-bottom: 32px;
     }
-    .flow-num.coach { background: var(--accent); }
-    .flow-content { flex: 1; }
-    .flow-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
-    .flow-desc { font-size: 14px; color: var(--text-muted); line-height: 1.7; }
-    .flow-who { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; margin-top: 6px; }
-    .flow-who.coachee { background: var(--primary-light); color: var(--primary); }
-    .flow-who.coach { background: var(--accent-light); color: var(--accent); }
-    .flow-who.both { background: #FEF3C7; color: #92400E; }
-
-    .role-card {
-      background: var(--card); border-radius: 16px; padding: 24px;
-      border: 1px solid var(--border); margin-bottom: 16px;
+    .journey-map {
+      max-width: 720px; margin: 0 auto;
+      display: flex; flex-direction: column; gap: 0;
     }
-    .role-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-    .role-list { list-style: none; padding: 0; margin: 0; }
-    .role-list li { font-size: 14px; color: var(--text); line-height: 1.8; padding: 6px 0; padding-left: 24px; position: relative; }
-    .role-list li::before { content: "•"; position: absolute; left: 8px; color: var(--primary); font-weight: bold; }
-
-    .dashboard-preview {
-      background: var(--card); border-radius: 16px; padding: 20px;
-      border: 1px solid var(--border);
+    .journey-row {
+      display: flex; align-items: stretch; gap: 0;
     }
-    .preview-item { display: flex; align-items: flex-start; gap: 12px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-    .preview-item:last-child { border-bottom: none; }
-    .preview-icon { font-size: 24px; flex-shrink: 0; }
-    .preview-text h4 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-    .preview-text p { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+    .journey-node {
+      display: flex; flex-direction: column; align-items: center;
+      width: 80px; flex-shrink: 0; position: relative;
+    }
+    .journey-circle {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 800; flex-shrink: 0; z-index: 1;
+      border: 3px solid white; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .journey-circle.coachee { background: #2563EB; color: white; }
+    .journey-circle.coach { background: #F59E0B; color: white; }
+    .journey-circle.both { background: #10B981; color: white; }
+    .journey-line {
+      width: 3px; flex: 1; min-height: 20px;
+      background: linear-gradient(180deg, #CBD5E1 0%, #CBD5E1 100%);
+      margin: 0 auto;
+    }
+    .journey-content {
+      flex: 1; padding: 0 0 24px 16px; padding-top: 8px;
+    }
+    .journey-content-inner {
+      background: white; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: 14px 16px;
+    }
+    .journey-step-num { font-size: 11px; color: #94A3B8; font-weight: 600; margin-bottom: 2px; }
+    .journey-step-title { font-size: 15px; font-weight: 700; color: #1E293B; margin-bottom: 2px; }
+    .journey-step-desc { font-size: 13px; color: #64748B; }
+    .journey-who {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 2px 8px; border-radius: 8px; margin-top: 6px;
+    }
+    .journey-who.coachee { background: #DBEAFE; color: #1D4ED8; }
+    .journey-who.coach { background: #FEF3C7; color: #92400E; }
+    .journey-who.both { background: #D1FAE5; color: #065F46; }
+    .journey-who.coachee-action { background: #EDE9FE; color: #5B21B6; }
+    .coach-action-tag {
+      display: inline-flex; align-items: center; gap: 4px;
+      background: #FEF3C7; color: #92400E;
+      font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 8px;
+      border: 1px solid #FCD34D; margin-top: 6px;
+    }
 
+    /* ===== 단계별 상세 카드 ===== */
+    .steps-section { padding: 48px 20px; }
+    .steps-container { max-width: 720px; margin: 0 auto; }
+
+    .step-card {
+      background: white; border-radius: 20px; border: 1px solid #E2E8F0;
+      margin-bottom: 24px; overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .step-card-header {
+      padding: 20px 24px; display: flex; align-items: center; gap: 16px;
+      border-bottom: 1px solid #F1F5F9;
+    }
+    .step-badge {
+      width: 44px; height: 44px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; font-weight: 900; flex-shrink: 0;
+    }
+    .step-badge.coachee { background: #DBEAFE; }
+    .step-badge.coach { background: #FEF3C7; }
+    .step-badge.both { background: #D1FAE5; }
+    .step-header-text h3 { font-size: 18px; font-weight: 800; color: #1E293B; margin-bottom: 2px; }
+    .step-header-text p { font-size: 13px; color: #64748B; }
+    .step-card-body { padding: 0 24px 24px; }
+
+    /* ===== 화면 모형 ===== */
+    .screen-mockup {
+      border: 2px solid #E2E8F0; border-radius: 16px; overflow: hidden;
+      margin: 20px 0; background: #F8FAFC;
+    }
+    .screen-topbar {
+      background: #1E3A5F; color: white; padding: 10px 14px;
+      display: flex; align-items: center; gap: 8px; font-size: 12px;
+    }
+    .screen-topbar-dots { display: flex; gap: 4px; }
+    .screen-topbar-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+    .screen-topbar-title { font-size: 12px; font-weight: 600; opacity: 0.9; }
+    .screen-body { padding: 16px; }
+
+    /* 미니 UI 컴포넌트들 */
+    .mock-nav {
+      background: white; border-bottom: 1px solid #E2E8F0;
+      padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+      font-size: 12px; font-weight: 700; color: #1E3A5F;
+    }
+    .mock-card {
+      background: white; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: 14px; margin-bottom: 10px;
+    }
+    .mock-card.pending { border-color: #FCD34D; background: #FFFBEB; }
+    .mock-card.success { border-color: #6EE7B7; background: #F0FDF4; }
+    .mock-card.warning { border-color: #FCA5A5; background: #FEF2F2; }
+    .mock-card.active { border-color: #93C5FD; background: #EFF6FF; }
+    .mock-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .mock-label { font-size: 11px; color: #94A3B8; }
+    .mock-value { font-size: 13px; font-weight: 600; color: #1E293B; }
+    .mock-badge {
+      display: inline-block; font-size: 10px; font-weight: 700;
+      padding: 2px 8px; border-radius: 8px;
+    }
+    .mock-badge.yellow { background: #FEF3C7; color: #92400E; border: 1px solid #FCD34D; }
+    .mock-badge.green { background: #D1FAE5; color: #065F46; }
+    .mock-badge.red { background: #FEE2E2; color: #991B1B; }
+    .mock-badge.blue { background: #DBEAFE; color: #1D4ED8; }
+    .mock-badge.pulse {
+      background: #F59E0B; color: white;
+      animation: mockpulse 1.5s infinite;
+    }
+    @keyframes mockpulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+      50% { box-shadow: 0 0 0 5px rgba(245,158,11,0); }
+    }
+    .mock-btn {
+      display: inline-block; font-size: 11px; font-weight: 700;
+      padding: 6px 14px; border-radius: 8px; cursor: pointer;
+    }
+    .mock-btn.primary { background: #1E3A5F; color: white; }
+    .mock-btn.accent { background: #F59E0B; color: white; }
+    .mock-btn.outline { background: white; color: #1E3A5F; border: 1.5px solid #1E3A5F; }
+    .mock-btn.success { background: #10B981; color: white; }
+    .mock-divider { height: 1px; background: #F1F5F9; margin: 10px 0; }
+    .mock-avatar {
+      width: 32px; height: 32px; border-radius: 50%; background: #DBEAFE;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: #1D4ED8; flex-shrink: 0;
+    }
+    .mock-session-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 0; border-bottom: 1px solid #F1F5F9;
+    }
+    .mock-session-dot {
+      width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+    }
+    .mock-session-dot.done { background: #10B981; }
+    .mock-session-dot.active { background: #2563EB; }
+    .mock-session-dot.empty { background: #CBD5E1; }
+    .mock-score-box {
+      text-align: center; background: #F8FAFC; border-radius: 8px; padding: 8px 12px;
+    }
+    .mock-score-num { font-size: 20px; font-weight: 800; color: #1E3A5F; }
+    .mock-score-label { font-size: 10px; color: #94A3B8; }
+
+    /* ===== 액션 박스 ===== */
+    .action-box {
+      background: linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%);
+      border: 1.5px solid #F59E0B; border-radius: 14px; padding: 16px 18px; margin-top: 16px;
+    }
+    .action-box-title {
+      font-size: 14px; font-weight: 800; color: #92400E;
+      display: flex; align-items: center; gap: 6px; margin-bottom: 10px;
+    }
+    .action-step-list { list-style: none; padding: 0; margin: 0; }
+    .action-step-list li {
+      font-size: 13px; color: #78350F; padding: 5px 0;
+      padding-left: 20px; position: relative; line-height: 1.6;
+    }
+    .action-step-list li::before {
+      content: "→"; position: absolute; left: 0; font-weight: 700; color: #F59E0B;
+    }
+    .action-step-list li strong { color: #92400E; }
+
+    .info-box-blue {
+      background: #EFF6FF; border: 1px solid #BFDBFE;
+      border-radius: 12px; padding: 14px 16px; margin-top: 14px;
+    }
+    .info-box-blue p { font-size: 13px; color: #1D4ED8; line-height: 1.7; margin: 0; }
+
+    .info-box-green {
+      background: #F0FDF4; border: 1px solid #BBF7D0;
+      border-radius: 12px; padding: 14px 16px; margin-top: 14px;
+    }
+    .info-box-green p { font-size: 13px; color: #065F46; line-height: 1.7; margin: 0; }
+
+    .info-box-red {
+      background: #FEF2F2; border: 1px solid #FECACA;
+      border-radius: 12px; padding: 14px 16px; margin-top: 14px;
+    }
+    .info-box-red p { font-size: 13px; color: #991B1B; line-height: 1.7; margin: 0; }
+
+    /* ===== 두 화면 비교 레이아웃 ===== */
+    .two-screens {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0;
+    }
+    @media (max-width: 500px) {
+      .two-screens { grid-template-columns: 1fr; }
+    }
+    .screen-label {
+      font-size: 11px; font-weight: 700; text-align: center;
+      padding: 4px 0 8px; color: #94A3B8; text-transform: uppercase; letter-spacing: 1px;
+    }
+
+    /* ===== 타임라인 (4주 코칭) ===== */
+    .week-timeline {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 16px 0;
+    }
+    .week-card {
+      background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px;
+      padding: 12px; text-align: center;
+    }
+    .week-card.active { background: #EFF6FF; border-color: #93C5FD; }
+    .week-num { font-size: 11px; font-weight: 700; color: #94A3B8; margin-bottom: 4px; }
+    .week-icon { font-size: 24px; margin-bottom: 6px; }
+    .week-title { font-size: 12px; font-weight: 700; color: #1E293B; margin-bottom: 4px; }
+    .week-desc { font-size: 11px; color: #64748B; line-height: 1.5; }
+
+    /* ===== FAQ ===== */
+    .faq-section { padding: 40px 20px; background: white; border-top: 1px solid #E2E8F0; }
+    .faq-item { border-bottom: 1px solid #F1F5F9; padding: 18px 0; max-width: 720px; margin: 0 auto; }
+    .faq-q { font-size: 15px; font-weight: 700; color: #1E293B; margin-bottom: 8px;
+      display: flex; align-items: flex-start; gap: 8px; }
+    .faq-q::before { content: "Q."; color: #2563EB; font-weight: 900; flex-shrink: 0; }
+    .faq-a { font-size: 14px; color: #475569; line-height: 1.8; padding-left: 24px; }
+
+    /* ===== CTA ===== */
     .guide-cta {
-      background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
+      background: linear-gradient(135deg, #1E3A5F 0%, #0D2137 100%);
       padding: 48px 20px; text-align: center;
     }
-    .guide-cta h2 { font-size: 24px; font-weight: 800; color: white; margin-bottom: 12px; }
-    .guide-cta p { font-size: 15px; color: rgba(255,255,255,0.9); margin-bottom: 24px; }
-    .guide-cta .btn { background: white; color: var(--primary); font-size: 16px; padding: 16px 40px; }
-    .guide-cta .btn:hover { background: #F0F9FF; }
+    .guide-cta h2 { font-size: 22px; font-weight: 800; color: white; margin-bottom: 10px; }
+    .guide-cta p { font-size: 14px; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+
+    /* ===== 탭 내비게이션 ===== */
+    .sticky-tabs {
+      position: sticky; top: 0; z-index: 100;
+      background: white; border-bottom: 2px solid #E2E8F0;
+      display: flex; overflow-x: auto; gap: 0;
+      scrollbar-width: none;
+    }
+    .sticky-tabs::-webkit-scrollbar { display: none; }
+    .sticky-tab {
+      flex-shrink: 0; padding: 14px 18px; border: none; background: none;
+      font-size: 13px; font-weight: 600; color: #94A3B8; cursor: pointer;
+      border-bottom: 2px solid transparent; margin-bottom: -2px;
+      transition: all .2s; font-family: inherit; white-space: nowrap;
+    }
+    .sticky-tab.active { color: #1E3A5F; border-bottom-color: #1E3A5F; }
+
+    /* ===== 진행 상태 바 ===== */
+    .progress-track {
+      display: flex; align-items: center; gap: 0; overflow-x: auto;
+      padding: 24px 20px; background: white; border-bottom: 1px solid #E2E8F0;
+      scrollbar-width: none;
+    }
+    .progress-track::-webkit-scrollbar { display: none; }
+    .pt-step { display: flex; align-items: center; flex-shrink: 0; }
+    .pt-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 800; flex-shrink: 0;
+    }
+    .pt-circle.coachee { background: #DBEAFE; color: #1D4ED8; }
+    .pt-circle.coach { background: #FEF3C7; color: #92400E; }
+    .pt-circle.both { background: #D1FAE5; color: #065F46; }
+    .pt-label {
+      font-size: 10px; text-align: center; color: #64748B;
+      margin-top: 4px; max-width: 60px; line-height: 1.3;
+    }
+    .pt-step-inner { display: flex; flex-direction: column; align-items: center; }
+    .pt-arrow { color: #CBD5E1; font-size: 18px; margin: 0 4px; padding-bottom: 14px; }
+
+    /* 모바일 조정 */
+    @media (max-width: 480px) {
+      .guide-hero h1 { font-size: 22px; }
+      .step-card-header { flex-direction: column; align-items: flex-start; }
+    }
   </style>
 </head>
 <body>
@@ -80,193 +318,760 @@
   </div>
 </nav>
 
+<!-- 히어로 -->
 <div class="guide-hero">
-  <h1>FLOCA 코칭 플랫폼<br/>코치 가이드</h1>
-  <p>ADHD 코칭 파일럿 프로그램의 전체 흐름과<br/>코치로서의 역할을 안내합니다.</p>
-</div>
-
-<!-- 프로그램 소개 -->
-<div class="guide-section">
-  <div class="guide-container">
-    <div class="guide-title"><span>📋</span> 프로그램 소개</div>
-    <div class="role-card">
-      <p style="font-size:15px;line-height:1.9;color:var(--text);">
-        <strong>FLOCA ADHD 코칭 프로그램</strong>은 ADHD 성향을 가진 분들의 <strong>실행력 회복, 루틴 형성, 시간관리</strong>를 돕는 4주 1:1 코칭 프로그램입니다.
-      </p>
-      <div style="margin-top:16px;padding:16px;background:var(--bg);border-radius:12px;">
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;text-align:center;">
-          <div>
-            <div style="font-size:28px;font-weight:900;color:var(--primary);">4주</div>
-            <div style="font-size:12px;color:var(--text-muted);">코칭 기간</div>
-          </div>
-          <div>
-            <div style="font-size:28px;font-weight:900;color:var(--accent);">4회</div>
-            <div style="font-size:12px;color:var(--text-muted);">주 1회 세션</div>
-          </div>
-          <div>
-            <div style="font-size:28px;font-weight:900;color:var(--success);">1:1</div>
-            <div style="font-size:12px;color:var(--text-muted);">코치 : 피코치</div>
-          </div>
-        </div>
-      </div>
-      <p style="font-size:13px;color:var(--text-muted);margin-top:16px;line-height:1.7;">
-        * 이 프로그램은 의료 진단이나 치료를 대체하지 않습니다. 생활 관리와 실행력 회복을 돕는 코칭 서비스입니다.
-      </p>
+  <h1>코치님,<br/>이렇게 진행하면 됩니다 📖</h1>
+  <p>각 단계에서 화면에 무엇이 보이는지,<br/>코치님이 무엇을 해야 하는지 순서대로 알려드립니다.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">4주</div>
+      <div class="hero-stat-label">코칭 기간</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4회</div>
+      <div class="hero-stat-label">세션 횟수</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">1:1</div>
+      <div class="hero-stat-label">코치:피코치</div>
     </div>
   </div>
 </div>
 
-<!-- 전체 플로우 -->
-<div class="guide-section">
-  <div class="guide-container">
-    <div class="guide-title"><span>🔄</span> 전체 진행 플로우</div>
-    <div class="flow-steps">
-      <div class="flow-step">
-        <div class="flow-num">1</div>
-        <div class="flow-content">
-          <div class="flow-title">피코치 신청</div>
-          <div class="flow-desc">피코치가 신청서를 작성하고 프로그램에 참여 의사를 밝힙니다.</div>
-          <span class="flow-who coachee">피코치</span>
+<!-- 진행 트랙 -->
+<div class="progress-track">
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle coachee">1</div>
+      <div class="pt-label">피코치<br/>신청</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle coachee">2</div>
+      <div class="pt-label">사전설문<br/>+선택</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle coach">3</div>
+      <div class="pt-label">코치<br/>수락</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle both">4</div>
+      <div class="pt-label">목표합의서<br/>작성·서명</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle coach">5</div>
+      <div class="pt-label">4주<br/>코칭</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle coachee">6</div>
+      <div class="pt-label">사후설문</div>
+    </div>
+  </div>
+  <div class="pt-arrow">→</div>
+  <div class="pt-step">
+    <div class="pt-step-inner">
+      <div class="pt-circle both">7</div>
+      <div class="pt-label">결과<br/>보고서</div>
+    </div>
+  </div>
+</div>
+
+<!-- 범례 -->
+<div style="display:flex;gap:12px;justify-content:center;padding:12px 20px;background:white;border-bottom:2px solid #E2E8F0;flex-wrap:wrap;">
+  <span style="font-size:12px;color:#64748B;display:flex;align-items:center;gap:6px;">
+    <span style="width:14px;height:14px;border-radius:50%;background:#DBEAFE;border:1px solid #93C5FD;display:inline-block;"></span> 피코치가 하는 일
+  </span>
+  <span style="font-size:12px;color:#64748B;display:flex;align-items:center;gap:6px;">
+    <span style="width:14px;height:14px;border-radius:50%;background:#FEF3C7;border:1px solid #FCD34D;display:inline-block;"></span> 코치가 하는 일
+  </span>
+  <span style="font-size:12px;color:#64748B;display:flex;align-items:center;gap:6px;">
+    <span style="width:14px;height:14px;border-radius:50%;background:#D1FAE5;border:1px solid #6EE7B7;display:inline-block;"></span> 함께 하는 일
+  </span>
+</div>
+
+<!-- 단계별 상세 -->
+<div class="steps-section">
+  <div class="steps-container">
+    <div class="section-title">단계별 상세 가이드</div>
+
+    <!-- ===== STEP 1 ===== -->
+    <div class="step-card" id="step1">
+      <div class="step-card-header">
+        <div class="step-badge coachee">1</div>
+        <div class="step-header-text">
+          <h3>피코치 신청 & 사전 설문</h3>
+          <p>피코치가 진행 · 코치님은 대기 중</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">2</div>
-        <div class="flow-content">
-          <div class="flow-title">사전 설문 작성</div>
-          <div class="flow-desc">실행력, 루틴, 시간관리, 자기효능감, 커리어 5개 영역을 측정합니다. 코칭 후 변화를 비교하는 기준 데이터가 됩니다.</div>
-          <span class="flow-who coachee">피코치</span>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          피코치가 FLOCA 코칭 신청 페이지에서 신청서를 작성하고, <strong>사전 설문</strong>(실행력·루틴·시간관리·자기효능감·커리어 5개 영역)을 완료한 뒤 코치를 직접 선택합니다. 코치님은 이 단계에서 할 일이 없고, 피코치가 선택을 완료하면 대시보드에 알림이 뜹니다.
+        </p>
+
+        <div class="two-screens">
+          <div>
+            <div class="screen-label">피코치 화면 — 신청서</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">코칭 신청하기</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card">
+                  <div class="mock-label">이름</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:12px;color:#94A3B8;margin-top:4px;">홍길동</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-label">현재 어려움</div>
+                  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+                    <span class="mock-badge yellow">미루기</span>
+                    <span class="mock-badge yellow">시간관리</span>
+                    <span class="mock-badge yellow">집중력</span>
+                  </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;">
+                  <span class="mock-btn primary">신청하기</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="screen-label">피코치 화면 — 코치 선택</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">코치 선택</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card active">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="font-size:24px;">👩‍💼</div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#1E293B;">김민지 코치</div>
+                      <div style="font-size:11px;color:#64748B;">루틴 형성 · 직장인 특화</div>
+                    </div>
+                    <span class="mock-badge blue" style="margin-left:auto;">선택됨</span>
+                  </div>
+                </div>
+                <div class="mock-card">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <div style="font-size:24px;">🧑‍💼</div>
+                    <div>
+                      <div style="font-size:13px;font-weight:700;color:#1E293B;">이준혁 코치</div>
+                      <div style="font-size:11px;color:#64748B;">시간관리 · 학습 특화</div>
+                    </div>
+                  </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;">
+                  <span class="mock-btn primary">이 코치님과 함께하기</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box-blue">
+          <p>💡 피코치가 코치를 선택하면 코치님 대시보드에 <strong>"🔔 수락 대기"</strong> 배지가 나타납니다. 그때 다음 단계로 넘어가세요.</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">3</div>
-        <div class="flow-content">
-          <div class="flow-title">코치 선택</div>
-          <div class="flow-desc">피코치가 코치 프로필을 보고 함께할 코치를 선택합니다.</div>
-          <span class="flow-who coachee">피코치</span>
+    </div>
+
+    <!-- ===== STEP 2 ===== -->
+    <div class="step-card" id="step2">
+      <div class="step-card-header">
+        <div class="step-badge coach">2</div>
+        <div class="step-header-text">
+          <h3>피코치 수락 & 웰컴 메시지</h3>
+          <p>코치님이 해야 할 첫 번째 단계 ⭐</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num coach">4</div>
-        <div class="flow-content">
-          <div class="flow-title">코치 수락 & 웰컴 메시지</div>
-          <div class="flow-desc">코치가 피코치 정보를 확인하고 수락합니다. 웰컴 메시지를 보내 첫 연락을 시작합니다.</div>
-          <span class="flow-who coach">코치</span>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          대시보드에 <strong>노란 카드</strong>로 새 피코치가 표시됩니다. 피코치 정보를 확인하고 수락하면, 웰컴 메시지 창이 뜹니다.
+        </p>
+
+        <div class="screen-mockup">
+          <div class="screen-topbar">
+            <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+            <span class="screen-topbar-title">코치 대시보드</span>
+          </div>
+          <div class="screen-body">
+            <div style="font-size:13px;font-weight:700;color:#1E293B;margin-bottom:10px;">안녕하세요, 김민지 코치님 👋</div>
+            <div class="mock-card pending">
+              <div class="mock-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="mock-avatar" style="background:#FEF3C7;color:#92400E;">홍</div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#1E293B;">홍길동</div>
+                    <div style="font-size:11px;color:#92400E;">010-1234-5678</div>
+                  </div>
+                </div>
+                <span class="mock-badge pulse">🔔 수락 대기</span>
+              </div>
+              <div class="mock-divider"></div>
+              <div style="font-size:12px;color:#78350F;margin-bottom:10px;line-height:1.6;">
+                🎉 새로운 피코치가 배정되었습니다! 피코치 정보를 확인하고 수락해주세요.
+              </div>
+              <div style="display:flex;gap:8px;">
+                <span class="mock-btn outline" style="font-size:11px;">거절하기</span>
+                <span class="mock-btn accent" style="flex:1;text-align:center;">수락하고 웰컴 메시지 보내기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <div style="font-size:13px;font-weight:700;color:#1E293B;margin-bottom:10px;">수락 버튼을 누르면 아래 창이 뜹니다</div>
+          <div class="screen-mockup">
+            <div class="screen-topbar">
+              <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+              <span class="screen-topbar-title">🎉 웰컴 메시지 보내기</span>
+            </div>
+            <div class="screen-body">
+              <div style="font-size:12px;color:#64748B;margin-bottom:8px;">메시지를 확인하고 "수락하고 전송하기"를 누르면 피코치 대시보드로 자동 전달됩니다.</div>
+              <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;font-size:12px;color:#475569;line-height:1.7;margin-bottom:10px;">
+                안녕하세요, 홍길동님! 😊<br/>
+                저는 김민지입니다. 작성해주신 내용을 꼼꼼히 살펴봤어요.<br/>
+                앞으로 4주간 함께 루틴을 만들어가며, 홍길동님만의 속도로 변화해나갈 수 있도록 도와드릴게요.<br/>
+                편하신 시간대를 알려주시면 맞춰서 연락드릴게요! 🙌
+              </div>
+              <div style="display:flex;gap:8px;">
+                <span class="mock-btn outline">취소</span>
+                <span class="mock-btn primary" style="flex:1;text-align:center;">수락하고 전송하기</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-box">
+          <div class="action-box-title">📌 코치님이 할 일</div>
+          <ul class="action-step-list">
+            <li>대시보드에서 <strong>노란 카드</strong>를 찾아 피코치 정보 확인</li>
+            <li><strong>"수락하고 웰컴 메시지 보내기"</strong> 버튼 클릭</li>
+            <li>메시지 내용 확인 (수정 가능) 후 <strong>"수락하고 전송하기"</strong> 클릭</li>
+            <li>메시지가 <strong>피코치 대시보드 서류함으로 자동 전달</strong>됩니다 — 별도 전송 불필요</li>
+          </ul>
+        </div>
+
+        <div class="info-box-blue">
+          <p>💡 웰컴 메시지는 <strong>수정 가능</strong>합니다. 피코치 이름을 부르거나 개인적인 한마디를 추가하면 더 좋아요! 전송 후 피코치는 본인 대시보드 서류함에서 바로 확인할 수 있습니다.</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">5</div>
-        <div class="flow-content">
-          <div class="flow-title">목표 합의서 작성</div>
-          <div class="flow-desc">코치와 통화/메시지로 상담하며, 피코치가 직접 목표 합의서를 작성합니다. 코칭 주제, 바람직한 결과, 실행 방안, 현재/목표 점수를 정합니다.</div>
-          <span class="flow-who both">코치 유도 → 피코치 작성</span>
+    </div>
+
+    <!-- ===== STEP 3 ===== -->
+    <div class="step-card" id="step3">
+      <div class="step-card-header">
+        <div class="step-badge coachee">3</div>
+        <div class="step-header-text">
+          <h3>피코치 온보딩 (나를 소개합니다)</h3>
+          <p>피코치가 진행 · 코치님은 내용 확인</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num coach">6</div>
-        <div class="flow-content">
-          <div class="flow-title">4주 코칭 진행 (4회기)</div>
-          <div class="flow-desc">주 1회 세션을 진행합니다. 매 회기마다 코치는 세션 일지를, 피코치는 성찰 일지를 작성합니다.</div>
-          <span class="flow-who coach">코치</span> <span class="flow-who coachee" style="margin-left:4px;">피코치</span>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          수락 후 피코치가 <strong>"나를 소개합니다"</strong> 온보딩을 작성합니다. 코칭에서 기대하는 것, 걱정되는 것, 선호 소통 방식 등을 씁니다.
+        </p>
+
+        <div class="two-screens">
+          <div>
+            <div class="screen-label">피코치 화면 — 온보딩 작성</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">나를 소개합니다</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card">
+                  <div class="mock-label">자기소개</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:11px;color:#475569;margin-top:4px;line-height:1.5;">직장인이고 미루기가 심해서 신청했어요...</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-label">이번 코칭에서 기대하는 것</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:11px;color:#475569;margin-top:4px;line-height:1.5;">아침 루틴을 만들고 싶어요</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-label">선호 소통 방식</div>
+                  <div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+                    <span class="mock-badge blue">카카오톡</span>
+                    <span class="mock-badge blue">음성통화</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="screen-label">코치 대시보드 — 온보딩 확인</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">홍길동 — 상세</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card" style="border-color:#A7F3D0;background:#F0FDF4;">
+                  <div style="font-size:11px;font-weight:700;color:#065F46;margin-bottom:8px;">🙋 피코치가 작성한 소개</div>
+                  <div style="font-size:11px;color:#475569;margin-bottom:6px;"><span style="color:#94A3B8;">자기소개 · </span>직장인이고 미루기가 심해서...</div>
+                  <div style="font-size:11px;color:#475569;margin-bottom:6px;"><span style="color:#94A3B8;">기대하는 것 · </span>아침 루틴을 만들고 싶어요</div>
+                  <div style="display:flex;gap:4px;margin-top:6px;">
+                    <span class="mock-badge blue">카카오톡</span>
+                    <span class="mock-badge blue">음성통화</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-box-green">
+          <p>✅ 온보딩 내용은 피코치 카드를 클릭하면 확인할 수 있습니다. <strong>첫 통화 전에 미리 읽어두세요.</strong> 피코치가 기대하는 것과 걱정하는 것을 파악하면 첫 대화가 훨씬 자연스러워요.</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">7</div>
-        <div class="flow-content">
-          <div class="flow-title">사후 설문 작성</div>
-          <div class="flow-desc">코칭 종료 후 같은 5개 영역을 다시 측정합니다. 사전 설문과 비교하여 변화를 확인합니다.</div>
-          <span class="flow-who coachee">피코치</span>
+    </div>
+
+    <!-- ===== STEP 4 ===== -->
+    <div class="step-card" id="step4">
+      <div class="step-card-header">
+        <div class="step-badge both">4</div>
+        <div class="step-header-text">
+          <h3>목표 합의서 작성 & 서명</h3>
+          <p>코치가 유도 → 피코치 작성 → 코치 서명</p>
         </div>
       </div>
-      <div class="flow-step">
-        <div class="flow-num">8</div>
-        <div class="flow-content">
-          <div class="flow-title">결과 보고서 확인</div>
-          <div class="flow-desc">사전/사후 점수 비교, 목표 달성도, 회기별 변화를 담은 결과 보고서를 확인합니다.</div>
-          <span class="flow-who both">코치 & 피코치</span>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          첫 통화 또는 메시지로 상담하면서 피코치가 <strong>목표 합의서</strong>를 작성하도록 안내합니다. 피코치가 작성하면 코치님이 확인하고 서명합니다.
+        </p>
+
+        <!-- 흐름 -->
+        <div style="display:flex;align-items:center;gap:8px;margin:16px 0;flex-wrap:wrap;">
+          <div style="background:#EFF6FF;border:1px solid #BFDBFE;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;color:#1D4ED8;">① 코치: 통화/메시지로 상담</div>
+          <div style="color:#CBD5E1;font-size:18px;">→</div>
+          <div style="background:#F5F3FF;border:1px solid #DDD6FE;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;color:#5B21B6;">② 피코치: 합의서 직접 작성</div>
+          <div style="color:#CBD5E1;font-size:18px;">→</div>
+          <div style="background:#FEF3C7;border:1px solid #FCD34D;border-radius:8px;padding:8px 12px;font-size:12px;font-weight:600;color:#92400E;">③ 코치: 확인 후 서명</div>
+        </div>
+
+        <div class="two-screens">
+          <div>
+            <div class="screen-label">피코치 화면 — 합의서 작성</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">목표 합의서 작성</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card">
+                  <div class="mock-label">코칭 주제</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:11px;color:#475569;margin-top:4px;">아침 루틴 만들기</div>
+                </div>
+                <div class="mock-card">
+                  <div class="mock-label">바람직한 결과</div>
+                  <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:11px;color:#475569;margin-top:4px;">4주 후 매일 7시 기상 루틴 완성</div>
+                </div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:6px;">
+                  <div class="mock-score-box">
+                    <div class="mock-score-num" style="color:#2563EB;">3점</div>
+                    <div class="mock-score-label">현재 점수</div>
+                  </div>
+                  <div class="mock-score-box" style="background:#FEF3C7;">
+                    <div class="mock-score-num" style="color:#92400E;">8점</div>
+                    <div class="mock-score-label">목표 점수</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="screen-label">코치 대시보드 — 서명 대기</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">홍길동 — 합의서</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card" style="border-color:#FCD34D;background:#FFFBEB;">
+                  <div class="mock-row">
+                    <div style="font-size:12px;font-weight:700;color:#1E293B;">📋 목표 합의서</div>
+                    <span class="mock-badge pulse">서명 대기</span>
+                  </div>
+                  <div class="mock-divider"></div>
+                  <div style="font-size:11px;color:#475569;margin-bottom:4px;"><span style="color:#94A3B8;">주제</span> 아침 루틴 만들기</div>
+                  <div style="font-size:11px;color:#475569;margin-bottom:8px;"><span style="color:#94A3B8;">목표</span> 4주 후 매일 7시 기상</div>
+                  <span class="mock-btn primary" style="display:block;text-align:center;">서명하기</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:16px;">
+          <div style="font-size:13px;font-weight:700;color:#1E293B;margin-bottom:10px;">서명하기 버튼을 누르면 아래 창이 뜹니다</div>
+          <div class="screen-mockup">
+            <div class="screen-topbar">
+              <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+              <span class="screen-topbar-title">📋 목표 합의서 서명</span>
+            </div>
+            <div class="screen-body">
+              <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:8px;padding:12px;font-size:11px;color:#475569;line-height:1.7;margin-bottom:10px;">
+                <div style="margin-bottom:6px;"><strong>코칭 주제:</strong> 아침 루틴 만들기</div>
+                <div style="margin-bottom:6px;"><strong>바람직한 결과:</strong> 4주 후 매일 7시 기상 루틴 완성</div>
+                <div style="margin-bottom:6px;"><strong>실행 방안:</strong> 알람 2개 설정, 취침 전 30분 루틴</div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;">
+                  <div class="mock-score-box"><div class="mock-score-num" style="color:#2563EB;">3점</div><div class="mock-score-label">현재</div></div>
+                  <div class="mock-score-box" style="background:#FEF3C7;"><div class="mock-score-num" style="color:#92400E;">8점</div><div class="mock-score-label">목표</div></div>
+                </div>
+              </div>
+              <div style="background:#EFF6FF;border-radius:8px;padding:10px;font-size:11px;color:#1D4ED8;display:flex;gap:8px;align-items:flex-start;">
+                <input type="checkbox" checked style="margin-top:2px;flex-shrink:0;"/>
+                <span>위 내용을 확인하고, 피코치의 목표 달성을 위해 최선을 다할 것을 약속합니다.</span>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px;">
+                <span class="mock-btn outline">수정 요청</span>
+                <span class="mock-btn success" style="flex:1;text-align:center;">서명 완료</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-box">
+          <div class="action-box-title">📌 코치님이 할 일</div>
+          <ul class="action-step-list">
+            <li>피코치와 <strong>통화나 메시지</strong>로 목표와 주제를 함께 탐색</li>
+            <li>피코치에게 <strong>"피코치 대시보드에서 목표 합의서를 작성해주세요"</strong>라고 안내</li>
+            <li>피코치가 작성하면 대시보드에 <strong>"서명 대기" 노란 배지</strong>가 뜸</li>
+            <li>합의서 내용 검토 후 <strong>서명하기</strong> 클릭 → 서명 완료</li>
+            <li>수정이 필요하면 <strong>"수정 요청"</strong> 버튼으로 피드백 전달 가능</li>
+          </ul>
+        </div>
+
+        <div class="info-box-red">
+          <p>⚠️ <strong>코치님이 합의서를 직접 작성해주시면 안 됩니다.</strong> 반드시 피코치 본인이 작성하도록 유도해주세요. 코칭의 핵심은 피코치가 스스로 결정하는 것입니다.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 5 ===== -->
+    <div class="step-card" id="step5">
+      <div class="step-card-header">
+        <div class="step-badge coach">5</div>
+        <div class="step-header-text">
+          <h3>4주 코칭 진행 (4회기)</h3>
+          <p>매주 1회 세션 + 세션 일지 작성</p>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          주 1회 세션을 진행합니다. 세션 <strong>후</strong> 코치님은 세션 일지를, 피코치는 성찰 일지를 각각 작성합니다.
+        </p>
+
+        <div class="week-timeline">
+          <div class="week-card active">
+            <div class="week-num">1주차</div>
+            <div class="week-icon">🔍</div>
+            <div class="week-title">탐색</div>
+            <div class="week-desc">목표 확인, 현재 상황 파악, 관계 형성</div>
+          </div>
+          <div class="week-card">
+            <div class="week-num">2주차</div>
+            <div class="week-icon">🌱</div>
+            <div class="week-title">실행</div>
+            <div class="week-desc">첫 실행과제 점검, 장애물 탐색</div>
+          </div>
+          <div class="week-card">
+            <div class="week-num">3주차</div>
+            <div class="week-icon">📈</div>
+            <div class="week-title">심화</div>
+            <div class="week-desc">변화 확인, 루틴 강화</div>
+          </div>
+          <div class="week-card">
+            <div class="week-num">4주차</div>
+            <div class="week-icon">🏁</div>
+            <div class="week-title">마무리</div>
+            <div class="week-desc">성과 점검, 앞으로의 계획</div>
+          </div>
+        </div>
+
+        <div style="margin-top:4px;margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;color:#1E293B;margin-bottom:10px;">세션 진행 → 일지 작성 화면</div>
+          <div class="screen-mockup">
+            <div class="screen-topbar">
+              <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+              <span class="screen-topbar-title">홍길동 — 회기별 일지</span>
+            </div>
+            <div class="screen-body">
+              <div class="mock-session-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="mock-session-dot done"></div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#1E293B;">1회기 ✓</div>
+                    <div style="font-size:11px;color:#94A3B8;">2025.06.10 · 성찰 ✓ (6점)</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:6px;">
+                  <span class="mock-btn outline" style="font-size:10px;">성찰일지</span>
+                  <span class="mock-btn outline" style="font-size:10px;">수정</span>
+                </div>
+              </div>
+              <div class="mock-session-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="mock-session-dot active"></div>
+                  <div>
+                    <div style="font-size:13px;font-weight:700;color:#2563EB;">2회기 ← 작성 필요</div>
+                    <div style="font-size:11px;color:#94A3B8;">미작성</div>
+                  </div>
+                </div>
+                <span class="mock-btn primary" style="font-size:10px;">작성하기</span>
+              </div>
+              <div class="mock-session-row">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="mock-session-dot empty"></div>
+                  <div>
+                    <div style="font-size:13px;color:#94A3B8;">3회기</div>
+                    <div style="font-size:11px;color:#CBD5E1;">미작성</div>
+                  </div>
+                </div>
+              </div>
+              <div class="mock-session-row" style="border-bottom:none;">
+                <div style="display:flex;align-items:center;gap:8px;">
+                  <div class="mock-session-dot empty"></div>
+                  <div>
+                    <div style="font-size:13px;color:#94A3B8;">4회기</div>
+                    <div style="font-size:11px;color:#CBD5E1;">미작성</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:4px;margin-bottom:4px;">
+          <div style="font-size:13px;font-weight:700;color:#1E293B;margin-bottom:10px;">"작성하기" 버튼을 누르면 나오는 세션 일지 화면</div>
+          <div class="screen-mockup">
+            <div class="screen-topbar">
+              <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+              <span class="screen-topbar-title">2회기 세션 일지</span>
+            </div>
+            <div class="screen-body">
+              <div class="mock-card">
+                <div class="mock-label">세션 날짜</div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:12px;color:#94A3B8;margin-top:4px;">2025. 06. 17</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-label">이번 회기 주제</div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:12px;color:#94A3B8;margin-top:4px;">1주차 실행과제 점검 및 장애물 탐색</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-label">주요 발견 / 인사이트</div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:12px;color:#94A3B8;margin-top:4px;line-height:1.6;">알람을 꺼버리는 패턴 발견. 취침 시간이 불규칙한 것이 근본 원인...</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-label">다음 회기까지 실행과제</div>
+                <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:6px;padding:6px 10px;font-size:12px;color:#94A3B8;margin-top:4px;">취침 시간 11시로 고정 + 수면 일지 기록</div>
+              </div>
+              <div style="text-align:center;margin-top:12px;">
+                <span class="mock-btn success" style="padding:8px 24px;">일지 저장 완료</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-box">
+          <div class="action-box-title">📌 매 회기마다 코치님이 할 일</div>
+          <ul class="action-step-list">
+            <li>세션 진행 (통화/화상/대면)</li>
+            <li>대시보드에서 피코치 카드 클릭 → <strong>"작성하기"</strong> 버튼 클릭</li>
+            <li>세션 날짜, 주제, 주요 내용, 다음 실행과제 입력 후 저장</li>
+            <li>피코치의 성찰 일지가 올라오면 <strong>"성찰일지"</strong> 버튼으로 확인 가능</li>
+          </ul>
+        </div>
+
+        <div class="info-box-blue">
+          <p>💡 피코치가 성찰 일지를 작성하면 대시보드에 <strong>자동으로 표시</strong>됩니다. <strong>새로고침</strong> 버튼을 눌러 최신 상태를 확인하세요.</p>
+        </div>
+
+        <div style="margin-top:16px;background:linear-gradient(135deg,#1E3A5F,#0D2137);border-radius:14px;padding:18px 20px;color:white;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">📊 점수 변화 추이 그래프</div>
+          <div style="font-size:12px;opacity:0.85;line-height:1.7;margin-bottom:12px;">
+            피코치 카드 안에 점수 변화 그래프가 자동으로 생성됩니다.<br/>
+            피코치가 성찰 일지에 <strong>현재 점수</strong>를 입력할 때마다 업데이트됩니다.
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px;height:60px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="background:rgba(255,255,255,0.3);width:24px;height:24px;border-radius:4px 4px 0 0;"></div>
+              <div style="font-size:10px;opacity:0.6;">시작</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="background:#10B981;width:24px;height:32px;border-radius:4px 4px 0 0;position:relative;">
+                <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:white;white-space:nowrap;">6</div>
+              </div>
+              <div style="font-size:10px;opacity:0.6;">1회기</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="background:#10B981;width:24px;height:44px;border-radius:4px 4px 0 0;position:relative;">
+                <div style="position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:10px;color:white;white-space:nowrap;">7</div>
+              </div>
+              <div style="font-size:10px;opacity:0.6;">2회기</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="background:rgba(255,255,255,0.15);width:24px;height:16px;border-radius:4px 4px 0 0;"></div>
+              <div style="font-size:10px;opacity:0.6;">3회기</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;">
+              <div style="background:rgba(255,255,255,0.15);width:24px;height:16px;border-radius:4px 4px 0 0;"></div>
+              <div style="font-size:10px;opacity:0.6;">4회기</div>
+            </div>
+            <div style="margin-left:12px;font-size:11px;opacity:0.7;line-height:1.6;">
+              노란 점선 = <span style="color:#FCD34D;font-weight:700;">목표 점수</span><br/>
+              초록 막대 = 현재 점수
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== STEP 6 ===== -->
+    <div class="step-card" id="step6">
+      <div class="step-card-header">
+        <div class="step-badge coachee">6</div>
+        <div class="step-header-text">
+          <h3>사후 설문 & 결과 보고서</h3>
+          <p>피코치 설문 완료 → 함께 결과 확인</p>
+        </div>
+      </div>
+      <div class="step-card-body">
+        <p style="font-size:14px;color:#475569;line-height:1.8;margin-top:16px;">
+          4회기가 끝나면 피코치에게 <strong>사후 설문 작성을 안내</strong>해 주세요. 설문 후 사전/사후 비교 <strong>결과 보고서</strong>가 생성됩니다.
+        </p>
+
+        <div class="two-screens">
+          <div>
+            <div class="screen-label">피코치 화면 — 사후 설문</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">사후 설문 작성</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card">
+                  <div style="font-size:12px;color:#64748B;margin-bottom:8px;">4주 코칭이 끝났습니다 🎉<br/>마지막으로 5개 영역을 평가해 주세요.</div>
+                  <div style="display:flex;flex-direction:column;gap:6px;">
+                    <div class="mock-row"><span style="font-size:12px;">실행력</span><div style="display:flex;gap:3px;">
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#E2E8F0;display:inline-block;"></span>
+                    </div></div>
+                    <div class="mock-row"><span style="font-size:12px;">루틴 형성</span><div style="display:flex;gap:3px;">
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                      <span style="width:16px;height:16px;border-radius:3px;background:#2563EB;display:inline-block;"></span>
+                    </div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="screen-label">결과 보고서 화면</div>
+            <div class="screen-mockup">
+              <div class="screen-topbar">
+                <div class="screen-topbar-dots"><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span><span class="screen-topbar-dot"></span></div>
+                <span class="screen-topbar-title">홍길동 — 결과 보고서</span>
+              </div>
+              <div class="screen-body">
+                <div class="mock-card success">
+                  <div style="font-size:12px;font-weight:700;color:#065F46;margin-bottom:8px;">📊 사전 → 사후 변화</div>
+                  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;">
+                    <div class="mock-score-box">
+                      <div class="mock-score-num" style="color:#94A3B8;font-size:16px;">2.4</div>
+                      <div class="mock-score-label">사전</div>
+                    </div>
+                    <div style="display:flex;align-items:center;justify-content:center;font-size:20px;">→</div>
+                    <div class="mock-score-box" style="background:#D1FAE5;">
+                      <div class="mock-score-num" style="color:#065F46;font-size:16px;">4.1</div>
+                      <div class="mock-score-label">사후</div>
+                    </div>
+                  </div>
+                  <div style="text-align:center;margin-top:8px;font-size:13px;font-weight:800;color:#10B981;">▲ 1.7점 향상</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-box">
+          <div class="action-box-title">📌 코치님이 할 일</div>
+          <ul class="action-step-list">
+            <li>4회기 세션 후 피코치에게 <strong>"사후 설문을 작성해주세요"</strong> 안내</li>
+            <li>피코치에게 <strong>"피코치 대시보드 → 코칭 여정에서 사후 설문 버튼을 눌러주세요"</strong>라고 안내</li>
+            <li>설문 완료 후 대시보드에서 <strong>"결과보고서"</strong> 버튼으로 확인</li>
+            <li>마지막 통화에서 피코치와 <strong>변화를 함께 확인하고 격려</strong></li>
+          </ul>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- 코치 역할 -->
-<div class="guide-section">
-  <div class="guide-container">
-    <div class="guide-title"><span>👩‍💼</span> 코치의 역할</div>
-    <div class="role-card">
-      <h3 style="color:var(--accent);">코치가 하는 일</h3>
-      <ul class="role-list">
-        <li>피코치가 배정되면 정보를 확인하고 <strong>수락</strong>합니다</li>
-        <li><strong>웰컴 메시지</strong>를 보내 첫 연락을 시작합니다</li>
-        <li>통화/메시지로 상담하며 피코치가 <strong>목표 합의서를 작성하도록 유도</strong>합니다</li>
-        <li>주 1회 세션을 진행하고 <strong>세션 일지</strong>를 작성합니다</li>
-        <li>피코치의 변화를 관찰하고 <strong>결과 보고서</strong>를 확인합니다</li>
-      </ul>
-    </div>
-    <div class="role-card" style="border-color:#FECACA;">
-      <h3 style="color:#DC2626;">코치가 하지 않는 일</h3>
-      <ul class="role-list">
-        <li>피코치 대신 목표 합의서를 <strong>작성하지 않습니다</strong> (유도만)</li>
-        <li>의료 진단이나 치료를 <strong>제공하지 않습니다</strong></li>
-        <li>피코치의 선택을 <strong>강요하지 않습니다</strong></li>
-      </ul>
-    </div>
-    <div class="alert alert-info">
-      <strong>코칭의 본질</strong><br/>
-      코치는 질문하고, 피코치가 스스로 생각하고 결정하도록 돕습니다. 답을 주는 것이 아니라 답을 찾도록 유도합니다.
-    </div>
-  </div>
-</div>
+<!-- FAQ -->
+<div class="faq-section">
+  <div style="max-width:720px;margin:0 auto;">
+    <div class="section-title">자주 묻는 질문</div>
 
-<!-- 대시보드 안내 -->
-<div class="guide-section">
-  <div class="guide-container">
-    <div class="guide-title"><span>💻</span> 대시보드 사용법</div>
-    <div class="dashboard-preview">
-      <div class="preview-item">
-        <div class="preview-icon">🔔</div>
-        <div class="preview-text">
-          <h4>수락 대기 알림</h4>
-          <p>새로운 피코치가 배정되면 "수락 대기" 배지가 표시됩니다. 피코치 정보를 확인하고 수락 버튼을 눌러주세요.</p>
-        </div>
-      </div>
-      <div class="preview-item">
-        <div class="preview-icon">💌</div>
-        <div class="preview-text">
-          <h4>웰컴 메시지</h4>
-          <p>수락 시 웰컴 메시지 템플릿이 제공됩니다. 복사해서 피코치에게 보내주세요.</p>
-        </div>
-      </div>
-      <div class="preview-item">
-        <div class="preview-icon">📋</div>
-        <div class="preview-text">
-          <h4>목표 합의서</h4>
-          <p>피코치가 작성한 목표 합의서를 확인할 수 있습니다. 미작성 시 양식 미리보기로 구조를 파악하세요.</p>
-        </div>
-      </div>
-      <div class="preview-item">
-        <div class="preview-icon">📝</div>
-        <div class="preview-text">
-          <h4>세션 일지 작성</h4>
-          <p>각 회기마다 세션 일지를 작성합니다. "작성하기" 버튼을 눌러 기록하세요.</p>
-        </div>
-      </div>
-      <div class="preview-item">
-        <div class="preview-icon">📊</div>
-        <div class="preview-text">
-          <h4>사전 설문 점수</h4>
-          <p>피코치의 사전 설문 점수를 확인할 수 있습니다. 점수가 낮은 영역을 참고하여 코칭 방향을 설정하세요.</p>
-        </div>
-      </div>
+    <div class="faq-item">
+      <div class="faq-q">피코치가 배정되었는데 대시보드에 안 보여요</div>
+      <div class="faq-a">대시보드 하단의 <strong>"새로고침"</strong> 버튼을 눌러보세요. 브라우저 새로고침(F5)도 해보세요. 그래도 안 보이면 관리자에게 문의하세요.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">피코치가 목표 합의서를 작성했는데 "서명 대기"가 안 떠요</div>
+      <div class="faq-a">대시보드에서 <strong>"새로고침"</strong> 버튼을 클릭해주세요. 피코치가 저장까지 완료했는지 확인해보세요. 그래도 안 되면 피코치에게 본인 대시보드를 새로고침해서 다시 확인해달라고 요청하세요.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">세션 일지를 1회기부터 순서대로 써야 하나요?</div>
+      <div class="faq-a">네, <strong>순서대로 작성</strong>해야 합니다. 1회기 일지가 없으면 2회기 버튼이 활성화되지 않습니다. 세션 직후 바로 작성하는 것이 좋습니다.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">웰컴 메시지를 보내면 피코치가 어떻게 받나요?</div>
+      <div class="faq-a">"수락하고 전송하기"를 클릭하면 메시지가 <strong>피코치 대시보드 서류함에 자동으로 전달</strong>됩니다. 별도로 카카오톡이나 문자를 보낼 필요 없습니다. 피코치가 대시보드에 접속하면 "💌 웰컴 메시지" 항목으로 확인할 수 있습니다.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">피코치가 성찰 일지를 안 씼어요. 어떻게 하나요?</div>
+      <div class="faq-a">세션 후 <strong>"성찰 일지 작성해달라"</strong>고 피코치에게 별도로 알려주세요. 피코치는 본인 대시보드(코칭 여정)에서 해당 회기 카드를 열면 성찰 일지 버튼을 볼 수 있습니다.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">합의서 내용이 너무 추상적이에요. 어떻게 해야 하나요?</div>
+      <div class="faq-a"><strong>"수정 요청"</strong> 버튼을 눌러 구체적인 피드백을 남겨주세요. 예: "목표가 너무 광범위해요. 4주 안에 달성 가능한 구체적인 행동으로 바꿔볼까요?" 피코치가 수정 후 다시 제출하면 서명할 수 있습니다.</div>
     </div>
   </div>
 </div>
 
 <!-- CTA -->
 <div class="guide-cta">
-  <h2>준비되셨나요?</h2>
+  <h2>준비되셨나요? 🎯</h2>
   <p>대시보드로 돌아가서 피코치를 만나보세요.</p>
-  <button onclick="history.back()" class="btn">← 돌아가기</button>
+  <a href="coach-home.html" class="btn" style="background:white;color:#1E3A5F;font-size:16px;padding:14px 36px;display:inline-block;border-radius:12px;font-weight:700;text-decoration:none;">코치 대시보드로 가기 →</a>
 </div>
 
 <footer class="footer">

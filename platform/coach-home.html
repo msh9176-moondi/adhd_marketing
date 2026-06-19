@@ -147,6 +147,52 @@
     .accept-actions { display: flex; gap: 10px; margin-top: 16px; }
     .accept-actions .btn { flex: 1; }
 
+    /* ===== 모바일 반응형 ===== */
+    @media (max-width: 480px) {
+      /* 그리팅 (이름 + 전환버튼) */
+      .greeting { flex-direction: column !important; gap: 10px; }
+      .greeting > button { align-self: flex-start; }
+
+      /* 통계 3칸 */
+      .stat-row { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+      .mini-stat { padding: 12px 8px; }
+      .mini-stat-num { font-size: 20px; }
+      .mini-stat-label { font-size: 10px; }
+
+      /* 피코치 카드 헤더 */
+      .coachee-card-head { padding: 14px 16px; }
+      .coachee-head-left { gap: 10px; }
+      .coachee-avatar { width: 38px; height: 38px; font-size: 16px; }
+      .coachee-name { font-size: 14px; }
+      .coachee-meta { font-size: 11px; }
+
+      /* 오른쪽 배지+체브론 - 세로 정렬 */
+      .coachee-card-head > div:last-child { flex-direction: column; align-items: flex-end; gap: 4px; }
+      .chevron { font-size: 14px; }
+
+      /* 세션 행 버튼 - 모바일에서 세로 스택 */
+      .session-row { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px 0; }
+      .session-row-right { align-self: flex-end; gap: 6px; }
+
+      /* 수락 액션 버튼 */
+      .accept-actions { flex-direction: column; }
+      .accept-actions .btn { width: 100%; text-align: center; }
+
+      /* 카드 내부 패딩 */
+      .coachee-card-body { padding: 0 16px 16px; }
+
+      /* 점수 차트 - 막대 레이블 폰트 */
+      .score-bar-label { font-size: 10px; }
+      .score-summary-val { font-size: 17px; }
+      .score-summary-label { font-size: 10px; }
+
+      /* 모달 */
+      .modal-box { border-radius: 16px; }
+      .modal-header { padding: 18px 18px 0; }
+      .modal-body { padding: 16px 18px; }
+      .modal-footer { padding: 0 18px 18px; }
+    }
+
     /* 모달 스타일 */
     .modal-overlay {
       position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -255,12 +301,12 @@
 
   <main class="dashboard">
     <div class="container">
-      <div class="greeting" style="display:flex;justify-content:space-between;align-items:flex-start;">
-        <div>
+      <div class="greeting" style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;">
+        <div style="min-width:0;">
           <h2 id="greetingName"></h2>
           <p id="greetingSpec"></p>
         </div>
-        <button class="btn btn-outline btn-sm" onclick="logout()" style="flex-shrink:0;">다른 코치로 전환</button>
+        <button class="btn btn-outline btn-sm" onclick="logout()" style="flex-shrink:0;margin-top:2px;">다른 코치로 전환</button>
       </div>
 
       <!-- 코치 가이드 버튼 -->
@@ -307,13 +353,13 @@
       <button class="modal-close" onclick="closeWelcomeModal()">&times;</button>
     </div>
     <div class="modal-body">
-      <p class="template-hint">아래 메시지를 복사해서 피코치에게 보내주세요. 내용을 수정해도 됩니다.</p>
+      <p class="template-hint">아래 메시지를 확인하고 "수락하기"를 누르면 피코치 대시보드로 자동 전달됩니다. 내용을 수정해도 됩니다.</p>
       <textarea id="welcomeMessage"></textarea>
-      <div class="copy-success" id="copySuccess">✓ 클립보드에 복사되었습니다!</div>
+      <div class="copy-success" id="copySuccess">✓ 피코치 대시보드로 전송되었습니다!</div>
     </div>
     <div class="modal-footer">
       <button class="btn btn-outline" onclick="closeWelcomeModal()">취소</button>
-      <button class="btn btn-primary" onclick="copyAndAccept()">수락하고 보내기</button>
+      <button class="btn btn-primary" onclick="copyAndAccept()">수락하고 전송하기</button>
     </div>
   </div>
 </div>
@@ -1084,42 +1130,31 @@ ${coachName} 드림`;
   async function copyAndAccept() {
     const message = document.getElementById('welcomeMessage').value;
 
-    // 클립보드에 복사
-    try {
-      await navigator.clipboard.writeText(message);
-      document.getElementById('copySuccess').style.display = 'block';
-    } catch (err) {
-      // 폴백: 텍스트 선택
-      const textarea = document.getElementById('welcomeMessage');
-      textarea.select();
-      document.execCommand('copy');
-      document.getElementById('copySuccess').style.display = 'block';
-    }
-
-    // 피코치 상태를 coaching으로 변경
     if (currentAcceptCoacheeId) {
+      // 피코치 상태를 coaching으로 변경
       DB.updateItem('coachees', currentAcceptCoacheeId, {
         status: 'coaching',
         acceptedAt: new Date().toISOString(),
         acceptedBy: myCoachId
       });
 
-      // 웰컴 메시지 저장
-      const welcomeMsg = {
+      // 웰컴 메시지를 피코치 서류함으로 저장
+      DB.upsert('welcomeMessages', {
         id: 'welcome_' + currentAcceptCoacheeId,
         coacheeId: currentAcceptCoacheeId,
         coachId: myCoachId,
         message: message,
         sentAt: new Date().toISOString()
-      };
-      DB.upsert('welcomeMessages', welcomeMsg);
+      });
     }
+
+    document.getElementById('copySuccess').style.display = 'block';
 
     // 잠시 후 모달 닫고 새로고침
     setTimeout(() => {
       closeWelcomeModal();
       renderDashboard();
-    }, 1000);
+    }, 1200);
   }
 
   // 모달 외부 클릭 시 닫기

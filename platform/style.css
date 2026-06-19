@@ -277,6 +277,25 @@ hr.divider { border: none; border-top: 1px solid var(--border); margin: 24px 0; 
   .steps { justify-content: flex-start; padding: 20px 0; }
 }
 
+@media (max-width: 480px) {
+  /* 네비게이션 */
+  .nav-logo { font-size: 16px; }
+  .nav-links { gap: 4px; }
+  .nav-links a { font-size: 11px; padding: 4px 6px; }
+
+  /* 페이지 헤더 */
+  .page-header { padding: 28px 0 24px; }
+  .page-header h1 { font-size: 18px; }
+  .page-header p { font-size: 13px; }
+
+  /* 카드 */
+  .card { padding: 16px 14px; }
+
+  /* 버튼 */
+  .btn { white-space: normal; text-align: center; }
+  .btn-sm { font-size: 12px; padding: 6px 12px; }
+}
+
 /* ===== Document Box (서류함) ===== */
 .document-box {
   background: var(--card);
