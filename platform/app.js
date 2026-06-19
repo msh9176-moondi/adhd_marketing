@@ -97,6 +97,14 @@ const DB = {
 const genId = () => Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
 const getParam = (name) => new URLSearchParams(window.location.search).get(name);
 const fmtDate = (d) => d ? new Date(d).toLocaleDateString('ko-KR') : '-';
+const fmtPhone = (p) => {
+  if (!p) return '';
+  let n = String(p).replace(/\D/g, '');
+  if (n.length === 10 && n.startsWith('1')) n = '0' + n;
+  if (n.length === 11) return `${n.slice(0,3)}-${n.slice(3,7)}-${n.slice(7)}`;
+  if (n.length === 10) return `${n.slice(0,3)}-${n.slice(3,6)}-${n.slice(6)}`;
+  return String(p);
+};
 const today = () => new Date().toISOString().split('T')[0];
 
 // ===== Survey Questions =====

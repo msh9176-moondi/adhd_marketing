@@ -220,6 +220,20 @@
     .template-hint { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
     .copy-success { color: var(--accent); font-size: 13px; margin-top: 8px; display: none; }
 
+    /* 연락처 칩 */
+    .contact-bar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .contact-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: white; border: 1.5px solid #E2E8F0;
+      border-radius: 10px; padding: 8px 14px;
+      font-size: 13px; font-weight: 600; color: #1E293B;
+      text-decoration: none; cursor: pointer; transition: all .2s;
+      font-family: inherit;
+    }
+    .contact-chip:hover { border-color: var(--primary); color: var(--primary); background: var(--primary-light); }
+    .contact-chip-icon { font-size: 15px; }
+    .contact-chip.copy-done { border-color: var(--accent); color: var(--accent); }
+
     /* 서명 대기 배지 */
     .sign-pending-badge {
       background: linear-gradient(135deg, #F59E0B, #D97706);
@@ -538,7 +552,10 @@
       statusText = `<div style="margin-top:12px;font-size:12px;color:var(--success);">✓ 양측 서명 완료 (${goal.agreedAt ? new Date(goal.agreedAt).toLocaleDateString('ko-KR') : ''})</div>`;
     } else if (status === 'pending_coach_sign') {
       statusBadge = '<span class="sign-pending-badge">서명 대기</span>';
-      statusText = `<div style="margin-top:12px;"><button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openSignModal('${coachee.id}');">서명하기</button></div>`;
+      statusText = `<div style="margin-top:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); openSignModal('${coachee.id}');">서명하기</button>
+        <a href="coach-guide.html#5" style="font-size:12px;color:var(--text-muted);text-decoration:none;" onclick="event.stopPropagation();">📖 서명 방법 보기</a>
+      </div>`;
     } else if (status === 'revision_requested') {
       statusBadge = '<span class="badge" style="background:#FEE2E2;color:#DC2626;">수정 요청됨</span>';
       statusText = `<div style="margin-top:12px;font-size:12px;color:#DC2626;">피코치가 수정 중입니다.</div>`;
@@ -764,6 +781,17 @@
     renderDashboard();
   }
 
+  function copyPhone(phone, btn) {
+    navigator.clipboard.writeText(phone).then(() => {
+      btn.textContent = '✓ 복사됨';
+      btn.classList.add('copy-done');
+      setTimeout(() => {
+        btn.innerHTML = '<span class="contact-chip-icon">📋</span>번호 복사';
+        btn.classList.remove('copy-done');
+      }, 1500);
+    });
+  }
+
   function logout() {
     myCoachId = null;
     sessionStorage.removeItem('currentCoachId');
@@ -837,7 +865,7 @@
             <div class="coachee-avatar">${coachee.name[0]}</div>
             <div>
               <div class="coachee-name">${coachee.name}</div>
-              <div class="coachee-meta">${coachee.phone || ''} ${coachee.email ? '· ' + coachee.email : ''}</div>
+              ${coachee.phone ? `<div style="font-size:13px;font-weight:700;color:var(--primary);margin-bottom:1px;">📞 ${fmtPhone(coachee.phone)}</div>` : ''}
               <div class="coachee-meta">${coachee.adhdStatus} · ${completedCount}/4회기 완료</div>
             </div>
           </div>
@@ -848,6 +876,13 @@
           </div>
         </div>
         <div class="coachee-card-body" id="cc-${coachee.id}">
+
+          <!-- 연락처 -->
+          <div class="contact-bar">
+            ${coachee.phone ? `<a href="tel:${coachee.phone}" class="contact-chip" onclick="event.stopPropagation()"><span class="contact-chip-icon">📞</span>${fmtPhone(coachee.phone)}</a>` : ''}
+            ${coachee.phone ? `<button class="contact-chip" onclick="event.stopPropagation();copyPhone('${fmtPhone(coachee.phone)}',this)"><span class="contact-chip-icon">📋</span>번호 복사</button>` : ''}
+            ${coachee.email ? `<a href="mailto:${coachee.email}" class="contact-chip" onclick="event.stopPropagation()"><span class="contact-chip-icon">✉️</span>${coachee.email}</a>` : ''}
+          </div>
 
           <!-- 피코치 핵심 정보 -->
           <div style="background:var(--bg);border-radius:12px;padding:16px;margin-bottom:16px;">
@@ -988,11 +1023,13 @@
               <button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); rejectCoachee('${coachee.id}', '${coachee.name}');">거절하기</button>
               <button class="btn btn-primary" onclick="event.stopPropagation(); openWelcomeModal('${coachee.id}', '${coachee.name}', '${coachee.phone || ''}');">수락하고 웰컴 메시지 보내기</button>
             </div>
+            <a href="coach-guide.html#3" style="display:inline-flex;align-items:center;gap:5px;margin-top:10px;font-size:12px;color:#92400E;opacity:0.7;text-decoration:none;" onclick="event.stopPropagation();">📖 수락 방법이 궁금하다면?</a>
           </div>` : `
-          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+          <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
             ${nextSession ? `<a href="sessions.html?id=${coachee.id}&role=coach" class="btn btn-primary" onclick="event.stopPropagation();">📝 일지 작성하기</a>` : ''}
             <a href="report.html?id=${coachee.id}&role=coach" class="btn ${nextSession ? 'btn-outline btn-sm' : 'btn-primary'}" onclick="event.stopPropagation();">📊 결과보고서</a>
             ${!welcomeSent ? `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openWelcomeModal('${coachee.id}', '${coachee.name}', '${coachee.phone || ''}');">💌 웰컴 메시지 보내기</button>` : ''}
+            ${nextSession ? `<a href="coach-guide.html#6" style="font-size:12px;color:var(--text-muted);text-decoration:none;" onclick="event.stopPropagation();">📖 일지 작성법</a>` : ''}
           </div>`}
         </div>
       `;
