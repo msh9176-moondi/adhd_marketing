@@ -992,6 +992,7 @@
           <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
             ${nextSession ? `<a href="sessions.html?id=${coachee.id}&role=coach" class="btn btn-primary" onclick="event.stopPropagation();">📝 일지 작성하기</a>` : ''}
             <a href="report.html?id=${coachee.id}&role=coach" class="btn ${nextSession ? 'btn-outline btn-sm' : 'btn-primary'}" onclick="event.stopPropagation();">📊 결과보고서</a>
+            ${!welcomeSent ? `<button class="btn btn-outline btn-sm" onclick="event.stopPropagation(); openWelcomeModal('${coachee.id}', '${coachee.name}', '${coachee.phone || ''}');">💌 웰컴 메시지 보내기</button>` : ''}
           </div>`}
         </div>
       `;
@@ -1097,10 +1098,16 @@
   // 웰컴 메시지 관련
   let currentAcceptCoacheeId = null;
 
+  let isResendMode = false; // 재전송 모드 여부
+
   function openWelcomeModal(coacheeId, name, phone) {
     currentAcceptCoacheeId = coacheeId;
     const coach = getCoach(myCoachId);
     const coachName = coach?.name || '코치';
+
+    // 이미 코칭 중인 피코치인지 확인 (재전송 모드)
+    const coachee = DB.getItem('coachees', coacheeId);
+    isResendMode = coachee?.status === 'coaching';
 
     const template = `안녕하세요, ${name}님! 😊
 
@@ -1109,7 +1116,7 @@
 신청해주셔서 감사합니다! 작성해주신 내용을 꼼꼼히 살펴봤어요.
 앞으로 4주간 함께 루틴을 만들어가며, ${name}님만의 속도로 변화해나갈 수 있도록 도와드릴게요.
 
-첫 번째 세션 일정을 잡으려고 합니다.
+첫 번째 세션과 간단한 안내를 위한 연락 일정을 잡으려고 합니다.
 편하신 시간대를 알려주시면 맞춰서 연락드릴게요!
 
 궁금한 점이 있으시면 편하게 말씀해주세요.
@@ -1120,6 +1127,10 @@ ${coachName} 드림`;
     document.getElementById('welcomeMessage').value = template;
     document.getElementById('welcomeModal').classList.add('show');
     document.getElementById('copySuccess').style.display = 'none';
+
+    // 버튼 텍스트 변경
+    const submitBtn = document.querySelector('#welcomeModal .modal-footer .btn-primary');
+    submitBtn.textContent = isResendMode ? '클립보드에 복사하기' : '수락하고 전송하기';
   }
 
   function closeWelcomeModal() {
@@ -1130,15 +1141,30 @@ ${coachName} 드림`;
   async function copyAndAccept() {
     const message = document.getElementById('welcomeMessage').value;
 
-    if (currentAcceptCoacheeId) {
-      // 피코치 상태를 coaching으로 변경
-      DB.updateItem('coachees', currentAcceptCoacheeId, {
-        status: 'coaching',
-        acceptedAt: new Date().toISOString(),
-        acceptedBy: myCoachId
-      });
+    if (isResendMode) {
+      // 재전송 모드: 클립보드에 복사
+      try {
+        await navigator.clipboard.writeText(message);
+      } catch (err) {
+        const textarea = document.getElementById('welcomeMessage');
+        textarea.select();
+        document.execCommand('copy');
+      }
+      document.getElementById('copySuccess').textContent = '✓ 클립보드에 복사되었습니다!';
+    } else {
+      // 신규 수락: 피코치 서류함으로 자동 전달
+      if (currentAcceptCoacheeId) {
+        DB.updateItem('coachees', currentAcceptCoacheeId, {
+          status: 'coaching',
+          acceptedAt: new Date().toISOString(),
+          acceptedBy: myCoachId
+        });
+      }
+      document.getElementById('copySuccess').textContent = '✓ 피코치 대시보드로 전송되었습니다!';
+    }
 
-      // 웰컴 메시지를 피코치 서류함으로 저장
+    // 웰컴 메시지 서류함 저장 (신규/재전송 공통)
+    if (currentAcceptCoacheeId) {
       DB.upsert('welcomeMessages', {
         id: 'welcome_' + currentAcceptCoacheeId,
         coacheeId: currentAcceptCoacheeId,
@@ -1150,7 +1176,6 @@ ${coachName} 드림`;
 
     document.getElementById('copySuccess').style.display = 'block';
 
-    // 잠시 후 모달 닫고 새로고침
     setTimeout(() => {
       closeWelcomeModal();
       renderDashboard();
