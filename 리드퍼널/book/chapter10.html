@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10장: 행동 대본 — 회피 습관을 새 루틴으로 바꾸기 | FLOCA</title>
+    <meta name="description" content="회피는 매번 새로운 실패가 아니라 반복되는 대본입니다. 그 대본을 분해하고, 새로운 실행 루틴으로 교체하는 방법을 알아보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+        }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 히어로 */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--red);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .chain-list {
+            list-style: none;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chain-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 15px;
+            color: var(--text-sub);
+        }
+
+        .chain-step {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--red);
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 4px;
+            padding: 2px 7px;
+            flex-shrink: 0;
+            margin-top: 3px;
+            white-space: nowrap;
+        }
+
+        .empathy-conclusion {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* 섹션 */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+        .sec-label span { color: var(--accent); }
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 01 회피 대본 ===== */
+        .script-flow {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sf-header {
+            padding: 12px 18px;
+            background: var(--red-soft);
+            border-bottom: 1px solid var(--red-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--red);
+        }
+
+        .sf-steps {
+            padding: 16px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .sf-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sf-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .sf-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--red-soft);
+            border: 2px solid var(--red-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--red);
+            flex-shrink: 0;
+        }
+
+        .sf-connector {
+            width: 2px;
+            height: 20px;
+            background: var(--red-mid);
+        }
+
+        .sf-step:last-child .sf-connector { display: none; }
+
+        .sf-content {
+            padding: 3px 0 18px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        .reframe-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .reframe-box .rb-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .reframe-box .rb-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .reframe-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .reframe-list li {
+            font-size: 14px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reframe-list li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .identification-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid var(--border-mid);
+        }
+
+        .ib-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .ib-compare {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 14px;
+        }
+
+        .ib-vague {
+            padding: 10px 13px;
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 8px;
+            font-size: 13px;
+            color: var(--red);
+        }
+
+        .ib-arrow { text-align: center; font-size: 14px; color: var(--text-mute); }
+
+        .ib-specific {
+            padding: 10px 13px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .ib-actions {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ib-actions li {
+            font-size: 13px;
+            color: var(--text-sub);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ib-actions li::before { content: "✓"; color: var(--accent); font-weight: 700; }
+
+        /* ===== 02 과거 대본 분해 ===== */
+        .breakdown-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bc-header {
+            padding: 12px 18px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+        }
+
+        .bc-steps {
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .bc-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 12px;
+            background: var(--bg-gray);
+            border-radius: 8px;
+        }
+
+        .bc-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--red);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .bc-text {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .bc-text .bc-emotion { color: var(--red); font-weight: 600; }
+
+        .benefits-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 20px;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .benefits-list li .bi { font-size: 16px; }
+
+        .quote-box {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+
+        .quote-box p {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .analysis-steps {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .as-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .as-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .as-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.5;
+        }
+
+        .as-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ===== 03 새로운 대본 ===== */
+        .script-compare {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .sc-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+        }
+
+        .sc-card-header {
+            padding: 10px 16px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+        }
+
+        .sc-card.old .sc-card-header {
+            background: var(--red-soft);
+            color: var(--red);
+            border-bottom: 1px solid var(--red-mid);
+        }
+
+        .sc-card.new .sc-card-header {
+            background: var(--accent-soft);
+            color: var(--accent);
+            border-bottom: 1px solid var(--accent-mid);
+        }
+
+        .sc-steps-list {
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: var(--bg);
+        }
+
+        .sc-step-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .sc-step-item .ssi-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .sc-card.old .ssi-dot { background: var(--red); }
+        .sc-card.new .ssi-dot { background: var(--accent); }
+
+        .sc-card.new .sc-step-item { font-weight: 500; color: var(--text); }
+
+        .principle-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .pb-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .pb-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* ===== 04 반복 회로 ===== */
+        .shaping-ladder {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .sl-header {
+            padding: 12px 18px;
+            background: var(--bg-soft);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .sl-steps {
+            padding: 14px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .sl-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .sl-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .sl-dot {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            border: 2px solid var(--accent-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+
+        .sl-conn {
+            width: 2px;
+            height: 18px;
+            background: var(--accent-mid);
+        }
+
+        .sl-item:last-child .sl-conn { display: none; }
+
+        .sl-text {
+            padding: 3px 0 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .mandatory-endings {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 20px;
+        }
+
+        .me-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .me-items {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .me-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-mid);
+        }
+
+        .me-icon { font-size: 20px; flex-shrink: 0; }
+
+        .me-item h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .me-item p {
+            font-size: 12px;
+            color: var(--text-mute);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .next-action-examples {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .na-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            gap: 8px;
+            padding: 11px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+        }
+
+        .na-today { font-size: 12px; color: var(--text-mute); }
+        .na-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .na-next { font-size: 12px; font-weight: 700; color: var(--accent); }
+
+        /* 요약 */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag-sum {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .completion-badge {
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 16px;
+        }
+
+        .completion-badge span {
+            display: inline-block;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 23px; }
+            .section { padding: 48px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter9.html" class="nav-back">← 9장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 3부 · 뇌는 다시 배선된다</div>
+            <div class="chapter-num">CHAPTER 10</div>
+            <h1>행동 대본: 회피 습관을<br><em>새 루틴</em>으로 바꾸기</h1>
+
+            <div class="empathy-block">
+                <ul class="chain-list">
+                    <li>
+                        <span class="chain-step">패턴 1</span>
+                        책상에 앉으려고 했는데 휴대폰을 본다
+                    </li>
+                    <li>
+                        <span class="chain-step">패턴 2</span>
+                        자료를 정리하려고 했는데 다른 검색을 한다
+                    </li>
+                    <li>
+                        <span class="chain-step">패턴 3</span>
+                        운동복을 입으려고 했는데 침대에 다시 눕는다
+                    </li>
+                </ul>
+                <p class="empathy-conclusion">
+                    이런 행동은 매번 새롭게 일어나는 것처럼 보이지만,<br>
+                    자세히 보면 비슷한 순서로 반복된다.<br>
+                    <strong>회피는 하나의 대본처럼 움직인다.</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 우리는 이미 대본대로 행동하고 있다 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 우리는 이미 대본대로 행동하고 있다</div>
+            <h2 class="sec-title">"나는 또 실패했다"가 아니라<br>"나는 또 같은 회피 대본을 실행했다"</h2>
+            <p class="sec-lead">
+                대본이라면 수정할 수 있다. 회피를 성격 탓으로 보면 바꿀 수가 없지만,
+                반복되는 흐름으로 보면 어디서 끊어낼지 찾을 수 있다.
+            </p>
+
+            <!-- 회피 대본 8단계 플로우 -->
+            <div class="script-flow">
+                <div class="sf-header">❌ 전형적인 회피 대본</div>
+                <div class="sf-steps">
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">1</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">공부하려고 책상에 앉는다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">2</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">휴대폰 알림이 보인다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">3</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">"잠깐만 확인하자"고 생각한다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">4</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">카톡을 보다가 링크 하나를 누른다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">5</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">영상이나 검색으로 넘어간다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">6</div><div class="sf-connector"></div></div>
+                        <div class="sf-content">30분이 지나 있다</div>
+                    </div>
+                    <div class="sf-step">
+                        <div class="sf-line"><div class="sf-dot">7</div></div>
+                        <div class="sf-content" style="color: var(--red); font-weight: 600;">자기비난이 시작된다</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 대본이라면 수정 가능 -->
+            <div class="reframe-box">
+                <div class="rb-tag">관점 전환</div>
+                <div class="rb-title">대본이라면 수정할 수 있다</div>
+                <ul class="reframe-list">
+                    <li>순서를 바꿀 수 있다</li>
+                    <li>중간에 다른 행동을 끼워 넣을 수 있다</li>
+                    <li>회피가 시작되는 지점을 찾을 수 있다</li>
+                </ul>
+            </div>
+
+            <!-- 막연 → 구체 -->
+            <div class="identification-box">
+                <div class="ib-tag">막연한 자책 → 수정 가능한 분석</div>
+                <div class="ib-compare">
+                    <div class="ib-vague">❌ "나는 휴대폰 때문에 망했다" (막연)</div>
+                    <div class="ib-arrow">↓</div>
+                    <div class="ib-specific">✓ "나는 책상에 앉은 뒤 알림을 보고, 그 알림을 누른 뒤 30분을 잃는다" (수정 가능)</div>
+                </div>
+                <ul class="ib-actions">
+                    <li>책상에 앉기 전에 알림을 끈다</li>
+                    <li>휴대폰을 다른 방에 둔다</li>
+                    <li>앉기 전에 타이머를 먼저 켠다</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 과거 대본 분해 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 과거 행동 대본을 분해하라</div>
+            <h2 class="sec-title">회피에는 항상 이득이 있다<br>그 이득을 인정해야 대본을 바꿀 수 있다</h2>
+            <p class="sec-lead">
+                겉으로 보면 그냥 딴짓이다. 하지만 자세히 보면 순서가 있다.
+                회피 행동에서 내가 얻는 것을 알아야 대체 행동을 만들 수 있다.
+            </p>
+
+            <!-- 포트폴리오 대본 분해 -->
+            <div class="breakdown-card">
+                <div class="bc-header">예시: 포트폴리오 정리해야 하는 날</div>
+                <div class="bc-steps">
+                    <div class="bc-step">
+                        <div class="bc-num">1</div>
+                        <div class="bc-text">작업물 폴더를 열려고 한다</div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">2</div>
+                        <div class="bc-text"><span class="bc-emotion">"어떤 작품을 골라야 하지?" 불안이 올라온다</span></div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">3</div>
+                        <div class="bc-text">참고 자료를 찾아본다</div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">4</div>
+                        <div class="bc-text">다른 사람 포트폴리오를 보다가 비교가 시작된다</div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">5</div>
+                        <div class="bc-text"><span class="bc-emotion">"나는 아직 부족해"라는 생각이 든다</span></div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">6</div>
+                        <div class="bc-text">유튜브나 SNS로 이동한다</div>
+                    </div>
+                    <div class="bc-step">
+                        <div class="bc-num">7</div>
+                        <div class="bc-text"><span class="bc-emotion">시간이 지나고 자기비난이 올라온다</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 회피의 이득 -->
+            <p style="font-size:13px; font-weight:700; color:var(--text-mute); letter-spacing:1px; margin-bottom:12px;">회피가 주는 즉각적 이득</p>
+            <ul class="benefits-list">
+                <li><span class="bi">😮‍💨</span>불안을 잠깐 피하게 해준다</li>
+                <li><span class="bi">😌</span>지루함을 없애준다</li>
+                <li><span class="bi">🫣</span>비교의 고통에서 도망치게 해준다</li>
+                <li><span class="bi">🎮</span>즉각적인 재미를 준다</li>
+                <li><span class="bi">⏱️</span>실패를 마주하는 시간을 늦춰준다</li>
+            </ul>
+
+            <div class="quote-box">
+                <p>"회피는 나약해서 생기는 것이 아니다. 당장의 불편함을 줄여주기 때문에 반복된다."</p>
+            </div>
+
+            <!-- 분석 4요소 -->
+            <div class="analysis-steps">
+                <div class="as-tag">과거 대본 분석 시 적어야 할 4가지</div>
+                <ul class="as-list">
+                    <li><div class="as-num">1</div>회피가 시작되는 상황</li>
+                    <li><div class="as-num">2</div>그때 올라오는 감정</li>
+                    <li><div class="as-num">3</div>실제로 이어지는 행동 순서</li>
+                    <li><div class="as-num">4</div>그 행동이 나에게 주는 즉각적인 보상</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 새로운 행동 대본 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 새로운 행동 대본은 과거 대본의 뼈대를 활용한다</div>
+            <h2 class="sec-title">과거 대본을 지우려 하지 말고<br>그 단계에 새 선택지를 끼워 넣는다</h2>
+            <p class="sec-lead">
+                완전히 새로운 사람이 될 필요가 없다. 같은 상황에서 한 단계씩 다른 선택을 하는 것이다.
+            </p>
+
+            <!-- 구 대본 vs 새 대본 -->
+            <div class="script-compare">
+                <div class="sc-card old">
+                    <div class="sc-card-header">❌ 과거 대본 (포트폴리오)</div>
+                    <div class="sc-steps-list">
+                        <div class="sc-step-item"><div class="ssi-dot"></div>작업물 폴더를 열려고 한다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>불안이 올라온다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>참고 자료를 찾는다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>다른 사람과 비교한다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>SNS로 빠진다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>자기비난한다</div>
+                    </div>
+                </div>
+
+                <div style="text-align:center; font-size:20px; color:var(--text-mute); margin: 4px 0;">↓</div>
+
+                <div class="sc-card new">
+                    <div class="sc-card-header">✓ 새로운 대본 (같은 상황)</div>
+                    <div class="sc-steps-list">
+                        <div class="sc-step-item"><div class="ssi-dot"></div>작업물 폴더를 연다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>불안이 올라오면 감정 점수를 적는다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>참고 자료 검색은 하지 않는다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>대표 작업물 1개만 고른다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>10분 타이머를 켠다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>파일 이름을 종이에 적는다</div>
+                        <div class="sc-step-item"><div class="ssi-dot"></div>체크 표시 + 작은 보상</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principle-box">
+                <div class="pb-tag">핵심 원칙</div>
+                <div class="pb-text">
+                    새로운 대본은 감정을 없애는 대본이 아니다.<br>
+                    <strong>감정이 있어도 행동을 이어가게 만드는 대본이다.</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 반복하면 회로가 된다 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 대본은 반복될 때 회로가 된다</div>
+            <h2 class="sec-title">처음에는 어색하다<br>예전 대본이 더 익숙하고 빠르다</h2>
+            <p class="sec-lead">
+                그래서 새 대본은 작아야 하고, 보상이 있어야 하며, 한 단계씩 늘어나야 한다.
+                한 번에 완성된 루틴을 요구하지 않는 것이 핵심이다.
+            </p>
+
+            <!-- 조형 사다리 -->
+            <div class="shaping-ladder">
+                <div class="sl-header">조형(Shaping): 포트폴리오 대본 예시</div>
+                <div class="sl-steps">
+                    <div class="sl-item">
+                        <div class="sl-line"><div class="sl-dot">1️⃣</div><div class="sl-conn"></div></div>
+                        <div class="sl-text">폴더 열기</div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-line"><div class="sl-dot">2️⃣</div><div class="sl-conn"></div></div>
+                        <div class="sl-text">파일 하나 고르기</div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-line"><div class="sl-dot">3️⃣</div><div class="sl-conn"></div></div>
+                        <div class="sl-text">10분 설명문 쓰기</div>
+                    </div>
+                    <div class="sl-item">
+                        <div class="sl-line"><div class="sl-dot">4️⃣</div></div>
+                        <div class="sl-text">체크하고 보상받기</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 대본 마무리 2요소 -->
+            <div class="mandatory-endings">
+                <div class="me-tag">모든 실행 대본의 필수 마무리 2가지</div>
+                <div class="me-items">
+                    <div class="me-item">
+                        <div class="me-icon">🎁</div>
+                        <div>
+                            <h4>실행 후 작은 보상</h4>
+                            <p>뇌에 "했다"는 감각을 남기고, 다음 실행을 다시 시도할 이유를 만든다</p>
+                        </div>
+                    </div>
+                    <div class="me-item">
+                        <div class="me-icon">🎯</div>
+                        <div>
+                            <h4>다음에 이어갈 첫 행동</h4>
+                            <p>내일의 시작 장벽을 낮춘다. 대본은 이어져야 한다.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 다음 첫 행동 예시 -->
+            <p style="font-size:11px; font-weight:700; letter-spacing:2px; color:var(--text-mute); margin-bottom:10px;">다음 첫 행동 예시</p>
+            <div class="next-action-examples">
+                <div class="na-row">
+                    <span class="na-today">오늘: 폴더 열고 작업물 1개 골랐다</span>
+                    <span class="na-arr">→</span>
+                    <span class="na-next">다음: 파일 이름 다시 보기</span>
+                </div>
+                <div class="na-row">
+                    <span class="na-today">오늘: 메일함 열고 제목만 확인했다</span>
+                    <span class="na-arr">→</span>
+                    <span class="na-next">다음: 답장 첫 문장 쓰기</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag-sum">10장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        회피는 매번 새로운 실패가 아니라 반복되는 대본이다. 대본은 수정할 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        과거 대본의 이득을 인정하라 — 불안 회피, 즉각 보상. 그 이득을 이해해야 대체 행동을 만들 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        새 대본 = 과거 단계에 새 선택지 끼워 넣기. 감정을 없애는 것이 아니라, 감정이 있어도 행동을 이어가게 만드는 것이다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        대본은 반복될 때 회로가 된다. 마지막엔 항상 작은 보상 + 다음 첫 행동을 남겨두어라.
+                    </li>
+                </ul>
+            </div>
+
+            <div class="completion-badge">
+                <span>✓ 3부 완료 — 뇌는 다시 배선된다</span>
+            </div>
+
+            <a href="chapter11.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → 4부 · CHAPTER 11</div>
+                    <div class="nc-title">ADHD 뇌에 필요한<br>에너지 안정성</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

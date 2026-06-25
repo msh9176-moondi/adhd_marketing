@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12장: 수면은 뇌의 야간 복구 작업이다 | FLOCA</title>
+    <meta name="description" content="수면은 하루의 끝이 아니라 다음 날 실행력을 준비하는 뇌의 야간 복구 작업입니다. ADHD 뇌를 위한 수면 전 루틴을 만들어보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+            --indigo: #4f46e5;
+            --indigo-soft: rgba(79,70,229,0.07);
+            --indigo-mid: rgba(79,70,229,0.16);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--indigo);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .emp-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--indigo);
+            margin-bottom: 12px;
+        }
+
+        .sleep-symptoms {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+        .sleep-symptoms li {
+            font-size: 14px;
+            color: var(--text-sub);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sleep-symptoms li::before {
+            content: "😔";
+            flex-shrink: 0;
+        }
+
+        .question-shift {
+            border-top: 1px solid var(--border-mid);
+            margin-top: 14px;
+            padding-top: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .q-old {
+            font-size: 14px;
+            color: var(--red);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .q-new {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .q-new em { font-style: normal; color: var(--indigo); }
+
+        .reframe-box {
+            margin-top: 14px;
+            padding: 14px 16px;
+            background: var(--indigo-soft);
+            border: 1px solid var(--indigo-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--indigo);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* ===== 섹션 ===== */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+        .sec-label span { color: var(--accent); }
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 01 복구 카드 그리드 ===== */
+        .recovery-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .recovery-card {
+            background: var(--bg-gray);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 18px 14px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .recovery-card .rc-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+        .recovery-card h4 { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 5px; }
+        .recovery-card p { font-size: 12px; color: var(--text-mute); line-height: 1.5; }
+
+        .adhd-impact-box {
+            background: var(--indigo-soft);
+            border: 1px solid var(--indigo-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .adhd-impact-box .aib-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--indigo);
+            margin-bottom: 12px;
+        }
+        .adhd-impact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .adhd-impact-list li {
+            font-size: 13px;
+            color: var(--text-sub);
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border: 1px solid var(--indigo-mid);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+        .adhd-impact-list li strong { color: var(--indigo); }
+
+        /* ===== 02 악순환 사이클 ===== */
+        .cycle-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 28px;
+        }
+
+        .cf-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+        }
+        .cf-step .cs-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--red-soft);
+            border: 1.5px solid var(--red-mid);
+            color: var(--red);
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .cf-connector {
+            width: 2px;
+            height: 12px;
+            background: var(--border-mid);
+            margin-left: 21px;
+        }
+
+        .cf-step.first .cs-num { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.3); }
+        .cf-step.last-step {
+            background: var(--red-soft);
+            border-color: var(--red-mid);
+        }
+        .cf-step.last-step .cs-num {
+            background: var(--red);
+            color: #fff;
+            border: none;
+        }
+
+        .misconception-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 20px;
+        }
+        .mb-head {
+            padding: 11px 18px;
+            background: var(--bg-soft);
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            border-bottom: 1px solid var(--border-mid);
+        }
+        .mb-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            padding: 12px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            gap: 8px;
+        }
+        .mb-row:last-child { border-bottom: none; }
+        .mb-old { font-size: 12px; color: var(--red); word-break: keep-all; line-height: 1.5; }
+        .mb-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .mb-new { font-size: 12px; color: var(--accent); font-weight: 600; word-break: keep-all; line-height: 1.5; }
+
+        .warning-box {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+        .warning-box .wb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 8px;
+        }
+        .warning-box p {
+            font-size: 13px;
+            color: #b91c1c;
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        /* ===== 03 에너지 수면 전 ===== */
+        .energy-connection-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .ecb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+        .ecb-text {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .extreme-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+        .extreme-card {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 12px;
+            padding: 16px 14px;
+            text-align: center;
+        }
+        .extreme-card .ex-icon { font-size: 24px; display: block; margin-bottom: 8px; }
+        .extreme-card h4 { font-size: 12px; font-weight: 700; color: var(--red); margin-bottom: 5px; }
+        .extreme-card p { font-size: 12px; color: #b91c1c; line-height: 1.5; word-break: keep-all; }
+
+        .sleep-snack-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .ssb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .ssb-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 14px;
+        }
+        .snack-examples {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .snack-examples li {
+            font-size: 13px;
+            color: var(--text-sub);
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            border: 1px solid var(--accent-mid);
+        }
+
+        /* ===== 04 침실 환경 ===== */
+        .bedroom-rules {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 24px;
+        }
+        .bedroom-rules li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+            word-break: keep-all;
+        }
+        .br-check {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            border: 1.5px solid var(--accent-mid);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .confusion-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid var(--border-mid);
+        }
+        .confusion-box .cb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+        .confusion-box p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.75;
+            word-break: keep-all;
+        }
+
+        /* ===== 05 수면 전 루틴 ===== */
+        .sleep-routine {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+        .sr-step {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .sr-timeline {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+        .sr-dot {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--indigo-soft);
+            border: 2px solid var(--indigo-mid);
+            color: var(--indigo);
+            font-size: 10px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            text-align: center;
+            line-height: 1.2;
+        }
+        .sr-line {
+            width: 2px;
+            flex: 1;
+            min-height: 20px;
+            background: var(--indigo-mid);
+        }
+        .sr-content {
+            padding: 8px 0 20px;
+            flex: 1;
+        }
+        .sr-time {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--indigo);
+            margin-bottom: 3px;
+        }
+        .sr-action {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+        .sr-desc {
+            font-size: 12px;
+            color: var(--text-mute);
+            line-height: 1.5;
+        }
+
+        .breathing-tip {
+            background: var(--bg-gray);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 24px;
+        }
+        .bt-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 12px;
+        }
+        .breathing-steps {
+            display: flex;
+            gap: 6px;
+        }
+        .bs-step {
+            flex: 1;
+            text-align: center;
+            padding: 12px 8px;
+            background: var(--bg);
+            border-radius: 10px;
+            border: 1px solid var(--border-mid);
+        }
+        .bs-num {
+            font-size: 22px;
+            font-weight: 900;
+            color: var(--indigo);
+            display: block;
+            margin-bottom: 2px;
+        }
+        .bs-label {
+            font-size: 10px;
+            color: var(--text-mute);
+            display: block;
+        }
+
+        .body-message {
+            background: var(--indigo-soft);
+            border: 1px solid var(--indigo-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+        .bm-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--indigo);
+            margin-bottom: 12px;
+        }
+        .bm-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .bm-list li {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            padding: 10px 14px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 8px;
+            border: 1px solid var(--indigo-mid);
+            word-break: keep-all;
+        }
+
+        /* ===== 요약 ===== */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .summary-section { padding: 48px 0 72px; }
+            .breathing-steps { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter11.html" class="nav-back">← 11장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 4부 · 몸-뇌 회복 기반 만들기</div>
+            <div class="chapter-num">CHAPTER 12</div>
+            <h1>수면은 뇌의<br><em>야간 복구 작업</em>이다</h1>
+
+            <div class="empathy-block">
+                <div class="emp-label">잠을 못 잔 날</div>
+                <ul class="sleep-symptoms">
+                    <li>감정은 예민해지고</li>
+                    <li>충동은 강해지고</li>
+                    <li>시간감각은 더 흐려진다</li>
+                    <li>"10분만 하자"라는 말조차 버겁다</li>
+                </ul>
+                <div class="question-shift">
+                    <div class="q-old">❌ "나는 ADHD라서 안 되는 거야"</div>
+                    <div class="q-new">✓ <em>"내 뇌는 어젯밤 충분히 잘 쉬었는가?"</em></div>
+                </div>
+                <div class="reframe-box">
+                    수면은 하루의 끝이 아니다.<br>
+                    수면은 다음 날의 실행력을 준비하는 야간 복구 작업이다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 복구 시간 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 수면은 쉬는 시간이 아니라 복구 시간이다</div>
+            <h2 class="sec-title">잠은 꺼짐이 아니다.<br>잠은 정비다.</h2>
+            <p class="sec-lead">
+                수면 중 뇌는 다음 날을 위한 집중적인 회복 작업을 수행한다.
+                의식이 꺼지는 것이 아니라, 낮 동안의 혼란을 정리하고 새로 배선하는 시간이다.
+            </p>
+
+            <div class="recovery-grid">
+                <div class="recovery-card">
+                    <span class="rc-icon">🧹</span>
+                    <h4>뇌 청소</h4>
+                    <p>낮 동안 쌓인 노폐물을 제거하는 글림프 시스템 활성화</p>
+                </div>
+                <div class="recovery-card">
+                    <span class="rc-icon">🔧</span>
+                    <h4>신경세포 회복</h4>
+                    <p>손상된 뉴런 회복 + 시냅스 재정리</p>
+                </div>
+                <div class="recovery-card">
+                    <span class="rc-icon">💾</span>
+                    <h4>기억 고착</h4>
+                    <p>학습 정보를 장기 기억으로 이동</p>
+                </div>
+                <div class="recovery-card">
+                    <span class="rc-icon">💚</span>
+                    <h4>감정 재조정</h4>
+                    <p>감정 경험을 다시 처리하고 안정화</p>
+                </div>
+            </div>
+
+            <div class="adhd-impact-box">
+                <div class="aib-label">ADHD에게 특히 중요한 이유</div>
+                <ul class="adhd-impact-list">
+                    <li><strong>감정 재조정 부족</strong> → 작은 자극에도 예민해질 수 있다</li>
+                    <li><strong>기억 고착 부족</strong> → 배운 내용이 흐려질 수 있다</li>
+                    <li><strong>뇌청소·회복 부족</strong> → 머리가 무겁고 시작 저항이 커질 수 있다</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 악순환 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 수면질이 나쁘면 ADHD 실행력도 무너진다</div>
+            <h2 class="sec-title">ADHD 증상이 수면을 방해하고,<br>부족한 수면이 ADHD 증상을 악화시킨다</h2>
+            <p class="sec-lead">
+                이것은 하나의 악순환이다. 각 단계가 다음 단계를 더 어렵게 만든다.
+            </p>
+
+            <div class="cycle-flow">
+                <div class="cf-step first">
+                    <span class="cs-num">1</span>
+                    ADHD 때문에 잠들기 어렵다
+                </div>
+                <div class="cf-connector"></div>
+                <div class="cf-step">
+                    <span class="cs-num">2</span>
+                    잠이 부족해진다
+                </div>
+                <div class="cf-connector"></div>
+                <div class="cf-step">
+                    <span class="cs-num">3</span>
+                    감정조절·집중력이 흔들린다
+                </div>
+                <div class="cf-connector"></div>
+                <div class="cf-step">
+                    <span class="cs-num">4</span>
+                    실행이 무너진다
+                </div>
+                <div class="cf-connector"></div>
+                <div class="cf-step">
+                    <span class="cs-num">5</span>
+                    밤에 불안과 후회가 올라온다
+                </div>
+                <div class="cf-connector"></div>
+                <div class="cf-step last-step">
+                    <span class="cs-num">↺</span>
+                    또 잠들기 어렵다 → 반복
+                </div>
+            </div>
+
+            <div class="misconception-box">
+                <div class="mb-head">오해 → 실제</div>
+                <div class="mb-row">
+                    <span class="mb-old">❌ "아침에 못 일어나는 사람 = 게으른 사람"</span>
+                    <span class="mb-arr">→</span>
+                    <span class="mb-new">✓ "밤의 회복이 부족한 사람일 수 있다"</span>
+                </div>
+                <div class="mb-row">
+                    <span class="mb-old">❌ "낮에 집중 안 되는 사람 = 노력 부족"</span>
+                    <span class="mb-arr">→</span>
+                    <span class="mb-new">✓ "수면 질이 낮아 뇌가 회복되지 않은 상태일 수 있다"</span>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <div class="wb-label">⚠ 주의 신호</div>
+                <p>코골이, 수면무호흡, 새벽 각성, 극심한 낮 졸림이 반복된다면 단순한 생활 습관 문제라고 보기 어렵다. 전문가 상담을 고려해보는 것이 좋다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 수면 중 에너지 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 수면 중에도 뇌는 에너지를 쓴다</div>
+            <h2 class="sec-title">수면 전 식사가<br>수면 질을 바꿀 수 있다</h2>
+            <p class="sec-lead">
+                11장에서 말한 에너지 안정성은 밤에도 이어진다.
+                뇌는 수면 중에도 포도당을 계속 소비하며 회복 작업을 수행한다.
+            </p>
+
+            <div class="energy-connection-box">
+                <div class="ecb-label">11장과의 연결</div>
+                <p class="ecb-text">에너지 안정성은 낮에만 결정되지 않는다.<br>밤에 잠을 어떻게 자느냐가 다음 날의 실행력을 좌우한다.</p>
+            </div>
+
+            <div class="extreme-grid">
+                <div class="extreme-card">
+                    <span class="ex-icon">🍔</span>
+                    <h4>자기 직전 야식·폭식</h4>
+                    <p>수면을 방해할 수 있다</p>
+                </div>
+                <div class="extreme-card">
+                    <span class="ex-icon">😫</span>
+                    <h4>너무 허기진 상태</h4>
+                    <p>새벽 각성·불안정한 수면이 생길 수 있다</p>
+                </div>
+            </div>
+
+            <div class="sleep-snack-box">
+                <div class="ssb-label">권장 수면 전 소식</div>
+                <div class="ssb-title">취침 1.5~2시간 전<br>소량의 복합 탄수화물 + 단백질</div>
+                <ul class="snack-examples">
+                    <li>🍠 고구마 + 견과류</li>
+                    <li>🥣 귀리 + 요거트</li>
+                    <li>🍌 바나나 + 삶은 달걀</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 수면 환경 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 수면 공간은 실행력 회복을 위한 환경이다</div>
+            <h2 class="sec-title">침대는 회복 공간이어야 한다</h2>
+            <p class="sec-lead">
+                ADHD 성향을 가진 사람에게 환경은 실행력을 켜거나 끄는 스위치다.
+                수면도 마찬가지다. 잠은 의지만으로 드는 것이 아니다.
+            </p>
+
+            <ul class="bedroom-rules">
+                <li><span class="br-check">✓</span> 침대에서 영상·일·SNS·걱정을 하지 않는다</li>
+                <li><span class="br-check">✓</span> 휴대폰은 침대 밖에서 충전한다</li>
+                <li><span class="br-check">✓</span> 조명은 취침 전에 낮춘다</li>
+                <li><span class="br-check">✓</span> 방은 약간 시원하게 유지한다</li>
+                <li><span class="br-check">✓</span> 전자기기를 취침 1시간 전부터 줄인다</li>
+            </ul>
+
+            <div class="confusion-box">
+                <div class="cb-label">왜 중요한가</div>
+                <p>침대에서 자극·업무·비교·불안·각성을 경험하면 몸이 침대에 누워도 수면 모드로 전환하지 못한다. 침대를 수면과 회복을 위해서만 사용할 때, 몸은 침대에 눕는 순간 수면 신호를 받는다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 수면 전 루틴 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> ADHD 뇌를 위한 수면 전 루틴</div>
+            <h2 class="sec-title">수면 전 루틴은 완벽한 규칙이 아니라<br>뇌에게 보내는 신호다</h2>
+            <p class="sec-lead">
+                낮의 자극, 생각, 걱정, 화면에서 바로 잠으로 넘어가기는 어렵다.
+                전환 시간이 필요하다. 대본처럼 반복될 때 몸이 자동으로 수면 모드에 들어간다.
+            </p>
+
+            <div class="sleep-routine">
+                <div class="sr-step">
+                    <div class="sr-timeline">
+                        <div class="sr-dot">90분<br>전</div>
+                        <div class="sr-line"></div>
+                    </div>
+                    <div class="sr-content">
+                        <div class="sr-time">STEP 1</div>
+                        <div class="sr-action">전자기기 줄이기</div>
+                        <div class="sr-desc">화면 빛은 멜라토닌 생성을 줄인다. 스크린을 치우고 낮의 모드를 끊는다.</div>
+                    </div>
+                </div>
+                <div class="sr-step">
+                    <div class="sr-timeline">
+                        <div class="sr-dot">60분<br>전</div>
+                        <div class="sr-line"></div>
+                    </div>
+                    <div class="sr-content">
+                        <div class="sr-time">STEP 2</div>
+                        <div class="sr-action">내일 첫 행동 하나 적기</div>
+                        <div class="sr-desc">머릿속 걱정을 종이로 꺼낸다. 내일의 시작을 미리 결정해두면 밤새 생각을 반복하지 않아도 된다.</div>
+                    </div>
+                </div>
+                <div class="sr-step">
+                    <div class="sr-timeline">
+                        <div class="sr-dot">40분<br>전</div>
+                        <div class="sr-line"></div>
+                    </div>
+                    <div class="sr-content">
+                        <div class="sr-time">STEP 3</div>
+                        <div class="sr-action">가벼운 스트레칭이나 정리</div>
+                        <div class="sr-desc">몸에게 낮의 긴장을 풀라는 신호를 보낸다.</div>
+                    </div>
+                </div>
+                <div class="sr-step">
+                    <div class="sr-timeline">
+                        <div class="sr-dot">20분<br>전</div>
+                        <div class="sr-line"></div>
+                    </div>
+                    <div class="sr-content">
+                        <div class="sr-time">STEP 4</div>
+                        <div class="sr-action">조명 낮추기</div>
+                        <div class="sr-desc">어둠은 수면 호르몬인 멜라토닌 분비를 돕는다.</div>
+                    </div>
+                </div>
+                <div class="sr-step">
+                    <div class="sr-timeline">
+                        <div class="sr-dot">침대<br>에서</div>
+                    </div>
+                    <div class="sr-content">
+                        <div class="sr-time">STEP 5</div>
+                        <div class="sr-action">규칙적인 호흡 + 시계 보지 않기</div>
+                        <div class="sr-desc">시계를 보면 잠들지 못한 불안이 커진다. 숨에 집중한다.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="breathing-tip">
+                <div class="bt-label">4-7-8 호흡법</div>
+                <div class="breathing-steps">
+                    <div class="bs-step">
+                        <span class="bs-num">4</span>
+                        <span class="bs-label">초 들이마시기</span>
+                    </div>
+                    <div class="bs-step">
+                        <span class="bs-num">7</span>
+                        <span class="bs-label">초 참기</span>
+                    </div>
+                    <div class="bs-step">
+                        <span class="bs-num">8</span>
+                        <span class="bs-label">초 내쉬기</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="body-message">
+                <div class="bm-label">몸에게 반복해서 알려주는 것</div>
+                <ul class="bm-list">
+                    <li>"이제 하루를 닫는다."</li>
+                    <li>"이제 뇌가 회복할 시간이다."</li>
+                    <li>"내일의 실행은 오늘 밤의 회복에서 시작된다."</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">12장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        수면은 정비 시간이다 — 뇌는 수면 중 노폐물 제거·신경 회복·기억 고착·감정 재조정을 한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        ADHD ↔ 수면 문제는 악순환이다 — ADHD 증상이 수면을 방해하고, 수면 부족이 ADHD 증상을 악화시킨다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        수면 중에도 에너지가 필요하다 — 취침 1.5~2시간 전 소량의 복합 탄수화물 + 단백질이 도움이 될 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        침대 = 회복 공간. 전자기기를 침대 밖으로, 빛을 낮추고, 수면 전 루틴을 만들어라.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter13.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 13</div>
+                    <div class="nc-title">호흡은 가장 빠른 브레이크다</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

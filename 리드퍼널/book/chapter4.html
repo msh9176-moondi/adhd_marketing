@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4장: ADHD 시간은 '지금'과 '지금 아님'으로 흐른다 | FLOCA</title>
+    <meta name="description" content="ADHD의 시간감각 왜곡을 이해하고, 미래를 오늘의 작은 행동으로 번역하는 외부 시간 시스템을 만드세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+        }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 히어로 */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 900;
+            line-height: 1.35;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--red);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .chain-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .chain-list li {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .chain-step {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--red);
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 4px;
+            padding: 2px 7px;
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .empathy-conclusion {
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        /* 섹션 */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 01 시간감각 ===== */
+        .time-split-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .ts-card {
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .ts-card.now {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .ts-card.not-now {
+            background: rgba(0,0,0,0.02);
+            border: 1px solid var(--border-mid);
+        }
+
+        .ts-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .ts-card.now .ts-tag { color: var(--accent); }
+        .ts-card.not-now .ts-tag { color: var(--text-mute); }
+
+        .ts-label {
+            font-size: 20px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .ts-card.now .ts-label { color: var(--accent); }
+        .ts-card.not-now .ts-label { color: var(--text-mute); }
+
+        .ts-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .ts-items li {
+            font-size: 12px;
+            color: var(--text-sub);
+            padding: 3px 0;
+            line-height: 1.4;
+        }
+
+        /* 타임라인 */
+        .timeline {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tl-header {
+            padding: 12px 18px;
+            background: var(--bg-soft);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .tl-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 60px;
+            align-items: center;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            gap: 12px;
+        }
+
+        .tl-row:last-child { border-bottom: none; }
+
+        .tl-day {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .tl-thought {
+            font-size: 13px;
+            color: var(--text-mute);
+            font-style: italic;
+        }
+
+        .tl-row.active .tl-day { color: var(--red); }
+        .tl-row.active .tl-thought { color: var(--red); font-style: normal; font-weight: 700; }
+
+        .tl-brain {
+            font-size: 20px;
+            text-align: right;
+        }
+
+        .problem-box {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 12px;
+            padding: 16px 16px;
+            font-size: 14px;
+            color: #9b1c1c;
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        /* ===== 02 농부 vs 사냥꾼 시간 ===== */
+        .farmer-hunter-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .fh-card {
+            border-radius: 14px;
+            padding: 18px 14px;
+        }
+
+        .fh-card.farmer {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.2);
+        }
+
+        .fh-card.hunter {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .fh-icon { font-size: 28px; display: block; margin-bottom: 8px; }
+
+        .fh-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .fh-card.farmer .fh-tag { color: #b45309; }
+        .fh-card.hunter .fh-tag { color: var(--accent); }
+
+        .fh-name {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 10px;
+        }
+
+        .fh-traits {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .fh-traits li {
+            font-size: 12px;
+            color: var(--text-sub);
+            padding: 5px 8px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+
+        .adhd-highlight {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .adhd-highlight strong { color: var(--accent); font-weight: 700; }
+
+        .translate-table {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tt-header {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            padding: 11px 18px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            gap: 8px;
+        }
+
+        .tt-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            gap: 8px;
+        }
+
+        .tt-row:last-child { border-bottom: none; }
+
+        .tt-future {
+            font-size: 13px;
+            color: var(--text-mute);
+        }
+
+        .tt-arr {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        .tt-action {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* ===== 03 미루기 ===== */
+        .self-justify-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .sj-card {
+            padding: 13px 16px;
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #9b1c1c;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cost-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 24px;
+        }
+
+        .cost-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .start-table {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .start-head {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            padding: 11px 18px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            gap: 8px;
+        }
+
+        .start-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            gap: 8px;
+        }
+
+        .start-row:last-child { border-bottom: none; }
+
+        .s-big { font-size: 13px; color: var(--text-mute); text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.2); }
+        .s-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .s-small { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+        .principle-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 12px;
+            padding: 16px 18px;
+            text-align: center;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            word-break: keep-all;
+        }
+
+        /* ===== 04 시간 외부화 ===== */
+        .good-schedule-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .gs-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .gs-main {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .gs-main em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .time-transform {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .time-transform-head {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            padding: 11px 18px;
+            background: var(--bg-soft);
+            border-bottom: 1px solid var(--border-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            gap: 8px;
+        }
+
+        .time-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            gap: 8px;
+        }
+
+        .time-row:last-child { border-bottom: none; }
+
+        .t-vague { font-size: 12px; color: var(--text-mute); }
+        .t-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .t-specific { font-size: 13px; font-weight: 700; color: var(--accent); line-height: 1.4; }
+
+        .checklist-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .cl-item {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            padding: 14px 10px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cl-item .cl-check {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .cl-item .cl-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-sub);
+            line-height: 1.4;
+        }
+
+        .buffer-note {
+            background: var(--bg-gray);
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 3px solid var(--accent);
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .buffer-note strong { color: var(--accent); font-weight: 700; }
+
+        /* 요약 */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .checklist-3 { grid-template-columns: 1fr; }
+            .time-split-box { grid-template-columns: 1fr; }
+            .farmer-hunter-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter3.html" class="nav-back">← 3장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 2부 · ADHD 뇌 작동 원리</div>
+            <div class="chapter-num">CHAPTER 04</div>
+            <h1>ADHD 시간은 <em>'지금'</em>과<br><em>'지금 아님'</em>으로 흐른다</h1>
+
+            <div class="empathy-block">
+                <ul class="chain-list">
+                    <li>
+                        <span class="chain-step">일주일 전</span>
+                        시간이 충분한 것 같다
+                    </li>
+                    <li>
+                        <span class="chain-step">사흘 전</span>
+                        아직 괜찮은 것 같다
+                    </li>
+                    <li>
+                        <span class="chain-step">하루 전</span>
+                        갑자기 불안해진다
+                    </li>
+                    <li>
+                        <span class="chain-step">몇 시간 전</span>
+                        그제야 몸이 움직인다
+                    </li>
+                </ul>
+                <p class="empathy-conclusion">"왜 나는 꼭 이렇게 해야만 움직일까?"</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 시간감각 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> ADHD의 시간은 왜 다르게 느껴지는가</div>
+            <h2 class="sec-title">시간이 '지금'과 '지금이 아님'으로<br>나뉜다</h2>
+            <p class="sec-lead">
+                ADHD 성향을 가진 사람은 시간이 얼마나 지났는지, 얼마나 남았는지를 몸으로 느끼는 감각이 약할 수 있다. 미래를 모르는 게 아니라, 미래가 현재 행동으로 연결될 만큼 생생하게 느껴지지 않는다.
+            </p>
+
+            <div class="time-split-box">
+                <div class="ts-card now">
+                    <div class="ts-tag">STRONG · 강하게 인식</div>
+                    <div class="ts-label">지금</div>
+                    <ul class="ts-items">
+                        <li>📳 알림이 울린 일</li>
+                        <li>⚡ 누군가 재촉한 일</li>
+                        <li>🔥 마감이 코앞인 일</li>
+                        <li>🎮 당장 재미있는 일</li>
+                    </ul>
+                </div>
+                <div class="ts-card not-now">
+                    <div class="ts-tag">WEAK · 흐릿하게 인식</div>
+                    <div class="ts-label">지금 아님</div>
+                    <ul class="ts-items">
+                        <li>📅 다음 주 마감</li>
+                        <li>📚 한 달 뒤 시험</li>
+                        <li>📁 장기 프로젝트</li>
+                        <li>💊 건강 관리</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 타임라인 -->
+            <div class="timeline">
+                <div class="tl-header">일주일짜리 마감 — ADHD 뇌의 반응</div>
+                <div class="tl-row">
+                    <span class="tl-day">월요일</span>
+                    <span class="tl-thought">"아직 아니야"</span>
+                    <span class="tl-brain">😐</span>
+                </div>
+                <div class="tl-row">
+                    <span class="tl-day">수요일</span>
+                    <span class="tl-thought">"조금 남았어"</span>
+                    <span class="tl-brain">😐</span>
+                </div>
+                <div class="tl-row active">
+                    <span class="tl-day">목요일 밤</span>
+                    <span class="tl-thought">"지금 당장 해야 해!"</span>
+                    <span class="tl-brain">🔥</span>
+                </div>
+            </div>
+
+            <div class="problem-box">
+                이 방식이 반복되면 삶은 계속 <strong>비상상태</strong>에 놓인다. 계획은 무너지고, 감정은 흔들리고, 끝난 뒤에는 다시 자기비난이 남는다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 농부 vs 사냥꾼 시간 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 농부의 시간과 사냥꾼의 시간</div>
+            <h2 class="sec-title">미래를 오늘의 작은 행동으로<br>번역해야 한다</h2>
+            <p class="sec-lead">
+                농부의 시간과 사냥꾼의 시간은 근본적으로 다르다. ADHD 성향은 사냥꾼의 시간감각과 닮아 있다. 이것은 변명이 아니라 설명이다 — 설명이 있어야 전략이 생긴다.
+            </p>
+
+            <div class="farmer-hunter-grid">
+                <div class="fh-card farmer">
+                    <span class="fh-icon">🌾</span>
+                    <div class="fh-tag">농부의 시간</div>
+                    <div class="fh-name">이어지는 시간</div>
+                    <ul class="fh-traits">
+                        <li>순서와 지속성이 중요</li>
+                        <li>오늘 행동 → 몇 달 뒤 결과</li>
+                        <li>미래 예측에 따라 오늘 조정</li>
+                    </ul>
+                </div>
+                <div class="fh-card hunter">
+                    <span class="fh-icon">🏹</span>
+                    <div class="fh-tag">사냥꾼의 시간</div>
+                    <div class="fh-name">순간의 시간</div>
+                    <ul class="fh-traits">
+                        <li>지금 신호를 읽어야 함</li>
+                        <li>절호의 타이밍 포착</li>
+                        <li>즉각 반응이 생존 수단</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="adhd-highlight">
+                ADHD 성향 = 사냥꾼의 시간감각. 눈앞 강한 신호에 빠르게 반응하고, 멀리 있는 목표는 <strong>감각적으로 약하다.</strong> 그러므로 미래의 일을 <strong>오늘의 행동으로 번역</strong>해야 한다.
+            </div>
+
+            <div class="translate-table">
+                <div class="tt-header">
+                    <span>흐릿한 미래</span>
+                    <span></span>
+                    <span>오늘의 행동으로 번역</span>
+                </div>
+                <div class="tt-row">
+                    <span class="tt-future">다음 주 마감</span>
+                    <span class="tt-arr">→</span>
+                    <span class="tt-action">오늘 오후 2시에 파일 열기</span>
+                </div>
+                <div class="tt-row">
+                    <span class="tt-future">한 달 뒤 시험</span>
+                    <span class="tt-arr">→</span>
+                    <span class="tt-action">오늘 저녁 8시에 문제 3개 풀기</span>
+                </div>
+                <div class="tt-row">
+                    <span class="tt-future">언젠가 완성할 포트폴리오</span>
+                    <span class="tt-arr">→</span>
+                    <span class="tt-action">지금 대표 작업물 하나 고르기</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 미루기 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 시간이 흐려지면 미루기가 생긴다</div>
+            <h2 class="sec-title">시간을 믿지 말고<br>시작점을 만들어라</h2>
+            <p class="sec-lead">
+                ADHD 미루기는 의지 문제가 아니라 시작 지점이 보이지 않는 상태다.
+                막판에 몰아치는 방식은 실제로 일을 끝내게도 하지만, 반복되면 대가가 크다.
+            </p>
+
+            <!-- 자기합리화 -->
+            <div class="self-justify-cards">
+                <div class="sj-card">💬 "나는 원래 막판에 해야 잘해"</div>
+                <div class="sj-card">💬 "압박이 있어야 집중돼"</div>
+                <div class="sj-card">💬 "아직은 시작할 때가 아니야"</div>
+            </div>
+
+            <!-- 대가 -->
+            <ul class="cost-list">
+                <li>⚡ 늘 위기 모드로 살아야 한다</li>
+                <li>😴 수면이 줄고 몸이 긴장한다</li>
+                <li>😩 탈진 후 자기비난이 따라온다</li>
+            </ul>
+
+            <div class="start-table">
+                <div class="start-head">
+                    <span>❌ 시작점이 없는 과제</span>
+                    <span></span>
+                    <span>✓ 시작점이 있는 행동</span>
+                </div>
+                <div class="start-row">
+                    <span class="s-big">보고서 쓰기</span>
+                    <span class="s-arr">→</span>
+                    <span class="s-small">문서 파일 열기</span>
+                </div>
+                <div class="start-row">
+                    <span class="s-big">시험공부 하기</span>
+                    <span class="s-arr">→</span>
+                    <span class="s-small">책상에 앉아 문제집 펴기</span>
+                </div>
+                <div class="start-row">
+                    <span class="s-big">방 정리하기</span>
+                    <span class="s-arr">→</span>
+                    <span class="s-small">바닥에 있는 옷 하나 집기</span>
+                </div>
+            </div>
+
+            <div style="margin-top:16px;">
+                <div class="principle-box">시간을 믿지 말고, 시작점을 만들어라</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 시간 외부화 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 시간은 머릿속이 아니라 밖에 있어야 한다</div>
+            <h2 class="sec-title">머릿속 '나중에'를<br>종이 위의 '몇 시'로 바꾸기</h2>
+            <p class="sec-lead">
+                머릿속에 있는 시간은 쉽게 흐려진다. "나중에 해야지"는 사라지기 쉽다. ADHD 성향을 가진 사람에게 시간은 눈에 보여야 한다.
+            </p>
+
+            <div class="good-schedule-box">
+                <div class="gs-tag">좋은 시간표의 원칙</div>
+                <div class="gs-main">
+                    좋은 시간표는 빽빽한 시간표가 아니다.<br>
+                    <em>다음 행동이 보이는</em> 시간표다.
+                </div>
+            </div>
+
+            <div class="time-transform">
+                <div class="time-transform-head">
+                    <span>❌ 막연한 계획</span>
+                    <span></span>
+                    <span>✓ 구체적인 시간 블록</span>
+                </div>
+                <div class="time-row">
+                    <span class="t-vague">"오후에 공부하기"</span>
+                    <span class="t-arr">→</span>
+                    <span class="t-specific">오후 2시~2시10분<br>첫 문제 보기</span>
+                </div>
+                <div class="time-row">
+                    <span class="t-vague">"오늘 포트폴리오 하기"</span>
+                    <span class="t-arr">→</span>
+                    <span class="t-specific">오전 11시<br>대표 이미지 3개 고르기</span>
+                </div>
+                <div class="time-row">
+                    <span class="t-vague">"밤에 정리하기"</span>
+                    <span class="t-arr">→</span>
+                    <span class="t-specific">저녁 9시30분<br>쓰레기 3개 버리기</span>
+                </div>
+            </div>
+
+            <div class="checklist-3">
+                <div class="cl-item">
+                    <span class="cl-check">✓</span>
+                    <span class="cl-text">시작 시간이 있다</span>
+                </div>
+                <div class="cl-item">
+                    <span class="cl-check">✓</span>
+                    <span class="cl-text">종료 시간이 있다</span>
+                </div>
+                <div class="cl-item">
+                    <span class="cl-check">✓</span>
+                    <span class="cl-text">행동이 작고 구체적이다</span>
+                </div>
+            </div>
+
+            <div class="buffer-note">
+                <strong>완충 시간이 필요하다.</strong> 일정과 일정 사이의 빈틈은 낭비가 아니라 회복과 전환을 위한 공간이다. ADHD 성향을 가진 사람은 예상보다 일이 오래 걸리는 경우가 많다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">4장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        ADHD의 시간은 '지금'과 '지금 아님'으로 나뉜다 — 미래가 현재 감각으로 들어오지 않으면 실행되지 않는다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        사냥꾼의 시간감각 — 멀리 있는 목표는 흐릿하고, 눈앞 압박에 에너지가 살아난다. 미래를 오늘의 행동으로 번역해야 한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        미루기 = 시작점이 없는 상태. "공부하기"가 아니라 "책상에 앉아 문제집 펴기"처럼 시작점을 만들어야 한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        시간은 밖에 꺼내야 한다 — 시작/종료 시간 + 작고 구체적인 행동 + 일정 사이 완충 시간.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter5.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 05</div>
+                    <div class="nc-title">감정이 행동을 결정하지<br>않게 하는 법</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

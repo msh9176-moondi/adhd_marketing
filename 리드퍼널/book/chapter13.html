@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>13장: 호흡은 가장 빠른 브레이크다 | FLOCA</title>
+    <meta name="description" content="감정과 행동 사이에 호흡을 끼워 넣는 법. ADHD 성향을 위한 가장 빠른 감정 조절 도구, 호흡 대본을 만들어보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .know-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .know-list li {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .know-list li::before {
+            content: "•";
+            color: var(--red);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .but-line {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            margin-top: 4px;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .insight-box {
+            padding: 14px 16px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* 감정→행동 빠른 반응 카드 */
+        .reaction-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .reaction-card {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--red-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .rc-emotion {
+            flex: 1;
+            padding: 12px 16px;
+            background: var(--red-soft);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .rc-arr {
+            padding: 0 10px;
+            font-size: 14px;
+            color: var(--text-mute);
+            background: var(--red-soft);
+            display: flex;
+            align-items: center;
+            align-self: stretch;
+        }
+
+        .rc-action {
+            flex: 1;
+            padding: 12px 16px;
+            background: rgba(220,38,38,0.03);
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        /* 핵심 인사이트 박스 */
+        .key-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .key-box .kb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .key-box p {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        /* 질문 목록 */
+        .question-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 24px;
+        }
+
+        .question-list li {
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+            word-break: keep-all;
+        }
+
+        .question-list li::before {
+            content: "❓ ";
+        }
+
+        /* 구분 박스 */
+        .distinction-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .dist-card {
+            border-radius: 12px;
+            padding: 16px 14px;
+            text-align: center;
+        }
+
+        .dist-card.red-side {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+        }
+
+        .dist-card.teal-side {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .dist-card .d-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .dist-card.red-side .d-tag { color: var(--red); }
+        .dist-card.teal-side .d-tag { color: var(--accent); }
+
+        .dist-card .d-text {
+            font-size: 14px;
+            font-weight: 700;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .dist-card.red-side .d-text { color: #c53030; }
+        .dist-card.teal-side .d-text { color: var(--text); }
+
+        /* 호흡 상태 그리드 */
+        .breath-states {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .bs-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bs-state {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--red);
+            min-width: 90px;
+            flex-shrink: 0;
+        }
+
+        .bs-arr {
+            font-size: 12px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+        }
+
+        .bs-effect {
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        /* 얕은 호흡 결과 체인 */
+        .shallow-chain {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 24px;
+        }
+
+        .sc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 12px;
+        }
+
+        .sc-flow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .sc-step {
+            font-size: 13px;
+            font-weight: 600;
+            color: #c53030;
+            background: rgba(220,38,38,0.08);
+            border-radius: 6px;
+            padding: 5px 10px;
+        }
+
+        .sc-conn {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        /* 결과 목록 */
+        .result-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 24px;
+        }
+
+        .result-list li {
+            padding: 11px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+        }
+
+        /* 코호흡 원리 */
+        .nasal-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .nasal-box .nb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .nasal-box p {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* 실용 적용 목록 */
+        .apply-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .apply-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+            word-break: keep-all;
+        }
+
+        .apply-list li .al-when {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--red);
+            flex-shrink: 0;
+            min-width: 80px;
+        }
+
+        .apply-list li .al-how {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+
+        /* 리듬 박스 */
+        .rhythm-box {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .rhythm-box .rb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 14px;
+        }
+
+        .rhythm-steps {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .rs-step {
+            flex: 1;
+            min-width: 100px;
+            text-align: center;
+            padding: 14px 10px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+        }
+
+        .rs-step .rs-num {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+        }
+
+        .rs-step .rs-label {
+            font-size: 11px;
+            color: var(--text-mute);
+            margin-top: 3px;
+        }
+
+        .rs-conn {
+            font-size: 14px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+        }
+
+        /* 7단계 호흡 대본 */
+        .script-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .ss-step {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 13px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ss-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ss-text {
+            font-size: 14px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        /* 예시 2개 카드 */
+        .example-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .ex-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ex-card-head {
+            padding: 10px 16px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .ex-card-head.anxiety {
+            background: rgba(239,68,68,0.08);
+            color: var(--red);
+        }
+
+        .ex-card-head.irritation {
+            background: rgba(249,115,22,0.08);
+            color: #ea580c;
+        }
+
+        .ex-card-body {
+            padding: 14px 16px;
+            background: var(--bg);
+        }
+
+        .ex-row {
+            display: grid;
+            grid-template-columns: 70px 1fr;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+
+        .ex-row:last-child { margin-bottom: 0; }
+
+        .ex-key {
+            color: var(--text-mute);
+            font-weight: 600;
+        }
+
+        .ex-val {
+            color: var(--text-sub);
+        }
+
+        /* 경고 박스 */
+        .warning-box {
+            background: rgba(251,146,60,0.07);
+            border: 1px solid rgba(251,146,60,0.25);
+            border-radius: 14px;
+            padding: 18px 20px;
+        }
+
+        .warning-box .wb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #ea580c;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .warning-box p strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* 전환 지점 타임라인 */
+        .transition-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .tl-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tl-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+
+        .tl-when {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .tl-what {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        /* 일상 3호흡 */
+        .daily-breaths {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .db-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 14px;
+        }
+
+        .db-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .db-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--bg);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .db-item .db-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* 신호 메시지 */
+        .signals {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .signal-item {
+            padding: 14px 18px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        /* 요약 */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .summary-section { padding: 48px 0 72px; }
+            .rhythm-steps { flex-direction: column; }
+            .rs-step { min-width: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter12.html" class="nav-back">← 12장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 4부 · 몸-뇌 회복 기반 만들기</div>
+            <div class="chapter-num">CHAPTER 13</div>
+            <h1>호흡은 가장 빠른 <em>브레이크</em>다</h1>
+
+            <div class="empathy-block">
+                <ul class="know-list">
+                    <li>불안이 올라온다</li>
+                    <li>충동이 튀어나온다</li>
+                    <li>짜증은 말을 빠르게 만든다</li>
+                    <li>무기력이 몸을 무겁게 만든다</li>
+                </ul>
+                <p class="but-line">그 순간 가장 가까운 곳에 있는 조절 도구가 있다. <strong>바로 호흡이다.</strong></p>
+                <div class="insight-box">ADHD 성향에게 호흡은 감정과 행동 사이에 끼워 넣을 수 있는 가장 빠른 브레이크다.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 감정-행동 사이 틈 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 감정과 행동 사이의 틈</div>
+            <h2 class="sec-title">감정과 행동이 붙어 있으면<br>선택할 시간이 사라진다</h2>
+            <p class="sec-lead">
+                ADHD 성향에게 어려운 것은 감정이 있다는 사실 자체가 아니다. 문제는 감정이 올라온 뒤 행동까지 이어지는 속도가 너무 빠를 때 생긴다.
+            </p>
+
+            <div class="reaction-grid">
+                <div class="reaction-card">
+                    <div class="rc-emotion">불안하다</div>
+                    <div class="rc-arr">→</div>
+                    <div class="rc-action">바로 피한다</div>
+                </div>
+                <div class="reaction-card">
+                    <div class="rc-emotion">짜증난다</div>
+                    <div class="rc-arr">→</div>
+                    <div class="rc-action">바로 말한다</div>
+                </div>
+                <div class="reaction-card">
+                    <div class="rc-emotion">지루하다</div>
+                    <div class="rc-arr">→</div>
+                    <div class="rc-action">바로 휴대폰을 본다</div>
+                </div>
+                <div class="reaction-card">
+                    <div class="rc-emotion">충동이 올라온다</div>
+                    <div class="rc-arr">→</div>
+                    <div class="rc-action">바로 결제한다</div>
+                </div>
+            </div>
+
+            <div class="key-box">
+                <div class="kb-label">핵심 원칙</div>
+                <p>ADHD 실행 시스템에는 감정과 행동 사이에 들어갈 짧은 틈이 필요하다. 호흡은 그 틈을 만드는 가장 빠른 방법이다.</p>
+            </div>
+
+            <p class="sec-lead">그 짧은 틈 안에서 다시 물을 수 있다.</p>
+
+            <ul class="question-list">
+                <li>지금 내가 느끼는 감정은 무엇인가?</li>
+                <li>이 감정이 나에게 시키는 행동은 무엇인가?</li>
+                <li>그 행동을 바로 해야 하는가?</li>
+                <li>10분만 늦추고 다른 선택을 할 수 있는가?</li>
+            </ul>
+
+            <div class="distinction-box">
+                <div class="dist-card red-side">
+                    <div class="d-tag">❌ 호흡이 하는 것</div>
+                    <div class="d-text">감정을<br>없애지 않는다</div>
+                </div>
+                <div class="dist-card teal-side">
+                    <div class="d-tag">✓ 호흡이 만드는 것</div>
+                    <div class="d-text">선택할<br>시간을 만든다</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 얕은 호흡 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 얕고 빠른 호흡의 위험</div>
+            <h2 class="sec-title">더 많이 숨 쉰다고 항상<br>더 안정되는 것은 아니다</h2>
+            <p class="sec-lead">
+                감정이 올라오면 호흡은 조용히 바뀐다. 하루 종일 얕고 빠른 호흡 상태에 있으면 몸은 계속 반쯤 긴장한 상태가 된다.
+            </p>
+
+            <div class="breath-states">
+                <div class="bs-card">
+                    <div class="bs-state">불안할 때</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect">숨이 짧아진다</div>
+                </div>
+                <div class="bs-card">
+                    <div class="bs-state">긴장할 때</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect">어깨가 올라가고 가슴 위쪽으로만 쉰다</div>
+                </div>
+                <div class="bs-card">
+                    <div class="bs-state">화가 날 때</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect">호흡이 거칠어진다</div>
+                </div>
+                <div class="bs-card">
+                    <div class="bs-state">스마트폰 볼 때</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect">얕고 불규칙해진다</div>
+                </div>
+            </div>
+
+            <div class="shallow-chain">
+                <div class="sc-label">얕은 호흡의 연쇄 반응</div>
+                <div class="sc-flow">
+                    <span class="sc-step">얕은 호흡</span>
+                    <span class="sc-conn">→</span>
+                    <span class="sc-step">교감신경 자극</span>
+                    <span class="sc-conn">→</span>
+                    <span class="sc-step">경보 상태</span>
+                    <span class="sc-conn">→</span>
+                    <span class="sc-step">심박수 상승 + 혈관 수축</span>
+                </div>
+            </div>
+
+            <p style="font-size:13px;color:var(--text-mute);margin-bottom:14px;font-weight:600;letter-spacing:1px;">그 결과</p>
+            <ul class="result-list">
+                <li>작은 일도 크게 느껴진다</li>
+                <li>작은 지적에도 과잉반응한다</li>
+                <li>작은 과제도 위협처럼 느껴진다</li>
+                <li>해야 할 일을 떠올리는 것만으로 몸이 피곤해진다</li>
+            </ul>
+
+            <div class="key-box">
+                <div class="kb-label">더 나은 방향</div>
+                <p>때로는 더 느리게, 더 부드럽게, 더 적게 숨 쉬는 것이 몸을 안정시키는 방향이 된다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 코호흡과 긴 날숨 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 코호흡과 긴 날숨</div>
+            <h2 class="sec-title">날숨을 길게 —<br>그것이 브레이크다</h2>
+            <p class="sec-lead">
+                호흡을 조절한다고 하면 많은 사람이 "깊게 많이 들이마시기"를 떠올린다. 하지만 핵심은 다른 방향에 있다.
+            </p>
+
+            <div class="nasal-box">
+                <div class="nb-label">핵심 원칙</div>
+                <p>코로, 느리게, 부드럽게, 길게 내쉬는 것.<br>깊게 들이쉬고 더 길게 내쉴수록 심장은 더 천천히 뛰고 더 차분해진다.</p>
+            </div>
+
+            <ul class="apply-list">
+                <li>
+                    <span class="al-when">불안할 때</span>
+                    <span class="al-how">더 들이마시려 애쓰기보다 내쉬는 시간을 늘린다</span>
+                </li>
+                <li>
+                    <span class="al-when">짜증이 올라올 때</span>
+                    <span class="al-how">말하기 전에 한 번 길게 내쉰다</span>
+                </li>
+                <li>
+                    <span class="al-when">충동이 올라올 때</span>
+                    <span class="al-how">결제 버튼 누르기 전에 코로 들이쉬고 길게 내쉰다</span>
+                </li>
+                <li>
+                    <span class="al-when">잠들기 전</span>
+                    <span class="al-how">세게 조절하려 하기보다 부드럽게 반복한다</span>
+                </li>
+            </ul>
+
+            <div class="rhythm-box">
+                <div class="rb-label">5.5초 리듬 — 가장 효율적인 패턴</div>
+                <div class="rhythm-steps">
+                    <div class="rs-step">
+                        <span class="rs-num">5초</span>
+                        <div class="rs-label">들이쉰다</div>
+                    </div>
+                    <div class="rs-conn">→</div>
+                    <div class="rs-step">
+                        <span class="rs-num">5초</span>
+                        <div class="rs-label">내쉰다</div>
+                    </div>
+                    <div class="rs-conn">→</div>
+                    <div class="rs-step">
+                        <span class="rs-num">3회</span>
+                        <div class="rs-label">반복</div>
+                    </div>
+                    <div class="rs-conn">→</div>
+                    <div class="rs-step">
+                        <span class="rs-num">✓</span>
+                        <div class="rs-label">다시 선택</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 호흡 대본 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> ADHD를 위한 호흡 대본</div>
+            <h2 class="sec-title">감정이 올라온 순간,<br>"천천히 숨 쉬세요"는 너무 추상적이다</h2>
+            <p class="sec-lead">
+                ADHD 성향에게 호흡도 대본이 되어야 한다. 감정이 올라왔을 때 자동으로 실행할 수 있는 짧은 순서가 필요하다.
+            </p>
+
+            <div class="script-steps">
+                <div class="ss-step">
+                    <div class="ss-num">1</div>
+                    <div class="ss-text">멈춘다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">2</div>
+                    <div class="ss-text">감정을 한 단어로 적는다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">3</div>
+                    <div class="ss-text">감정 점수를 0~100으로 적는다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">4</div>
+                    <div class="ss-text">코로 숨을 들이쉰다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">5</div>
+                    <div class="ss-text">더 길게 내쉰다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">6</div>
+                    <div class="ss-text">3번 반복한다</div>
+                </div>
+                <div class="ss-step">
+                    <div class="ss-num">7</div>
+                    <div class="ss-text">지금 가능한 가장 작은 행동을 고른다</div>
+                </div>
+            </div>
+
+            <div class="example-cards">
+                <div class="ex-card">
+                    <div class="ex-card-head anxiety">예시 1 — 불안이 올라왔을 때</div>
+                    <div class="ex-card-body">
+                        <div class="ex-row">
+                            <span class="ex-key">감정</span>
+                            <span class="ex-val">불안</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">점수</span>
+                            <span class="ex-val">75점</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">호흡</span>
+                            <span class="ex-val">5초 들숨, 5초 날숨, 3회</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">작은 행동</span>
+                            <span class="ex-val">해야 할 일 하나만 종이에 쓰기</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">실행 시간</span>
+                            <span class="ex-val">10분</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ex-card">
+                    <div class="ex-card-head irritation">예시 2 — 짜증이 올라왔을 때</div>
+                    <div class="ex-card-body">
+                        <div class="ex-row">
+                            <span class="ex-key">감정</span>
+                            <span class="ex-val">짜증</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">점수</span>
+                            <span class="ex-val">80점</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">호흡</span>
+                            <span class="ex-val">길게 내쉬기 3회</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">작은 행동</span>
+                            <span class="ex-val">답장을 바로 보내지 않고 메모장에 먼저 쓰기</span>
+                        </div>
+                        <div class="ex-row">
+                            <span class="ex-key">재확인</span>
+                            <span class="ex-val">10분 뒤</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <div class="wb-label">⚠️ 주의</div>
+                <p>호흡 뒤에는 <strong>반드시 행동으로 돌아와야 한다.</strong> 호흡만 하다가 해야 할 일을 피하면, 호흡도 회피 대본의 일부가 될 수 있다. 호흡은 멈추기 위한 기술이면서 동시에 다시 시작하기 위한 기술이다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 전환 장치 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> 수면·감정·실행을 연결하는 전환 장치</div>
+            <h2 class="sec-title">하루의 전환 지점마다<br>짧게 들어가는 호흡</h2>
+            <p class="sec-lead">
+                호흡은 이 모든 요소를 연결하는 전환 장치가 될 수 있다. 대단한 수행이 필요 없다 — 하루의 전환 지점마다 짧게 3번이면 된다.
+            </p>
+
+            <div class="transition-list">
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div>
+                        <div class="tl-when">수면 전</div>
+                        <div class="tl-what">호흡이 하루를 닫는 신호가 된다</div>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div>
+                        <div class="tl-when">불안할 때</div>
+                        <div class="tl-what">감정과 행동 사이의 틈이 된다</div>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div>
+                        <div class="tl-when">충동이 올라올 때</div>
+                        <div class="tl-what">10분 지연의 시작점이 된다</div>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div>
+                        <div class="tl-when">작은 행동 시작 전</div>
+                        <div class="tl-what">진입 장벽을 낮춰준다</div>
+                    </div>
+                </div>
+                <div class="tl-item">
+                    <div class="tl-dot"></div>
+                    <div>
+                        <div class="tl-when">실행 후</div>
+                        <div class="tl-what">몸을 다시 안정시키는 마무리가 된다</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="daily-breaths">
+                <div class="db-label">하루 5번, 각 3회 호흡</div>
+                <div class="db-grid">
+                    <div class="db-item">
+                        <span class="db-icon">🌅</span>
+                        <span>아침에 물 마시기 전 3번</span>
+                    </div>
+                    <div class="db-item">
+                        <span class="db-icon">💻</span>
+                        <span>작업 시작 전 3번</span>
+                    </div>
+                    <div class="db-item">
+                        <span class="db-icon">💢</span>
+                        <span>감정이 올라올 때 3번</span>
+                    </div>
+                    <div class="db-item">
+                        <span class="db-icon">⚡</span>
+                        <span>충동이 올라올 때 3번</span>
+                    </div>
+                    <div class="db-item">
+                        <span class="db-icon">🌙</span>
+                        <span>잠들기 전 3번</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="signals">
+                <div class="signal-item">"이제 멈춘다."</div>
+                <div class="signal-item">"이제 다시 선택한다."</div>
+                <div class="signal-item">"이제 실행으로 돌아간다."</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">13장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        감정과 행동이 거의 붙어 있을 때 선택할 시간이 사라진다. 호흡은 그 사이에 들어가는 가장 빠른 브레이크다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        얕고 빠른 호흡은 교감신경을 자극해 몸을 경보 상태로 만든다 — 더 느리게, 더 길게 내쉬는 것이 회복 방향이다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        코로 들이쉬고, 길게 내쉬고, 3번 반복한다. 핵심은 완벽한 초가 아니라 몸을 회복 모드로 돌리는 것이다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        호흡도 대본이어야 한다 — 7단계 호흡 대본 후 반드시 작은 행동으로 돌아온다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter14.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 14</div>
+                    <div class="nc-title">장-뇌축 감정 안정 루틴</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

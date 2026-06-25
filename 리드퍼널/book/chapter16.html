@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>16장: 계획은 머리가 아니라 밖에 있어야 한다 | FLOCA</title>
+    <meta name="description" content="ADHD 사용자는 계획을 머릿속에 보관하면 안 됩니다. 포괄 목록과 오늘 목록을 나누고, 색깔 우선순위로 행동을 시작하세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+            --yellow: #d97706;
+            --yellow-soft: rgba(217,119,6,0.07);
+            --yellow-mid: rgba(217,119,6,0.18);
+            --green: #059669;
+            --green-soft: rgba(5,150,105,0.07);
+            --green-mid: rgba(5,150,105,0.18);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .know-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .know-list li {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .know-list li::before {
+            content: "💭";
+            flex-shrink: 0;
+        }
+
+        .but-line {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        .insight-box {
+            padding: 14px 16px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 두 패널: 머릿속 vs 밖 ===== */
+        .brain-vs-out {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .bvo-panel {
+            border-radius: 16px;
+            padding: 22px 18px;
+            text-align: center;
+        }
+
+        .bvo-panel.bad {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+        }
+
+        .bvo-panel.good {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .bvo-panel .bvo-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .bvo-panel .bvo-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .bvo-panel.bad .bvo-tag { color: var(--red); }
+        .bvo-panel.good .bvo-tag { color: var(--accent); }
+
+        .bvo-panel .bvo-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            word-break: keep-all;
+        }
+
+        .bvo-panel.bad .bvo-title { color: var(--red); }
+        .bvo-panel.good .bvo-title { color: var(--text); }
+
+        .bvo-panel .bvo-items {
+            list-style: none;
+            font-size: 12px;
+            color: var(--text-sub);
+            text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .bvo-panel.bad .bvo-items li::before { content: "✗ "; color: var(--red); }
+        .bvo-panel.good .bvo-items li::before { content: "✓ "; color: var(--accent); }
+
+        /* ===== 증발 흐름 ===== */
+        .evaporate-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .ef-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ef-item .ef-txt {
+            font-size: 13px;
+            color: var(--text-sub);
+            flex: 1;
+        }
+
+        .ef-item .ef-fade {
+            font-size: 11px;
+            color: var(--text-mute);
+            font-style: italic;
+        }
+
+        /* ===== 외부화 도구 그리드 ===== */
+        .tool-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tool-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 16px 14px;
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .tool-card .tc-icon {
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .tool-card h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .tool-card p {
+            font-size: 11px;
+            color: var(--text-mute);
+            line-height: 1.5;
+        }
+
+        /* ===== 목록 분리 ===== */
+        .list-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .ls-col {
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .ls-col.master {
+            background: rgba(107,114,128,0.05);
+            border: 1px solid rgba(107,114,128,0.15);
+        }
+
+        .ls-col.today {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .ls-col .ls-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .ls-col.master .ls-tag { color: var(--text-mute); }
+        .ls-col.today .ls-tag { color: var(--accent); }
+
+        .ls-col .ls-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .ls-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .ls-list li {
+            font-size: 12px;
+            padding: 6px 10px;
+            border-radius: 6px;
+        }
+
+        .ls-col.master .ls-list li {
+            color: var(--text-mute);
+            background: rgba(0,0,0,0.03);
+        }
+
+        .ls-col.today .ls-list li {
+            color: var(--text);
+            font-weight: 600;
+            background: rgba(15,158,142,0.06);
+        }
+
+        /* ===== 우선순위 색상 시스템 ===== */
+        .priority-system {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .p-row {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .p-color {
+            width: 6px;
+            flex-shrink: 0;
+        }
+
+        .p-row.red .p-color { background: var(--red); }
+        .p-row.yellow .p-color { background: var(--yellow); }
+        .p-row.green .p-color { background: var(--green); }
+
+        .p-body {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid var(--border-mid);
+            border-left: none;
+            border-radius: 0 12px 12px 0;
+            background: var(--bg);
+        }
+
+        .p-row.red .p-body { border-color: var(--red-mid); background: var(--red-soft); }
+        .p-row.yellow .p-body { border-color: var(--yellow-mid); background: var(--yellow-soft); }
+        .p-row.green .p-body { border-color: var(--green-mid); background: var(--green-soft); }
+
+        .p-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+        }
+
+        .p-row.red .p-label { color: var(--red); }
+        .p-row.yellow .p-label { color: var(--yellow); }
+        .p-row.green .p-label { color: var(--green); }
+
+        .p-def {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .p-example {
+            font-size: 12px;
+            color: var(--text-sub);
+        }
+
+        /* ===== 우선순위 예시 변환 ===== */
+        .priority-transform {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 24px;
+        }
+
+        .pt-before {
+            margin-bottom: 14px;
+        }
+
+        .pt-before .pt-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 8px;
+        }
+
+        .pt-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .pt-chip {
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 50px;
+            border: 1px solid var(--border-mid);
+            background: var(--bg);
+            color: var(--text-sub);
+        }
+
+        .pt-arrow {
+            text-align: center;
+            font-size: 18px;
+            margin: 10px 0;
+            color: var(--accent);
+        }
+
+        .pt-after-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .pt-badge {
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 50px;
+            flex-shrink: 0;
+        }
+
+        .pt-badge.red { background: var(--red-soft); color: var(--red); border: 1px solid var(--red-mid); }
+        .pt-badge.yellow { background: var(--yellow-soft); color: var(--yellow); border: 1px solid var(--yellow-mid); }
+        .pt-badge.green { background: var(--green-soft); color: var(--green); border: 1px solid var(--green-mid); }
+
+        .pt-action {
+            font-size: 13px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        /* ===== 수정 가능한 구조 ===== */
+        .redesign-box {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+        }
+
+        .redesign-box .rb-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 12px;
+        }
+
+        .check-row {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .check-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: var(--bg-gray);
+            border: 1px solid var(--border);
+            font-size: 13px;
+            color: var(--text-sub);
+        }
+
+        .check-item .ci-icon {
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        /* ===== 핵심 원칙 박스 ===== */
+        .key-principle {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 22px 20px;
+            margin-bottom: 24px;
+        }
+
+        .key-principle .kp-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .key-principle .kp-text {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text);
+            line-height: 1.5;
+            letter-spacing: -0.3px;
+            word-break: keep-all;
+        }
+
+        .key-principle .kp-text em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* ===== 핵심 요약 ===== */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-soft);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border-radius: 20px;
+            padding: 28px 24px;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 20px;
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 24px;
+            height: 24px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg);
+            border: 1.5px solid var(--accent-mid);
+            border-radius: 16px;
+            padding: 20px 22px;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .next-card:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+        }
+
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter15.html" class="nav-back">← 15장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../products.html" class="nav-cta">플래너 보기</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 5부 · ADHD 실행 시스템 완성하기</div>
+            <div class="chapter-num">CHAPTER 16</div>
+            <h1>계획은 머리가 아니라<br><em>밖에 있어야 한다</em></h1>
+
+            <div class="empathy-block">
+                <ul class="know-list">
+                    <li>기억해뒀다가 나중에 해야지</li>
+                    <li>이건 중요한 일이니까 잊지 않겠지</li>
+                    <li>머릿속으로 대충 순서 잡아두면 되겠지</li>
+                </ul>
+                <p class="but-line">그런데 조금 전까지 분명했던 일이 금방 사라진다.</p>
+                <div class="insight-box">
+                    ADHD 사용자는 계획을 머릿속에 보관하려고 하면 안 된다.<br>
+                    <strong>계획은 밖에 있어야 한다. 보여야 한다. 다시 볼 수 있어야 한다.</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 머릿속 계획은 쉽게 증발한다 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 머릿속 계획은 쉽게 증발한다</div>
+            <h2 class="sec-title">계획이 없는 게 아니다.<br>계획이 너무 많아서 문제다.</h2>
+            <p class="sec-lead">
+                ADHD 사용자의 머릿속에는 실제로 너무 많은 계획이 있다.
+                문제는 그 계획들이 한꺼번에 떠다니며 감정과 자극에 밀려난다는 것이다.
+            </p>
+
+            <div class="evaporate-flow">
+                <div class="ef-item">
+                    <span>🏃</span>
+                    <span class="ef-txt">운동해야 한다</span>
+                    <span class="ef-fade">→ 이따 해야지</span>
+                </div>
+                <div class="ef-item">
+                    <span>📚</span>
+                    <span class="ef-txt">영어 공부해야 한다</span>
+                    <span class="ef-fade">→ 조금만 쉬고</span>
+                </div>
+                <div class="ef-item">
+                    <span>💼</span>
+                    <span class="ef-txt">포트폴리오 해야 한다</span>
+                    <span class="ef-fade">→ 먼저 이것만</span>
+                </div>
+                <div class="ef-item">
+                    <span>🏠</span>
+                    <span class="ef-txt">방 정리해야 한다</span>
+                    <span class="ef-fade">→ 아, 뭘 하려고 했더라?</span>
+                </div>
+            </div>
+
+            <div class="brain-vs-out">
+                <div class="bvo-panel bad">
+                    <span class="bvo-icon">🌫️</span>
+                    <div class="bvo-tag">머릿속</div>
+                    <div class="bvo-title">계획이 증발한다</div>
+                    <ul class="bvo-items">
+                        <li>떠다니다 사라짐</li>
+                        <li>감정에 밀려남</li>
+                        <li>자극에 끌려감</li>
+                        <li>다시 볼 수 없음</li>
+                    </ul>
+                </div>
+                <div class="bvo-panel good">
+                    <span class="bvo-icon">📋</span>
+                    <div class="bvo-tag">밖으로 꺼낸 것</div>
+                    <div class="bvo-title">계획이 남아있다</div>
+                    <ul class="bvo-items">
+                        <li>눈에 보임</li>
+                        <li>다시 확인 가능</li>
+                        <li>순서를 잡을 수 있음</li>
+                        <li>실행으로 이어짐</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="key-principle">
+                <div class="kp-tag">핵심 원칙</div>
+                <div class="kp-text">
+                    머릿속 계획은 <em>쉽게 사라진다</em>.<br>
+                    밖으로 꺼낸 계획만 <em>다시 볼 수 있다</em>.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 외부화는 실행기능의 확장이다 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 외부화는 실행기능의 확장이다</div>
+            <h2 class="sec-title">포스트잇은 메모가 아니다.<br>외부 실행기능이다.</h2>
+            <p class="sec-lead">
+                계획을 밖으로 꺼낸다는 것은 단순히 메모를 잘하자는 말이 아니다.
+                ADHD 사용자의 실행기능을 <strong>머리 밖에 만드는 일</strong>이다.
+            </p>
+
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <span class="tc-icon">📇</span>
+                    <div>
+                        <h4>색인카드</h4>
+                        <p>손으로 써서 책상 위에. 오늘 행동 하나만.</p>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <span class="tc-icon">🗒️</span>
+                    <div>
+                        <h4>포스트잇</h4>
+                        <p>방문, 책상, 거울. 눈에 띄는 곳에 첫 행동.</p>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <span class="tc-icon">🗂️</span>
+                    <div>
+                        <h4>오늘 목록</h4>
+                        <p>가방 안에 넣어둔 오늘 카드. 꺼낼 수 있는 곳에.</p>
+                    </div>
+                </div>
+                <div class="tool-card">
+                    <span class="tc-icon">📋</span>
+                    <div>
+                        <h4>화이트보드</h4>
+                        <p>작업 공간 바로 앞에. 오늘의 첫 행동 하나.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                보이지 않는 계획은 없는 계획과 비슷하다.<br>
+                <strong>밖에 구조가 있어야 머릿속이 덜 복잡해진다.</strong><br>
+                머릿속이 덜 복잡해야 자유롭게 움직일 수 있다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 포괄 목록과 일일 목록 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 포괄 목록과 일일 목록을 분리한다</div>
+            <h2 class="sec-title">인생 전체와 오늘을<br>같은 종이에 쓰지 않는다</h2>
+            <p class="sec-lead">
+                모든 목표를 한 페이지에 몰아넣으면 플래너는 압도감의 벽이 된다.
+                <strong>포괄 목록</strong>(방향)과 <strong>오늘 목록</strong>(행동)을 반드시 나눠야 한다.
+            </p>
+
+            <div class="list-split">
+                <div class="ls-col master">
+                    <div class="ls-tag">📦 포괄 목록</div>
+                    <div class="ls-title">방향을 보여준다</div>
+                    <ul class="ls-list">
+                        <li>포트폴리오 완성</li>
+                        <li>운동 루틴 만들기</li>
+                        <li>영어 회화 공부</li>
+                        <li>병원 알아보기</li>
+                        <li>돈 관리하기</li>
+                        <li>수면 루틴 회복</li>
+                    </ul>
+                </div>
+                <div class="ls-col today">
+                    <div class="ls-tag">✅ 오늘 목록</div>
+                    <div class="ls-title">행동을 시작하게 한다</div>
+                    <ul class="ls-list">
+                        <li>폴더 열고 이미지 1개</li>
+                        <li>운동화 신기</li>
+                        <li>영어 문장 3개 읽기</li>
+                        <li>병원 이름 1개 검색</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                포괄 목록은 <strong>방향</strong>을 보여준다.<br>
+                오늘 목록은 <strong>행동을 시작</strong>하게 한다.<br>
+                이 둘이 섞이면 "해야 할 일은 많은데 무엇부터 할지 모르는 상태"가 된다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 우선순위는 보이게 만들어야 한다 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 우선순위는 보이게 만들어야 한다</div>
+            <h2 class="sec-title">오래 고민하지 말고<br>색깔로 줄여라</h2>
+            <p class="sec-lead">
+                ADHD 사용자는 우선순위를 머릿속으로 오래 고민하다가 멈출 수 있다.
+                우선순위는 판단하는 것이 아니라 <strong>눈앞에 보이게 표시</strong>하는 것이다.
+            </p>
+
+            <div class="priority-system">
+                <div class="p-row red">
+                    <div class="p-color"></div>
+                    <div class="p-body">
+                        <div class="p-label">🔴 빨강</div>
+                        <div class="p-def">오늘 반드시 봐야 할 것</div>
+                        <div class="p-example">최대 1~2개만. 전부 빨강이면 아무것도 시작 못 한다.</div>
+                    </div>
+                </div>
+                <div class="p-row yellow">
+                    <div class="p-color"></div>
+                    <div class="p-body">
+                        <div class="p-label">🟡 노랑</div>
+                        <div class="p-def">하면 좋은 것</div>
+                        <div class="p-example">에너지가 조금 있으면 여기로. 빨강 뒤에 온다.</div>
+                    </div>
+                </div>
+                <div class="p-row green">
+                    <div class="p-color"></div>
+                    <div class="p-body">
+                        <div class="p-label">🟢 초록</div>
+                        <div class="p-def">에너지가 남으면 할 것</div>
+                        <div class="p-example">컨디션이 좋은 날. 없어도 오늘은 충분하다.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="priority-transform">
+                <div class="pt-before">
+                    <div class="pt-tag">원래 목록 (전부 급해 보임)</div>
+                    <div class="pt-items">
+                        <span class="pt-chip">포트폴리오</span>
+                        <span class="pt-chip">운동</span>
+                        <span class="pt-chip">영어 공부</span>
+                        <span class="pt-chip">방 정리</span>
+                        <span class="pt-chip">블로그</span>
+                        <span class="pt-chip">병원 검색</span>
+                    </div>
+                </div>
+                <div class="pt-arrow">↓</div>
+                <div>
+                    <div class="pt-tag" style="margin-bottom:10px;">색깔 표시 후 (줄어든다)</div>
+                    <div class="pt-after-row">
+                        <span class="pt-badge red">빨강</span>
+                        <span class="pt-action">포트폴리오 폴더 열고 이미지 1개 고르기</span>
+                    </div>
+                    <div class="pt-after-row">
+                        <span class="pt-badge yellow">노랑</span>
+                        <span class="pt-action">운동화 신고 10분 걷기 / 영어 문장 3개</span>
+                    </div>
+                    <div class="pt-after-row">
+                        <span class="pt-badge green">초록</span>
+                        <span class="pt-action">블로그 제목 후보 3개 / 책상 위 컵 치우기</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 수정 가능한 구조 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> 계획은 수정 가능한 구조다</div>
+            <h2 class="sec-title">무너졌다면 실패가 아니라<br>수정할 차례다</h2>
+            <p class="sec-lead">
+                계획은 한 번 세우고 끝나는 것이 아니다.
+                ADHD 사용자의 하루에는 늘 변수가 들어온다.
+                계획은 자기평가 도구가 아니라 <strong>조건을 찾는 실험 기록</strong>이다.
+            </p>
+
+            <div class="redesign-box">
+                <div class="rb-tag">계획이 무너졌을 때 물어볼 것</div>
+                <div class="check-row">
+                    <div class="check-item">
+                        <span class="ci-icon">📏</span>
+                        너무 많이 적었나?
+                    </div>
+                    <div class="check-item">
+                        <span class="ci-icon">⏱️</span>
+                        시간을 너무 짧게 잡았나?
+                    </div>
+                    <div class="check-item">
+                        <span class="ci-icon">🔍</span>
+                        첫 행동이 너무 컸나?
+                    </div>
+                    <div class="check-item">
+                        <span class="ci-icon">🛡️</span>
+                        완충시간이 없었나?
+                    </div>
+                    <div class="check-item">
+                        <span class="ci-icon">💬</span>
+                        감정 상태를 반영하지 않았나?
+                    </div>
+                    <div class="check-item">
+                        <span class="ci-icon">🎁</span>
+                        보상이 실행 전에 와버렸나?
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-principle">
+                <div class="kp-tag">핵심 질문</div>
+                <div class="kp-text">
+                    "나는 왜 계획을 못 지킬까?"가 아니라<br>
+                    <em>"내 계획은 지금 밖에 보이게 나와 있는가?"</em>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">16장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        ADHD 사용자는 계획을 머릿속에 보관하면 쉽게 놓친다 — 계획, 기억, 우선순위는 반드시 밖으로 꺼내야 한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        포스트잇·색인카드·화이트보드는 단순한 메모가 아니라 외부 실행기능이다 — 보이지 않는 계획은 없는 계획과 같다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        포괄 목록(방향)과 오늘 목록(행동)을 나눠라 — 섞이면 압도감만 생긴다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        우선순위는 빨강·노랑·초록으로 단순하게. 빨강은 1~2개만. 계획은 수정 가능한 구조다, 무너졌다면 재설계할 차례다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter17.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 17</div>
+                    <div class="nc-title">ADHD 사용자는<br>플래너를 이렇게 써야한다</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

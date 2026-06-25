@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11장: ADHD 뇌에 필요한 에너지 안정성 | FLOCA</title>
+    <meta name="description" content="실행력은 의지만의 문제가 아닙니다. 몸의 에너지 공급이 흔들리면 가장 작은 행동조차 버겁게 느껴질 수 있습니다.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== 진행 바 ===== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        /* ===== 공통 컨테이너 ===== */
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #ea6c0a;
+            background: rgba(249,115,22,0.08);
+            border: 1px solid rgba(249,115,22,0.22);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* 공감 블록 */
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid #f97316;
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .know-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .know-list li {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .know-list li::before {
+            content: "✓";
+            color: #f97316;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .but-line {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            margin-top: 4px;
+            margin-bottom: 12px;
+        }
+
+        .self-blame-box {
+            padding: 14px 16px;
+            background: rgba(239,68,68,0.06);
+            border: 1px solid rgba(239,68,68,0.15);
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 12px;
+        }
+
+        .new-q-box {
+            padding: 14px 16px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        /* ===== 섹션 ===== */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* 연결 박스 */
+        .info-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+
+        .info-box .ib-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        /* 나쁜 날 시나리오 */
+        .bad-day-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+        }
+
+        .bad-day-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bad-day-result {
+            padding: 14px 18px;
+            background: rgba(239,68,68,0.05);
+            border: 1px solid rgba(239,68,68,0.15);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #b91c1c;
+            margin-bottom: 20px;
+        }
+
+        .reframe-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid var(--border-mid);
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .reframe-box strong { color: var(--text); font-weight: 700; }
+
+        /* 혈당 흐름 */
+        .blood-sugar-box {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .bs-row {
+            display: flex;
+            align-items: stretch;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .bs-row:last-child { border-bottom: none; }
+
+        .bs-cause {
+            flex: 1;
+            padding: 14px 16px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+        }
+
+        .bs-arr {
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            font-size: 12px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .bs-effect {
+            flex: 1.2;
+            padding: 14px 16px;
+            font-size: 13px;
+        }
+
+        .bs-effect.good { color: var(--accent); font-weight: 600; }
+        .bs-effect.bad { color: #dc2626; font-weight: 600; }
+
+        .warn-flow {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.25);
+            border-radius: 12px;
+            padding: 16px 18px;
+            font-size: 13px;
+            color: #92400e;
+            line-height: 1.8;
+        }
+
+        .warn-flow strong { font-weight: 700; }
+
+        /* 개념 카드 */
+        .concept-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .concept-card {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .concept-card .cc-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .concept-card .cc-body {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        /* 롤러코스터 */
+        .roller-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+        }
+
+        .rf-step {
+            padding: 12px 18px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .rf-step:last-child { border-bottom: none; }
+
+        .rf-step.start { background: rgba(239,68,68,0.04); color: #b91c1c; }
+        .rf-step.mid { background: rgba(251,191,36,0.06); color: #92400e; }
+        .rf-step.end { background: rgba(239,68,68,0.08); color: #dc2626; }
+
+        .exec-impact {
+            background: var(--bg-gray);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 0;
+        }
+
+        .exec-impact .ei-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 12px;
+        }
+
+        .exec-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 14px;
+        }
+
+        .exec-list li {
+            padding: 10px 14px;
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.1);
+            border-radius: 8px;
+            font-size: 13px;
+            color: #c53030;
+        }
+
+        .exec-conclusion {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            padding-top: 12px;
+            border-top: 1px solid var(--border-mid);
+        }
+
+        /* 골격근 */
+        .muscle-box {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .muscle-flow {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 4px;
+        }
+
+        .muscle-step {
+            padding: 8px 14px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .muscle-arr {
+            font-size: 13px;
+            color: var(--text-mute);
+        }
+
+        .muscle-note {
+            margin-top: 12px;
+            font-size: 13px;
+            color: var(--text-sub);
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .move-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .move-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 16px 14px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .move-card .mc-icon { font-size: 24px; display: block; margin-bottom: 6px; }
+        .move-card .mc-text { font-size: 13px; font-weight: 600; color: var(--text-sub); }
+
+        /* 에너지 루틴 원칙 */
+        .principle-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .principle-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 18px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .p-num {
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .p-content h4 {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .p-content p {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* 데일리 체크 */
+        .check-box {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 22px 20px;
+            border: 1px solid var(--border-mid);
+        }
+
+        .check-box .cb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .check-q-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .check-q-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            word-break: keep-all;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .check-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 1.5px solid var(--accent-mid);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* ===== 요약 ===== */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* 다음 챕터 */
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ===== 모바일 ===== */
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .summary-section { padding: 48px 0 72px; }
+            .move-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- 네비게이션 -->
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter10.html" class="nav-back">← 10장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 4부 · 몸-뇌 회복 기반 만들기</div>
+            <div class="chapter-num">CHAPTER 11</div>
+            <h1>ADHD 뇌에 필요한<br><em>에너지 안정성</em></h1>
+
+            <div class="empathy-block">
+                <ul class="know-list">
+                    <li>대본도 알고 있다</li>
+                    <li>무엇을 해야 하는지도 안다</li>
+                    <li>가장 작은 행동도 정해두었다</li>
+                </ul>
+                <p class="but-line">그런데 몸이 너무 무겁다. 책상에 앉는 것조차 어렵다.</p>
+                <div class="self-blame-box">"나는 역시 의지가 약해."</div>
+                <div class="new-q-box">→ "오늘 내 몸은 실행할 에너지를 안정적으로 공급받고 있는가?"</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 실행력은 에너지 문제 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 실행력은 의지만이 아니라 에너지 문제이기도 하다</div>
+            <h2 class="sec-title">몸의 연료가 흔들리면<br>실행 대본도 흔들린다</h2>
+            <p class="sec-lead">
+                계획을 세우고, 감정을 조절하고, 충동을 멈추는 모든 과정에는 에너지가 필요하다.
+                같은 대본이어도 몸 상태에 따라 결과가 달라질 수 있다.
+            </p>
+
+            <div class="info-box">
+                <div class="ib-label">핵심 연결</div>
+                <p>계획을 세우고, 감정을 조절하고, 충동을 멈추고, 10분을 버티는 모든 과정에는 에너지가 필요하다.</p>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text-mute);margin-bottom:10px;">이런 날이 겹치면</div>
+            <ul class="bad-day-list">
+                <li>😴 잠을 못 잤다</li>
+                <li>🍬 혈당이 출렁인다</li>
+                <li>🪑 몸이 오래 앉아있었다</li>
+                <li>🍽️ 식사가 불안정하다</li>
+                <li>😰 스트레스가 높다</li>
+            </ul>
+
+            <div class="bad-day-result">
+                → 같은 대본이어도 작은 행동조차 버겁게 느껴진다
+            </div>
+
+            <div class="reframe-box">
+                <strong>몸 상태를 실행 조건의 일부로 보자.</strong><br>
+                피로와 무기력은 의지 부족의 증거가 아니다. 몸이 보내는 신호일 수 있다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 뇌의 연료 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 뇌는 안정적인 연료를 필요로 한다</div>
+            <h2 class="sec-title">"왜 이렇게 집중이 안 되지?"<br>→ 뇌 연료를 확인하라</h2>
+            <p class="sec-lead">
+                "오늘 내 뇌는 안정적인 연료를 받고 있는가?" — 이 질문 하나가 집중 문제의 절반을 설명할 수 있다.
+            </p>
+
+            <div class="info-box" style="margin-bottom:16px;">
+                <div class="ib-label">뇌 에너지 경로</div>
+                <p>포도당 → ATP → 세포가 일하는 에너지. 뇌는 혈당 안정성에 특히 민감하다.</p>
+            </div>
+
+            <div class="blood-sugar-box">
+                <div class="bs-row">
+                    <div class="bs-cause">혈당 안정적</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect good">예측 가능한 에너지 → 집중 가능</div>
+                </div>
+                <div class="bs-row">
+                    <div class="bs-cause">혈당 급상승</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect bad">잠깐 에너지 느낌 → 급격한 추락 예고</div>
+                </div>
+                <div class="bs-row">
+                    <div class="bs-cause">혈당 급하강</div>
+                    <div class="bs-arr">→</div>
+                    <div class="bs-effect bad">집중 흐려짐 + 감정 예민 + 피로감 증가</div>
+                </div>
+            </div>
+
+            <div class="warn-flow">
+                ⚠️ <strong>흔한 패턴:</strong> 아침을 단순당으로 빠르게 먹고 → 점심 전 커피로 버티다 → 오후에 급격히 피로해지는 패턴<br>
+                → 이건 의지 문제가 아닐 수 있다
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 인슐린 저항성 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 인슐린 저항성과 혈당 롤러코스터</div>
+            <h2 class="sec-title">에너지가 있어도<br>제대로 쓰지 못하는 상태</h2>
+            <p class="sec-lead">
+                혈당이 충분해도 세포가 에너지를 제대로 꺼내 쓰지 못하는 상태가 있다.
+                이 상태가 실행력을 갉아먹는다.
+            </p>
+
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <div class="cc-title">인슐린 저항성</div>
+                    <div class="cc-body">인슐린이 제 기능을 못 하거나 작동 능력이 떨어진 상태 → 혈당 처리에 지장이 생겨 에너지 활용이 불안정해진다</div>
+                </div>
+                <div class="concept-card">
+                    <div class="cc-title">대사유연성 저하</div>
+                    <div class="cc-body">몸이 포도당과 지방을 유연하게 꺼내 쓰는 능력이 저하된 상태 → 자주 먹고 싶어지고, 식사 간격이 짧아지며, 쉽게 피로해진다</div>
+                </div>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text-mute);margin-bottom:10px;">혈당 롤러코스터 단계</div>
+            <div class="roller-flow">
+                <div class="rf-step start">🍞 단순당 / 정제탄수 섭취</div>
+                <div class="rf-step mid">📈 혈당 스파이크</div>
+                <div class="rf-step mid">💉 인슐린 과다 분비</div>
+                <div class="rf-step end">📉 급격한 혈당 하강</div>
+                <div class="rf-step end">😩 피로 + 감정 예민 + 단 것 갈망</div>
+            </div>
+
+            <div class="exec-impact">
+                <div class="ei-label">실행력에 미치는 영향</div>
+                <ul class="exec-list">
+                    <li>"책상에 앉기"도 귀찮다</li>
+                    <li>"10분만 하기"도 길게 느껴진다</li>
+                    <li>"호흡하고 다시 선택하기"도 번거롭다</li>
+                </ul>
+                <div class="exec-conclusion">에너지 안정성은 실행 대본의 바닥이다. 바닥이 흔들리면 대본도 흔들린다.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 골격근 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 골격근은 혈당을 처리하는 실행력의 숨은 기반이다</div>
+            <h2 class="sec-title">운동은 몸매 이전에<br>뇌 연료를 효율화하는 일이다</h2>
+            <p class="sec-lead">
+                골격근은 혈당을 처리하는 데 핵심적인 역할을 한다. 거창한 운동이 아니어도 된다.
+                식사 후 작은 움직임이 에너지 안정성을 만든다.
+            </p>
+
+            <div class="muscle-box">
+                <div class="muscle-flow">
+                    <span class="muscle-step">골격근</span>
+                    <span class="muscle-arr">→</span>
+                    <span class="muscle-step">식후 혈당 흡수</span>
+                    <span class="muscle-arr">→</span>
+                    <span class="muscle-step">ATP 생산</span>
+                </div>
+                <div class="muscle-note">식후 가벼운 산책만으로도 혈당 안정화에 효과적이다</div>
+            </div>
+
+            <div style="font-size:11px;font-weight:700;letter-spacing:2px;color:var(--text-mute);margin-bottom:12px;">지금 당장 할 수 있는 작은 움직임</div>
+            <div class="move-grid">
+                <div class="move-card">
+                    <span class="mc-icon">🚶</span>
+                    <div class="mc-text">식후 10분 걷기</div>
+                </div>
+                <div class="move-card">
+                    <span class="mc-icon">🪜</span>
+                    <div class="mc-text">계단 1층 걷기</div>
+                </div>
+                <div class="move-card">
+                    <span class="mc-icon">🌅</span>
+                    <div class="mc-text">아침 5분 산책</div>
+                </div>
+                <div class="move-card">
+                    <span class="mc-icon">🏋️</span>
+                    <div class="mc-text">스쿼트 5개</div>
+                </div>
+                <div class="move-card" style="grid-column: span 2;">
+                    <span class="mc-icon">👟</span>
+                    <div class="mc-text">운동복 입고 밖 나가기</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 에너지 안정 루틴 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> ADHD 뇌를 위한 에너지 안정 루틴</div>
+            <h2 class="sec-title">극단적인 식단이 아니라<br>혈당을 안정시키는 작은 원칙들</h2>
+            <p class="sec-lead">
+                완벽한 식단이 필요한 것이 아니다. 혈당을 흔들지 않는 작은 원칙을 꾸준히 지키는 것이 실행력의 기반이 된다.
+            </p>
+
+            <ul class="principle-list">
+                <li class="principle-item">
+                    <span class="p-num">1</span>
+                    <div class="p-content">
+                        <h4>단순당과 정제 탄수화물을 줄인다</h4>
+                        <p>혈당이 빠르게 오르고 떨어지는 식사는 실행력을 흔든다</p>
+                    </div>
+                </li>
+                <li class="principle-item">
+                    <span class="p-num">2</span>
+                    <div class="p-content">
+                        <h4>탄수화물은 단백질 + 식이섬유와 함께 먹는다</h4>
+                        <p>혈당 흐름이 더 안정적이 된다</p>
+                    </div>
+                </li>
+                <li class="principle-item">
+                    <span class="p-num">3</span>
+                    <div class="p-content">
+                        <h4>식후에 몸을 조금 움직인다</h4>
+                        <p>거창한 운동이 아니어도 된다 — 10분 산책으로 충분하다</p>
+                    </div>
+                </li>
+                <li class="principle-item">
+                    <span class="p-num">4</span>
+                    <div class="p-content">
+                        <h4>하루 중 에너지가 안정적인 시간을 파악한다</h4>
+                        <p>중요한 일은 그 시간에 배치한다 — 에너지가 가장 낮은 시간에 억지로 밀어넣지 않는다</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="check-box">
+                <div class="cb-label">오늘의 에너지 점검</div>
+                <ul class="check-q-list">
+                    <li><div class="check-dot"></div>나는 오늘 뇌가 쓸 연료를 안정적으로 공급했는가?</li>
+                    <li><div class="check-dot"></div>단순당으로 급하게 버티고 있지는 않은가?</li>
+                    <li><div class="check-dot"></div>식후에 10분이라도 움직였는가?</li>
+                    <li><div class="check-dot"></div>중요한 일을 에너지가 가장 낮은 시간에 억지로 배치하고 있지는 않은가?</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">11장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        실행력은 의지만의 문제가 아니다 — 몸의 에너지 공급이 흔들리면 가장 작은 행동조차 버겁게 느껴질 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        뇌는 혈당 안정성에 민감하다 — 혈당이 급격히 오르고 떨어지면 집중력, 감정조절, 피로감이 흔들린다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        인슐린 저항성/대사유연성 저하 → 에너지가 있어도 쓰기 어려운 상태. 단순당 식사 패턴이 이를 악화시킬 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        에너지 안정 루틴: 단순당 줄이기 + 단백질·식이섬유 함께 먹기 + 식후 움직이기 + 에너지 리듬 파악하기.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter12.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 12</div>
+                    <div class="nc-title">수면은 뇌의 야간 복구 작업이다</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

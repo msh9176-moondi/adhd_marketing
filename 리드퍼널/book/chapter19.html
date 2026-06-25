@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>19장: ADHD를 없애는 것이 아니라 작동조건을 만든다 | FLOCA</title>
+    <meta name="description" content="ADHD를 없애는 것이 목표가 아닙니다. 나의 뇌가 잘 작동하는 시간·감정·보상·몸·환경 조건을 찾아 설계하세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== 진행 바 ===== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        /* ===== 공통 컨테이너 ===== */
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-intro {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .hero-intro p {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            word-break: keep-all;
+        }
+
+        .hero-intro .final-statement {
+            margin-top: 16px;
+            padding: 14px 16px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            word-break: keep-all;
+        }
+
+        /* ===== 섹션 ===== */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 01 결함이 아니다 ===== */
+        .adhd-type-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .adhd-type-card {
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .adhd-type-card.strength {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .adhd-type-card.struggle {
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.12);
+        }
+
+        .adhd-type-card .type-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .adhd-type-card.strength .type-tag { color: var(--accent); }
+        .adhd-type-card.struggle .type-tag { color: #dc2626; }
+
+        .adhd-type-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .adhd-type-card ul li {
+            font-size: 13px;
+            font-weight: 600;
+            word-break: keep-all;
+        }
+
+        .adhd-type-card.strength ul li { color: var(--text); }
+        .adhd-type-card.struggle ul li { color: #c53030; }
+
+        .adhd-is-box {
+            background: var(--bg);
+            border: 1.5px solid var(--accent);
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+        }
+
+        .adhd-is-box .tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .adhd-is-box .statement {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+            letter-spacing: -0.3px;
+        }
+
+        .adhd-is-box .statement em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* ===== 02 조건 문제 ===== */
+        .question-shift {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .qs-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 18px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .qs-row:last-child { border-bottom: none; }
+
+        .qs-old {
+            flex: 1;
+            font-size: 13px;
+            color: #dc2626;
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.12);
+            border-radius: 8px;
+            padding: 9px 12px;
+            word-break: keep-all;
+        }
+
+        .qs-arr {
+            font-size: 14px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+        }
+
+        .qs-new {
+            flex: 1;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 8px;
+            padding: 9px 12px;
+            word-break: keep-all;
+        }
+
+        .condition-example {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ce-head {
+            background: var(--bg-soft);
+            padding: 10px 18px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .ce-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 11px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .ce-item:last-child { border-bottom: none; }
+
+        .ce-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .ce-text {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* ===== 03 다섯 가지 조건 ===== */
+        .five-conditions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+
+        .condition-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cond-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .cond-body {}
+
+        .cond-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            margin-bottom: 4px;
+        }
+
+        .cond-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .cond-desc {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .condition-table-wrap {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .ct-head {
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr;
+            background: var(--bg-soft);
+            padding: 10px 16px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .ct-head span {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+        }
+
+        .ct-row {
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr;
+            padding: 12px 16px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+            align-items: center;
+        }
+
+        .ct-row:last-child { border-bottom: none; }
+
+        .ct-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .ct-question {
+            font-size: 12px;
+            color: var(--text-sub);
+            line-height: 1.55;
+            word-break: keep-all;
+        }
+
+        .ct-blank {
+            height: 28px;
+            background: var(--bg-gray);
+            border: 1px dashed var(--border-mid);
+            border-radius: 6px;
+        }
+
+        /* ===== 04 플래너는 이해 도구 ===== */
+        .record-format {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .rf-head {
+            padding: 12px 18px;
+            background: var(--accent-soft);
+            border-bottom: 1px solid var(--accent-mid);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .rf-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg);
+        }
+
+        .rf-item:last-child { border-bottom: none; }
+
+        .rf-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .rf-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            flex: 1;
+            word-break: keep-all;
+        }
+
+        .rf-blank {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        .planner-insight {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 20px;
+            border: 1px solid var(--border-mid);
+        }
+
+        .pi-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .pi-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .pi-list li {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-sub);
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            word-break: keep-all;
+        }
+
+        .pi-list li::before {
+            content: "→";
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== 05 선언문 ===== */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .example-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 14px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .example-card .ex-who {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .example-card .ex-what {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--accent);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .declaration-card {
+            background: linear-gradient(135deg, rgba(15,158,142,0.06) 0%, rgba(15,158,142,0.02) 100%);
+            border: 1.5px solid var(--accent-mid);
+            border-radius: 18px;
+            padding: 28px 24px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .dc-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .declaration-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .declaration-list li {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .decl-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 8px;
+        }
+
+        /* ===== 요약 & 다음 ===== */
+        .summary-section {
+            padding: 60px 0;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sum-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* ===== 마지막 챕터 완료 카드 ===== */
+        .complete-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: linear-gradient(135deg, var(--accent) 0%, #0b7a6e 100%);
+            border-radius: 18px;
+            padding: 28px 24px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 6px 24px rgba(15,158,142,0.3);
+        }
+
+        .complete-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 32px rgba(15,158,142,0.4);
+        }
+
+        .cc-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 8px;
+        }
+
+        .cc-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.35;
+            letter-spacing: -0.3px;
+            word-break: keep-all;
+        }
+
+        .cc-arr {
+            font-size: 28px;
+            color: rgba(255,255,255,0.8);
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter18.html" class="nav-back">← 18장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../products.html" class="nav-cta">플래너 보기</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 5부 · ADHD 실행 시스템 완성하기</div>
+            <div class="chapter-num">CHAPTER 19</div>
+            <h1>ADHD를 없애는 것이 아니라<br><em>작동조건을 만든다</em></h1>
+
+            <div class="hero-intro">
+                <p>
+                    지금까지 우리는 ADHD를 여러 각도에서 살펴보았다.<br>
+                    의지가 아닌 실행기능의 문제, 사냥꾼의 뇌, 자기비난의 회로.<br>
+                    시간·감정·보상·뇌가소성·작은 행동·행동 대본.<br>
+                    수면·혈당·호흡·장·운동이라는 몸의 기반.<br>
+                    그리고 플래너와 환경 설계라는 외부 실행기능.
+                </p>
+                <div class="final-statement">
+                    ADHD를 없애는 것이 목표가 아니다.<br>
+                    ADHD 뇌가 잘 작동하는 조건을 만드는 것이 목표다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 결함만이 아니다 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> ADHD는 없애야 할 결함만이 아니다</div>
+            <h2 class="sec-title">환경이 바뀌면<br>같은 뇌가 강점이 된다</h2>
+            <p class="sec-lead">
+                ADHD를 결함으로만 보면 삶은 자기비난으로 좁아진다.
+                하지만 자료들은 ADHD를 다른 방식으로 보게 만든다.
+                즉각 반응하고, 탐색하고, 강렬하게 몰입하는 특성은
+                특정 환경에서는 약점이 아니라 강점이 될 수 있다.
+            </p>
+
+            <div class="adhd-type-grid">
+                <div class="adhd-type-card strength">
+                    <div class="type-tag">✓ 강점이 될 수 있는 특성</div>
+                    <ul>
+                        <li>🔥 강렬한 몰입과 집중</li>
+                        <li>⚡ 즉각적인 반응과 판단</li>
+                        <li>💡 창의성과 상상력</li>
+                        <li>🔍 새로움과 위험 감지</li>
+                        <li>🚀 짧은 시간 압축 처리</li>
+                    </ul>
+                </div>
+                <div class="adhd-type-card struggle">
+                    <div class="type-tag">⚠ 맞지 않는 환경에서</div>
+                    <ul>
+                        <li>😔 충동성</li>
+                        <li>⏰ 시간감각 어려움</li>
+                        <li>📋 조직화 문제</li>
+                        <li>😤 감정 기복</li>
+                        <li>🔁 반복 실패 패턴</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="adhd-is-box">
+                <div class="tag">ADHD란</div>
+                <div class="statement">
+                    축복도 아니고, 저주도 아니다.<br>
+                    ADHD는 <em>작동 방식</em>이다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 의지가 아니라 조건 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 문제는 의지가 아니라 조건이다</div>
+            <h2 class="sec-title">질문을 바꾸면<br>다음 행동이 달라진다</h2>
+            <p class="sec-lead">
+                이 책 전체에서 반복해서 바꾼 질문이 있다.
+                문제를 의지로 보면 자책만 남지만,
+                조건으로 보면 설계가 시작된다.
+            </p>
+
+            <div class="question-shift">
+                <div class="qs-row">
+                    <div class="qs-old">❌ "왜 나는 의지가 약할까?"</div>
+                    <div class="qs-arr">→</div>
+                    <div class="qs-new">✓ "어떤 조건이 맞지 않았을까?"</div>
+                </div>
+                <div class="qs-row">
+                    <div class="qs-old">❌ "나는 왜 이렇게 못 하지?"</div>
+                    <div class="qs-arr">→</div>
+                    <div class="qs-new">✓ "어떤 조건이 없어서 막혔지?"</div>
+                </div>
+                <div class="qs-row">
+                    <div class="qs-old">❌ "나는 원래 이런 사람이야"</div>
+                    <div class="qs-arr">→</div>
+                    <div class="qs-new">✓ "이번엔 어떤 조건을 바꿀까?"</div>
+                </div>
+            </div>
+
+            <div class="condition-example">
+                <div class="ce-head">공부를 못 했다면 — 의지 탓 전에 이것을 먼저 확인한다</div>
+                <div class="ce-item">
+                    <div class="ce-icon">1</div>
+                    <div class="ce-text">책상 위가 너무 복잡했을 수 있다 (환경 조건)</div>
+                </div>
+                <div class="ce-item">
+                    <div class="ce-icon">2</div>
+                    <div class="ce-text">첫 행동이 너무 컸을 수 있다 (시간 조건)</div>
+                </div>
+                <div class="ce-item">
+                    <div class="ce-icon">3</div>
+                    <div class="ce-text">감정 점수가 너무 높았을 수 있다 (감정 조건)</div>
+                </div>
+                <div class="ce-item">
+                    <div class="ce-icon">4</div>
+                    <div class="ce-text">보상이 실행 전에 와버렸을 수 있다 (보상 조건)</div>
+                </div>
+                <div class="ce-item">
+                    <div class="ce-icon">5</div>
+                    <div class="ce-text">잠을 못 자서 뇌가 회복되지 않았을 수 있다 (몸 조건)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 다섯 가지 작동조건 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 나의 작동조건을 다섯 가지로 정리한다</div>
+            <h2 class="sec-title">시간·감정·보상·몸·환경이<br>맞을 때 더 잘 작동한다</h2>
+            <p class="sec-lead">
+                작동조건은 막연한 말이 아니다. 이 책에서 다룬 내용을 다섯 가지로 정리할 수 있다.
+                이 표는 정답지가 아니다. 기록하고 관찰하며 발견하는 실험 기록이다.
+            </p>
+
+            <div class="five-conditions">
+                <div class="condition-item">
+                    <div class="cond-icon">⏰</div>
+                    <div class="cond-body">
+                        <div class="cond-label">TIME CONDITION</div>
+                        <div class="cond-title">시간 조건</div>
+                        <div class="cond-desc">시간은 밖에 보여야 한다. 시작·종료 시간, 완충시간, 10분 실행처럼 작게 나눈 시간이 시작 저항을 낮춘다.</div>
+                    </div>
+                </div>
+                <div class="condition-item">
+                    <div class="cond-icon">💭</div>
+                    <div class="cond-body">
+                        <div class="cond-label">EMOTION CONDITION</div>
+                        <div class="cond-title">감정 조건</div>
+                        <div class="cond-desc">감정은 행동을 결정하지 않는다. 0~100으로 체크하고, 감정이 시키는 행동과 내가 선택할 행동을 분리해야 한다.</div>
+                    </div>
+                </div>
+                <div class="condition-item">
+                    <div class="cond-icon">🎯</div>
+                    <div class="cond-body">
+                        <div class="cond-label">REWARD CONDITION</div>
+                        <div class="cond-title">보상 조건</div>
+                        <div class="cond-desc">목표는 멀어도 보상은 가까워야 한다. 보상은 실행 전에 오면 회피, 실행 뒤에 오면 연료가 된다.</div>
+                    </div>
+                </div>
+                <div class="condition-item">
+                    <div class="cond-icon">🏃</div>
+                    <div class="cond-body">
+                        <div class="cond-label">BODY CONDITION</div>
+                        <div class="cond-title">몸 조건</div>
+                        <div class="cond-desc">수면·혈당·장·호흡·운동은 실행력의 바닥이다. 몸이 무너지면 작은 행동도 어려워진다.</div>
+                    </div>
+                </div>
+                <div class="condition-item">
+                    <div class="cond-icon">🛠️</div>
+                    <div class="cond-body">
+                        <div class="cond-label">ENVIRONMENT CONDITION</div>
+                        <div class="cond-title">환경 조건</div>
+                        <div class="cond-desc">공간·도구·알림·시각 단서·직업 환경은 실행을 돕거나 방해한다. 마찰을 줄이고 단서를 보이게 만든다.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="condition-table-wrap">
+                <div class="ct-head">
+                    <span>조건</span>
+                    <span>나에게 필요한 질문</span>
+                    <span>내 작동조건</span>
+                </div>
+                <div class="ct-row">
+                    <div class="ct-name">시간</div>
+                    <div class="ct-question">나는 언제 집중이 잘 되는가?</div>
+                    <div class="ct-blank"></div>
+                </div>
+                <div class="ct-row">
+                    <div class="ct-name">감정</div>
+                    <div class="ct-question">어떤 감정에서 가장 많이 멈추는가?</div>
+                    <div class="ct-blank"></div>
+                </div>
+                <div class="ct-row">
+                    <div class="ct-name">보상</div>
+                    <div class="ct-question">어떤 보상이 나를 다시 움직이게 하는가?</div>
+                    <div class="ct-blank"></div>
+                </div>
+                <div class="ct-row">
+                    <div class="ct-name">몸</div>
+                    <div class="ct-question">수면·식사·운동이 실행에 어떤 영향을 주는가?</div>
+                    <div class="ct-blank"></div>
+                </div>
+                <div class="ct-row">
+                    <div class="ct-name">환경</div>
+                    <div class="ct-question">어떤 공간과 도구가 나를 쉽게 시작하게 하는가?</div>
+                    <div class="ct-blank"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 플래너는 이해 도구 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 플래너는 나를 고치는 도구가 아니다</div>
+            <h2 class="sec-title">빈칸은 실패가 아니라<br>다음 조건을 찾는 자료다</h2>
+            <p class="sec-lead">
+                플래너를 잘못 쓰면 빈칸이 "또 실패했다"는 증거가 된다.
+                하지만 이 책이 제안하는 플래너는 평가표가 아니다.
+                플래너는 나의 작동조건을 발견하는 실험실이다.
+            </p>
+
+            <div class="record-format">
+                <div class="rf-head">하루를 마치며 — 4줄 기록</div>
+                <div class="rf-item">
+                    <div class="rf-num">1</div>
+                    <div class="rf-label">오늘 작동한 조건</div>
+                    <div class="rf-blank">___________</div>
+                </div>
+                <div class="rf-item">
+                    <div class="rf-num">2</div>
+                    <div class="rf-label">오늘 무너진 조건</div>
+                    <div class="rf-blank">___________</div>
+                </div>
+                <div class="rf-item">
+                    <div class="rf-num">3</div>
+                    <div class="rf-label">내일 바꿀 조건</div>
+                    <div class="rf-blank">___________</div>
+                </div>
+                <div class="rf-item">
+                    <div class="rf-num">4</div>
+                    <div class="rf-label">내일 다시 시작할 첫 행동</div>
+                    <div class="rf-blank">___________</div>
+                </div>
+            </div>
+
+            <div class="planner-insight">
+                <div class="pi-tag">플래너가 보여주는 것</div>
+                <ul class="pi-list">
+                    <li>빈칸도 자료가 된다 — 어떤 조건이 없었는지 알 수 있다</li>
+                    <li>실패도 정보가 된다 — 다음 조건을 바꿀 단서가 된다</li>
+                    <li>무너진 날도 다음 시작점을 남겼다면 충분하다</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 05 선언문 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> 더 세게 밀어붙이는 대신 더 잘 작동하게 설계한다</div>
+            <h2 class="sec-title">정답 루틴이 아니라<br>나에게 반복 가능한 조건</h2>
+            <p class="sec-lead">
+                ADHD 사용자는 자기 뇌를 없애는 것이 아니라,
+                자기 뇌에게 맞는 길을 찾아야 한다.
+                그 길은 사람마다 다르다.
+            </p>
+
+            <div class="examples-grid">
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">아침 운동이<br>뇌를 깨우는 스위치</div>
+                </div>
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">수면 루틴이<br>다음 날의 기반</div>
+                </div>
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">감정 카드가<br>행동 선택의 장치</div>
+                </div>
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">식후 걷기가<br>혈당과 집중의 열쇠</div>
+                </div>
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">시각 단서 책상이<br>실행의 출발점</div>
+                </div>
+                <div class="example-card">
+                    <div class="ex-who">누군가에게는</div>
+                    <div class="ex-what">플래너의 작은<br>체크 하나가 연료</div>
+                </div>
+            </div>
+
+            <div class="declaration-card">
+                <div class="dc-title">나의 작동조건 선언문</div>
+                <ul class="declaration-list">
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 ADHD를 없애려 하지 않는다. 내 뇌가 잘 작동하는 조건을 찾는다.
+                    </li>
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 감정을 없애려 하지 않고, 감정이 있어도 행동을 선택한다.
+                    </li>
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 의지를 증명하려 하지 않고, 작은 행동을 설계한다.
+                    </li>
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 실패를 판결로 쓰지 않고, 다음 조건을 찾는 자료로 쓴다.
+                    </li>
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 나를 더 세게 몰아붙이는 대신, 더 잘 작동하게 만든다.
+                    </li>
+                    <li>
+                        <div class="decl-dot"></div>
+                        나는 완전히 다른 사람이 될 필요 없다. 내가 움직이는 조건을 알면 된다.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">19장 핵심 요약 — 이 책의 결론</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        ADHD는 결함도 축복도 아니다 — 환경에 따라 강점이 되거나 고통이 되는 작동 방식이다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        "왜 나는 못 하지?"가 아니라 "어떤 조건이 없어서 막혔지?"로 질문을 바꾸면 설계가 시작된다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        시간·감정·보상·몸·환경 — 이 다섯 조건이 맞을 때 ADHD 뇌는 더 잘 작동한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        나를 더 세게 몰아붙이는 대신, 내가 움직이는 조건을 찾고 반복 가능한 구조로 만든다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="../products.html" class="complete-card">
+                <div>
+                    <div class="cc-badge">BOOK COMPLETE ✓</div>
+                    <div class="cc-title">내 실행 시스템을<br>직접 만들어보세요</div>
+                </div>
+                <div class="cc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

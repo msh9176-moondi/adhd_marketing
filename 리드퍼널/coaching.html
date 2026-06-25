@@ -1,27 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-  <head>
+<head>
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
     <script src="shared/js/analytics.js"></script>
 
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ADHD 무료 상담 | 미루기일기 템플릿 무료 증정</title>
-    <meta name="description" content="ADHD 당사자가 직접 운영하는 1:1 무료 상담. 미루기일기 템플릿 무료 증정. 판단 없이, 이해하는 대화." />
-    <meta name="keywords" content="ADHD 무료상담, ADHD 코칭, ADHD 1:1 상담, 성인 ADHD 상담, ADHD 당사자 상담, ADHD 미루기 상담" />
-    <link rel="canonical" href="https://msh9176-moondi.github.io/adhd_marketing/리드퍼널/coaching.html" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOCA 상담 | 1:1 무료 상담 & 코칭 프로그램</title>
+    <meta name="description" content="ADHD 당사자가 직접 운영하는 1:1 무료 상담과 4주 코칭 프로그램. 판단 없이, 이해하는 대화.">
+    <meta name="keywords" content="ADHD 무료상담, ADHD 코칭, ADHD 1:1 상담, 성인 ADHD 상담">
+    <link rel="canonical" href="https://msh9176-moondi.github.io/adhd_marketing/리드퍼널/coaching.html">
 
     <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="ADHD 무료 상담 | 미루기일기 템플릿 증정" />
-    <meta property="og:description" content="ADHD 당사자가 직접 상담해요. 판단 없이, 그냥 들어드려요. 지금 상담하면 미루기일기 템플릿 무료!" />
-    <meta property="og:image" content="delay/232.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ADHD 무료 상담 | 미루기일기 템플릿 증정" />
-    <meta name="twitter:description" content="ADHD 당사자가 직접 상담해요. 판단 없이, 그냥 들어드려요." />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FLOCA 상담 | 1:1 무료 상담 & 코칭 프로그램">
+    <meta property="og:description" content="ADHD 당사자가 직접 상담해드려요. 판단 없이, 이해하는 대화.">
+    <meta property="og:image" content="delay/232.png">
 
     <!-- Shared CSS -->
     <link rel="stylesheet" href="shared/css/base.css">
@@ -30,1182 +25,394 @@
     <link rel="stylesheet" href="shared/css/components/nav.css">
     <link rel="stylesheet" href="shared/css/components/footer.css">
     <link rel="stylesheet" href="shared/css/components/buttons.css">
-    <link rel="stylesheet" href="shared/css/components/hero.css">
     <link rel="stylesheet" href="shared/css/components/cards.css">
 
-    <!-- Page Specific CSS -->
     <style>
-      /* ===== 히어로 오버라이드 ===== */
-      .hero {
-        padding: 100px 20px 60px;
-      }
-
-      .hero-cta {
-        display: inline-flex;
-        align-items: center;
-        gap: 12px;
-        background: var(--accent);
-        color: var(--dark);
-        font-size: 17px;
-        font-weight: 700;
-        padding: 18px 36px;
-        border-radius: 12px;
-        text-decoration: none;
-        transition: all 0.3s;
-        box-shadow: 0 8px 32px var(--accent-glow);
-      }
-
-      .hero-cta:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 12px 40px rgba(79,209,197,0.4);
-      }
-
-      /* ===== 공감 섹션 ===== */
-      .empathy-section {
-        background: var(--dark-light);
-        padding: 80px 0;
-      }
-
-      .empathy-header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .empathy-header h2 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 16px;
-      }
-
-      .empathy-header p {
-        color: var(--text-muted);
-        font-size: 16px;
-      }
-
-      .empathy-grid {
-        display: grid;
-        gap: 16px;
-      }
-
-      .empathy-bottom {
-        text-align: center;
-        margin-top: 48px;
-        padding: 32px;
-        background: rgba(79,209,197,0.1);
-        border-radius: 16px;
-        border: 1px solid rgba(79,209,197,0.2);
-      }
-
-      .empathy-bottom p {
-        font-size: 20px;
-        font-weight: 600;
-        color: var(--accent);
-      }
-
-      /* ===== 의심 섹션 ===== */
-      .doubt {
-        background: var(--dark);
-        padding: 80px 0;
-      }
-
-      .doubt-content {
-        text-align: center;
-      }
-
-      .doubt h2 {
-        font-size: 26px;
-        font-weight: 700;
-        margin-bottom: 24px;
-      }
-
-      .doubt-text {
-        font-size: 16px;
-        color: var(--text-muted);
-        line-height: 2;
-        margin-bottom: 32px;
-      }
-
-      .doubt-list {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 32px;
-        text-align: left;
-        margin-bottom: 32px;
-      }
-
-      .doubt-list ul {
-        list-style: none;
-      }
-
-      .doubt-list li {
-        padding: 12px 0;
-        font-size: 15px;
-        color: var(--text-muted);
-        display: flex;
-        align-items: flex-start;
-        gap: 12px;
-      }
-
-      .doubt-list li::before {
-        content: '→';
-        color: var(--accent);
-        flex-shrink: 0;
-      }
-
-      .doubt-cta {
-        font-size: 18px;
-        color: var(--text);
-        font-weight: 600;
-      }
-
-      /* ===== 신뢰 섹션 ===== */
-      .trust {
-        background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-        padding: 80px 0;
-      }
-
-      .trust-content {
-        text-align: center;
-      }
-
-      .trust h2 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 32px;
-      }
-
-      .trust-quote {
-        font-size: 20px;
-        line-height: 2;
-        margin-bottom: 32px;
-      }
-
-      .trust-author {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 16px;
-      }
-
-      .trust-author img {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid rgba(255,255,255,0.3);
-      }
-
-      .trust-author-info {
-        text-align: left;
-      }
-
-      .trust-author-info .name {
-        font-weight: 700;
-        font-size: 16px;
-      }
-
-      .trust-author-info .desc {
-        font-size: 14px;
-        opacity: 0.8;
-      }
-
-      /* ===== 후기 섹션 ===== */
-      .reviews {
-        background: var(--dark);
-        padding: 80px 0;
-      }
-
-      .reviews-header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
-
-      .reviews-header h2 {
-        font-size: 26px;
-        font-weight: 700;
-        margin-bottom: 12px;
-      }
-
-      .reviews-header p {
-        font-size: 15px;
-        color: var(--text-muted);
-      }
-
-      .reviews-image {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 20px;
-        padding: 24px;
-        overflow: hidden;
-      }
-
-      .reviews-image img {
-        width: 100%;
-        height: auto;
-        border-radius: 12px;
-      }
-
-      /* ===== 무료 혜택 섹션 ===== */
-      .free-offer {
-        background: var(--dark-light);
-        padding: 80px 0;
-      }
-
-      .offer-header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .offer-badge {
-        display: inline-block;
-        background: #ff4757;
-        color: white;
-        font-size: 13px;
-        font-weight: 700;
-        padding: 8px 20px;
-        border-radius: 30px;
-        margin-bottom: 20px;
-        animation: pulse 2s infinite;
-      }
-
-      .offer-header h2 {
-        font-size: 32px;
-        font-weight: 900;
-        margin-bottom: 16px;
-      }
-
-      .offer-header h2 .price-cross {
-        text-decoration: line-through;
-        color: var(--text-subtle);
-        font-weight: 400;
-      }
-
-      .offer-header h2 .price-free {
-        color: var(--accent);
-      }
-
-      .offer-cards {
-        display: grid;
-        gap: 20px;
-        margin-bottom: 48px;
-      }
-
-      .offer-card {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid var(--border-light);
-        border-radius: 20px;
-        padding: 32px;
-        display: flex;
-        align-items: center;
-        gap: 24px;
-      }
-
-      .offer-card img {
-        width: 100px;
-        height: auto;
-        border-radius: 12px;
-        box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-      }
-
-      .offer-card-content h3 {
-        font-size: 18px;
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-
-      .offer-card-content p {
-        font-size: 14px;
-        color: var(--text-muted);
-        line-height: 1.7;
-      }
-
-      .offer-card-content .value {
-        display: inline-block;
-        background: var(--accent);
-        color: var(--dark);
-        font-size: 12px;
-        font-weight: 700;
-        padding: 4px 12px;
-        border-radius: 20px;
-        margin-top: 12px;
-      }
-
-      /* ===== 프로세스 섹션 ===== */
-      .process {
-        background: var(--dark);
-        padding: 80px 0;
-      }
-
-      .process-header {
-        text-align: center;
-        margin-bottom: 48px;
-      }
-
-      .process-header h2 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 16px;
-      }
-
-      .process-header p {
-        color: var(--text-muted);
-      }
-
-      .process-steps {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-        position: relative;
-      }
-
-      .process-steps::before {
-        content: '';
-        position: absolute;
-        left: 24px;
-        top: 48px;
-        bottom: 48px;
-        width: 2px;
-        background: linear-gradient(180deg, var(--accent), var(--primary));
-      }
-
-      .process-step {
-        display: flex;
-        gap: 24px;
-        align-items: flex-start;
-      }
-
-      .step-number {
-        width: 48px;
-        height: 48px;
-        background: var(--dark-light);
-        border: 2px solid var(--accent);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 18px;
-        font-weight: 700;
-        color: var(--accent);
-        flex-shrink: 0;
-        position: relative;
-        z-index: 1;
-      }
-
-      .step-content {
-        flex: 1;
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 24px;
-      }
-
-      .step-content h3 {
-        font-size: 17px;
-        font-weight: 700;
-        margin-bottom: 8px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .step-content h3 .free-badge {
-        background: var(--accent);
-        color: var(--dark);
-        font-size: 11px;
-        font-weight: 700;
-        padding: 3px 10px;
-        border-radius: 20px;
-      }
-
-      .step-content p {
-        font-size: 14px;
-        color: var(--text-muted);
-        line-height: 1.7;
-      }
-
-      .process-note {
-        text-align: center;
-        margin-top: 40px;
-        padding: 24px;
-        background: rgba(255,255,255,0.03);
-        border-radius: 12px;
-      }
-
-      .process-note p {
-        font-size: 15px;
-        color: var(--text-muted);
-      }
-
-      .process-note strong {
-        color: var(--accent);
-      }
-
-      /* ===== 안전 섹션 ===== */
-      .safety {
-        background: var(--dark-light);
-        padding: 80px 0;
-      }
-
-      .safety-content {
-        text-align: center;
-      }
-
-      .safety h2 {
-        font-size: 26px;
-        font-weight: 700;
-        margin-bottom: 40px;
-      }
-
-      .safety-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-        margin-bottom: 40px;
-      }
-
-      .safety-item {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border);
-        border-radius: 16px;
-        padding: 28px 20px;
-      }
-
-      .safety-item .icon {
-        font-size: 32px;
-        margin-bottom: 16px;
-      }
-
-      .safety-item h4 {
-        font-size: 15px;
-        font-weight: 600;
-        margin-bottom: 8px;
-      }
-
-      .safety-item p {
-        font-size: 13px;
-        color: var(--text-muted);
-        line-height: 1.6;
-      }
-
-      /* ===== 코칭 프로그램 섹션 ===== */
-      .coaching-program {
-        background: linear-gradient(180deg, var(--dark) 0%, var(--dark-light) 100%);
-        padding: 80px 0;
-      }
-
-      .coaching-header {
-        text-align: center;
-        margin-bottom: 40px;
-      }
-
-      .coaching-badge {
-        display: inline-block;
-        background: var(--accent-soft);
-        border: 1px solid var(--accent-glow);
-        color: var(--accent);
-        font-size: 13px;
-        font-weight: 600;
-        padding: 8px 20px;
-        border-radius: 20px;
-        margin-bottom: 20px;
-      }
-
-      .coaching-header h2 {
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 12px;
-      }
-
-      .coaching-header p {
-        font-size: 15px;
-        color: var(--text-muted);
-        line-height: 1.8;
-      }
-
-      .coaching-card {
-        background: rgba(255,255,255,0.03);
-        border: 1px solid var(--border-light);
-        border-radius: 20px;
-        padding: 32px 24px;
-        margin-bottom: 24px;
-      }
-
-      .coaching-info {
-        margin-bottom: 24px;
-      }
-
-      .coaching-row {
-        display: flex;
-        padding: 12px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.06);
-      }
-
-      .coaching-row:last-child {
-        border-bottom: none;
-      }
-
-      .coaching-row .label {
-        width: 70px;
-        font-size: 14px;
-        color: var(--text-muted);
-        flex-shrink: 0;
-      }
-
-      .coaching-row .value {
-        font-size: 14px;
-        color: var(--text);
-        line-height: 1.6;
-      }
-
-      .coaching-row .value.price {
-        color: var(--accent);
-        font-weight: 700;
-        font-size: 18px;
-      }
-
-      .coaching-note {
-        background: rgba(79,209,197,0.1);
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 16px;
-      }
-
-      .coaching-note p {
-        font-size: 14px;
-        color: var(--text-muted);
-        line-height: 1.7;
-        text-align: center;
-      }
-
-      .coaching-philosophy {
-        text-align: center;
-        margin-bottom: 24px;
-      }
-
-      .coaching-philosophy p {
-        font-size: 15px;
-        color: var(--text);
-        line-height: 1.8;
-      }
-
-      .coaching-btn {
-        display: block;
-        width: 100%;
-        padding: 18px;
-        background: var(--accent);
-        color: var(--dark);
-        font-size: 16px;
-        font-weight: 700;
-        text-align: center;
-        text-decoration: none;
-        border-radius: 12px;
-        transition: all 0.3s;
-      }
-
-      .coaching-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 24px var(--accent-glow);
-      }
-
-      .coaching-warning {
-        background: rgba(248,113,113,0.08);
-        border: 1px solid rgba(248,113,113,0.2);
-        border-radius: 16px;
-        padding: 24px;
-      }
-
-      .coaching-warning h4 {
-        font-size: 15px;
-        color: #f87171;
-        margin-bottom: 12px;
-      }
-
-      .coaching-warning p {
-        font-size: 14px;
-        color: var(--text-muted);
-        line-height: 1.7;
-        margin-bottom: 12px;
-      }
-
-      .coaching-warning p.sub {
-        font-size: 13px;
-        color: var(--text-subtle);
-      }
-
-      .coaching-warning p.feedback {
-        font-size: 13px;
-        color: var(--text-muted);
-        margin-bottom: 0;
-        padding-top: 12px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-      }
-
-      /* ===== 최종 CTA 섹션 ===== */
-      .final-cta {
-        background: linear-gradient(180deg, var(--dark) 0%, #0a0a12 100%);
-        padding: 100px 0;
-        text-align: center;
-      }
-
-      .final-cta h2 {
-        font-size: 32px;
-        font-weight: 900;
-        margin-bottom: 16px;
-      }
-
-      .final-cta-subtitle {
-        font-size: 18px;
-        color: var(--text-muted);
-        margin-bottom: 48px;
-        line-height: 1.8;
-      }
-
-      .cta-box-final {
-        background: rgba(255,255,255,0.05);
-        border: 1px solid var(--border-light);
-        border-radius: 24px;
-        padding: 48px 32px;
-        max-width: 480px;
-        margin: 0 auto;
-      }
-
-      .cta-box-badge {
-        display: inline-block;
-        background: #ff4757;
-        color: white;
-        font-size: 14px;
-        font-weight: 700;
-        padding: 10px 24px;
-        border-radius: 30px;
-        margin-bottom: 24px;
-        animation: pulse 2s infinite;
-      }
-
-      .cta-box-final h3 {
-        font-size: 24px;
-        font-weight: 700;
-        margin-bottom: 8px;
-      }
-
-      .cta-box-final .price-info {
-        margin-bottom: 24px;
-      }
-
-      .cta-box-final .price-original {
-        text-decoration: line-through;
-        color: var(--text-subtle);
-        font-size: 16px;
-      }
-
-      .cta-box-final .price-free {
-        font-size: 28px;
-        font-weight: 900;
-        color: var(--accent);
-        margin-left: 12px;
-      }
-
-      .cta-kakao-btn {
-        display: block;
-        background: #fee500;
-        color: #1a1a1a;
-        font-size: 18px;
-        font-weight: 700;
-        padding: 20px 32px;
-        border-radius: 12px;
-        text-decoration: none;
-        transition: all 0.3s;
-        margin-bottom: 16px;
-      }
-
-      .cta-kakao-btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 32px rgba(254,229,0,0.3);
-      }
-
-      .cta-box-final .cta-note {
-        font-size: 13px;
-        color: var(--text-subtle);
-      }
-
-      /* ===== 플로팅 CTA ===== */
-      .floating-cta {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1000;
-        background: #fee500;
-        color: #1a1a1a;
-        font-size: 15px;
-        font-weight: 700;
-        padding: 16px 32px;
-        border-radius: 50px;
-        text-decoration: none;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        transition: all 0.3s;
-        display: none;
-      }
-
-      .floating-cta.visible {
-        display: block;
-        animation: slideUp 0.3s ease;
-      }
-
-      /* ===== 반응형 ===== */
-      @media (max-width: 768px) {
-        .hero h1 {
-          font-size: 28px;
+        .page-hero {
+            padding: 120px 0 60px;
+            background: var(--dark);
+            text-align: center;
         }
 
-        .empathy-header h2,
-        .doubt h2,
-        .process-header h2 {
-          font-size: 22px;
+        .page-hero .label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            background: rgba(79,209,197,0.1);
+            border: 1px solid rgba(79,209,197,0.2);
+            border-radius: 50px;
+            padding: 6px 16px;
+            margin-bottom: 20px;
         }
 
-        .offer-header h2 {
-          font-size: 24px;
+        .page-hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            word-break: keep-all;
         }
 
-        .final-cta h2 {
-          font-size: 24px;
+        .page-hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            word-break: keep-all;
         }
 
-        .safety-grid {
-          grid-template-columns: 1fr;
+        /* 서비스 카드 섹션 */
+        .services-section {
+            padding: 20px 0 100px;
+            background: var(--dark);
         }
 
-        .offer-card {
-          flex-direction: column;
-          text-align: center;
+        .service-card {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border, rgba(255,255,255,0.08));
+            margin-bottom: 32px;
+            transition: border-color 0.3s;
         }
 
-        .trust-author {
-          flex-direction: column;
-          text-align: center;
+        .service-card:hover {
+            border-color: var(--accent-glow, rgba(79,209,197,0.3));
         }
 
-        .trust-author-info {
-          text-align: center;
+        .service-card-header {
+            padding: 36px 28px 28px;
         }
-      }
+
+        .service-card-header .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .badge-free {
+            background: rgba(74,222,128,0.12);
+            color: #4ade80;
+            border: 1px solid rgba(74,222,128,0.25);
+        }
+
+        .badge-program {
+            background: rgba(167,139,250,0.12);
+            color: #a78bfa;
+            border: 1px solid rgba(167,139,250,0.25);
+        }
+
+        .service-card-header .service-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .service-card-header h2 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .service-card-header .service-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        .service-features {
+            padding: 0 28px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border, rgba(255,255,255,0.06));
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .feature-row h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .feature-row p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .service-card-footer {
+            padding: 0 28px 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .service-card-footer .btn-main,
+        .service-card-footer .btn-outline,
+        .service-card-footer .btn-kakao {
+            display: block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border, rgba(255,255,255,0.08));
+            margin: 0 28px 28px;
+        }
+
+        .price-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .price-tag .original {
+            font-size: 13px;
+            color: var(--text-subtle, rgba(255,255,255,0.4));
+            text-decoration: line-through;
+        }
+
+        .price-tag .current {
+            font-size: 20px;
+            font-weight: 900;
+            color: #4ade80;
+        }
+
+        .price-tag-paid .current {
+            color: #a78bfa;
+        }
+
+        .warning-box {
+            margin: 0 28px 28px;
+            padding: 20px;
+            background: rgba(248,113,113,0.06);
+            border: 1px solid rgba(248,113,113,0.15);
+            border-radius: 12px;
+        }
+
+        .warning-box p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .warning-box strong {
+            color: #f87171;
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <!-- ===== 네비게이션 ===== -->
     <nav class="nav">
-      <div class="nav-container">
-        <a href="index.html" class="nav-logo">FLOCA</a>
-        <div class="nav-links">
-          <a href="index.html">홈</a>
-          <a href="adhd-test.html">자료 제공</a>
-          <a href="community.html">커뮤니티</a>
-          <a href="podcast.html">팟캐스트</a>
-          <a href="postit.html">제품</a>
-          <a href="coaching.html" class="active">상담</a>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="adhd-test.html">자료 제공</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="podcast.html">팟캐스트</a>
+                <a href="products.html">제품</a>
+                <a href="coaching.html" class="active">상담</a>
+            </div>
         </div>
-      </div>
     </nav>
 
-    <!-- ===== 히어로 섹션 ===== -->
-    <section class="hero">
-      <span class="hero-badge">ADHD 당사자가 직접 운영합니다</span>
-      <h1>
-        "나도 <span class="highlight">ADHD</span>인 걸까?"<br/>
-        혼자 고민하고 계신가요?
-      </h1>
-      <p class="hero-sub">
-        병원 가기는 무섭고, 주변에 말하기도 어렵고<br/>
-        인터넷 검색만 하다가 더 혼란스러워지셨죠?<br/><br/>
-        <strong>10년간 ADHD와 싸워온 선배</strong>에게<br/>
-        부담 없이 이야기해보세요.
-      </p>
-      <a href="https://open.kakao.com/o/sq1JNeHh" class="hero-cta" target="_blank" rel="noopener noreferrer">
-        무료 상담 시작하기
-      </a>
-      <p class="hero-note">* 판단하지 않아요. 그냥 들어드려요.</p>
-      <div class="scroll-indicator">
-        <span></span>
-      </div>
+    <!-- ===== 페이지 히어로 ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="label">CONSULTING</span>
+            <h1>ADHD 당사자가 직접<br>함께합니다</h1>
+            <p>무료로 먼저 이야기 나누고,<br>필요하다면 더 깊이 함께해요.</p>
+        </div>
     </section>
 
-    <!-- ===== 공감 섹션 ===== -->
-    <section class="empathy-section">
-      <div class="container">
-        <div class="empathy-header">
-          <h2>혹시 이런 경험, 있으신가요?</h2>
-          <p>하나라도 해당된다면, 당신 잘못이 아닙니다.</p>
-        </div>
+    <!-- ===== 서비스 섹션 ===== -->
+    <section class="services-section">
+        <div class="container">
 
-        <div class="empathy-grid">
-          <div class="empathy-card">
-            <p class="quote">"분명 하려고 했는데..."</p>
-            <p>중요한 일인 거 알아요. 근데 몸이 안 움직여요. 마감 직전에야 겨우 시작해요.</p>
-          </div>
-          <div class="empathy-card">
-            <p class="quote">"왜 나만 이렇게 힘들지?"</p>
-            <p>남들은 쉽게 하는 일이 나에겐 산 넘기예요. 그래서 자꾸 내 탓을 하게 돼요.</p>
-          </div>
-          <div class="empathy-card">
-            <p class="quote">"갑자기 화가 폭발해요"</p>
-            <p>작은 일에 과잉반응하고, 나중에 자책해요. 왜 그랬는지 나도 모르겠어요.</p>
-          </div>
-          <div class="empathy-card">
-            <p class="quote">"약 먹어도 달라진 게 없어요"</p>
-            <p>집중은 좀 되는데, 인생 전체가 바뀌진 않았어요. 뭔가 더 필요한 것 같아요.</p>
-          </div>
-          <div class="empathy-card">
-            <p class="quote">"계획은 완벽한데 실행이 0%"</p>
-            <p>노션도 깔고, 플래너도 샀어요. 근데 3일 만에 포기해요. 매번 그래요.</p>
-          </div>
-          <div class="empathy-card">
-            <p class="quote">"내가 게으른 건지, 아픈 건지..."</p>
-            <p>ADHD인 것 같기도 하고, 아닌 것 같기도 해요. 그냥 의지가 약한 걸까요?</p>
-          </div>
-        </div>
+            <!-- 1:1 무료 상담 카드 -->
+            <div class="service-card" style="background: rgba(74,222,128,0.03);">
+                <div class="service-card-header">
+                    <span class="badge badge-free">FREE · 무료</span>
+                    <span class="service-icon">💬</span>
+                    <h2>1:1 무료 상담</h2>
+                    <p class="service-desc">
+                        ADHD인지 확신이 없어도 괜찮아요.<br>
+                        10년간 ADHD와 함께 살아온 당사자에게 편하게 이야기해보세요.
+                    </p>
+                    <div class="price-tag">
+                        <span class="original">3,500원</span>
+                        <span class="current">0원</span>
+                    </div>
+                </div>
 
-        <div class="empathy-bottom">
-          <p>이 중 하나라도 공감되셨다면,<br/>혼자 버티지 마세요.</p>
-        </div>
-      </div>
-    </section>
+                <div class="service-features">
+                    <div class="feature-row">
+                        <span class="feature-icon">🔒</span>
+                        <div>
+                            <h4>비밀 보장</h4>
+                            <p>대화 내용은 절대 외부에 공유되지 않아요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">🚫</span>
+                        <div>
+                            <h4>판단 없음</h4>
+                            <p>"왜 그랬어?" 같은 말 안 해요. 그냥 들어드려요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">🎁</span>
+                        <div>
+                            <h4>미루기일기 템플릿 무료 증정</h4>
+                            <p>입장하시면 바로 파일 보내드려요. 정가 3,500원짜리예요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">🤝</span>
+                        <div>
+                            <h4>강요 없음</h4>
+                            <p>유료 상담 권유 안 해요. 무료로만 끝내셔도 전혀 상관없어요.</p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- ===== ADHD인지 모르겠다면 섹션 ===== -->
-    <section class="doubt">
-      <div class="container">
-        <div class="doubt-content">
-          <h2>
-            "진짜 <span class="highlight">ADHD</span>인지<br/>
-            아직 잘 모르겠어요"
-          </h2>
-          <p class="doubt-text">
-            괜찮아요. 확신이 없어도 상담받을 수 있어요.<br/>
-            진단 여부와 상관없이, 지금 힘든 게 중요해요.
-          </p>
+                <div class="divider"></div>
 
-          <div class="doubt-list">
-            <ul>
-              <li>병원에 가기 전에 먼저 이야기 나눠보고 싶은 분</li>
-              <li>ADHD가 맞는지 틀린지 확신이 안 서는 분</li>
-              <li>진단받았지만 약만으로는 부족하다고 느끼는 분</li>
-              <li>주변에 ADHD를 이해하는 사람이 없는 분</li>
-              <li>그냥 내 얘기 좀 들어줄 사람이 필요한 분</li>
-            </ul>
-          </div>
-
-          <p class="doubt-cta">
-            모두 환영합니다. 부담 없이 연락주세요.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 신뢰 섹션 ===== -->
-    <section class="trust">
-      <div class="container">
-        <div class="trust-content">
-          <h2>왜 저와 상담해야 할까요?</h2>
-          <p class="trust-quote">
-            "ADHD를 직접 겪어봤기 때문에<br/>
-            당신이 뭘 말하려는지 <strong>진짜로</strong> 알아요.<br/><br/>
-            '그냥 노력하면 되잖아'라는 말,<br/>
-            저도 수백 번 들었거든요."
-          </p>
-          <div class="trust-author">
-            <img src="floca/Group 1163.png" alt="상담사 프로필" />
-            <div class="trust-author-info">
-              <p class="name">FLOCA 문디</p>
-              <p class="desc">ADHD 당사자 | 10년 경험</p>
+                <div class="service-card-footer">
+                    <a href="https://open.kakao.com/o/sq1JNeHh" target="_blank" rel="noopener noreferrer"
+                       style="display:block; width:100%; padding:18px; background:#fee500; color:#1a1a1a; font-size:16px; font-weight:700; text-align:center; text-decoration:none; border-radius:12px; transition:all 0.3s; box-shadow:0 8px 32px rgba(254,229,0,0.25);">
+                        카카오톡으로 시작하기
+                    </a>
+                    <p style="text-align:center; font-size:13px; color:var(--text-subtle); margin-top:6px;">* 입장 후 바로 템플릿 파일을 보내드려요</p>
+                </div>
             </div>
-          </div>
+
+            <!-- 4주 코칭 프로그램 카드 -->
+            <div class="service-card" style="background: rgba(167,139,250,0.03);">
+                <div class="service-card-header">
+                    <span class="badge badge-program">PROGRAM · 4주 코칭</span>
+                    <span class="service-icon">🎯</span>
+                    <h2>4주 1:1 코칭 프로그램</h2>
+                    <p class="service-desc">
+                        무료 상담 이후, 본격적인 변화를 원하는 분들을 위한 심화 과정.<br>
+                        코치님과 함께 실행력·루틴·목표를 직접 설계합니다.
+                    </p>
+                    <div class="price-tag price-tag-paid">
+                        <span class="current">3만원</span>
+                    </div>
+                </div>
+
+                <div class="service-features">
+                    <div class="feature-row">
+                        <span class="feature-icon">📅</span>
+                        <div>
+                            <h4>주 1회 · 총 4회기</h4>
+                            <p>전화 또는 온라인으로 진행해요. 4주간 꾸준히 함께해요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">⚡</span>
+                        <div>
+                            <h4>실행력 · 루틴 · 목표 설정</h4>
+                            <p>집중, 시간관리, 커리어 방향 등 나에게 맞는 전략을 함께 찾아요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">💜</span>
+                        <div>
+                            <h4>책임감 있는 동행</h4>
+                            <p>소액 참여비는 서로의 시간과 약속을 지키기 위한 장치예요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">👤</span>
+                        <div>
+                            <h4>코치 1:1 밀착 케어</h4>
+                            <p>전담 코치가 4주 내내 함께해요. 회기 사이에도 소통 가능해요.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <p>
+                        이 프로그램은 <strong>치료가 아닌 코칭</strong>입니다.<br>
+                        진단, 약물 조언, 심리치료, 위기개입은 다루지 않아요.<br>
+                        현재 병원 치료가 필요한 분은 전문기관을 먼저 이용해주세요.
+                    </p>
+                </div>
+
+                <div class="divider" style="margin-top:0;"></div>
+
+                <div class="service-card-footer">
+                    <a href="../platform/apply.html" class="btn-main">4주 코칭 신청하기 →</a>
+                    <a href="https://open.kakao.com/o/sq1JNeHh" target="_blank"
+                       style="display:block; text-align:center; font-size:14px; color:var(--text-muted); text-decoration:none; padding:4px 0;">
+                        코칭 전 먼저 상담받기 →
+                    </a>
+                </div>
+            </div>
+
         </div>
-      </div>
-    </section>
-
-    <!-- ===== 후기 섹션 ===== -->
-    <section class="reviews">
-      <div class="container">
-        <div class="reviews-header">
-          <h2>실제로 상담받은 분들의 이야기</h2>
-          <p>비슷한 고민을 가진 분들이 남긴 후기예요</p>
-        </div>
-        <div class="reviews-image">
-          <img src="상담 파일/33.png" alt="상담 후기" />
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 무료 혜택 섹션 ===== -->
-    <section class="free-offer">
-      <div class="container">
-        <div class="offer-header">
-          <span class="offer-badge">지금만 무료</span>
-          <h2>
-            <span class="price-cross">3,500원</span> → <span class="price-free">0원</span><br/>
-            미루기일기 템플릿 무료 증정
-          </h2>
-        </div>
-
-        <div class="offer-cards">
-          <div class="offer-card">
-            <img src="delay/232.png" alt="미루기일기 템플릿" />
-            <div class="offer-card-content">
-              <h3>미루기일기 템플릿</h3>
-              <p>
-                왜 미루는지 기록하면 패턴이 보여요.<br/>
-                패턴이 보이면 대처법이 생겨요.
-              </p>
-              <span class="value">정가 3,500원 → 무료</span>
-            </div>
-          </div>
-
-          <div class="offer-card">
-            <img src="floca/Group 1163.png" alt="1:1 상담" style="border-radius: 50%; width: 80px; height: 80px; object-fit: cover;" />
-            <div class="offer-card-content">
-              <h3>1:1 무료 상담</h3>
-              <p>
-                ADHD 당사자가 직접 상담해요.<br/>
-                판단 없이, 그냥 들어드려요.
-              </p>
-              <span class="value">100% 무료</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 프로세스 섹션 ===== -->
-    <section class="process">
-      <div class="container">
-        <div class="process-header">
-          <h2>어떻게 진행되나요?</h2>
-          <p>아주 간단해요. 3단계면 끝.</p>
-        </div>
-
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>
-                카카오톡 1:1 톡방 입장
-                <span class="free-badge">무료</span>
-              </h3>
-              <p>아래 버튼 클릭하면 바로 연결돼요. 회원가입 필요 없어요.</p>
-            </div>
-          </div>
-
-          <div class="process-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>
-                미루기일기 템플릿 전달
-                <span class="free-badge">무료</span>
-              </h3>
-              <p>입장하시면 바로 파일 보내드려요. 다운받고 바로 사용 가능해요.</p>
-            </div>
-          </div>
-
-          <div class="process-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>
-                편하게 대화
-                <span class="free-badge">무료</span>
-              </h3>
-              <p>지금 힘든 것, 궁금한 것 편하게 물어보세요. 강요 없어요.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="process-note">
-          <p>
-            추가 상담이 필요하시면 <strong>그때 안내</strong>드려요.<br/>
-            무료 상담만 받고 끝내셔도 전혀 상관없어요.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 안전 섹션 ===== -->
-    <section class="safety">
-      <div class="container">
-        <div class="safety-content">
-          <h2>부담 갖지 마세요.<br/>이런 분위기예요.</h2>
-
-          <div class="safety-grid">
-            <div class="safety-item">
-              <div class="icon">🔒</div>
-              <h4>비밀 보장</h4>
-              <p>대화 내용은 절대 외부에 공유되지 않아요.</p>
-            </div>
-            <div class="safety-item">
-              <div class="icon">🚫</div>
-              <h4>판단 금지</h4>
-              <p>"왜 그랬어?" 같은 말 안 해요. 그냥 들어요.</p>
-            </div>
-            <div class="safety-item">
-              <div class="icon">💬</div>
-              <h4>강요 없음</h4>
-              <p>유료 상담 권유 안 해요. 필요하면 말씀하세요.</p>
-            </div>
-            <div class="safety-item">
-              <div class="icon">🤝</div>
-              <h4>당사자 상담</h4>
-              <p>ADHD를 직접 겪어봤기에 진짜로 이해해요.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 코칭 프로그램 섹션 ===== -->
-    <section class="coaching-program">
-      <div class="container">
-        <div class="coaching-header">
-          <span class="coaching-badge">4주 1:1 코칭</span>
-          <h2>더 깊이 함께 하고 싶다면</h2>
-          <p>무료 상담 이후, 본격적인 변화를 원하는 분들을 위한<br>코치님과의 1:1 코칭 프로그램입니다.</p>
-        </div>
-
-        <div class="coaching-card">
-          <div class="coaching-info">
-            <div class="coaching-row">
-              <span class="label">대상</span>
-              <span class="value">실행, 루틴, 집중, 시간관리, 커리어 고민이 있는 분</span>
-            </div>
-            <div class="coaching-row">
-              <span class="label">기간</span>
-              <span class="value">4주</span>
-            </div>
-            <div class="coaching-row">
-              <span class="label">방식</span>
-              <span class="value">주 1회 1:1 코칭 (전화 또는 온라인)</span>
-            </div>
-            <div class="coaching-row">
-              <span class="label">내용</span>
-              <span class="value">집중, 루틴, 시간관리, 실행력, 커리어 방향, 목표 설정 등</span>
-            </div>
-            <div class="coaching-row">
-              <span class="label">참여비</span>
-              <span class="value price">3만원</span>
-            </div>
-          </div>
-
-          <div class="coaching-note">
-            <p>
-              무료로 진행할 수도 있지만, 코칭은 서로의 시간과 약속이 필요한 과정이라<br>
-              <strong>책임감 있는 참여를 위해</strong> 소액 참여비를 두기로 했습니다.
-            </p>
-          </div>
-
-          <div class="coaching-philosophy">
-            <p>
-              코칭은 치료나 상담이 아니라,<br>
-              <strong>자신의 목표와 실행 방향을 함께 정리해보는 과정</strong>입니다.
-            </p>
-          </div>
-
-          <a href="../platform/apply.html" class="coaching-btn">
-            4주 코칭 프로그램 신청하기 →
-          </a>
-          <a href="https://open.kakao.com/o/sq1JNeHh" target="_blank" style="display:block;text-align:center;margin-top:12px;font-size:14px;color:var(--text-muted);text-decoration:none;">문의는 카카오톡으로 →</a>
-        </div>
-
-        <div class="coaching-warning">
-          <h4>⚠️ 안내사항</h4>
-          <p>
-            이 프로그램은 <strong>치료가 아닌 코칭</strong>입니다.<br>
-            진단, 약물 조언, 심리치료, 위기개입, 자살위험, 트라우마 상담 등은 다루지 않습니다.
-          </p>
-          <p class="sub">
-            우울감이 매우 깊거나, 현재 병원 치료나 전문 상담이 우선적으로 필요한 경우에는<br>
-            이번 코칭보다 전문기관의 도움을 먼저 받는 것이 적절합니다.
-          </p>
-          <p class="feedback">
-            참여자분들은 4주간 성실히 참여해주시고,<br>
-            코칭 후 간단한 피드백을 남겨주시면 됩니다.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== 최종 CTA 섹션 ===== -->
-    <section class="final-cta" id="contact">
-      <div class="container">
-        <h2>
-          더 이상 <span class="highlight">혼자</span><br/>
-          고민하지 마세요
-        </h2>
-        <p class="final-cta-subtitle">
-          ADHD인지 아닌지는 중요하지 않아요.<br/>
-          지금 힘든 게 진짜예요.
-        </p>
-
-        <div class="cta-box-final">
-          <span class="cta-box-badge">지금만 무료</span>
-          <h3>미루기일기 템플릿 + 무료 상담</h3>
-          <div class="price-info">
-            <span class="price-original">3,500원</span>
-            <span class="price-free">0원</span>
-          </div>
-          <a
-            href="https://open.kakao.com/o/sq1JNeHh"
-            class="cta-kakao-btn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            카카오톡으로 시작하기
-          </a>
-          <p class="cta-note">* 입장 후 바로 템플릿 파일을 보내드려요</p>
-        </div>
-      </div>
     </section>
 
     <!-- ===== 푸터 ===== -->
     <footer class="footer">
-      <div class="container">
-        <div class="footer-content">
-          <div class="footer-brand">
-            <div class="footer-logo">FLOCA</div>
-            <p class="footer-tagline">
-              당신이 계속 실패한 게 아니라,<br/>
-              지금까지의 방식이 당신에게 맞지 않았을 뿐이에요.
-            </p>
-            <div class="footer-social">
-              <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" title="유튜브"><img src="LOGO/U-TUBE.png" alt="유튜브"></a>
-              <a href="https://www.instagram.com/floca_for_adhd/" target="_blank" title="인스타그램"><img src="LOGO/INSTA.png" alt="인스타그램"></a>
-              <a href="https://www.threads.com/@floca_for_adhd" target="_blank" title="스레드"><img src="LOGO/THREAD.png" alt="스레드"></a>
-              <a href="https://blog.naver.com/msh4688" target="_blank" title="블로그"><img src="LOGO/BLOG.png" alt="블로그"></a>
-              <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" title="브런치"><img src="LOGO/BRUNCH.png" alt="브런치"></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="footer-logo">FLOCA</div>
+                    <p class="footer-tagline">
+                        당신이 계속 실패한 게 아니라,<br>
+                        지금까지의 방식이 당신에게 맞지 않았을 뿐이에요.
+                    </p>
+                    <div class="footer-social">
+                        <a href="https://www.youtube.com/@adhdflow-e3c" target="_blank" title="유튜브"><img src="LOGO/U-TUBE.png" alt="유튜브"></a>
+                        <a href="https://www.instagram.com/floca_for_adhd/" target="_blank" title="인스타그램"><img src="LOGO/INSTA.png" alt="인스타그램"></a>
+                        <a href="https://www.threads.com/@floca_for_adhd" target="_blank" title="스레드"><img src="LOGO/THREAD.png" alt="스레드"></a>
+                        <a href="https://blog.naver.com/msh4688" target="_blank" title="블로그"><img src="LOGO/BLOG.png" alt="블로그"></a>
+                        <a href="https://brunch.co.kr/@5cc5053cec044ee" target="_blank" title="브런치"><img src="LOGO/BRUNCH.png" alt="브런치"></a>
+                    </div>
+                </div>
+
+                <div class="footer-info">
+                    <p class="company">플로카(FLOCA)</p>
+                    <p>대표: 문성하 | 연락처: 010-5808-9989</p>
+                    <p>부산광역시 부산진구 동천로 116, 3층 301호 A7,8(전포동)</p>
+                </div>
+
+                <div class="footer-copyright">
+                    <p>© 2025 FLOCA. All rights reserved.</p>
+                </div>
             </div>
-          </div>
-
-          <div class="footer-info">
-            <p class="company">플로카(FLOCA)</p>
-            <p>대표: 문성하 | 연락처: 010-5808-9989</p>
-            <p>부산광역시 부산진구 동천로 116, 3층 301호 A7,8(전포동)</p>
-          </div>
-
-          <div class="footer-copyright">
-            <p>© 2025 FLOCA. All rights reserved.</p>
-          </div>
         </div>
-      </div>
     </footer>
-
-    <!-- ===== 플로팅 CTA ===== -->
-    <a
-      href="https://open.kakao.com/o/sq1JNeHh"
-      class="floating-cta"
-      target="_blank"
-      rel="noopener noreferrer"
-      id="floatingCta"
-    >
-      무료 상담 시작하기
-    </a>
 
     <!-- Shared JS -->
     <script src="shared/js/nav.js"></script>
-  </body>
+</body>
 </html>

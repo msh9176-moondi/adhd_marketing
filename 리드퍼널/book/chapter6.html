@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6장: 지루함, 도파민, 보상 루프 | FLOCA</title>
+    <meta name="description" content="ADHD에게 지루함은 단순한 싫증이 아닙니다. 보상을 제대로 설계하면 실행을 반복하게 만드는 강력한 루프가 됩니다.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%; height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back { font-size: 13px; font-weight: 600; color: var(--text-sub); text-decoration: none; transition: color 0.2s; }
+        .nav-back:hover { color: var(--accent); }
+        .nav-logo { font-size: 16px; font-weight: 800; color: var(--accent); text-decoration: none; }
+        .nav-cta { font-size: 12px; font-weight: 700; color: var(--accent); text-decoration: none; background: var(--accent-soft); border: 1px solid var(--accent-mid); border-radius: 50px; padding: 6px 14px; }
+
+        .wrap { max-width: 640px; margin: 0 auto; padding: 0 20px; }
+
+        .hero { padding: 100px 0 60px; background: var(--bg); border-bottom: 1px solid var(--border); }
+
+        .part-tag {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700; letter-spacing: 1.5px;
+            color: var(--accent); background: var(--accent-soft);
+            border: 1px solid var(--accent-mid); border-radius: 50px;
+            padding: 5px 14px; margin-bottom: 20px;
+        }
+
+        .chapter-num { font-size: 12px; font-weight: 700; letter-spacing: 2px; color: var(--text-mute); margin-bottom: 10px; }
+
+        .hero h1 {
+            font-size: 28px; font-weight: 900; line-height: 1.35;
+            letter-spacing: -0.5px; color: var(--text); margin-bottom: 28px; word-break: keep-all;
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--red);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .distract-list { list-style: none; margin-bottom: 16px; }
+        .distract-list li {
+            font-size: 15px; color: var(--text-sub); padding: 4px 0;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .distract-list li::before { content: "→"; color: var(--red); font-weight: 700; flex-shrink: 0; }
+
+        .self-blame { font-size: 17px; font-weight: 700; color: var(--red); padding-top: 14px; border-top: 1px solid var(--border-mid); margin-top: 4px; margin-bottom: 12px; }
+
+        .reframe-text {
+            padding: 12px 16px;
+            background: var(--accent-soft); border: 1px solid var(--accent-mid); border-radius: 10px;
+            font-size: 14px; font-weight: 600; color: var(--accent); line-height: 1.6; word-break: keep-all;
+        }
+
+        .section { padding: 60px 0; border-bottom: 1px solid var(--border); }
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex; align-items: center; gap: 8px;
+            font-size: 11px; font-weight: 700; letter-spacing: 2px;
+            color: var(--text-mute); margin-bottom: 18px;
+        }
+        .sec-label span { color: var(--accent); }
+        .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border-mid); }
+
+        .sec-title { font-size: 22px; font-weight: 900; line-height: 1.4; color: var(--text); margin-bottom: 12px; word-break: keep-all; letter-spacing: -0.3px; }
+        .sec-lead { font-size: 15px; color: var(--text-sub); line-height: 1.85; margin-bottom: 28px; word-break: keep-all; }
+
+        /* 01 */
+        .concept-box {
+            background: var(--bg-gray); border: 1px solid var(--border-mid); border-radius: 14px;
+            padding: 20px; margin-bottom: 24px;
+        }
+        .concept-box .cb-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-mute); margin-bottom: 10px; }
+        .concept-box p { font-size: 15px; color: var(--text); line-height: 1.7; word-break: keep-all; }
+        .concept-box p strong { color: var(--accent); }
+
+        .approach-compare { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+        .approach-card { border-radius: 12px; padding: 16px; }
+        .approach-card.bad { background: var(--red-soft); border: 1px solid var(--red-mid); }
+        .approach-card.good { background: var(--accent-soft); border: 1px solid var(--accent-mid); }
+        .approach-card .a-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+        .approach-card.bad .a-tag { color: var(--red); }
+        .approach-card.good .a-tag { color: var(--accent); }
+        .approach-card .a-text { font-size: 14px; font-weight: 600; color: var(--text); word-break: keep-all; line-height: 1.5; }
+
+        .example-transform {
+            border-radius: 12px; overflow: hidden; border: 1px solid var(--border-mid); box-shadow: var(--shadow-sm);
+        }
+        .et-header { padding: 11px 16px; background: var(--bg-soft); font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-mute); border-bottom: 1px solid var(--border-mid); }
+        .et-row { display: grid; grid-template-columns: 1fr 20px 1fr; align-items: center; gap: 8px; padding: 13px 16px; background: var(--bg); border-bottom: 1px solid var(--border); }
+        .et-row:last-child { border-bottom: none; }
+        .et-before { font-size: 13px; color: var(--text-mute); text-decoration: line-through; text-decoration-color: rgba(0,0,0,0.2); }
+        .et-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .et-after { font-size: 13px; font-weight: 700; color: var(--accent); }
+
+        /* 02 */
+        .dopamine-box {
+            background: var(--accent-soft); border: 1px solid var(--accent-mid); border-radius: 14px;
+            padding: 20px; margin-bottom: 24px;
+        }
+        .db-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
+        .db-flow {
+            display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+            font-size: 13px; font-weight: 600;
+        }
+        .db-step { padding: 7px 12px; background: var(--bg); border: 1px solid var(--accent-mid); border-radius: 8px; color: var(--text); }
+        .db-arrow { color: var(--accent); font-size: 16px; }
+
+        .distant-rewards { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 20px; }
+        .distant-rewards li {
+            padding: 11px 14px; background: var(--red-soft); border: 1px solid var(--red-mid);
+            border-radius: 10px; font-size: 13px; color: var(--red); font-weight: 600;
+        }
+        .distant-note { font-size: 13px; color: var(--text-sub); margin-bottom: 20px; line-height: 1.6; word-break: keep-all; padding: 12px 14px; background: var(--bg-gray); border-radius: 10px; border: 1px solid var(--border-mid); }
+
+        .feedback-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .feedback-list li {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 14px; background: var(--bg); border: 1px solid var(--border-mid);
+            border-radius: 10px; font-size: 13px; color: var(--text-sub); box-shadow: var(--shadow-sm);
+        }
+        .feedback-list li .fi { font-size: 18px; flex-shrink: 0; }
+
+        /* 03 */
+        .principle-box {
+            background: var(--accent-soft); border: 1px solid var(--accent-mid); border-radius: 14px;
+            padding: 20px; margin-bottom: 24px; text-align: center;
+        }
+        .principle-box .pb-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: 10px; }
+        .principle-box .pb-text { font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.6; word-break: keep-all; }
+        .principle-box .pb-text em { font-style: normal; color: var(--accent); }
+
+        .timing-table { border-radius: 14px; overflow: hidden; border: 1px solid var(--border-mid); margin-bottom: 24px; box-shadow: var(--shadow-sm); }
+        .tt-head { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg-soft); border-bottom: 1px solid var(--border-mid); }
+        .tt-head span { padding: 11px 14px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; color: var(--text-mute); }
+        .tt-head span:first-child { border-right: 1px solid var(--border-mid); }
+        .tt-row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--border); }
+        .tt-row:last-child { border-bottom: none; }
+        .tt-bad { padding: 12px 14px; background: var(--red-soft); font-size: 13px; color: var(--red); border-right: 1px solid var(--border-mid); }
+        .tt-good { padding: 12px 14px; background: var(--accent-soft); font-size: 13px; color: var(--accent); font-weight: 600; }
+
+        .criteria-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+        .criteria-list li {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 14px; background: var(--bg); border: 1px solid var(--border-mid);
+            border-radius: 10px; font-size: 13px; color: var(--text-sub); box-shadow: var(--shadow-sm);
+        }
+        .ci-check { width: 20px; height: 20px; background: var(--accent); color: white; border-radius: 50%; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        /* 04 */
+        .reward-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 24px; }
+        .reward-item {
+            padding: 14px 12px; background: var(--bg); border: 1px solid var(--border-mid);
+            border-radius: 10px; text-align: center; font-size: 13px; color: var(--text-sub);
+            font-weight: 600; box-shadow: var(--shadow-sm);
+        }
+        .reward-item .ri { font-size: 22px; display: block; margin-bottom: 6px; }
+
+        .loop-steps { display: flex; flex-direction: column; gap: 0; margin-bottom: 24px; background: var(--bg); border: 1px solid var(--border-mid); border-radius: 14px; overflow: hidden; }
+        .loop-step { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+        .loop-step:last-child { border-bottom: none; }
+        .ls-num { width: 26px; height: 26px; background: var(--accent); color: white; border-radius: 50%; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+        .ls-text { font-size: 14px; color: var(--text); font-weight: 600; line-height: 1.5; padding-top: 2px; }
+        .ls-text span { display: block; font-size: 12px; font-weight: 400; color: var(--text-mute); margin-top: 2px; }
+
+        .running-example { background: var(--bg-gray); border-radius: 14px; padding: 20px; border: 1px solid var(--border-mid); margin-bottom: 20px; }
+        .re-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-mute); margin-bottom: 12px; }
+        .re-flow { display: flex; flex-direction: column; gap: 6px; }
+        .re-step { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+        .re-step .rs-icon { font-size: 16px; flex-shrink: 0; }
+        .re-step .rs-text { color: var(--text-sub); }
+        .re-step .rs-text strong { color: var(--accent); }
+        .re-connector { width: 16px; height: 16px; margin-left: 6px; color: var(--text-mute); font-size: 12px; }
+
+        .quote-box {
+            background: var(--accent-soft); border-left: 3px solid var(--accent);
+            border-radius: 0 12px 12px 0; padding: 16px 18px;
+            font-size: 15px; font-weight: 600; color: var(--text); line-height: 1.7; word-break: keep-all;
+        }
+
+        /* 요약 */
+        .summary-section { padding: 60px 0 80px; background: var(--bg-gray); }
+        .summary-card {
+            background: var(--bg); border: 1px solid var(--border-mid); border-radius: 18px;
+            padding: 26px 22px; margin-bottom: 20px; box-shadow: var(--shadow-md);
+        }
+        .sc-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--accent); margin-bottom: 18px; }
+        .sum-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .sum-list li { display: flex; gap: 12px; font-size: 14px; color: var(--text-sub); line-height: 1.65; word-break: keep-all; }
+        .sum-num { width: 22px; height: 22px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+        .next-card {
+            display: flex; align-items: center; justify-content: space-between; gap: 16px;
+            padding: 22px 20px; background: var(--bg); border: 1px solid var(--border-mid);
+            border-radius: 14px; text-decoration: none; box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+        .next-card:hover { box-shadow: var(--shadow-md); border-color: var(--accent-mid); }
+        .nc-label { font-size: 10px; font-weight: 700; letter-spacing: 2px; color: var(--text-mute); margin-bottom: 6px; }
+        .nc-title { font-size: 16px; font-weight: 800; color: var(--text); line-height: 1.4; word-break: keep-all; }
+        .nc-arr { font-size: 22px; color: var(--accent); flex-shrink: 0; }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter5.html" class="nav-back">← 5장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 2부 · ADHD 뇌 작동 원리</div>
+            <div class="chapter-num">CHAPTER 06</div>
+            <h1>지루함, 도파민,<br><em>보상 루프</em></h1>
+
+            <div class="empathy-block">
+                <ul class="distract-list">
+                    <li>휴대폰을 확인하고 싶다</li>
+                    <li>갑자기 검색을 하고 싶다</li>
+                    <li>커피를 마시고 싶다</li>
+                    <li>새로운 아이디어가 떠올라 하던 일을 밀어낸다</li>
+                </ul>
+                <div class="self-blame">"나는 왜 보상이 없으면 움직이지 못하지?"</div>
+                <div class="reframe-text">
+                    보상은 단순한 유혹이 아니다. 제대로 설계하면 실행을 반복하게 만드는 강력한 루프가 된다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 지루함 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> ADHD에게 지루함은 단순한 싫증이 아니다</div>
+            <h2 class="sec-title">지루함 = 보상 회로 저작동 상태</h2>
+            <p class="sec-lead">지루함을 태도 문제로 보면 해결책은 "참아라"뿐이다. 보상 회로의 문제로 보면 설계할 수 있다.</p>
+
+            <div class="concept-box">
+                <div class="cb-tag">핵심 개념</div>
+                <p>ADHD 성향을 가진 사람은 <strong>보상 회로가 저작동</strong>할 때 쉽게 지루해지고, 보상을 갈망하며, 자극이나 흥분을 추구한다. 이것은 의지의 문제가 아니라 뇌 작동 방식이다.</p>
+            </div>
+
+            <div class="approach-compare">
+                <div class="approach-card bad">
+                    <div class="a-tag">❌ 기존 관점</div>
+                    <div class="a-text">지루함 = 태도 문제 → 해결책: "참아라", "집중해라"</div>
+                </div>
+                <div class="approach-card good">
+                    <div class="a-tag">✓ 새로운 관점</div>
+                    <div class="a-text">지루함 = 보상 회로 문제 → 해결책: 작은 자극과 작은 보상을 붙인다</div>
+                </div>
+            </div>
+
+            <div class="example-transform">
+                <div class="et-header">지루한 과제 → 시작 가능하게 바꾸기</div>
+                <div class="et-row">
+                    <span class="et-before">서류 정리하기</span>
+                    <span class="et-arr">→</span>
+                    <span class="et-after">서류 3장만 분류하고 체크 표시하기</span>
+                </div>
+                <div class="et-row">
+                    <span class="et-before">보고서 작성하기</span>
+                    <span class="et-arr">→</span>
+                    <span class="et-after">첫 문단 제목만 적기</span>
+                </div>
+                <div class="et-row">
+                    <span class="et-before">공부하기</span>
+                    <span class="et-arr">→</span>
+                    <span class="et-after">문제 2개 풀고 동그라미 치기</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 도파민 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 도파민은 쾌락보다 '움직이게 하는 힘'에 가깝다</div>
+            <h2 class="sec-title">도파민은 '기분 좋다'가 아니라<br>'해볼 만하다'는 감각이다</h2>
+            <p class="sec-lead">도파민은 흔히 쾌락 물질로 알려져 있지만, ADHD 실행에서 도파민을 쾌락으로만 보면 부족하다. 도파민은 행동을 시작하게 만드는 힘과 연결된다.</p>
+
+            <div class="dopamine-box">
+                <div class="db-tag">도파민의 실제 역할</div>
+                <div class="db-flow">
+                    <div class="db-step">도파민 증가</div>
+                    <div class="db-arrow">→</div>
+                    <div class="db-step">전전두피질 자극</div>
+                    <div class="db-arrow">→</div>
+                    <div class="db-step">계획 · 분류 · 순서 · 기억 · 평가 기능 활성화</div>
+                </div>
+            </div>
+
+            <p style="font-size:13px; color:var(--text-mute); font-weight:700; letter-spacing:1.5px; margin-bottom:10px;">먼 미래 보상의 문제점</p>
+            <ul class="distant-rewards">
+                <li>"3개월 뒤에 좋아질 거야"</li>
+                <li>"언젠가 도움이 될 거야"</li>
+                <li>"나중에 큰 성과가 있을 거야"</li>
+            </ul>
+            <div class="distant-note">머리로는 이해된다. 하지만 지금 당장의 실행력을 자극하기에는 충분하지 않다. 필요한 것은 <strong>행동 직후에 따라오는 작은 피드백</strong>이다.</div>
+
+            <p style="font-size:13px; color:var(--text-mute); font-weight:700; letter-spacing:1.5px; margin-bottom:10px;">즉각적인 작은 피드백 예시</p>
+            <ul class="feedback-list">
+                <li><span class="fi">📖</span>책을 한 장 읽고 표시하기</li>
+                <li><span class="fi">👕</span>운동복을 입고 체크하기</li>
+                <li><span class="fi">✉️</span>메일함을 열고 완료 칸에 동그라미 치기</li>
+                <li><span class="fi">🎵</span>10분 작업 뒤 음악 한 곡 듣기</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 03 보상 배치 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 보상은 유혹이 아니라 배치의 문제다</div>
+            <h2 class="sec-title">실행 전 보상 = 회피<br>실행 후 보상 = 강화</h2>
+            <p class="sec-lead">보상 자체가 문제가 아니다. 보상이 어디에 놓이느냐가 결과를 바꾼다. 같은 보상이라도 위치에 따라 회피가 되거나 강화가 된다.</p>
+
+            <div class="principle-box">
+                <div class="pb-tag">핵심 원칙</div>
+                <div class="pb-text">
+                    <em>실행 전</em>에 보상이 오면 회피가 된다.<br>
+                    <em>실행 후</em>에 보상이 오면 강화가 된다.
+                </div>
+            </div>
+
+            <div class="timing-table">
+                <div class="tt-head">
+                    <span>❌ 실행 전 보상 (회피)</span>
+                    <span>✓ 실행 후 보상 (강화)</span>
+                </div>
+                <div class="tt-row">
+                    <div class="tt-bad">공부 전 영상 보기</div>
+                    <div class="tt-good">10분 공부 후 짧은 영상</div>
+                </div>
+                <div class="tt-row">
+                    <div class="tt-bad">정리 전 간식 먹기</div>
+                    <div class="tt-good">물건 5개 정리 후 간식</div>
+                </div>
+                <div class="tt-row">
+                    <div class="tt-bad">시작 전 SNS 확인</div>
+                    <div class="tt-good">10분 집중 후 SNS 5분</div>
+                </div>
+            </div>
+
+            <p style="font-size:13px; color:var(--text-mute); font-weight:700; letter-spacing:1.5px; margin-bottom:12px;">좋은 보상의 조건</p>
+            <ul class="criteria-list">
+                <li><div class="ci-check">✓</div>시간이 적절하다 (너무 길지 않다)</li>
+                <li><div class="ci-check">✓</div>끝이 분명하다</li>
+                <li><div class="ci-check">✓</div>다음 행동으로 돌아올 수 있다</li>
+                <li><div class="ci-check">✓</div>실행 뒤에 온다</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 04 보상 루프 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 작은 보상은 습관을 만든다</div>
+            <h2 class="sec-title">뇌에 '다시 시도할 이유'를<br>남기는 것</h2>
+            <p class="sec-lead">필요한 보상은 크고 거창한 것이 아니다. 오히려 너무 강한 보상은 다음 행동을 삼켜버린다. 중요한 것은 작고, 빠르고, 분명한 보상이다.</p>
+
+            <div class="reward-grid">
+                <div class="reward-item"><span class="ri">✅</span>체크 표시 하나</div>
+                <div class="reward-item"><span class="ri">⭐</span>스티커 하나</div>
+                <div class="reward-item"><span class="ri">☕</span>커피 한 모금</div>
+                <div class="reward-item"><span class="ri">🚶</span>짧은 산책</div>
+                <div class="reward-item"><span class="ri">🎵</span>좋아하는 음악 한 곡</div>
+                <div class="reward-item"><span class="ri">📝</span>"했다"는 기록</div>
+            </div>
+
+            <div class="loop-steps">
+                <div class="loop-step">
+                    <div class="ls-num">1</div>
+                    <div class="ls-text">작은 행동을 한다<span>운동복 입기, 책 한 문장 읽기, 파일 열기</span></div>
+                </div>
+                <div class="loop-step">
+                    <div class="ls-num">2</div>
+                    <div class="ls-text">작은 보상을 받는다<span>체크 표시, 커피 한 모금, 음악 한 곡</span></div>
+                </div>
+                <div class="loop-step">
+                    <div class="ls-num">3</div>
+                    <div class="ls-text">뇌가 다시 시도할 이유를 얻는다<span>"이 행동은 다시 해볼 만하다"는 신호가 남는다</span></div>
+                </div>
+                <div class="loop-step">
+                    <div class="ls-num">4</div>
+                    <div class="ls-text">반복하면서 실행 회로가 조금씩 강해진다<span>작은 성공이 쌓이며 자기 신뢰가 만들어진다</span></div>
+                </div>
+            </div>
+
+            <div class="running-example">
+                <div class="re-tag">실전 예시 · 운동 루틴 만들기</div>
+                <div class="re-flow">
+                    <div class="re-step">
+                        <span class="rs-icon">1️⃣</span>
+                        <span class="rs-text">"운동하기" <strong>→</strong> 운동복 입기 + 체크</span>
+                    </div>
+                    <div class="re-step">
+                        <span class="rs-icon">2️⃣</span>
+                        <span class="rs-text">다음 날 → 운동복 입고 <strong>문밖으로 나가기</strong></span>
+                    </div>
+                    <div class="re-step">
+                        <span class="rs-icon">3️⃣</span>
+                        <span class="rs-text">그다음 → <strong>5분 걷기</strong></span>
+                    </div>
+                </div>
+                <p style="font-size:12px; color:var(--text-mute); margin-top:14px;">핵심: 한 번에 완벽한 루틴이 아니라, 행동과 보상을 연결하는 회로를 만드는 것이다.</p>
+            </div>
+
+            <div class="quote-box">
+                "보상은 마지막에 주어지는 상이 아니다. 보상은 다음 행동을 가능하게 만드는 연결 고리이자 마중물이다."
+            </div>
+        </div>
+    </section>
+
+    <!-- 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">6장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        지루함은 태도 문제가 아니라 보상 회로 저작동 상태다. 지루한 일도 작게 만들고 완료 신호를 주면 시작할 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        도파민은 쾌락이 아니라 '해볼 만하다'는 감각이다. 먼 미래 보상보다 지금 당장의 작은 피드백이 실행력을 자극한다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        보상의 위치가 핵심이다 — 실행 전은 회피, 실행 후는 강화. 보상을 금지하지 말고 배치를 바꿔라.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        작고 즉각적인 보상이 뇌에 '다시 시도할 이유'를 남기고, 반복되면 실행 회로가 조금씩 강해진다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter7.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 07</div>
+                    <div class="nc-title">브레이크를 키우는 뇌</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

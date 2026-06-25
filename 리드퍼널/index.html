@@ -131,6 +131,58 @@
         .values { background: var(--dark); }
         .values-list { display: grid; gap: 14px; }
 
+        /* ===== 가이드 프로모 섹션 ===== */
+        .guide-promo { background: var(--dark); }
+
+        .guide-stats {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .guide-stat {
+            flex: 1;
+            background: rgba(79,209,197,0.08);
+            border: 1px solid rgba(79,209,197,0.2);
+            border-radius: 14px;
+            padding: 18px 12px;
+            text-align: center;
+        }
+
+        .gs-num {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .gs-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .guide-chapters {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .gc-item {
+            font-size: 14px;
+            color: var(--text-muted);
+            padding: 12px 16px;
+            background: var(--dark-light);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent);
+            line-height: 1.5;
+        }
+
+        .guide-btn { width: 100%; text-align: center; }
+
         /* ===== CTA 섹션 ===== */
         .cta-section { background: var(--dark-light); padding: 80px 0; }
         .cta-btns { display: flex; flex-direction: column; gap: 12px; }
@@ -151,7 +203,7 @@
                 <a href="adhd-test.html">자료 제공</a>
                 <a href="community.html">커뮤니티</a>
                 <a href="podcast.html">팟캐스트</a>
-                <a href="postit.html">제품</a>
+                <a href="products.html">제품</a>
                 <a href="coaching.html">상담</a>
             </div>
         </div>
@@ -172,6 +224,7 @@
         <div class="hero-btns">
             <a href="asrs-test.html" class="btn-main">ADHD 간편검사 해보기 →</a>
             <a href="postit.html" class="btn-outline">무료 포스트잇 체험단 신청</a>
+            <a href="book/index.html" class="btn-outline">ADHD 실행력 가이드 무료로 읽기 📖</a>
         </div>
         <div class="scroll-hint"><span></span></div>
     </section>
@@ -257,6 +310,37 @@
         </div>
     </section>
 
+    <!-- 무료 가이드 -->
+    <section class="section guide-promo">
+        <div class="container">
+            <span class="label-tag">FREE GUIDE</span>
+            <h2 class="section-title">알고도 못 하는 이유,<br>19장으로 정리했습니다</h2>
+            <p class="section-desc">의지 탓이 아닌 설계 탓. ADHD 뇌가 왜 알면서도 실행을 못 하는지,<br>어떻게 바꿀 수 있는지를 무료로 읽을 수 있습니다.</p>
+            <div class="guide-stats">
+                <div class="guide-stat">
+                    <div class="gs-num">19</div>
+                    <div class="gs-label">챕터</div>
+                </div>
+                <div class="guide-stat">
+                    <div class="gs-num">5</div>
+                    <div class="gs-label">파트</div>
+                </div>
+                <div class="guide-stat">
+                    <div class="gs-num">FREE</div>
+                    <div class="gs-label">무료 공개</div>
+                </div>
+            </div>
+            <div class="guide-chapters">
+                <div class="gc-item">✓ &nbsp;왜 알고도 못 할까 — 자기비난 해체</div>
+                <div class="gc-item">✓ &nbsp;ADHD 뇌의 시간·감정·도파민</div>
+                <div class="gc-item">✓ &nbsp;작은 행동으로 회로를 바꾸는 법</div>
+                <div class="gc-item">✓ &nbsp;수면·호흡·운동으로 뇌 기반 만들기</div>
+                <div class="gc-item">✓ &nbsp;플래너 & 환경 설계 실전 가이드</div>
+            </div>
+            <a href="book/index.html" class="btn-main guide-btn">1장부터 무료로 읽기 →</a>
+        </div>
+    </section>
+
     <!-- 가치 -->
     <section class="section values">
         <div class="container">
@@ -303,6 +387,7 @@
                 <p>내가 어떤 유형인지 먼저 확인하고<br>나에게 맞는 첫 번째 도구부터 시작해보세요.</p>
                 <div class="cta-btns">
                     <a href="asrs-test.html" class="btn-main">ADHD 간편검사 해보기 →</a>
+                    <a href="book/index.html" class="btn-outline">ADHD 실행력 가이드 읽기 📖</a>
                     <a href="postit.html" class="btn-outline">포스트잇 무료 체험단 신청</a>
                     <a href="coaching.html" class="btn-outline">1:1 무료 상담 받기</a>
                 </div>

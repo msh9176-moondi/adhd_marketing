@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>14장: 장-뇌축 감정 안정 루틴 | FLOCA</title>
+    <meta name="description" content="장과 뇌는 따로 움직이지 않습니다. 장-뇌축이 ADHD의 감정 안정과 실행력에 미치는 영향을 이해하고 실천 루틴을 만들어보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+            --red-mid: rgba(220,38,38,0.14);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .know-list {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .know-list li {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding: 4px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .know-list li::before {
+            content: "😔";
+            flex-shrink: 0;
+        }
+
+        .but-line {
+            font-size: 15px;
+            color: var(--text-sub);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            margin-top: 4px;
+            margin-bottom: 10px;
+        }
+
+        .old-think {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 12px;
+        }
+
+        .old-think-item {
+            padding: 10px 14px;
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--red);
+        }
+
+        .insight-box {
+            padding: 14px 16px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* 장-뇌 연결 채널 카드 */
+        .channel-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .channel-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .channel-card .ch-icon {
+            font-size: 24px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .channel-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .channel-card p {
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.55;
+            word-break: keep-all;
+        }
+
+        .adhd-connect-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 12px;
+            padding: 16px 18px;
+        }
+
+        .adhd-connect-box .ac-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .adhd-connect-box p {
+            font-size: 14px;
+            color: var(--text);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        /* 흐름 체인 */
+        .flow-chain {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .flow-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-left: 5px;
+        }
+
+        .flow-dot.red { background: var(--red); }
+
+        .flow-text {
+            padding: 11px 16px;
+            flex: 1;
+            font-size: 14px;
+            color: var(--text-sub);
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            word-break: keep-all;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .flow-connector {
+            width: 2px;
+            height: 10px;
+            background: var(--border-mid);
+            margin-left: 9px;
+        }
+
+        /* 자가 점검 카드 */
+        .self-check-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .self-check-item {
+            padding: 14px 14px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+            word-break: keep-all;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .self-check-item .sci-icon {
+            font-size: 20px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        /* 악순환 + 이전 챕터 연결 */
+        .break-cycle-box {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 20px;
+            margin-top: 24px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .break-cycle-box .bc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 14px;
+        }
+
+        .chapter-link-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .chapter-link-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 11px 14px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 9px;
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .chapter-link-list li .ch-num {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .linked-message {
+            margin-top: 14px;
+            padding: 13px 16px;
+            background: var(--bg-soft);
+            border-radius: 10px;
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        /* 프로/프리바이오틱스 */
+        .biotic-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .biotic-card {
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .biotic-card.pro {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .biotic-card.pre {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.2);
+        }
+
+        .biotic-card .bio-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 8px;
+        }
+
+        .biotic-card.pro .bio-tag { color: var(--accent); }
+        .biotic-card.pre .bio-tag { color: #b45309; }
+
+        .biotic-card h4 {
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--text);
+        }
+
+        .biotic-card .bio-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .biotic-card .bio-items li {
+            font-size: 12px;
+            color: var(--text-sub);
+            padding: 3px 0;
+        }
+
+        .biotic-card .bio-items li::before {
+            content: "· ";
+            color: var(--text-mute);
+        }
+
+        .reduce-box {
+            background: var(--red-soft);
+            border: 1px solid var(--red-mid);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-bottom: 20px;
+        }
+
+        .reduce-box .rb-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+
+        .reduce-box ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .reduce-box ul li {
+            font-size: 13px;
+            color: #c53030;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reduce-box ul li::before {
+            content: "✕";
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .micro-routine-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .micro-routine-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 10px;
+            font-size: 14px;
+            color: var(--text-sub);
+            box-shadow: var(--shadow-sm);
+            word-break: keep-all;
+        }
+
+        .micro-routine-list li .mr-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* 하루 루틴 타임라인 */
+        .day-timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin-bottom: 24px;
+        }
+
+        .dt-row {
+            display: flex;
+            gap: 14px;
+            align-items: stretch;
+        }
+
+        .dt-time-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60px;
+            flex-shrink: 0;
+        }
+
+        .dt-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+            margin-top: 14px;
+        }
+
+        .dt-line {
+            width: 2px;
+            flex: 1;
+            background: var(--accent-mid);
+            min-height: 10px;
+        }
+
+        .dt-time {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--accent);
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .dt-content {
+            flex: 1;
+            padding: 10px 0 14px;
+        }
+
+        .dt-content p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.55;
+            word-break: keep-all;
+        }
+
+        .dt-content strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* 5원칙 */
+        .principle-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .principle-item {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 11px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .principle-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .principle-item p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .principle-item p strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .final-message {
+            margin-top: 20px;
+            padding: 18px 20px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .final-message em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* 요약 */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .summary-section { padding: 48px 0 72px; }
+            .biotic-grid { grid-template-columns: 1fr; }
+            .self-check-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="chapter13.html" class="nav-back">← 13장</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 4부 · 몸-뇌 회복 기반 만들기</div>
+            <div class="chapter-num">CHAPTER 14</div>
+            <h1>장-뇌축:<br><em>감정 안정 루틴</em></h1>
+
+            <div class="empathy-block">
+                <ul class="know-list">
+                    <li>별일 아닌 말에도 기분이 확 꺾인다</li>
+                    <li>집중하려고 앉았는데 몸 안쪽이 불편하다</li>
+                    <li>계속 단 것이 당기고, 식사 후엔 졸리고, 밤에는 또 잠들기 어렵다</li>
+                </ul>
+                <p class="but-line">그럴 때 우리는 쉽게 이런 결론을 내린다.</p>
+                <div class="old-think">
+                    <div class="old-think-item">"내가 예민해서 그래."</div>
+                    <div class="old-think-item">"내가 멘탈이 약해서 그래."</div>
+                </div>
+                <div class="insight-box">
+                    몸은 마음과 따로 움직이지 않는다. 특히 장은 뇌와 끊임없이 신호를 주고받는다.<br><br>
+                    호흡이 순간의 브레이크라면, <strong>장-뇌축은 감정 안정의 바닥을 만드는 장기적인 회복 루틴이다.</strong>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 장과 뇌는 따로 움직이지 않는다 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 장과 뇌는 따로 움직이지 않는다</div>
+            <h2 class="sec-title">감정 안정은 머릿속만의 문제가 아니다.<br>장도 감정 안정의 일부다.</h2>
+            <p class="sec-lead">
+                장은 단순히 음식을 소화하는 기관이 아니다. 장은 뇌와 계속 대화한다. 이 연결을 장-뇌축이라고 부른다.
+            </p>
+
+            <div class="channel-grid">
+                <div class="channel-card">
+                    <span class="ch-icon">🔗</span>
+                    <div>
+                        <h4>미주신경</h4>
+                        <p>장의 신호를 뇌에 전달하는 핵심 통로. 호흡으로도 자극할 수 있는 연결선이다.</p>
+                    </div>
+                </div>
+                <div class="channel-card">
+                    <span class="ch-icon">🦠</span>
+                    <div>
+                        <h4>장내 세균</h4>
+                        <p>세로토닌, 도파민, GABA 같은 신경전달물질과 연결된다. 장내 미생물의 균형이 감정에 영향을 줄 수 있다.</p>
+                    </div>
+                </div>
+                <div class="channel-card">
+                    <span class="ch-icon">🔥</span>
+                    <div>
+                        <h4>면역·염증 경로</h4>
+                        <p>장내 환경이 흔들리면 염증 신호가 증가하고, 이것이 뇌 기능에 영향을 줄 수 있다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="adhd-connect-box">
+                <div class="ac-label">ADHD 연결</div>
+                <p>ADHD의 감정 기복·충동성·집중력 불균형·에너지 민감성은 장내 환경의 영향을 받을 수 있다. 물론 장이 ADHD를 만든다고 단정할 수는 없지만, 장 건강은 감정과 실행력을 받쳐주는 기반이 될 수 있다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 장내 미생물 불균형 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 장내 미생물 불균형은 감정과 집중을 흔들 수 있다</div>
+            <h2 class="sec-title">감정은 머릿속에서만 시작되지 않을 수 있다.<br>몸 안쪽의 불안정도 감정의 재료가 된다.</h2>
+
+            <div class="flow-chain">
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">장내 환경이 흔들린다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">염증과 불편감이 올라온다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">몸이 위협 신호를 더 많이 보낸다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">뇌가 불안하고 예민한 상태로 반응한다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">집중은 흩어지고 충동은 강해진다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">감정이 더 쉽게 흔들린다</div>
+                </div>
+            </div>
+
+            <p class="sec-lead" style="margin-bottom: 16px;">ADHD 성향을 가진 사람은 감정을 다룰 때 생각만 보지 말아야 한다. 장의 신호도 함께 봐야 한다.</p>
+
+            <div class="self-check-grid">
+                <div class="self-check-item">
+                    <span class="sci-icon">🍬</span>
+                    내가 무엇을 먹는지 — 단 음식과 가공식품을 계속 찾고 있는지
+                </div>
+                <div class="self-check-item">
+                    <span class="sci-icon">😣</span>
+                    자주 속이 불편한지 — 소화 불량이나 더부룩함이 반복되는지
+                </div>
+                <div class="self-check-item">
+                    <span class="sci-icon">🚽</span>
+                    변비나 설사처럼 장 리듬이 흔들리는지
+                </div>
+                <div class="self-check-item">
+                    <span class="sci-icon">😴</span>
+                    식사 후 졸리거나 기운이 빠지는 패턴이 반복되는지
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 스트레스는 장을 흔든다 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 스트레스는 장을 흔들고, 장은 다시 뇌를 흔든다</div>
+            <h2 class="sec-title">악순환을 끊으려면 '스트레스 받지 말자'가 아니라<br>스트레스를 낮추는 실제 루틴이 필요하다</h2>
+
+            <div class="flow-chain">
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">스트레스를 받는다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">속이 불편해진다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">장 리듬이 깨진다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">몸이 더 예민해진다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">감정이 더 쉽게 올라온다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">집중이 흐려지고 실행이 무너진다</div>
+                </div>
+                <div class="flow-connector"></div>
+                <div class="flow-step">
+                    <div class="flow-dot red"></div>
+                    <div class="flow-text">다시 자기비난과 스트레스가 올라온다</div>
+                </div>
+            </div>
+
+            <div class="break-cycle-box">
+                <div class="bc-label">악순환을 끊는 연결 — 이전 챕터들의 루틴</div>
+                <ul class="chapter-link-list">
+                    <li><span class="ch-num">13장</span> 호흡 — 감정과 행동 사이의 즉각적인 브레이크</li>
+                    <li><span class="ch-num">12장</span> 수면 전 대본 — 장과 뇌의 야간 회복 시간 확보</li>
+                    <li><span class="ch-num">11장</span> 식후 걷기와 혈당 안정 — 장과 에너지의 바닥 만들기</li>
+                    <li><span class="ch-num">10장</span> 행동 대본 — 회피 패턴을 실행 패턴으로 대체</li>
+                    <li><span class="ch-num">9장</span> 작은 행동 — 부담을 줄여 스트레스 없이 시작하기</li>
+                </ul>
+                <div class="linked-message">
+                    감정 안정 루틴은 머릿속 생각만 바꾸는 기술이 아니다. 몸이 덜 위협을 느끼도록 만드는 <strong>생활 구조</strong>다.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 04 장 건강 루틴 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 장 건강 루틴은 식단보다 '반복되는 환경'이다</div>
+            <h2 class="sec-title">장내 미생물이 살기 좋은<br>반복 환경을 만드는 것이다</h2>
+            <p class="sec-lead">
+                장 건강을 이야기하면 "무엇을 먹어야 하지?"부터 떠올린다. 하지만 장 건강은 특정 식품 하나로 해결되는 문제가 아니다. 장내 미생물이 살기 좋은 반복 환경을 만드는 문제다.
+            </p>
+
+            <div class="biotic-grid">
+                <div class="biotic-card pro">
+                    <div class="bio-tag">PROBIOTICS</div>
+                    <h4>유익균 공급</h4>
+                    <ul class="bio-items">
+                        <li>발효식품 (김치, 된장)</li>
+                        <li>낫토</li>
+                        <li>유산균·요거트</li>
+                    </ul>
+                </div>
+                <div class="biotic-card pre">
+                    <div class="bio-tag">PREBIOTICS</div>
+                    <h4>유익균 먹이</h4>
+                    <ul class="bio-items">
+                        <li>귀리·콩류</li>
+                        <li>양파·마늘</li>
+                        <li>뿌리채소·식이섬유</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="reduce-box">
+                <div class="rb-label">줄여야 하는 것</div>
+                <ul>
+                    <li>설탕과 가공식품</li>
+                    <li>만성 스트레스</li>
+                    <li>항생제 남용</li>
+                    <li>식이섬유 부족 식사</li>
+                </ul>
+            </div>
+
+            <ul class="micro-routine-list">
+                <li><span class="mr-icon">💧</span>아침에 물 한 잔</li>
+                <li><span class="mr-icon">🥦</span>하루 한 끼 채소 추가</li>
+                <li><span class="mr-icon">🍜</span>식사에 발효 반찬 하나</li>
+                <li><span class="mr-icon">🥜</span>간식은 단 음식 대신 견과류나 과일</li>
+                <li><span class="mr-icon">📉</span>가공식품을 완전히 끊기보다 빈도 먼저 줄이기</li>
+                <li><span class="mr-icon">🚶</span>식후 10분 걷기</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 05 통합 루틴 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>05</span> ADHD 감정 안정 루틴은 장·호흡·수면·움직임을 함께 묶어야 한다</div>
+            <h2 class="sec-title">하루 루틴이<br>감정 안정의 바닥을 만든다</h2>
+            <p class="sec-lead">
+                ADHD 감정 안정 루틴은 하나의 음식이나 보충제로 완성되지 않는다. 장·호흡·수면·움직임이 함께 묶여야 한다.
+            </p>
+
+            <div class="day-timeline">
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">아침</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>미지근한 물 한 잔</strong><br>장 리듬을 깨우는 가장 간단한 시작</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">식사</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>단백질 + 채소 + 발효식품</strong><br>혈당 안정 + 유익균 공급</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">오전</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>작업 시작 전 3회 호흡</strong><br>미주신경을 안정시키고 집중 회로 켜기</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">점심</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>가공식품보다 자연식</strong><br>장내 환경을 자극하지 않는 방향으로</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">식후</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>10분 걷기</strong><br>혈당 처리 + 장운동 + 도파민 활성</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">오후</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>단 것이 당길 때</strong><br>감정인지 배고픔인지 먼저 구분해보기</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">저녁</div>
+                        <div class="dt-dot"></div>
+                        <div class="dt-line"></div>
+                    </div>
+                    <div class="dt-content">
+                        <p><strong>자극적인 음식·과식 줄이기</strong><br>장과 수면을 동시에 안정시키는 선택</p>
+                    </div>
+                </div>
+                <div class="dt-row">
+                    <div class="dt-time-col">
+                        <div class="dt-time">취침 전</div>
+                        <div class="dt-dot"></div>
+                    </div>
+                    <div class="dt-content" style="padding-bottom: 0;">
+                        <p><strong>조명 낮추기 + 호흡 + 수면 대본</strong><br>뇌와 장의 회복 시간 확보</p>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="principle-list">
+                <li class="principle-item">
+                    <div class="principle-num">1</div>
+                    <p><strong>장에 들어가는 자극을 줄인다</strong> — 설탕·가공식품·과식을 줄여 장내 염증 신호를 낮춘다</p>
+                </li>
+                <li class="principle-item">
+                    <div class="principle-num">2</div>
+                    <p><strong>유익균이 살 수 있는 먹이를 준다</strong> — 식이섬유·발효식품·채소로 장내 균형 환경 조성</p>
+                </li>
+                <li class="principle-item">
+                    <div class="principle-num">3</div>
+                    <p><strong>식후에 몸을 움직인다</strong> — 혈당 처리 + 장운동 + 미주신경 자극을 동시에</p>
+                </li>
+                <li class="principle-item">
+                    <div class="principle-num">4</div>
+                    <p><strong>호흡으로 미주신경과 자율신경을 안정시킨다</strong> — 장-뇌 신호의 핵심 통로를 직접 자극</p>
+                </li>
+                <li class="principle-item">
+                    <div class="principle-num">5</div>
+                    <p><strong>수면으로 뇌와 장의 회복 시간을 확보한다</strong> — 밤 동안 장내 환경과 뇌가 함께 회복된다</p>
+                </li>
+            </ul>
+
+            <div class="final-message">
+                ADHD 실행력은 머리에서만 나오지 않는다.<br>
+                <em>장·수면·호흡·움직임이 함께 받쳐줄 때</em> 더 오래 유지된다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">14장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        장과 뇌는 미주신경·신경전달물질·면역 경로로 연결되어 있다 — 장내 환경이 흔들리면 감정·집중·충동도 흔들릴 수 있다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        스트레스→장 불균형→뇌 예민→실행 무너짐의 악순환. 끊으려면 스트레스를 낮추는 실제 루틴이 필요하다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        프로바이오틱스(유익균 공급) + 프리바이오틱스(유익균 먹이) + 가공식품 줄이기 + 식후 걷기.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        감정 안정 루틴 = 장·호흡·수면·움직임을 함께 묶은 하루 구조다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter15.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 15</div>
+                    <div class="nc-title">운동은 도파민과 혈당,<br>불안을 동시에 다룬다</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

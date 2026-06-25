@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADHD 실행력 재설계 — 무료 가이드 | FLOCA</title>
+    <meta name="description" content="알고도 못 하는 사람을 위한 ADHD 실행력 재설계. 의지 탓이 아닌 설계 탓. 19장 무료 가이드를 지금 읽어보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 110px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .free-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 26px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 10px;
+            word-break: keep-all;
+            letter-spacing: -0.5px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-sub {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        .book-stats {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 32px;
+        }
+
+        .stat-chip {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 14px;
+            background: var(--bg-gray);
+            border: 1px solid var(--border-mid);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-sub);
+        }
+
+        .stat-chip .sc-val {
+            color: var(--accent);
+        }
+
+        .start-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 14px;
+            font-size: 16px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+            transition: opacity 0.2s;
+        }
+        .start-btn:hover { opacity: 0.88; }
+
+        /* ===== INTRO HOOK ===== */
+        .hook-section {
+            padding: 52px 0;
+            background: var(--bg-gray);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hook-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .hook-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .hook-list li .hk-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .hook-answer {
+            padding: 18px 20px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .hook-answer em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* ===== TOC ===== */
+        .toc-section {
+            padding: 52px 0;
+            background: var(--bg);
+        }
+
+        .toc-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 28px;
+        }
+
+        .part-block {
+            margin-bottom: 40px;
+        }
+
+        .part-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .part-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent-mid);
+        }
+
+        .part-num {
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 6px;
+            padding: 3px 8px;
+            flex-shrink: 0;
+        }
+
+        .part-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.2px;
+        }
+
+        .part-question {
+            font-size: 12px;
+            color: var(--text-mute);
+            margin-left: auto;
+            flex-shrink: 0;
+            font-style: italic;
+        }
+
+        .chapter-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .chapter-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-gray);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.18s;
+        }
+
+        .chapter-item a:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent-mid);
+            transform: translateX(3px);
+        }
+
+        .ch-num {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-mute);
+            width: 28px;
+            flex-shrink: 0;
+            letter-spacing: 0.5px;
+        }
+
+        .ch-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .ch-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+            margin-bottom: 3px;
+        }
+
+        .ch-desc {
+            font-size: 11px;
+            color: var(--text-mute);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .ch-arrow {
+            font-size: 14px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+            transition: color 0.18s;
+        }
+
+        .chapter-item a:hover .ch-arrow {
+            color: var(--accent);
+        }
+
+        /* ===== BOTTOM CTA ===== */
+        .bottom-cta {
+            padding: 52px 0;
+            background: var(--bg-gray);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .bottom-cta h3 {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 10px;
+            word-break: keep-all;
+        }
+
+        .bottom-cta p {
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .bottom-start-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 800;
+            text-decoration: none;
+            letter-spacing: -0.3px;
+            transition: opacity 0.2s;
+        }
+        .bottom-start-btn:hover { opacity: 0.88; }
+
+        .product-link {
+            display: block;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-mute);
+            text-decoration: none;
+        }
+        .product-link:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-back">← 홈으로</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../products.html" class="nav-cta">플래너 보기</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="free-badge">📖 무료 가이드 · 19장 전체 공개</div>
+            <h1>알고도 못 하는 사람을 위한<br><em>ADHD 실행력 재설계</em></h1>
+            <p class="hero-sub">
+                의지가 부족한 게 아닙니다.<br>
+                실행을 가능하게 하는 조건이 없었을 뿐입니다.<br>
+                왜 알면서도 못 하는지, 어떻게 바꿀 수 있는지 5부 19장에 담았습니다.
+            </p>
+            <div class="book-stats">
+                <div class="stat-chip"><span class="sc-val">5부</span> 구성</div>
+                <div class="stat-chip"><span class="sc-val">19장</span> 전체</div>
+                <div class="stat-chip"><span class="sc-val">무료</span> 공개</div>
+            </div>
+            <a href="chapter1.html" class="start-btn">1장부터 읽기 →</a>
+        </div>
+    </section>
+
+    <!-- 공감 훅 -->
+    <section class="hook-section">
+        <div class="wrap">
+            <ul class="hook-list">
+                <li><span class="hk-icon">😔</span>해야 한다는 걸 알면서도, 몸이 움직이지 않는다</li>
+                <li><span class="hk-icon">😔</span>계획은 세웠는데, 막상 시작을 못 한다</li>
+                <li><span class="hk-icon">😔</span>잠깐만 쉬려 했는데 시간이 사라져 있다</li>
+                <li><span class="hk-icon">😔</span>오늘도 자책하다가 하루를 끝냈다</li>
+            </ul>
+            <div class="hook-answer">
+                이건 <em>의지 부족이 아닙니다.</em><br>
+                ADHD 뇌는 시간·감정·보상·환경이 맞아야 실행됩니다.<br>
+                이 가이드는 그 조건을 찾아가는 19장의 여정입니다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 목차 -->
+    <section class="toc-section">
+        <div class="wrap">
+            <div class="toc-label">TABLE OF CONTENTS</div>
+
+            <!-- 1부 -->
+            <div class="part-block">
+                <div class="part-header">
+                    <span class="part-num">1부</span>
+                    <span class="part-title">ADHD 다시 이해하기</span>
+                    <span class="part-question">나는 왜 알고도 못 할까?</span>
+                </div>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="chapter1.html">
+                            <span class="ch-num">01</span>
+                            <div class="ch-info">
+                                <div class="ch-title">의지 부족이라는 함정에서 벗어나기</div>
+                                <div class="ch-desc">ADHD를 게으름이 아닌 실행기능 문제로 재정의</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter2.html">
+                            <span class="ch-num">02</span>
+                            <div class="ch-info">
+                                <div class="ch-title">농부의 세계에서 사는 사냥꾼의 뇌</div>
+                                <div class="ch-desc">ADHD를 결함이 아닌 환경 부적합과 강점의 관점으로</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter3.html">
+                            <span class="ch-num">03</span>
+                            <div class="ch-info">
+                                <div class="ch-title">반복된 실패가 만든 자기 비난의 회로</div>
+                                <div class="ch-desc">실패 경험이 회피와 미루기로 이어지는 과정</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 2부 -->
+            <div class="part-block">
+                <div class="part-header">
+                    <span class="part-num">2부</span>
+                    <span class="part-title">ADHD 뇌의 작동 원리</span>
+                    <span class="part-question">왜 시간·감정·보상에 흔들릴까?</span>
+                </div>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="chapter4.html">
+                            <span class="ch-num">04</span>
+                            <div class="ch-info">
+                                <div class="ch-title">ADHD 시간은 '지금'과 '지금 아님'으로 흐른다</div>
+                                <div class="ch-desc">시간감각 왜곡과 외부 시간 시스템의 필요성</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter5.html">
+                            <span class="ch-num">05</span>
+                            <div class="ch-info">
+                                <div class="ch-title">감정이 행동을 결정하지 않게 하는 법</div>
+                                <div class="ch-desc">감정은 명령이 아니라 신호라는 관점</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter6.html">
+                            <span class="ch-num">06</span>
+                            <div class="ch-info">
+                                <div class="ch-title">지루함, 도파민, 보상 루프</div>
+                                <div class="ch-desc">보상을 실행의 연료로 재설계하는 법</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter7.html">
+                            <span class="ch-num">07</span>
+                            <div class="ch-info">
+                                <div class="ch-title">브레이크를 키우는 뇌</div>
+                                <div class="ch-desc">충동·감정·주의 전환을 조절하는 훈련</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 3부 -->
+            <div class="part-block">
+                <div class="part-header">
+                    <span class="part-num">3부</span>
+                    <span class="part-title">실행력을 다시 훈련하기</span>
+                    <span class="part-question">실행력은 다시 만들 수 있을까?</span>
+                </div>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="chapter8.html">
+                            <span class="ch-num">08</span>
+                            <div class="ch-info">
+                                <div class="ch-title">뇌가소성: 반복은 뇌의 길을 만든다</div>
+                                <div class="ch-desc">실행력은 반복으로 훈련될 수 있다는 근거</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter9.html">
+                            <span class="ch-num">09</span>
+                            <div class="ch-info">
+                                <div class="ch-title">작은 행동이 회로를 바꾼다</div>
+                                <div class="ch-desc">10분 원칙, 가장 작은 행동, 시작 저항 낮추기</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter10.html">
+                            <span class="ch-num">10</span>
+                            <div class="ch-info">
+                                <div class="ch-title">행동 대본: 회피 습관을 새 루틴으로 바꾸기</div>
+                                <div class="ch-desc">기존 회피 패턴을 새 행동 루틴으로 교체</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 4부 -->
+            <div class="part-block">
+                <div class="part-header">
+                    <span class="part-num">4부</span>
+                    <span class="part-title">몸-뇌 회복 기반 만들기</span>
+                    <span class="part-question">몸이 무너지면 왜 실행도 무너질까?</span>
+                </div>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="chapter11.html">
+                            <span class="ch-num">11</span>
+                            <div class="ch-info">
+                                <div class="ch-title">ADHD 뇌에 필요한 에너지 안정성</div>
+                                <div class="ch-desc">혈당·인슐린 저항성·대사유연성과 실행력</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter12.html">
+                            <span class="ch-num">12</span>
+                            <div class="ch-info">
+                                <div class="ch-title">수면은 뇌의 야간 복구 작업이다</div>
+                                <div class="ch-desc">수면이 기억·감정·다음 날 실행력에 미치는 영향</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter13.html">
+                            <span class="ch-num">13</span>
+                            <div class="ch-info">
+                                <div class="ch-title">호흡은 가장 빠른 브레이크다</div>
+                                <div class="ch-desc">코호흡·느린 호흡·자율신경 조절을 실천 도구로</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter14.html">
+                            <span class="ch-num">14</span>
+                            <div class="ch-info">
+                                <div class="ch-title">장-뇌축 감정 안정 루틴</div>
+                                <div class="ch-desc">장 건강·염증·미주신경·감정조절의 연결</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter15.html">
+                            <span class="ch-num">15</span>
+                            <div class="ch-info">
+                                <div class="ch-title">운동은 도파민과 혈당 그리고 불안을 동시에 다룬다</div>
+                                <div class="ch-desc">운동을 ADHD 뇌의 각성·보상·대사 안정 도구로</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 5부 -->
+            <div class="part-block">
+                <div class="part-header">
+                    <span class="part-num">5부</span>
+                    <span class="part-title">ADHD 실행 시스템 완성하기</span>
+                    <span class="part-question">나는 어떤 조건에서 작동하는가?</span>
+                </div>
+                <ul class="chapter-list">
+                    <li class="chapter-item">
+                        <a href="chapter16.html">
+                            <span class="ch-num">16</span>
+                            <div class="ch-info">
+                                <div class="ch-title">계획은 머리가 아니라 밖에 있어야 한다</div>
+                                <div class="ch-desc">계획·기억·우선순위를 외부화하는 방법</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter17.html">
+                            <span class="ch-num">17</span>
+                            <div class="ch-info">
+                                <div class="ch-title">ADHD 사용자는 플래너를 이렇게 써야 한다</div>
+                                <div class="ch-desc">감정 체크 → 작은 행동 → 10분 실행 → 보상 → 회복 기록</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter18.html">
+                            <span class="ch-num">18</span>
+                            <div class="ch-info">
+                                <div class="ch-title">나에게 맞는 환경을 설계하라</div>
+                                <div class="ch-desc">공간·도구·알림·시각 단서·직업 환경 설계</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                    <li class="chapter-item">
+                        <a href="chapter19.html">
+                            <span class="ch-num">19</span>
+                            <div class="ch-info">
+                                <div class="ch-title">ADHD를 없애는 것이 아니라 작동조건을 만든다</div>
+                                <div class="ch-desc">책 전체를 정리하며 나만의 작동 조건 만들기</div>
+                            </div>
+                            <span class="ch-arrow">→</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 하단 CTA -->
+    <section class="bottom-cta">
+        <div class="wrap">
+            <h3>1장부터 차례로 읽어보세요</h3>
+            <p>각 챕터는 5~10분 분량입니다.<br>읽다가 멈춰도 괜찮아요. 언제든 목차로 돌아오면 됩니다.</p>
+            <a href="chapter1.html" class="bottom-start-btn">1장 시작하기 →</a>
+            <a href="../products.html" class="product-link">FLOCA 실행 도구 보러가기 →</a>
+        </div>
+    </section>
+
+</body>
+</html>

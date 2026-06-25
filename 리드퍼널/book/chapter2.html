@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2장: 농부의 세계에서 사는 사냥꾼의 뇌 | FLOCA</title>
+    <meta name="description" content="ADHD는 결함이 아닐 수 있습니다. 농부의 세계에 놓인 사냥꾼의 뇌 — 환경 부적합과 강점의 관점으로 ADHD를 다시 이해해보세요.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 히어로 */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .empathy-block {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+        }
+
+        .empathy-block p {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.8;
+            margin-bottom: 12px;
+            word-break: keep-all;
+        }
+
+        .empathy-block p:last-child { margin-bottom: 0; }
+
+        .empathy-question {
+            margin-top: 14px;
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* 섹션 공통 */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+        .sec-label span { color: var(--accent); }
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* 농부 vs 사냥꾼 비교 */
+        .world-compare {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .world-card {
+            border-radius: 16px;
+            padding: 22px 16px;
+        }
+
+        .world-card.farmer {
+            background: rgba(251,191,36,0.06);
+            border: 1px solid rgba(251,191,36,0.2);
+        }
+
+        .world-card.hunter {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .world-card .wc-icon {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .world-card .wc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        .world-card.farmer .wc-tag { color: #b45309; }
+        .world-card.hunter .wc-tag { color: var(--accent); }
+
+        .world-card .wc-name {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .world-card .wc-traits {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .world-card .wc-traits li {
+            font-size: 12px;
+            color: var(--text-sub);
+            padding: 5px 8px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 6px;
+        }
+
+        .world-note {
+            background: rgba(239,68,68,0.04);
+            border: 1px solid rgba(239,68,68,0.12);
+            border-radius: 12px;
+            padding: 16px 18px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        .world-note strong { color: #dc2626; }
+
+        /* 특성 재해석 카드 */
+        .reframe-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .reframe-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .reframe-card .rc-head {
+            padding: 12px 16px;
+            background: var(--bg-soft);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text);
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .reframe-card .rc-body {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .rc-bad, .rc-good {
+            padding: 14px 16px;
+            font-size: 13px;
+            line-height: 1.55;
+            word-break: keep-all;
+        }
+
+        .rc-bad {
+            background: rgba(239,68,68,0.03);
+            border-right: 1px solid var(--border);
+        }
+
+        .rc-good {
+            background: var(--accent-soft);
+        }
+
+        .rc-bad .rc-label { font-size: 10px; font-weight: 700; color: #dc2626; margin-bottom: 5px; letter-spacing: 1px; }
+        .rc-good .rc-label { font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 5px; letter-spacing: 1px; }
+
+        .rc-bad p { color: var(--text-sub); }
+        .rc-good p { color: var(--text-sub); font-weight: 500; }
+
+        /* 질문 전환 */
+        .q-shift {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .q-shift .qs-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 14px;
+        }
+
+        .qs-row {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+            margin-bottom: 8px;
+        }
+        .qs-row:last-child { margin-bottom: 0; }
+
+        .qs-old {
+            flex: 1;
+            padding: 10px 12px;
+            background: rgba(239,68,68,0.05);
+            border: 1px solid rgba(239,68,68,0.12);
+            border-radius: 8px;
+            font-size: 12px;
+            color: #dc2626;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        .qs-arr {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--text-mute);
+            flex-shrink: 0;
+        }
+
+        .qs-new {
+            flex: 1;
+            padding: 10px 12px;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        /* 양면 카드 (강점/위험) */
+        .dual-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .dual-card {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dual-card .dc-title {
+            padding: 12px 18px;
+            background: var(--bg-soft);
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--text);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dual-card .dc-sides {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .dc-good, .dc-bad {
+            padding: 14px 16px;
+            font-size: 12px;
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .dc-good {
+            background: var(--accent-soft);
+            border-right: 1px solid var(--border);
+        }
+
+        .dc-bad {
+            background: rgba(239,68,68,0.03);
+        }
+
+        .dc-good .dc-label { font-size: 10px; font-weight: 700; color: var(--accent); margin-bottom: 5px; }
+        .dc-bad .dc-label { font-size: 10px; font-weight: 700; color: #dc2626; margin-bottom: 5px; }
+
+        .dc-good p { color: var(--text-sub); }
+        .dc-bad p { color: var(--text-sub); }
+
+        /* 자기 점검 */
+        .self-q-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .self-q-list li {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .self-q-list li .sq-q {
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .self-q-list li .sq-a {
+            padding: 10px 16px;
+            font-size: 13px;
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+
+        /* 사냥꾼 도구 리스트 */
+        .tool-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .tool-list li {
+            display: grid;
+            grid-template-columns: 40px 1fr;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .tool-icon {
+            font-size: 22px;
+            text-align: center;
+        }
+
+        .tool-text .tt-cond {
+            font-size: 12px;
+            color: var(--text-mute);
+            margin-bottom: 3px;
+        }
+
+        .tool-text .tt-sol {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .key-insight {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .key-insight .ki-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .key-insight .ki-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+            word-break: keep-all;
+        }
+
+        .key-insight p {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.7;
+            word-break: keep-all;
+        }
+
+        /* 요약 */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg-gray);
+        }
+
+        .summary-card {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 18px;
+            padding: 26px 22px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            width: 22px;
+            height: 22px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 22px 20px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            text-decoration: none;
+            box-shadow: var(--shadow-sm);
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        .next-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-mid);
+        }
+
+        .next-card .nc-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 6px;
+        }
+
+        .next-card .nc-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .next-card .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 480px) {
+            .hero { padding: 80px 0 44px; }
+            .hero h1 { font-size: 24px; }
+            .section { padding: 48px 0; }
+            .summary-section { padding: 48px 0 72px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav class="nav">
+        <div class="nav-inner">
+            <a href="../index.html" class="nav-back">← FLOCA</a>
+            <a href="../index.html" class="nav-logo">FLOCA</a>
+            <a href="../coaching.html" class="nav-cta">무료 상담</a>
+        </div>
+    </nav>
+
+    <!-- 히어로 -->
+    <section class="hero">
+        <div class="wrap">
+            <div class="part-tag">📖 1부 · ADHD 다시 이해하기</div>
+            <div class="chapter-num">CHAPTER 02</div>
+            <h1>농부의 세계에서 사는<br><em>사냥꾼의 뇌</em></h1>
+
+            <div class="empathy-block">
+                <p>학교에서는 혼났다. 창밖을 봤고, 숙제를 끝까지 못 했고, 책상은 늘 어수선했다.</p>
+                <p>그런데 이상하게도 어떤 순간에는 누구보다 빠르게 움직인다. 위기 상황에서는 판단이 빠르고, 새로운 문제를 풀어야 하는 자리에서는 갑자기 에너지가 살아난다.</p>
+                <p class="empathy-question">그렇다면 이 사람은 정말 고장 난 걸까?<br>맞지 않는 환경에 너무 오래 놓여 있었던 건 아닐까?</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 01 농부의 세계 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>01</span> 농부의 세계는 어떻게 움직이는가</div>
+            <h2 class="sec-title">현대의 학교와 직장은<br>농부의 규칙으로 움직인다</h2>
+            <p class="sec-lead">
+                톰 하트만의 관점에서 보면, ADHD 성향이 왜 특정 환경에서 유독 문제처럼 보이는지 이해할 수 있다. 농부의 세계와 사냥꾼의 세계는 전혀 다른 능력을 요구한다.
+            </p>
+
+            <div class="world-compare">
+                <div class="world-card farmer">
+                    <span class="wc-icon">🌾</span>
+                    <div class="wc-tag">농부의 세계</div>
+                    <div class="wc-name">반복과 질서</div>
+                    <ul class="wc-traits">
+                        <li>인내심</li>
+                        <li>계획성</li>
+                        <li>안정성</li>
+                        <li>반복 수행</li>
+                        <li>장기 목표</li>
+                    </ul>
+                </div>
+                <div class="world-card hunter">
+                    <span class="wc-icon">🏹</span>
+                    <div class="wc-tag">사냥꾼의 세계</div>
+                    <div class="wc-name">즉각 반응</div>
+                    <ul class="wc-traits">
+                        <li>탐색성</li>
+                        <li>즉각 판단</li>
+                        <li>강렬한 몰입</li>
+                        <li>위험 감수</li>
+                        <li>환경 읽기</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="world-note">
+                현대의 학교와 직장은 대부분 <strong>농부의 방식</strong>으로 운영된다 — 정해진 시간, 정해진 순서, 지루해도 버티기. 사냥꾼형 뇌는 이 구조에서 "산만함, 불성실, 참을성 부족"으로 보일 수 있다. 하지만 이것이 곧 무능함은 아니다.
+            </div>
+        </div>
+    </section>
+
+    <!-- 02 사냥꾼의 강점 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>02</span> 사냥꾼의 뇌는 무엇을 잘하는가</div>
+            <h2 class="sec-title">결함이 아니라<br>다른 방식의 능력이다</h2>
+            <p class="sec-lead">
+                ADHD의 특성을 결함으로만 보면 그 안에 있는 힘이 보이지 않는다. 같은 특성이 맥락에 따라 완전히 다르게 작동한다.
+            </p>
+
+            <div class="reframe-list">
+                <div class="reframe-card">
+                    <div class="rc-head">🔍 산만함</div>
+                    <div class="rc-body">
+                        <div class="rc-bad">
+                            <div class="rc-label">❌ 결함으로 보면</div>
+                            <p>집중을 못 하는 사람</p>
+                        </div>
+                        <div class="rc-good">
+                            <div class="rc-label">✓ 강점으로 보면</div>
+                            <p>주변 환경을 계속 탐색하는 성향</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reframe-card">
+                    <div class="rc-head">⚡ 충동성</div>
+                    <div class="rc-body">
+                        <div class="rc-bad">
+                            <div class="rc-label">❌ 결함으로 보면</div>
+                            <p>참을성이 없는 사람</p>
+                        </div>
+                        <div class="rc-good">
+                            <div class="rc-label">✓ 강점으로 보면</div>
+                            <p>위기 상황에서 즉각 판단하고 행동하는 능력</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reframe-card">
+                    <div class="rc-head">🎯 강렬한 몰입</div>
+                    <div class="rc-body">
+                        <div class="rc-bad">
+                            <div class="rc-label">❌ 결함으로 보면</div>
+                            <p>한 가지에만 빠져드는 사람</p>
+                        </div>
+                        <div class="rc-good">
+                            <div class="rc-label">✓ 강점으로 보면</div>
+                            <p>중요한 신호에 폭발적으로 반응하는 집중력</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reframe-card">
+                    <div class="rc-head">🚀 위험 감수</div>
+                    <div class="rc-body">
+                        <div class="rc-bad">
+                            <div class="rc-label">❌ 결함으로 보면</div>
+                            <p>무모한 사람</p>
+                        </div>
+                        <div class="rc-good">
+                            <div class="rc-label">✓ 강점으로 보면</div>
+                            <p>변화 속에서 기회를 잡는 방식</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="q-shift">
+                <div class="qs-label">질문 전환</div>
+                <div class="qs-row">
+                    <div class="qs-old">❌ "왜 나는 모든 일에 똑같이 집중하지 못하지?"</div>
+                    <div class="qs-arr">→</div>
+                    <div class="qs-new">✓ "나는 어떤 신호에 반응하는가? 어떤 일 앞에서 에너지가 살아나는가?"</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 03 강점이 위험이 되는 조건 -->
+    <section class="section bg-white">
+        <div class="wrap">
+            <div class="sec-label"><span>03</span> 강점은 환경이 맞지 않으면 위험이 된다</div>
+            <h2 class="sec-title">같은 특성, 조건에 따라<br>장점도 위험도 된다</h2>
+            <p class="sec-lead">
+                ADHD를 무조건 결함으로 보는 것도, 무조건 특별한 재능으로 보는 것도 위험하다. 중요한 것은 나의 특성이 어느 환경에서 강점이 되고, 어느 환경에서 위험이 되는지 구분하는 것이다.
+            </p>
+
+            <div class="dual-list">
+                <div class="dual-card">
+                    <div class="dc-title">🔍 탐색성 (주변을 살피는 성향)</div>
+                    <div class="dc-sides">
+                        <div class="dc-good">
+                            <div class="dc-label">✓ 위기 상황</div>
+                            <p>빠른 환경 파악, 즉각 대응 — 장점</p>
+                        </div>
+                        <div class="dc-bad">
+                            <div class="dc-label">⚠️ 독서 / 대화</div>
+                            <p>산만해져서 집중 방해 — 위험</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dual-card">
+                    <div class="dc-title">⚡ 즉각 반응성</div>
+                    <div class="dc-sides">
+                        <div class="dc-good">
+                            <div class="dc-label">✓ 돌발 상황</div>
+                            <p>빠른 판단과 행동 — 장점</p>
+                        </div>
+                        <div class="dc-bad">
+                            <div class="dc-label">⚠️ 감정 상황</div>
+                            <p>충동적 발언, 충동 소비 — 위험</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dual-card">
+                    <div class="dc-title">💡 새로움 추구</div>
+                    <div class="dc-sides">
+                        <div class="dc-good">
+                            <div class="dc-label">✓ 창의적 작업</div>
+                            <p>아이디어, 기업가 정신 — 장점</p>
+                        </div>
+                        <div class="dc-bad">
+                            <div class="dc-label">⚠️ 방향 없는 자극</div>
+                            <p>중독적 자극 추구 — 위험</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="font-size:11px; font-weight:700; letter-spacing:2px; color:var(--text-mute); margin-bottom:12px;">나의 강점과 위험 조건 점검하기</div>
+            <ul class="self-q-list">
+                <li>
+                    <div class="sq-q">나는 새로움이 있을 때 살아나는가?</div>
+                    <div class="sq-a">→ 반복 구간을 어떻게 버틸 것인가?</div>
+                </li>
+                <li>
+                    <div class="sq-q">나는 위기에서 집중이 잘 되는가?</div>
+                    <div class="sq-a">→ 매번 마감 직전까지 몰아붙이지 않으려면?</div>
+                </li>
+                <li>
+                    <div class="sq-q">나는 아이디어가 많은가?</div>
+                    <div class="sq-a">→ 실행 가능한 하나로 줄이는 방법이 있는가?</div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- 04 배치와 기술 -->
+    <section class="section bg-gray">
+        <div class="wrap">
+            <div class="sec-label"><span>04</span> 사냥꾼에게 필요한 것은 교정이 아니라 배치와 기술이다</div>
+            <h2 class="sec-title">농부처럼 변하는 것이 아니라<br>사냥꾼답게 장비를 갖추는 것</h2>
+            <p class="sec-lead">
+                사냥꾼에게 필요한 것은 두 가지다. 강점이 살아나는 환경을 찾는 것, 그리고 농부의 세계에서 살아가기 위한 실행 기술을 배우는 것.
+            </p>
+
+            <ul class="tool-list">
+                <li>
+                    <span class="tool-icon">⏱️</span>
+                    <div class="tool-text">
+                        <div class="tt-cond">시간이 흐려진다면</div>
+                        <div class="tt-sol">타이머와 일정표로 시간을 외부화한다</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="tool-icon">🔕</span>
+                    <div class="tool-text">
+                        <div class="tt-cond">자극에 쉽게 끌린다면</div>
+                        <div class="tt-sol">작업공간의 자극을 줄인다</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="tool-icon">💡</span>
+                    <div class="tool-text">
+                        <div class="tt-cond">아이디어가 너무 많다면</div>
+                        <div class="tt-sol">오늘 실행할 하나의 목표로 좁힌다</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="tool-icon">⏸️</span>
+                    <div class="tool-text">
+                        <div class="tt-cond">위험을 감수하는 성향이라면</div>
+                        <div class="tt-sol">결정 전에 멈추는 절차를 만든다</div>
+                    </div>
+                </li>
+                <li>
+                    <span class="tool-icon">🏆</span>
+                    <div class="tool-text">
+                        <div class="tt-cond">지루함을 견디기 어렵다면</div>
+                        <div class="tt-sol">작은 보상과 짧은 실행 단위를 설계한다</div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="key-insight">
+                <div class="ki-tag">핵심</div>
+                <div class="ki-title">이해 → 배치 → 기술</div>
+                <p>자신의 뇌가 어떤 조건에서 움직이는지 알아야 한다. 그리고 그 조건을 가능한 한 자주 만들어야 한다. 이것이 사냥꾼이 농부의 세계에서 살아가는 첫 번째 전략이다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 핵심 요약 -->
+    <section class="summary-section">
+        <div class="wrap">
+            <div class="summary-card">
+                <div class="sc-tag">2장 핵심 요약</div>
+                <ul class="sum-list">
+                    <li>
+                        <span class="sum-num">1</span>
+                        ADHD는 농부의 세계에 사는 사냥꾼의 뇌 — 결함이 아니라 환경 부적합이다.
+                    </li>
+                    <li>
+                        <span class="sum-num">2</span>
+                        산만함, 충동성, 위험 감수는 조건에 따라 탐색성, 즉각 반응, 강점이 된다.
+                    </li>
+                    <li>
+                        <span class="sum-num">3</span>
+                        같은 특성이 환경에 따라 장점도, 위험도 된다. 어느 조건에서 무엇이 되는지 아는 것이 먼저다.
+                    </li>
+                    <li>
+                        <span class="sum-num">4</span>
+                        사냥꾼에게 필요한 건 교정이 아니라 배치와 기술 — 자신의 작동 방식을 알고 조건을 만드는 것이다.
+                    </li>
+                </ul>
+            </div>
+
+            <a href="chapter3.html" class="next-card">
+                <div>
+                    <div class="nc-label">NEXT → CHAPTER 03</div>
+                    <div class="nc-title">반복된 실패가 만든<br>자기 비난의 회로</div>
+                </div>
+                <div class="nc-arr">→</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const bar = document.getElementById('progressBar');
+        window.addEventListener('scroll', () => {
+            const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+            bar.style.width = Math.min(pct, 100) + '%';
+        });
+    </script>
+</body>
+</html>

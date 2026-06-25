@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="../shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>18장: 나에게 맞는 환경을 설계하라 | FLOCA</title>
+    <meta name="description" content="실행이 안 될 때는 먼저 환경을 의심하세요. 공간, 도구, 알림, 시각 단서를 ADHD 뇌에 맞게 설계하는 방법입니다.">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-gray: #f8f9fb;
+            --bg-soft: #f0f4f8;
+            --text: #1a1a2e;
+            --text-sub: #4a5568;
+            --text-mute: #8a96a3;
+            --accent: #0f9e8e;
+            --accent-soft: rgba(15,158,142,0.08);
+            --accent-mid: rgba(15,158,142,0.18);
+            --border: rgba(0,0,0,0.07);
+            --border-mid: rgba(0,0,0,0.12);
+            --shadow-sm: 0 1px 4px rgba(0,0,0,0.06);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+            --red: #dc2626;
+            --red-soft: rgba(220,38,38,0.06);
+        }
+
+        body {
+            font-family: -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+
+        /* ===== 진행 바 ===== */
+        .progress-bar {
+            position: fixed;
+            top: 0; left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 2000;
+            transition: width 0.1s linear;
+        }
+
+        /* ===== 네비게이션 ===== */
+        .nav {
+            position: fixed;
+            top: 3px; left: 0; right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 14px 0;
+        }
+
+        .nav-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-sub);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover { color: var(--accent); }
+
+        .nav-logo {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-cta {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 6px 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--accent-mid); }
+
+        /* ===== 공통 컨테이너 ===== */
+        .wrap {
+            max-width: 640px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ===== 히어로 ===== */
+        .hero {
+            padding: 100px 0 60px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .part-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 50px;
+            padding: 5px 14px;
+            margin-bottom: 20px;
+        }
+
+        .chapter-num {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 10px;
+        }
+
+        .hero h1 {
+            font-size: 30px;
+            font-weight: 900;
+            line-height: 1.3;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            margin-bottom: 32px;
+            word-break: keep-all;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* 도입 공감 블록 */
+        .intro-scene {
+            background: var(--bg-gray);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 14px 14px 0;
+            padding: 22px 20px;
+            margin-bottom: 20px;
+        }
+
+        .scene-items {
+            list-style: none;
+            margin-bottom: 16px;
+        }
+
+        .scene-items li {
+            font-size: 14px;
+            color: var(--text-sub);
+            padding: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .scene-items li::before {
+            content: "→";
+            color: var(--red);
+            font-weight: 700;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .intro-core {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text);
+            padding-top: 14px;
+            border-top: 1px solid var(--border-mid);
+            word-break: keep-all;
+        }
+
+        .intro-core em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        /* ===== 섹션 ===== */
+        .section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section.bg-gray { background: var(--bg-gray); }
+        .section.bg-white { background: var(--bg); }
+
+        .sec-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-mute);
+            margin-bottom: 18px;
+        }
+
+        .sec-label span { color: var(--accent); }
+
+        .sec-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-mid);
+        }
+
+        .sec-title {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.4;
+            color: var(--text);
+            margin-bottom: 12px;
+            word-break: keep-all;
+            letter-spacing: -0.3px;
+        }
+
+        .sec-lead {
+            font-size: 15px;
+            color: var(--text-sub);
+            line-height: 1.85;
+            margin-bottom: 28px;
+            word-break: keep-all;
+        }
+
+        /* ===== 01 환경 의심 ===== */
+        .question-shift {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 28px;
+        }
+
+        .qs-card {
+            border-radius: 14px;
+            padding: 18px 16px;
+        }
+
+        .qs-card.old {
+            background: var(--red-soft);
+            border: 1px solid rgba(220,38,38,0.15);
+        }
+
+        .qs-card.new {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .qs-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .qs-card.old .qs-tag { color: var(--red); }
+        .qs-card.new .qs-tag { color: var(--accent); }
+
+        .qs-text {
+            font-size: 15px;
+            font-weight: 700;
+            word-break: keep-all;
+        }
+
+        .qs-card.old .qs-text { color: #c53030; }
+        .qs-card.new .qs-text { color: var(--text); }
+
+        .env-check-list {
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid var(--border-mid);
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 20px;
+        }
+
+        .ecl-head {
+            padding: 12px 18px;
+            background: var(--bg-soft);
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .ecl-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 13px 18px;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        .ecl-item:last-child { border-bottom: none; }
+
+        .ecl-dot {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 1.5px solid var(--accent-mid);
+            flex-shrink: 0;
+        }
+
+        /* ===== 02 공간 분리 ===== */
+        .space-map {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .space-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .space-icon {
+            font-size: 28px;
+            flex-shrink: 0;
+            width: 44px;
+            text-align: center;
+        }
+
+        .space-info { flex: 1; }
+
+        .space-name {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .space-purpose {
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+
+        .space-action {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        .what-if-box {
+            background: var(--bg-gray);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .wi-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .wi-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .wi-items li {
+            font-size: 14px;
+            color: var(--text-sub);
+            display: flex;
+            gap: 8px;
+            word-break: keep-all;
+        }
+
+        .wi-if {
+            color: var(--red);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== 03 시각 단서 ===== */
+        .friction-cue {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .fc-card {
+            border-radius: 14px;
+            padding: 18px 14px;
+        }
+
+        .fc-card.reduce {
+            background: var(--red-soft);
+            border: 1px solid rgba(220,38,38,0.15);
+        }
+
+        .fc-card.add {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+        }
+
+        .fc-icon { font-size: 24px; display: block; margin-bottom: 8px; }
+
+        .fc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            margin-bottom: 10px;
+        }
+
+        .fc-card.reduce .fc-tag { color: var(--red); }
+        .fc-card.add .fc-tag { color: var(--accent); }
+
+        .fc-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .fc-items li {
+            font-size: 13px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        .cue-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cue-card {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .cue-icon { font-size: 20px; flex-shrink: 0; }
+
+        .cue-info { flex: 1; }
+
+        .cue-name {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .cue-desc {
+            font-size: 12px;
+            color: var(--text-mute);
+        }
+
+        .warning-box {
+            background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.25);
+            border-radius: 12px;
+            padding: 16px 18px;
+            margin-top: 16px;
+        }
+
+        .warning-box .w-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: #b45309;
+            margin-bottom: 8px;
+        }
+
+        .warning-box p {
+            font-size: 14px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        /* ===== 04 알림 ===== */
+        .alarm-shift {
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 24px;
+        }
+
+        .as-head {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            padding: 10px 18px;
+            background: var(--bg-soft);
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-mute);
+            letter-spacing: 1px;
+            border-bottom: 1px solid var(--border-mid);
+        }
+
+        .as-row {
+            display: grid;
+            grid-template-columns: 1fr 20px 1fr;
+            align-items: center;
+            padding: 13px 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .as-row:last-child { border-bottom: none; }
+
+        .as-before { font-size: 13px; color: var(--text-mute); }
+        .as-arr { text-align: center; font-size: 12px; color: var(--text-mute); }
+        .as-after { font-size: 13px; font-weight: 700; color: var(--accent); word-break: keep-all; }
+
+        .alarm-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .alarm-card {
+            background: var(--bg);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 18px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .alarm-time {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: var(--text-mute);
+            margin-bottom: 8px;
+        }
+
+        .alarm-text {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 10px;
+            word-break: keep-all;
+        }
+
+        .alarm-end {
+            font-size: 12px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .alarm-end::before {
+            content: "✓";
+            font-weight: 700;
+        }
+
+        /* ===== 05 직업 환경 ===== */
+        .job-conditions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .jc-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            background: var(--bg);
+            border: 1px solid var(--border-mid);
+            border-radius: 12px;
+            padding: 14px 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .jc-num {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--accent-soft);
+            border: 1.5px solid var(--accent-mid);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .jc-text {
+            font-size: 14px;
+            color: var(--text-sub);
+            line-height: 1.6;
+            word-break: keep-all;
+            padding-top: 4px;
+        }
+
+        .self-question-box {
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-mid);
+            border-radius: 14px;
+            padding: 20px;
+        }
+
+        .sqb-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .sqb-questions {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sqb-questions li {
+            font-size: 14px;
+            color: var(--text);
+            font-weight: 600;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            word-break: keep-all;
+        }
+
+        .sqb-questions li::before {
+            content: "Q.";
+            color: var(--accent);
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        /* ===== 마무리 ===== */
+        .final-principles {
+            background: var(--bg-gray);
+            border-radius: 14px;
+            padding: 24px 20px;
+            margin-bottom: 28px;
+        }
+
+        .fp-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .fp-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .fp-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 14px;
+            color: var(--text-sub);
+            word-break: keep-all;
+        }
+
+        .fp-list li strong { color: var(--text); }
+
+        .fp-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* ===== 핵심 요약 ===== */
+        .summary-section {
+            padding: 60px 0 80px;
+            background: var(--bg);
+        }
+
+        .summary-card {
+            background: var(--text);
+            border-radius: 20px;
+            padding: 28px 24px;
+            margin-bottom: 20px;
+        }
+
+        .sc-tag {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 18px;
+        }
+
+        .sum-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .sum-list li {
+            display: flex;
+            gap: 14px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.65;
+            word-break: keep-all;
+        }
+
+        .sum-num {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        /* ===== 다음 챕터 ===== */
+        .next-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--bg);
+            border: 1.5px solid var(--accent-mid);
+            border-radius: 18px;
+            padding: 22px 20px;
+            text-decoration: none;
+            transition: all 0.2s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .next-card:hover {
+            background: var(--accent-soft);
+            border-color: var(--accent);
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .nc-label {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+
+        .nc-title {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--text);
+            line-height: 1.4;
+            word-break: keep-all;
+        }
+
+        .nc-arr {
+            font-size: 22px;
+            color: var(--accent);
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="chapter17.html" class="nav-back">← 17장</a>
+        <a href="../index.html" class="nav-logo">FLOCA</a>
+        <a href="../products.html" class="nav-cta">플래너 보기</a>
+    </div>
+</nav>
+
+<!-- 히어로 -->
+<section class="hero">
+    <div class="wrap">
+        <div class="part-tag">📖 5부 · ADHD 실행 시스템 완성하기</div>
+        <div class="chapter-num">CHAPTER 18</div>
+        <h1>나에게 맞는<br><em>환경을 설계하라</em></h1>
+
+        <div class="intro-scene">
+            <ul class="scene-items">
+                <li>플래너에는 "운동화 신고 10분 걷기"라고 적혀 있다. 그런데 운동화는 신발장 깊숙한 곳에 있다.</li>
+                <li>알림이 울렸지만, 화면을 켠 순간 다른 메시지가 눈에 들어온다.</li>
+                <li>책상에 앉았지만, 책상 위엔 컵·영수증·이어폰·충전기가 널려 있다.</li>
+            </ul>
+            <div class="intro-core">
+                이런 환경에서는 <em>작은 행동도 무용지물</em>이 된다.<br>
+                ADHD 사용자는 의지만으로 실행하기 어렵다. 그래서 <em>환경이 중요</em>하다.
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 01 환경 의심 -->
+<section class="section bg-gray">
+    <div class="wrap">
+        <div class="sec-label"><span>01</span> 실행이 안 된다면 먼저 환경을 의심하라</div>
+        <h2 class="sec-title">질문을 바꾸면<br>해결 방향이 달라진다</h2>
+        <p class="sec-lead">
+            실행이 막혔을 때 사람을 의심하기 전에 먼저 환경을 점검해야 한다.
+            ADHD의 어려움은 시간관리·조직화·자기동기화·충동조절·감정조절이 함께 얽힌 복합 과정이다.
+        </p>
+
+        <div class="question-shift">
+            <div class="qs-card old">
+                <div class="qs-tag">❌ 자기비난형 질문</div>
+                <div class="qs-text">"왜 나는 의지가 약하지?"<br>"왜 이렇게 산만하지?"</div>
+            </div>
+            <div class="qs-card new">
+                <div class="qs-tag">✓ 환경 점검형 질문</div>
+                <div class="qs-text">"이 환경은 내가 하려는 행동을 쉽게 만들고 있는가?"</div>
+            </div>
+        </div>
+
+        <div class="env-check-list">
+            <div class="ecl-head">🏃 운동이 안 될 때 — 먼저 확인하기</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>운동복은 보이는 곳에 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>운동화는 바로 신을 수 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>운동 알림은 행동문으로 되어 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>운동 후 보상은 정해져 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>침대나 휴대폰 같은 방해물이 앞에 있지는 않은가?</div>
+        </div>
+
+        <div class="env-check-list">
+            <div class="ecl-head">📖 공부가 안 될 때 — 먼저 확인하기</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>책상 위에 지금 공부할 책만 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>타이머가 바로 보이는 곳에 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>첫 행동 카드가 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>스마트폰은 손이 닿지 않는 곳에 있는가?</div>
+            <div class="ecl-item"><div class="ecl-dot"></div>책상에 앉았을 때 다른 자극이 보이지 않는가?</div>
+        </div>
+    </div>
+</section>
+
+<!-- 02 공간 분리 -->
+<section class="section bg-white">
+    <div class="wrap">
+        <div class="sec-label"><span>02</span> 공간은 행동별로 나누어야 한다</div>
+        <h2 class="sec-title">공간은 단순한 배경이 아니라<br>행동을 부르는 신호다</h2>
+        <p class="sec-lead">
+            침대에서 일을 하면 침대는 더 이상 잠자는 곳이 아니다. 모든 자극이 섞이면 뇌는 공간에 들어갔을 때
+            무엇을 해야 할지 모른다. 공간마다 목적을 정하면 행동의 시작이 쉬워진다.
+        </p>
+
+        <div class="space-map">
+            <div class="space-row">
+                <div class="space-icon">🖥️</div>
+                <div class="space-info">
+                    <div class="space-name">책상</div>
+                    <div class="space-purpose">목적: 작업·공부</div>
+                    <div class="space-action">첫 행동: 타이머 10분 켜기 / 오늘 카드 읽기</div>
+                </div>
+            </div>
+            <div class="space-row">
+                <div class="space-icon">🛏️</div>
+                <div class="space-info">
+                    <div class="space-name">침대</div>
+                    <div class="space-purpose">목적: 수면·회복</div>
+                    <div class="space-action">첫 행동: 조명 낮추기 / 수면 카드 보기</div>
+                </div>
+            </div>
+            <div class="space-row">
+                <div class="space-icon">🚪</div>
+                <div class="space-info">
+                    <div class="space-name">현관</div>
+                    <div class="space-purpose">목적: 외출·운동</div>
+                    <div class="space-action">첫 행동: 운동화 신기 / 외투 입기</div>
+                </div>
+            </div>
+            <div class="space-row">
+                <div class="space-icon">🍽️</div>
+                <div class="space-info">
+                    <div class="space-name">식탁</div>
+                    <div class="space-purpose">목적: 식사</div>
+                    <div class="space-action">첫 행동: 물 한 잔 마시기 / 휴대폰 내려놓기</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="what-if-box">
+            <div class="wi-tag">WHAT IF 계획 — 방해물이 생기면?</div>
+            <ul class="wi-items">
+                <li>
+                    <span class="wi-if">만약</span>
+                    <span>책상에 앉자마자 유튜브가 보고 싶다면 → 타이머 10분을 먼저 켜고 그 뒤에 보상으로 보겠다.</span>
+                </li>
+                <li>
+                    <span class="wi-if">만약</span>
+                    <span>침대에 누워 스마트폰을 보고 싶다면 → 휴대폰을 충전기에 꽂고 수면 카드만 보겠다.</span>
+                </li>
+                <li>
+                    <span class="wi-if">만약</span>
+                    <span>현관에서 다시 들어오고 싶다면 → 운동화를 신은 채로 문 앞에 1분 서 있겠다.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- 03 시각 단서 -->
+<section class="section bg-gray">
+    <div class="wrap">
+        <div class="sec-label"><span>03</span> 도구와 시각 단서는 기억을 대신해야 한다</div>
+        <h2 class="sec-title">ADHD에게<br>"기억해두자"는 위험한 전략이다</h2>
+        <p class="sec-lead">
+            보이지 않는 계획은 없는 계획과 비슷하다. 해야 할 행동은 눈에 보이게,
+            방해물은 손이 닿지 않는 곳으로. 단, 단서가 너무 많아지면 소음이 된다.
+        </p>
+
+        <div class="friction-cue">
+            <div class="fc-card reduce">
+                <span class="fc-icon">🔇</span>
+                <div class="fc-tag">마찰 줄이기</div>
+                <ul class="fc-items">
+                    <li>스마트폰 → 다른 방 충전</li>
+                    <li>게임 앱 → 폴더 안으로</li>
+                    <li>SNS 알림 → 모두 끄기</li>
+                    <li>책상 위 잡동사니 → 서랍 안으로</li>
+                    <li>침대 위 노트북 → 책상으로</li>
+                </ul>
+            </div>
+            <div class="fc-card add">
+                <span class="fc-icon">👀</span>
+                <div class="fc-tag">단서 늘리기</div>
+                <ul class="fc-items">
+                    <li>오늘 첫 행동 카드 → 책상 정중앙</li>
+                    <li>타이머 → 책상 위 보이게</li>
+                    <li>운동복 → 침대 위 펼쳐두기</li>
+                    <li>물병 → 현관 앞</li>
+                    <li>수면 카드 → 침대 옆 탁자</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cue-cards">
+            <div class="cue-card">
+                <div class="cue-icon">📋</div>
+                <div class="cue-info">
+                    <div class="cue-name">오늘 첫 행동 카드</div>
+                    <div class="cue-desc">책상 위 정중앙 — 앉는 순간 무엇을 할지 바로 보인다</div>
+                </div>
+            </div>
+            <div class="cue-card">
+                <div class="cue-icon">⏱️</div>
+                <div class="cue-info">
+                    <div class="cue-name">타이머</div>
+                    <div class="cue-desc">화면 왼쪽 — 10분 단위 실행의 기준점</div>
+                </div>
+            </div>
+            <div class="cue-card">
+                <div class="cue-icon">📝</div>
+                <div class="cue-info">
+                    <div class="cue-name">방문 앞 체크리스트</div>
+                    <div class="cue-desc">외출 전 확인 — 지갑·열쇠·오늘 첫 행동</div>
+                </div>
+            </div>
+            <div class="cue-card">
+                <div class="cue-icon">🎵</div>
+                <div class="cue-info">
+                    <div class="cue-name">시작 음악</div>
+                    <div class="cue-desc">특정 플레이리스트 → "지금은 집중 시간" 신호</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="w-tag">⚠️ 주의</div>
+            <p>포스트잇이 벽 전체에 붙어 있으면 어느 것도 눈에 들어오지 않는다. 단서는 적고 선명해야 한다. <strong>오늘 볼 것 하나, 지금 할 행동 하나.</strong></p>
+        </div>
+    </div>
+</section>
+
+<!-- 04 알림 -->
+<section class="section bg-white">
+    <div class="wrap">
+        <div class="sec-label"><span>04</span> 알림은 행동과 연결되어야 한다</div>
+        <h2 class="sec-title">알림은 명령이 아니라<br>행동문이어야 한다</h2>
+        <p class="sec-lead">
+            단순히 "운동"이라고 울리는 알림은 잔소리가 된다. 알림이 울리는 순간 바로 이어질
+            작은 행동이 함께 있어야 실행의 스위치가 된다.
+        </p>
+
+        <div class="alarm-shift">
+            <div class="as-head">
+                <span>❌ 막연한 알림</span>
+                <span></span>
+                <span>✓ 행동문 알림</span>
+            </div>
+            <div class="as-row">
+                <span class="as-before">운동</span>
+                <span class="as-arr">→</span>
+                <span class="as-after">운동화 신고 현관으로 가기</span>
+            </div>
+            <div class="as-row">
+                <span class="as-before">공부</span>
+                <span class="as-arr">→</span>
+                <span class="as-after">책상에 앉아 책 1쪽 펴기</span>
+            </div>
+            <div class="as-row">
+                <span class="as-before">정리</span>
+                <span class="as-arr">→</span>
+                <span class="as-after">책상 위 컵 하나 치우기</span>
+            </div>
+            <div class="as-row">
+                <span class="as-before">잠자기</span>
+                <span class="as-arr">→</span>
+                <span class="as-after">조명 낮추고 휴대폰 충전기에 꽂기</span>
+            </div>
+        </div>
+
+        <div class="alarm-cards">
+            <div class="alarm-card">
+                <div class="alarm-time">저녁 8:00</div>
+                <div class="alarm-text">운동화 신고 현관으로 가기</div>
+                <div class="alarm-end">현관 사진 찍고 알림 끄기</div>
+            </div>
+            <div class="alarm-card">
+                <div class="alarm-time">밤 10:30</div>
+                <div class="alarm-text">조명 낮추고 수면 카드 보기</div>
+                <div class="alarm-end">휴대폰을 침대 밖 충전기에 꽂기</div>
+            </div>
+            <div class="alarm-card">
+                <div class="alarm-time">오전 10:00</div>
+                <div class="alarm-text">책상에 앉아 타이머 10분 켜기</div>
+                <div class="alarm-end">타이머 시작 후 알림 끄기</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 05 직업 환경 -->
+<section class="section bg-gray">
+    <div class="wrap">
+        <div class="sec-label"><span>05</span> 직업 환경도 ADHD 작동조건에 맞아야 한다</div>
+        <h2 class="sec-title">환경 설계는<br>방과 책상에서 끝나지 않는다</h2>
+        <p class="sec-lead">
+            같은 사람도 어떤 환경에서는 무기력하고 산만하지만, 다른 환경에서는 에너지가 살아난다.
+            중요한 것은 직업명이 아니라 <strong>작동조건</strong>이다.
+        </p>
+
+        <div class="job-conditions">
+            <div class="jc-item">
+                <div class="jc-num">1</div>
+                <div class="jc-text"><strong>구조는 있지만 지나치게 경직되지 않은 환경</strong> — 규칙이 있지만 숨통이 트이는 곳</div>
+            </div>
+            <div class="jc-item">
+                <div class="jc-num">2</div>
+                <div class="jc-text"><strong>업무의 목표와 기준이 명확한 환경</strong> — "무엇을 하면 되는가"가 보이는 곳</div>
+            </div>
+            <div class="jc-item">
+                <div class="jc-num">3</div>
+                <div class="jc-text"><strong>피드백이 너무 늦지 않은 환경</strong> — 단기 보상과 즉각 반응이 있는 곳</div>
+            </div>
+            <div class="jc-item">
+                <div class="jc-num">4</div>
+                <div class="jc-text"><strong>새로움과 문제 해결이 있는 환경</strong> — 완전한 반복보다 도전 요소가 있는 곳</div>
+            </div>
+            <div class="jc-item">
+                <div class="jc-num">5</div>
+                <div class="jc-text"><strong>강점과 약점을 함께 인정하는 환경</strong> — 솔직하게 말할 수 있는 분위기</div>
+            </div>
+            <div class="jc-item">
+                <div class="jc-num">6</div>
+                <div class="jc-text"><strong>혼자 방치하지 않고 연결과 협업이 있는 환경</strong> — 적절한 사람 사이의 연결</div>
+            </div>
+        </div>
+
+        <div class="self-question-box">
+            <div class="sqb-tag">나의 직업 작동조건 찾기</div>
+            <ul class="sqb-questions">
+                <li>나는 어느 정도의 자율성이 있어야 움직이는가?</li>
+                <li>나는 어떤 방식의 피드백이 있을 때 집중이 유지되는가?</li>
+                <li>나는 반복 업무를 어느 정도까지 견딜 수 있는가?</li>
+                <li>나는 혼자 일할 때 좋은가, 연결이 있을 때 좋은가?</li>
+                <li>나는 어떤 구조가 있으면 길을 잃지 않는가?</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- 장 마무리 -->
+<section class="section bg-white">
+    <div class="wrap">
+        <div class="sec-label"><span>마무리</span> 환경 설계의 핵심</div>
+        <h2 class="sec-title">마찰을 줄이고<br>단서를 늘린다</h2>
+        <p class="sec-lead">
+            ADHD 사용자는 의지를 더 세게 쥐어짜는 것만으로 실행력을 유지하기 어렵다.
+            실행이 일어나려면 환경이 도와야 한다.
+        </p>
+
+        <div class="final-principles">
+            <div class="fp-tag">환경 설계 5가지 원칙</div>
+            <ul class="fp-list">
+                <li>
+                    <span class="fp-icon">🏠</span>
+                    <span><strong>공간은 행동별로 나눈다</strong> — 이곳은 무엇을 하는 곳인지 명확하게</span>
+                </li>
+                <li>
+                    <span class="fp-icon">🗂️</span>
+                    <span><strong>도구는 기억을 대신한다</strong> — 해야 할 행동은 눈에 보이게</span>
+                </li>
+                <li>
+                    <span class="fp-icon">🔔</span>
+                    <span><strong>알림은 행동문으로 바꾼다</strong> — 알림+행동+종료 신호 세트로</span>
+                </li>
+                <li>
+                    <span class="fp-icon">🔇</span>
+                    <span><strong>방해물은 멀리 둔다</strong> — 보이지 않으면 끌리지 않는다</span>
+                </li>
+                <li>
+                    <span class="fp-icon">💼</span>
+                    <span><strong>직업 환경도 작동조건이다</strong> — 어떤 환경에서 강점이 사는지 관찰한다</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- 핵심 요약 -->
+<section class="summary-section">
+    <div class="wrap">
+        <div class="summary-card">
+            <div class="sc-tag">18장 핵심 요약</div>
+            <ul class="sum-list">
+                <li>
+                    <span class="sum-num">1</span>
+                    실행이 안 될 때 먼저 나를 비난하지 말고 환경을 의심하라 — "이 환경은 내가 하려는 행동을 쉽게 만들고 있는가?"
+                </li>
+                <li>
+                    <span class="sum-num">2</span>
+                    공간은 행동을 부르는 신호다 — 책상=작업, 침대=수면, 현관=외출. 들어가기 전에 목적을 정한다.
+                </li>
+                <li>
+                    <span class="sum-num">3</span>
+                    도구와 시각 단서는 기억을 대신한다 — 적고 선명하게. 단서가 너무 많아지면 소음이 된다.
+                </li>
+                <li>
+                    <span class="sum-num">4</span>
+                    알림은 행동문이어야 한다 — 시간+행동문+종료 신호 세 가지를 함께 정한다.
+                </li>
+            </ul>
+        </div>
+
+        <a href="chapter19.html" class="next-card">
+            <div>
+                <div class="nc-label">NEXT → CHAPTER 19</div>
+                <div class="nc-title">ADHD를 없애는 것이 아니라<br>작동조건을 만든다</div>
+            </div>
+            <div class="nc-arr">→</div>
+        </a>
+    </div>
+</section>
+
+<script>
+    const bar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+        const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+        bar.style.width = Math.min(pct, 100) + '%';
+    });
+</script>
+</body>
+</html>

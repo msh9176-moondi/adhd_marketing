@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HSNDRX38MB"></script>
+    <script src="shared/js/analytics.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FLOCA 제품 | 포스트잇 & 플래너</title>
+    <meta name="description" content="ADHD를 위해 설계된 두 가지 제품. 아날로그 포스트잇과 디지털 플래너로 실행 가능한 하루를 만드세요.">
+
+    <!-- Shared CSS -->
+    <link rel="stylesheet" href="shared/css/base.css">
+    <link rel="stylesheet" href="shared/css/theme-dark.css">
+    <link rel="stylesheet" href="shared/css/theme-dark-teal.css">
+    <link rel="stylesheet" href="shared/css/components/nav.css">
+    <link rel="stylesheet" href="shared/css/components/footer.css">
+    <link rel="stylesheet" href="shared/css/components/buttons.css">
+    <link rel="stylesheet" href="shared/css/components/cards.css">
+
+    <style>
+        .page-hero {
+            padding: 120px 0 60px;
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .page-hero .label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            background: rgba(79,209,197,0.1);
+            border: 1px solid rgba(79,209,197,0.2);
+            border-radius: 50px;
+            padding: 6px 16px;
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 {
+            font-size: 32px;
+            font-weight: 900;
+            margin-bottom: 14px;
+            word-break: keep-all;
+        }
+
+        .page-hero p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        /* 제품 카드 섹션 */
+        .products-section {
+            padding: 20px 0 100px;
+            background: var(--dark);
+        }
+
+        .product-card {
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid var(--border, rgba(255,255,255,0.08));
+            margin-bottom: 32px;
+            transition: border-color 0.3s;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-glow, rgba(79,209,197,0.3));
+        }
+
+        .product-card-header {
+            padding: 36px 28px 28px;
+        }
+
+        .product-card-header .badge {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+        }
+
+        .badge-analog {
+            background: rgba(251,191,36,0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(251,191,36,0.25);
+        }
+
+        .badge-digital {
+            background: rgba(79,209,197,0.12);
+            color: var(--accent);
+            border: 1px solid rgba(79,209,197,0.2);
+        }
+
+        .product-card-header .product-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .product-card-header h2 {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .product-card-header .product-desc {
+            font-size: 15px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+
+        .product-features {
+            padding: 0 28px 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 16px 18px;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border, rgba(255,255,255,0.06));
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 20px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        .feature-row h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 3px;
+        }
+
+        .feature-row p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            word-break: keep-all;
+        }
+
+        .product-card-footer {
+            padding: 0 28px 32px;
+        }
+
+        .product-card-footer .btn-main,
+        .product-card-footer .btn-outline {
+            display: block;
+            width: 100%;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border, rgba(255,255,255,0.08));
+            margin: 0 28px 28px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== 네비게이션 ===== -->
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">FLOCA</a>
+            <div class="nav-links">
+                <a href="index.html">홈</a>
+                <a href="adhd-test.html">자료 제공</a>
+                <a href="community.html">커뮤니티</a>
+                <a href="podcast.html">팟캐스트</a>
+                <a href="products.html" class="active">제품</a>
+                <a href="coaching.html">상담</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== 페이지 히어로 ===== -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="label">PRODUCTS</span>
+            <h1>ADHD를 위해 설계된<br>두 가지 도구</h1>
+            <p>아날로그와 디지털, 두 방향에서<br>실행 가능한 하루를 만들어드립니다.</p>
+        </div>
+    </section>
+
+    <!-- ===== 제품 섹션 ===== -->
+    <section class="products-section">
+        <div class="container">
+
+            <!-- 포스트잇 카드 -->
+            <div class="product-card" style="background: rgba(251,191,36,0.03);">
+                <div class="product-card-header">
+                    <span class="badge badge-analog">ANALOG · 아날로그</span>
+                    <span class="product-icon">🟡</span>
+                    <h2>FLOCA 포스트잇</h2>
+                    <p class="product-desc">
+                        ADHD 뇌에 맞게 설계된 특수 포스트잇.<br>
+                        복잡한 계획 대신, 지금 당장 할 수 있는 한 가지를 눈앞에 붙여두세요.
+                    </p>
+                </div>
+
+                <div class="product-features">
+                    <div class="feature-row">
+                        <span class="feature-icon">👁️</span>
+                        <div>
+                            <h4>즉각적 시각화</h4>
+                            <p>할 일이 눈에 보여야 실행됩니다. 책상에 붙여두면 잊지 않아요.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">🎯</span>
+                        <div>
+                            <h4>한 가지 집중 구조</h4>
+                            <p>오늘 가장 중요한 한 가지만 적도록 설계되어 과부하를 막아줍니다.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">✅</span>
+                        <div>
+                            <h4>완료의 기쁨</h4>
+                            <p>포스트잇을 떼는 순간의 성취감이 다음 행동을 불러옵니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="product-card-footer">
+                    <a href="postit.html" class="btn-outline">포스트잇 자세히 보기 →</a>
+                </div>
+            </div>
+
+            <!-- 플래너 카드 -->
+            <div class="product-card" style="background: rgba(79,209,197,0.03);">
+                <div class="product-card-header">
+                    <span class="badge badge-digital">DIGITAL · 디지털</span>
+                    <span class="product-icon">📱</span>
+                    <h2>FLOCA 플래너</h2>
+                    <p class="product-desc">
+                        목표 설정부터 감정 기록까지, ADHD를 위해 설계된 올인원 플래너 앱.<br>
+                        작은 실행이 성장으로 쌓이는 구조로 하루를 디자인합니다.
+                    </p>
+                </div>
+
+                <div class="product-features">
+                    <div class="feature-row">
+                        <span class="feature-icon">🎯</span>
+                        <div>
+                            <h4>목표 위계 관리</h4>
+                            <p>인생 → 연간 → 월간 → 주간 → 일간 목표를 연결해 방향을 잃지 않습니다.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">⏱️</span>
+                        <div>
+                            <h4>포모도로 집중 타이머</h4>
+                            <p>25분 집중 세션으로 ADHD 뇌가 가장 잘 작동하는 리듬을 만들어줍니다.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">💚</span>
+                        <div>
+                            <h4>감정 & 컨디션 추적</h4>
+                            <p>수면, 에너지, 감정 패턴을 기록하고 나만의 최적 루틴을 찾아갑니다.</p>
+                        </div>
+                    </div>
+                    <div class="feature-row">
+                        <span class="feature-icon">🏆</span>
+                        <div>
+                            <h4>보상 시스템</h4>
+                            <p>XP와 레벨 시스템으로 작은 성취도 눈에 보이는 성장으로 쌓입니다.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="product-card-footer">
+                    <a href="https://msh9176-moondi.github.io/adhd-planner/" target="_blank" class="btn-main">플래너 사용해보기 →</a>
+                </div>
+            </div>
+
+            <!-- 일기 템플릿 카드 -->
+            <div class="product-card" style="background: rgba(251,146,60,0.03);">
+                <div class="product-card-header">
+                    <span class="badge" style="background:rgba(251,146,60,0.12);color:#fb923c;border:1px solid rgba(251,146,60,0.25);">TEMPLATE · 템플릿</span>
+                    <span class="product-icon">📓</span>
+                    <h2>ADHD 일기 템플릿</h2>
+                    <p class="product-desc">
+                        패턴을 기록하면 해결책이 보입니다.<br>
+                        미루기와 감정 폭발, 두 가지 핵심 문제를 위한 기록 도구예요.
+                    </p>
+                </div>
+
+                <div class="product-features">
+                    <!-- 미루기일기 -->
+                    <div style="padding: 4px 0 8px; font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--text-subtle);">TEMPLATE 01 · 미루기일기</div>
+                    <div class="feature-row">
+                        <span class="feature-icon">⏳</span>
+                        <div>
+                            <h4>미루기일기 템플릿 <span style="font-size:12px;font-weight:400;color:var(--text-subtle);">3,500원</span></h4>
+                            <p>미루는 순간을 기록하면 패턴이 보여요. 패턴이 보이면 대처법이 생깁니다. 의지 부족이 아닌 구조의 문제예요.</p>
+                        </div>
+                    </div>
+
+                    <!-- 감정일기 -->
+                    <div style="padding: 12px 0 8px; font-size:11px; font-weight:700; letter-spacing:1.5px; color:var(--text-subtle);">TEMPLATE 02 · 감정일기</div>
+                    <div class="feature-row">
+                        <span class="feature-icon">💢</span>
+                        <div>
+                            <h4>감정일기 템플릿 <span style="font-size:12px;font-weight:400;color:var(--text-subtle);">3,500원</span></h4>
+                            <p>감정 폭발에는 패턴이 있어요. 트리거를 파악하면 폭발 전에 멈출 수 있습니다. 자책 대신 이해로.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="product-card-footer">
+                    <a href="delay-diary.html" class="btn-outline">미루기일기 자세히 보기 →</a>
+                    <a href="emotion-diary.html" class="btn-outline" style="margin-top:8px;">감정일기 자세히 보기 →</a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Shared JS -->
+    <script src="shared/js/nav.js"></script>
+</body>
+</html>
