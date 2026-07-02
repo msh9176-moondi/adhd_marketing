@@ -627,7 +627,16 @@
     }
   }
 
-  render();
+  // 서버에서 최신 합의서 데이터 동기화 후 렌더링
+  async function init() {
+    try {
+      await API.pullAndCache('goalAgreements');
+    } catch (e) {
+      console.log('서버 동기화 실패, 로컬 데이터 사용:', e);
+    }
+    render();
+  }
+  init();
 </script>
 </body>
 </html>
