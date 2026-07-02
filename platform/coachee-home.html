@@ -515,7 +515,10 @@
       `;
     }
 
-    // 합의서 상태에 따른 알림 표시
+    // 합의서 상태에 따른 알림 표시 (먼저 모든 알림 초기화)
+    document.getElementById('revisionAlert').style.display = 'none';
+    document.getElementById('pendingSignAlert').style.display = 'none';
+
     const goalStatus = getAgreementStatus(goal);
     if (goalStatus === 'revision_requested') {
       document.getElementById('revisionAlert').style.display = 'block';
