@@ -693,7 +693,8 @@
 
   // 수정 요청 모달
   function openRevisionModal() {
-    closeSignModal();
+    // closeSignModal() 대신 모달만 숨김 (currentSignCoacheeId 유지)
+    document.getElementById('signModal').classList.remove('show');
     document.getElementById('revisionNoteInput').value = '';
     document.getElementById('revisionModal').classList.add('show');
   }
