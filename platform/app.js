@@ -1,5 +1,5 @@
 // ===== Google Sheets API =====
-const SHEETS_DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbzuw2BrOsmNOgdDGnfDjxoRSZn3prME-XdFCl1kxbNMzzzabdEqxClbEqYAfreK4esw2g/exec';
+const SHEETS_DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbwhhhfISyu_uutRTu2nVBJRgLnuS5zoZZjUsN6F7el6s_qX5WRi9vtjTh--NI5rR4VVPA/exec';
 
 const API = {
   getUrl: () => localStorage.getItem('sheetsUrl') || SHEETS_DEFAULT_URL,
