@@ -704,11 +704,18 @@
   }
 
   // 수정 요청 보내기
-  function requestRevision() {
+  async function requestRevision() {
     const note = document.getElementById('revisionNoteInput').value.trim();
     if (!note) {
       alert('수정 요청 내용을 입력해주세요.');
       return;
+    }
+
+    // 서버에서 최신 합의서 데이터 가져오기 (피코치가 수정했을 수 있음)
+    try {
+      await API.pullAndCache('goalAgreements');
+    } catch (e) {
+      console.log('서버 동기화 실패, 로컬 데이터 사용:', e);
     }
 
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === currentSignCoacheeId);
