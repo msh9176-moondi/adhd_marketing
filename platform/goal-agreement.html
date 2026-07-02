@@ -203,6 +203,10 @@
       <div style="margin-top:24px;" id="submitBtnWrap">
         <button type="submit" class="btn btn-primary btn-full btn-lg" id="submitBtn">합의서 작성 완료 및 서명 →</button>
       </div>
+      <div style="margin-top:16px; display:none;" id="editBtnWrap">
+        <button type="button" class="btn btn-outline btn-full btn-lg" id="editBtn" onclick="enableEditMode()">✏️ 합의서 수정하기</button>
+        <p style="text-align:center; margin-top:8px; font-size:13px; color:var(--text-muted);">수정 시 코치님의 재서명이 필요합니다.</p>
+      </div>
     </form>
   </div>
 </main>
@@ -272,12 +276,31 @@
   }
 
   // 폼 비활성화
-  function disableForm() {
-    document.querySelectorAll('#goalForm input, #goalForm textarea, #goalForm button').forEach(el => {
+  function disableForm(showEditBtn = false) {
+    document.querySelectorAll('#goalForm input, #goalForm textarea, #goalForm button:not(#editBtn)').forEach(el => {
       el.disabled = true;
       el.style.opacity = '0.7';
     });
     document.getElementById('submitBtnWrap').style.display = 'none';
+    if (showEditBtn && !isPreview) {
+      document.getElementById('editBtnWrap').style.display = 'block';
+    }
+  }
+
+  // 수정 모드 활성화
+  function enableEditMode() {
+    if (!confirm('합의서를 수정하시겠습니까?\n수정 후 코치님의 재서명이 필요합니다.')) return;
+
+    document.querySelectorAll('#goalForm input, #goalForm textarea, #goalForm button').forEach(el => {
+      el.disabled = false;
+      el.style.opacity = '1';
+    });
+    document.getElementById('submitBtnWrap').style.display = 'block';
+    document.getElementById('editBtnWrap').style.display = 'none';
+    document.getElementById('submitBtn').textContent = '수정 완료 및 재서명 요청 →';
+    document.getElementById('coacheeConsent').checked = false;
+    document.getElementById('coacheeConsentCheck').classList.remove('checked');
+    document.getElementById('statusBanner').style.display = 'none';
   }
 
   // 미리보기 모드 (코치용)
@@ -310,9 +333,12 @@
 
       // 상태에 따른 UI 처리
       const status = getAgreementStatus(existing);
-      if (status === 'pending_coach_sign' || status === 'completed') {
+      if (status === 'pending_coach_sign') {
         showStatusBanner(status, existing);
-        disableForm();
+        disableForm(false);
+      } else if (status === 'completed') {
+        showStatusBanner(status, existing);
+        disableForm(true); // 완료 상태에서는 수정 버튼 표시
       } else if (status === 'revision_requested') {
         showStatusBanner(status, existing);
         // 수정 요청 시에는 폼 활성화 유지, 버튼 텍스트 변경
