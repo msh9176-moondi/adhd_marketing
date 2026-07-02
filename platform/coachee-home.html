@@ -390,6 +390,14 @@
 
     const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
     const coach = matching ? getCoach(matching.coachId) : null;
+
+    // 디버깅: 매칭과 코치 정보 확인
+    console.log('[DEBUG render] matching:', matching);
+    console.log('[DEBUG render] matching.coachId:', matching?.coachId);
+    console.log('[DEBUG render] coach:', coach);
+    if (matching && !coach) {
+      console.warn('[DEBUG] 매칭은 있지만 코치 정보를 찾을 수 없음! coachId:', matching.coachId);
+    }
     const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
     const sessions = DB.get('sessions').filter(s => s.coacheeId === coacheeId).sort((a,b) => a.sessionNumber - b.sessionNumber);
     const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
@@ -635,9 +643,17 @@
     console.log('[DEBUG] 서버 동기화 시작...');
     console.log('[DEBUG] API configured:', API.configured());
     try {
-      const data = await API.pullAndCache('goalAgreements');
-      console.log('[DEBUG] 서버에서 가져온 goalAgreements:', data);
+      // matchings와 goalAgreements 모두 동기화
+      const [matchingsData, goalData] = await Promise.all([
+        API.pullAndCache('matchings'),
+        API.pullAndCache('goalAgreements')
+      ]);
+      console.log('[DEBUG] 서버에서 가져온 matchings:', matchingsData);
+      console.log('[DEBUG] 서버에서 가져온 goalAgreements:', goalData);
+
+      const matching = DB.get('matchings').find(m => m.coacheeId === coacheeId);
       const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+      console.log('[DEBUG] 현재 피코치의 매칭:', matching);
       console.log('[DEBUG] 현재 피코치의 합의서:', goal);
       console.log('[DEBUG] 합의서 status:', goal?.status);
     } catch (e) {
