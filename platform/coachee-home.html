@@ -632,10 +632,16 @@
 
   // 서버에서 최신 합의서 데이터 동기화 후 렌더링
   async function init() {
+    console.log('[DEBUG] 서버 동기화 시작...');
+    console.log('[DEBUG] API configured:', API.configured());
     try {
-      await API.pullAndCache('goalAgreements');
+      const data = await API.pullAndCache('goalAgreements');
+      console.log('[DEBUG] 서버에서 가져온 goalAgreements:', data);
+      const goal = DB.get('goalAgreements').find(g => g.coacheeId === coacheeId);
+      console.log('[DEBUG] 현재 피코치의 합의서:', goal);
+      console.log('[DEBUG] 합의서 status:', goal?.status);
     } catch (e) {
-      console.log('서버 동기화 실패, 로컬 데이터 사용:', e);
+      console.log('[DEBUG] 서버 동기화 실패:', e);
     }
     render();
   }
