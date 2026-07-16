@@ -1,21 +1,25 @@
 // ===== Google Sheets API =====
-const SHEETS_DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbwhhhfISyu_uutRTu2nVBJRgLnuS5zoZZjUsN6F7el6s_qX5WRi9vtjTh--NI5rR4VVPA/exec';
+const SHEETS_DEFAULT_URL = 'https://script.google.com/macros/s/AKfycbxhUFq1fnslv6MBmjRkBBbHZlMsP4Kt8W7lgVuAJXQ4gjXBukDjmCmar_P1H5YRpG91_A/exec';
 
 const API = {
   getUrl: () => localStorage.getItem('sheetsUrl') || SHEETS_DEFAULT_URL,
 
   configured() { const u = this.getUrl(); return u && u.startsWith('https://'); },
 
-  // 데이터 저장 — GET 방식 (POST redirect body 유실 문제 우회)
+  // 데이터 저장 — POST 방식 (큰 데이터 지원)
   sync(type, payload) {
     if (!this.configured()) return;
-    const params = new URLSearchParams({
+    const data = {
       action: 'save',
       type,
       payload: JSON.stringify(payload)
-    });
-    fetch(`${this.getUrl()}?${params}`)
-      .catch(e => console.warn('[Sheets sync]', e));
+    };
+    fetch(this.getUrl(), {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(data)
+    }).catch(e => console.warn('[Sheets sync]', e));
   },
 
   // 연결 테스트 (GET 핑)
@@ -436,7 +440,7 @@ const DocumentBox = {
         doc: r,
         title: `${num}회기 성찰일지`,
         meta: this.getTimeAgo(r.createdAt),
-        link: `sessions.html?id=${coacheeId}&role=coachee`,
+        link: `sessions.html?id=${coacheeId}&role=coachee&session=${num}`,
         status: 'completed'
       });
     });
@@ -500,7 +504,7 @@ const DocumentBox = {
             isNew: hasNewRefl,
             title: `${n}회기 일지`,
             meta: `${coachee.name} · ${statusParts.join(' · ')}`,
-            link: `sessions.html?id=${coacheeId}&role=coach`,
+            link: `sessions.html?id=${coacheeId}&role=coach&session=${n}`,
             coacheeId,
             coacheeName: coachee.name,
             status: sess?.completed ? 'completed' : (sess ? 'draft' : null)

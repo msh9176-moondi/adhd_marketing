@@ -15,13 +15,24 @@ const CONFIGS = {
   followups:      { name:'사후관리',   keys:['id','coacheeId','shortScores','continuingBehaviors','challenges','biggestChange','needsSupport','nextProgram','createdAt'],                                                                                                json:['shortScores','nextProgram'] }
 };
 
-// ===== POST: URLSearchParams 방식으로 수신 =====
+// ===== POST: JSON body 또는 URLSearchParams 방식 수신 =====
 function doPost(e) {
   const out = ContentService.createTextOutput();
   out.setMimeType(ContentService.MimeType.JSON);
   try {
-    const type    = e.parameter.type;
-    const payload = JSON.parse(e.parameter.payload || '{}');
+    let type, payload;
+
+    // JSON body로 전송된 경우 (text/plain 또는 application/json)
+    if (e.postData && e.postData.contents) {
+      const data = JSON.parse(e.postData.contents);
+      type = data.type;
+      payload = typeof data.payload === 'string' ? JSON.parse(data.payload) : data.payload;
+    } else {
+      // 기존 URLSearchParams 방식
+      type = e.parameter.type;
+      payload = JSON.parse(e.parameter.payload || '{}');
+    }
+
     const config  = CONFIGS[type];
     if (!config) throw new Error('Unknown type: ' + type);
 

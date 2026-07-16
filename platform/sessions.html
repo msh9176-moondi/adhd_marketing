@@ -185,9 +185,14 @@
 
     updateTabStyles();
 
-    // 다음 작성할 회기 자동 선택
+    // URL에 session 파라미터가 있으면 해당 회기 표시, 없으면 다음 작성할 회기 자동 선택
+    const urlSession = parseInt(getParam('session'));
     let nextSession = 1;
-    if (userRole === 'coachee') {
+
+    if (urlSession >= 1 && urlSession <= 4) {
+      // URL에서 지정한 회기 표시
+      nextSession = urlSession;
+    } else if (userRole === 'coachee') {
       // 피코치: 아직 성찰일지 작성 안 한 가장 낮은 회기
       const reflections = DB.get('reflections').filter(r => r.coacheeId === coacheeId);
       nextSession = [1, 2, 3, 4].find(n => !reflections.find(r => r.sessionId === `sess_${coacheeId}_${n}`)) || 1;
